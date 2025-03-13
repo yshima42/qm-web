@@ -1,23 +1,23 @@
 import { createClient } from "@/utils/supabase/server";
-import { Tables } from "@/lib/types";
+import { StoryTileDto } from "@/lib/types";
+import { StoryTile } from "@/components/stories/story-tile";
 
-type Story = Tables<"stories">;
 export default async function Page() {
+  // 後でデータ取得ロジックを別ファイルに。
   const supabase = await createClient();
   const { data: stories } = (await supabase
     .from("stories")
-    .select()
-    // .limit(10));
-    .limit(10)) as { data: Story[] };
+    .select(
+      "*, habit_categories!inner(habit_category_name), profiles!stories_user_id_fkey(user_name, display_name, avatar_url), likes(count), comments(count)"
+    )
+    .order("created_at", { ascending: false })
+    .limit(10)) as { data: StoryTileDto[] };
 
   return (
-    <div>
-      <h1>Stories</h1>
-      <ul>
-        {stories.map((story) => (
-          <li key={story.id}>{story.content}</li>
-        ))}
-      </ul>
+    <div className="max-w-2xl mx-auto">
+      {stories.map((story) => (
+        <StoryTile key={story.id} story={story} />
+      ))}
     </div>
   );
 }
