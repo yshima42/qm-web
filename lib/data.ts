@@ -4,6 +4,8 @@ import {
   CommentTileDto,
   ProfileTileDto,
   HabitCategoryName,
+  ArticleTileDto,
+  ArticleCommentTileDto,
 } from "./types";
 
 const STORY_SELECT_QUERY = `*, 
@@ -12,7 +14,44 @@ const STORY_SELECT_QUERY = `*,
   likes(count), 
   comments(count)`;
 
+const ARTICLE_SELECT_QUERY = `*, 
+  habit_categories!inner(habit_category_name), 
+  profiles!articles_user_id_fkey(user_name, display_name, avatar_url), 
+  article_likes(count), 
+  article_comments(count)`;
+
 const FETCH_LIMIT = 100;
+
+export async function fetchArticles() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("articles")
+    .select(ARTICLE_SELECT_QUERY)
+    .order("created_at", { ascending: false })
+    .limit(FETCH_LIMIT);
+  return data as ArticleTileDto[];
+}
+
+export async function fetchArticleById(id: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("articles")
+    .select(ARTICLE_SELECT_QUERY)
+    .eq("id", id)
+    .single();
+  return data as ArticleTileDto;
+}
+
+export async function fetchCommentsByArticleId(articleId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("article_comments")
+    .select(
+      "*, profiles!article_comments_user_id_fkey(user_name, display_name, avatar_url), article_comment_likes(count)"
+    )
+    .eq("article_id", articleId);
+  return data as ArticleCommentTileDto[];
+}
 
 export async function fetchStories() {
   const supabase = await createClient();

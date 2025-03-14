@@ -4,6 +4,8 @@ export type Story = Tables<"stories">;
 export type Profile = Tables<"profiles">;
 export type HabitCategory = Tables<"habit_categories">;
 export type Comment = Tables<"comments">;
+export type Article = Tables<"articles">;
+export type ArticleComment = Tables<"article_comments">;
 // プロフィールから必要な情報だけをピックアップ
 export type ProfileForAvatar = Pick<
   Profile,
@@ -41,4 +43,16 @@ export type CommentTileDto = Comment & {
 export type ProfileTileDto = Profile & {
   followers: number;
   following: number;
+};
+
+export type ArticleTileDto = Article & {
+  profiles: ProfileForAvatar;
+  habit_categories: StoryHabitCategory;
+  article_likes: Array<{ count: number }>;
+  article_comments: Array<{ count: number }>;
+};
+
+export type ArticleCommentTileDto = ArticleComment & {
+  profiles: ProfileForAvatar;
+  article_comment_likes: Array<{ count: number }>;
 };

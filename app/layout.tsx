@@ -73,10 +73,26 @@ export default function RootLayout({
               <div className="flex w-full max-w-5xl gap-8">
                 <aside className="w-64 shrink-0">
                   <nav className="sticky top-4 space-y-2">
+                    <div className="mb-6 space-y-2">
+                      <Link
+                        href="/"
+                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors font-medium"
+                      >
+                        ストーリー一覧
+                      </Link>
+                      <Link
+                        href="/articles"
+                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors font-medium"
+                      >
+                        記事一覧
+                      </Link>
+                    </div>
+
+                    <div className="border-b border-foreground/10 mb-4" />
+
                     {Object.values(habitCategories).map((category) => (
                       <Link
                         key={category}
-                        // これ変換ここでやらない方がいい気がする
                         href={`/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`}
                         className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors"
                       >
