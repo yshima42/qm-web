@@ -65,6 +65,8 @@ export async function fetchStories() {
 }
 
 export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
+  // サーバーエラー確認用
+  // throw new Error("Not implemented");
   const supabase = await createClient();
   const { data } = await supabase
     .from("stories")
