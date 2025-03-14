@@ -2,6 +2,7 @@ import { CommentTileDto } from "@/lib/types";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
+import Link from "next/link";
 
 type Props = {
   comment: CommentTileDto;
@@ -17,26 +18,42 @@ export function CommentTile({ comment }: Props) {
     <div className="flex p-3 pl-12 border-b border-gray-200">
       {/* アバター */}
       <div className="mr-2">
-        <div className="w-8 h-8 rounded-full overflow-hidden">
-          <Image
-            src={comment.profiles.avatar_url ?? "/default-avatar.png"}
-            alt="プロフィール画像"
-            width={32}
-            height={32}
-            className="object-cover"
-          />
-        </div>
+        <Link href={`/profiles/${comment.user_id}`} className="block">
+          <div className="w-8 h-8 rounded-full overflow-hidden">
+            {comment.profiles.avatar_url ? (
+              <Image
+                src={comment.profiles.avatar_url}
+                alt="プロフィール画像"
+                width={32}
+                height={32}
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200" />
+            )}
+          </div>
+        </Link>
       </div>
 
       {/* コメント本文 */}
       <div className="flex-1">
         <div className="flex items-center gap-1.5 mb-0.5">
-          <span className="font-bold text-sm">
-            {comment.profiles.display_name}
-          </span>
-          <span className="text-xs text-gray-500">
-            @{comment.profiles.user_name}
-          </span>
+          <Link
+            href={`/profiles/${comment.user_id}`}
+            className="hover:underline"
+          >
+            <span className="font-bold text-sm">
+              {comment.profiles.display_name}
+            </span>
+          </Link>
+          <Link
+            href={`/profiles/${comment.user_id}`}
+            className="hover:underline"
+          >
+            <span className="text-xs text-gray-500">
+              @{comment.profiles.user_name}
+            </span>
+          </Link>
           <span className="text-xs text-gray-500">・</span>
           <span className="text-xs text-gray-500">{createdAt}</span>
         </div>

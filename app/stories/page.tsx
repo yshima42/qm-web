@@ -1,14 +1,6 @@
-import { StoryTile } from "@/components/stories/story-tile";
+import { StoryList } from "@/components/stories/story-list";
 import { fetchStories } from "@/lib/data";
 
-export default async function Page() {
-  const stories = await fetchStories();
-
-  return (
-    <div className="max-w-2xl mx-auto">
-      {stories.map((story) => (
-        <StoryTile key={story.id} story={story} />
-      ))}
-    </div>
-  );
+export default function Page() {
+  return <StoryList fetchStoriesFunc={fetchStories} />;
 }

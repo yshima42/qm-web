@@ -22,3 +22,8 @@ export type CommentTileDto = Comment & {
   profiles: ProfileForAvatar;
   comment_likes: Array<{ count: number }>;
 };
+
+export type ProfileTileDto = Profile & {
+  followers: number;
+  following: number;
+};
