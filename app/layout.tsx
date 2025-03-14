@@ -6,10 +6,28 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
+import { HabitCategoryName } from "@/lib/types";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
+
+const habitCategories: HabitCategoryName[] = [
+  "Game",
+  "Tobacco",
+  "Shopping",
+  "Drugs",
+  "Overeating",
+  "Porno",
+  "SNS",
+  "Gambling",
+  "Caffeine",
+  "Cosmetic Surgery",
+  "Custom",
+  "Alcohol",
+  "Codependency",
+  "Official",
+];
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
@@ -52,8 +70,22 @@ export default function RootLayout({
                   {!hasEnvVars ? <EnvVarWarning /> : <></>}
                 </div>
               </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
+              <div className="flex w-full max-w-5xl gap-8">
+                <aside className="w-64 shrink-0">
+                  <nav className="sticky top-4 space-y-2">
+                    {Object.values(habitCategories).map((category) => (
+                      <Link
+                        key={category}
+                        // これ変換ここでやらない方がいい気がする
+                        href={`/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors"
+                      >
+                        {category}
+                      </Link>
+                    ))}
+                  </nav>
+                </aside>
+                <div className="flex-1 p-5">{children}</div>
               </div>
 
               <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">

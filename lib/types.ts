@@ -10,6 +10,21 @@ export type ProfileForAvatar = Pick<
   "avatar_url" | "user_name" | "display_name"
 >;
 export type StoryHabitCategory = Pick<HabitCategory, "habit_category_name">;
+export type HabitCategoryName =
+  | "Game"
+  | "Tobacco"
+  | "Shopping"
+  | "Drugs"
+  | "Overeating"
+  | "Porno"
+  | "SNS"
+  | "Gambling"
+  | "Caffeine"
+  | "Cosmetic Surgery"
+  | "Custom"
+  | "Alcohol"
+  | "Codependency"
+  | "Official";
 
 export type StoryTileDto = Story & {
   profiles: ProfileForAvatar;

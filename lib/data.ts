@@ -1,5 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
-import { StoryTileDto, CommentTileDto, ProfileTileDto } from "./types";
+import {
+  StoryTileDto,
+  CommentTileDto,
+  ProfileTileDto,
+  HabitCategoryName,
+} from "./types";
 
 const STORY_SELECT_QUERY = `*, 
   habit_categories!inner(habit_category_name), 
@@ -12,6 +17,18 @@ export async function fetchStories() {
   const { data } = await supabase
     .from("stories")
     .select(STORY_SELECT_QUERY)
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  return data as StoryTileDto[];
+}
+
+export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("stories")
+    .select(STORY_SELECT_QUERY)
+    .eq("habit_categories.habit_category_name", name)
     .order("created_at", { ascending: false })
     .limit(10);
 
