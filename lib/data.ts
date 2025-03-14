@@ -12,13 +12,15 @@ const STORY_SELECT_QUERY = `*,
   likes(count), 
   comments(count)`;
 
+const FETCH_LIMIT = 100;
+
 export async function fetchStories() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("stories")
     .select(STORY_SELECT_QUERY)
     .order("created_at", { ascending: false })
-    .limit(10);
+    .limit(FETCH_LIMIT);
 
   return data as StoryTileDto[];
 }
@@ -30,7 +32,7 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
     .select(STORY_SELECT_QUERY)
     .eq("habit_categories.habit_category_name", name)
     .order("created_at", { ascending: false })
-    .limit(10);
+    .limit(FETCH_LIMIT);
 
   return data as StoryTileDto[];
 }
@@ -52,7 +54,7 @@ export async function fetchStoriesByUserId(userId: string) {
     .select(STORY_SELECT_QUERY)
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
-    .limit(10);
+    .limit(FETCH_LIMIT);
   return data as StoryTileDto[];
 }
 
@@ -63,7 +65,7 @@ export async function fetchCommentedStoriesByUserId(userId: string) {
     .select(`*, stories(${STORY_SELECT_QUERY})`)
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
-    .limit(10);
+    .limit(FETCH_LIMIT);
   const stories = data?.map((comment) => comment.stories) ?? [];
   return stories as StoryTileDto[];
 }
