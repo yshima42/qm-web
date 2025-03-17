@@ -15,7 +15,7 @@ export function ArticleCommentTile({ comment }: Props) {
   });
 
   return (
-    <div className="flex p-3 pl-12 border-b border-gray-200">
+    <div className="flex p-3 pl-12 border-b border-border">
       {/* アバター */}
       <div className="mr-2">
         <Link href={`/profiles/${comment.user_id}`} className="block">
@@ -29,7 +29,7 @@ export function ArticleCommentTile({ comment }: Props) {
                 className="object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gray-200" />
+              <div className="w-full h-full bg-muted" />
             )}
           </div>
         </Link>
@@ -42,7 +42,7 @@ export function ArticleCommentTile({ comment }: Props) {
             href={`/profiles/${comment.user_id}`}
             className="hover:underline"
           >
-            <span className="font-bold text-sm">
+            <span className="font-bold text-sm text-foreground">
               {comment.profiles.display_name}
             </span>
           </Link>
@@ -50,17 +50,17 @@ export function ArticleCommentTile({ comment }: Props) {
             href={`/profiles/${comment.user_id}`}
             className="hover:underline"
           >
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-muted-foreground">
               @{comment.profiles.user_name}
             </span>
           </Link>
-          <span className="text-xs text-gray-500">・</span>
-          <span className="text-xs text-gray-500">{createdAt}</span>
+          <span className="text-xs text-muted-foreground">・</span>
+          <span className="text-xs text-muted-foreground">{createdAt}</span>
         </div>
-        <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
+        <p className="text-sm whitespace-pre-wrap text-foreground">{comment.content}</p>
 
         {/* いいねボタン */}
-        <div className="flex items-center gap-1 mt-1 text-gray-500">
+        <div className="flex items-center gap-1 mt-1 text-muted-foreground">
           <svg
             className="w-4 h-4"
             fill="none"

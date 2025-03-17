@@ -3,6 +3,7 @@ import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import Link from "next/link";
+import { Tag } from "@/components/ui/tag";
 
 type Props = {
   article: ArticleTileDto;
@@ -15,7 +16,7 @@ export function ArticleTile({ article }: Props) {
   });
 
   return (
-    <div className="block border-b border-gray-200">
+    <div className="block border-b border-gray-300 dark:border-gray-700">
       <div className="flex p-4">
         {/* アバター部分 */}
         <div className="mr-3">
@@ -30,7 +31,7 @@ export function ArticleTile({ article }: Props) {
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gray-200" />
+                <div className="w-full h-full bg-muted" />
               )}
             </div>
           </Link>
@@ -44,37 +45,37 @@ export function ArticleTile({ article }: Props) {
               href={`/profiles/${article.user_id}`}
               className="hover:underline"
             >
-              <span className="font-bold">{article.profiles.display_name}</span>
+              <span className="font-bold text-foreground">{article.profiles.display_name}</span>
             </Link>
             <Link
               href={`/profiles/${article.user_id}`}
               className="hover:underline"
             >
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-muted-foreground">
                 @{article.profiles.user_name}
               </span>
             </Link>
-            <span className="text-sm text-gray-500">・</span>
-            <span className="text-sm text-gray-500">{createdAt}</span>
+            <span className="text-sm text-muted-foreground">・</span>
+            <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
           <Link
             href={`/articles/${article.id}`}
-            className="block hover:bg-gray-50/50 transition-colors"
+            className="block hover:bg-accent/5 transition-colors"
           >
             {/* タイトルと習慣カテゴリー */}
-            <h2 className="text-xl font-bold mb-2">{article.title}</h2>
+            <h2 className="text-xl font-bold mb-2 text-foreground">{article.title}</h2>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm font-medium">
+              <Tag>
                 {article.habit_categories.habit_category_name}
-              </span>
+              </Tag>
             </div>
 
             {/* 記事の説明文 */}
-            <p className="mb-3 text-gray-600 line-clamp-3">{article.content}</p>
+            <p className="mb-3 text-secondary-foreground line-clamp-3">{article.content}</p>
 
             {/* アクション */}
-            <div className="flex gap-6 text-gray-500">
+            <div className="flex gap-6 text-muted-foreground">
               <div className="flex items-center gap-1">
                 <svg
                   className="w-5 h-5"
