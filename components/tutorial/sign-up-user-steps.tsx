@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { TutorialStep } from "./tutorial-step";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+
+import { TutorialStep } from "./tutorial-step";
 
 export default function SignUpUserSteps() {
   return (
@@ -11,11 +12,11 @@ export default function SignUpUserSteps() {
           <p>It looks like this App is hosted on Vercel.</p>
           <p className="mt-4">
             This particular deployment is
-            <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-              "{process.env.VERCEL_ENV}"
+            <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
+              {`"${process.env.VERCEL_ENV}"`}
             </span>{" "}
             on
-            <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
+            <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
               https://{process.env.VERCEL_URL}
             </span>
             .
@@ -35,20 +36,20 @@ export default function SignUpUserSteps() {
           <ul className="mt-4">
             <li>
               -{" "}
-              <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
+              <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
                 http://localhost:3000/**
               </span>
             </li>
             <li>
               -{" "}
-              <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-                {`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/**`}
+              <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
+                {`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "your-project"}/**`}
               </span>
             </li>
             <li>
               -{" "}
-              <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
-                {`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL?.replace(".vercel.app", "")}-*-[vercel-team-url].vercel.app/**`}
+              <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
+                {`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL?.replace(".vercel.app", "") ?? "your-project"}-*-[vercel-team-url].vercel.app/**`}
               </span>{" "}
               (Vercel Team URL can be found in{" "}
               <Link
@@ -64,7 +65,7 @@ export default function SignUpUserSteps() {
           <Link
             href="https://supabase.com/docs/guides/auth/redirect-urls#vercel-preview-urls"
             target="_blank"
-            className="text-primary/50 hover:text-primary flex items-center text-sm gap-1 mt-4"
+            className="mt-4 flex items-center gap-1 text-sm text-primary/50 hover:text-primary"
           >
             Redirect URLs Docs <ArrowUpRight size={14} />
           </Link>
@@ -75,12 +76,12 @@ export default function SignUpUserSteps() {
           Head over to the{" "}
           <Link
             href="/sign-up"
-            className="font-bold hover:underline text-foreground/80"
+            className="font-bold text-foreground/80 hover:underline"
           >
             Sign up
           </Link>{" "}
-          page and sign up your first user. It's okay if this is just you for
-          now. Your awesome idea will have plenty of users later!
+          page and sign up your first user. It&apos;s okay if this is just you
+          for now. Your awesome idea will have plenty of users later!
         </p>
       </TutorialStep>
     </ol>

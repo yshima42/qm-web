@@ -1,7 +1,8 @@
+import { notFound } from "next/navigation";
+
 import { StoryList } from "@/components/stories/story-list";
 import { fetchStoriesByHabitCategoryName } from "@/lib/data";
 import { HabitCategoryName } from "@/lib/types";
-import { notFound } from "next/navigation";
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -23,8 +24,7 @@ function capitalizeCategory(category: string): HabitCategoryName {
   };
 
   const normalizedCategory =
-    categoryMap[category.toLowerCase().replace(/%20/g, "-")];
-  if (!normalizedCategory) notFound();
+    categoryMap[category.toLowerCase().replace(/%20/g, "-")] ?? notFound();
   return normalizedCategory;
 }
 

@@ -1,10 +1,10 @@
 import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
 
-export default async function Home() {
+export default  function Home() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
+    <div className="flex w-full flex-1 flex-col gap-12">
+      <div className="flex flex-col items-start gap-2">
+        <h2 className="mb-4 text-2xl font-bold">Next steps</h2>
         <FetchDataSteps />
       </div>
     </div>

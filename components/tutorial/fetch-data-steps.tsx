@@ -1,5 +1,5 @@
-import { TutorialStep } from "./tutorial-step";
 import { CodeBlock } from "./code-block";
+import { TutorialStep } from "./tutorial-step";
 
 const create = `create table notes (
   id bigserial primary key,
@@ -52,18 +52,18 @@ export default function FetchDataSteps() {
           Head over to the{" "}
           <a
             href="https://supabase.com/dashboard/project/_/editor"
-            className="font-bold hover:underline text-foreground/80"
+            className="font-bold text-foreground/80 hover:underline"
             target="_blank"
             rel="noreferrer"
           >
             Table Editor
           </a>{" "}
           for your Supabase project to create a table and insert some example
-          data. If you're stuck for creativity, you can copy and paste the
+          data. If you&apos;re stuck for creativity, you can copy and paste the
           following into the{" "}
           <a
             href="https://supabase.com/dashboard/project/_/sql/new"
-            className="font-bold hover:underline text-foreground/80"
+            className="font-bold text-foreground/80 hover:underline"
             target="_blank"
             rel="noreferrer"
           >
@@ -78,7 +78,7 @@ export default function FetchDataSteps() {
         <p>
           To create a Supabase client and query data from an Async Server
           Component, create a new page.tsx file at{" "}
-          <span className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground border">
+          <span className="relative rounded border bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-medium text-secondary-foreground">
             /app/notes/page.tsx
           </span>{" "}
           and add the following.
@@ -89,7 +89,7 @@ export default function FetchDataSteps() {
       </TutorialStep>
 
       <TutorialStep title="Build in a weekend and scale to millions!">
-        <p>You're ready to launch your product to the world! 🚀</p>
+        <p>You&apos;re ready to launch your product to the world! 🚀</p>
       </TutorialStep>
     </ol>
   );

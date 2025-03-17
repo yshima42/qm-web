@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface NotFoundBaseProps {
+type NotFoundBaseProps = {
   message: string;
   linkText: string;
   linkHref: string;

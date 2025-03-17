@@ -31,13 +31,13 @@ export type HabitCategoryName =
 export type StoryTileDto = Story & {
   profiles: ProfileForAvatar;
   habit_categories: StoryHabitCategory;
-  likes: Array<{ count: number }>;
-  comments: Array<{ count: number }>;
+  likes: { count: number }[];
+  comments: { count: number }[];
 };
 
 export type CommentTileDto = Comment & {
   profiles: ProfileForAvatar;
-  comment_likes: Array<{ count: number }>;
+  comment_likes: { count: number }[];
 };
 
 export type ProfileTileDto = Profile & {
@@ -48,11 +48,11 @@ export type ProfileTileDto = Profile & {
 export type ArticleTileDto = Article & {
   profiles: ProfileForAvatar;
   habit_categories: StoryHabitCategory;
-  article_likes: Array<{ count: number }>;
-  article_comments: Array<{ count: number }>;
+  article_likes: { count: number }[];
+  article_comments: { count: number }[];
 };
 
 export type ArticleCommentTileDto = ArticleComment & {
   profiles: ProfileForAvatar;
-  article_comment_likes: Array<{ count: number }>;
+  article_comment_likes: { count: number }[];
 };

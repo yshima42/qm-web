@@ -1,11 +1,12 @@
 import { createClient } from "@/utils/supabase/server";
+
 import {
-  StoryTileDto,
-  CommentTileDto,
-  ProfileTileDto,
-  HabitCategoryName,
-  ArticleTileDto,
   ArticleCommentTileDto,
+  ArticleTileDto,
+  CommentTileDto,
+  HabitCategoryName,
+  ProfileTileDto,
+  StoryTileDto,
 } from "./types";
 
 const STORY_SELECT_QUERY = `*, 
@@ -34,12 +35,12 @@ export async function fetchArticles() {
 
 export async function fetchArticleById(id: string) {
   const supabase = await createClient();
-  const { data } = await supabase
+  const result = await supabase
     .from("articles")
     .select(ARTICLE_SELECT_QUERY)
     .eq("id", id)
-    .single();
-  return data as ArticleTileDto;
+    .maybeSingle();
+  return result.data as ArticleTileDto | null;
 }
 
 export async function fetchCommentsByArticleId(articleId: string) {
@@ -80,12 +81,12 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
 
 export async function fetchStoryById(id: string) {
   const supabase = await createClient();
-  const { data } = await supabase
+  const result = await supabase
     .from("stories")
     .select(STORY_SELECT_QUERY)
     .eq("id", id)
-    .single();
-  return data as StoryTileDto;
+    .maybeSingle();
+  return result.data as StoryTileDto | null;
 }
 
 export async function fetchStoriesByUserId(userId: string) {
@@ -107,8 +108,8 @@ export async function fetchCommentedStoriesByUserId(userId: string) {
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(FETCH_LIMIT);
-  const stories = data?.map((comment) => comment.stories) ?? [];
-  return stories as StoryTileDto[];
+  const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
+  return stories;
 }
 
 export async function fetchCommentsByStoryId(storyId: string) {
@@ -130,11 +131,15 @@ export async function fetchProfileById(id: string) {
       .from("profiles")
       .select("*, followers!followers_followed_id_fkey(count)")
       .eq("id", id)
-      .single(),
+      .maybeSingle(),
     // profileと一緒に二つ同時に取得できなかったため、このようにした
     supabase.from("followers").select("count").eq("followed_id", id),
     supabase.from("followers").select("count").eq("follower_id", id),
   ]);
+
+  if (!profileResult.data) {
+    return null;
+  }
 
   return {
     ...profileResult.data,
