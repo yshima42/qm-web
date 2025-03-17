@@ -4,8 +4,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "npx prettier --write .",
-    "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\""
+    "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\"",
+    "lint:fix": "eslint --ext .ts,.js,.tsx . --fix && prettier --write \"./**/*.{ts,js,tsx}\"",
+    "format": "prettier --write './**/*.{js,ts,tsx,scss}'"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.1",
