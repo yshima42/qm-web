@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
 import { HabitCategoryName } from "@/lib/types";
+import { Sidebar } from "@/components/sidebar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -47,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -55,8 +56,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+            <div className="flex-1 w-full flex flex-col items-center">
+              <nav className="w-full flex justify-center border-b border-border h-16">
                 <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
                   <div className="flex gap-5 items-center font-semibold">
                     <Link href={"/"}>Next.js Supabase Starter</Link>
@@ -70,37 +71,8 @@ export default function RootLayout({
                   {!hasEnvVars ? <EnvVarWarning /> : <></>}
                 </div>
               </nav>
-              <div className="flex w-full max-w-5xl gap-8">
-                <aside className="w-64 shrink-0">
-                  <nav className="sticky top-4 space-y-2">
-                    <div className="mb-6 space-y-2">
-                      <Link
-                        href="/"
-                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors font-medium"
-                      >
-                        ストーリー一覧
-                      </Link>
-                      <Link
-                        href="/articles"
-                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors font-medium"
-                      >
-                        記事一覧
-                      </Link>
-                    </div>
-
-                    <div className="border-b border-foreground/10 mb-4" />
-
-                    {Object.values(habitCategories).map((category) => (
-                      <Link
-                        key={category}
-                        href={`/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="block px-4 py-2 rounded hover:bg-foreground/5 transition-colors"
-                      >
-                        {category}
-                      </Link>
-                    ))}
-                  </nav>
-                </aside>
+              <div className="flex w-full max-w-5xl">
+                <Sidebar habitCategories={habitCategories} />
                 <div className="flex-1 p-5">{children}</div>
               </div>
 
