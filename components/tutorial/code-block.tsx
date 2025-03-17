@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Button } from "../ui/button";
+import { Button } from '../ui/button';
 
 const CopyIcon = () => (
   <svg
@@ -43,7 +43,9 @@ export function CodeBlock({ code }: { code: string }) {
   const copy = async () => {
     await navigator.clipboard.writeText(code);
     setIcon(CheckIcon);
-    setTimeout(() => { setIcon(CopyIcon); }, 2000);
+    setTimeout(() => {
+      setIcon(CopyIcon);
+    }, 2000);
   };
 
   return (
@@ -51,7 +53,7 @@ export function CodeBlock({ code }: { code: string }) {
       <Button
         size="icon"
         onClick={() => void copy()}
-        variant={"outline"}
+        variant={'outline'}
         className="absolute right-2 top-2"
       >
         {icon}

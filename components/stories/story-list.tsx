@@ -1,6 +1,6 @@
-import { StoryTileDto } from "@/lib/types";
+import { StoryTileDto } from '@/lib/types';
 
-import { StoryTile } from "./story-tile";
+import { StoryTile } from './story-tile';
 
 type StoryListProps = {
   fetchStoriesFunc: () => Promise<StoryTileDto[]>;

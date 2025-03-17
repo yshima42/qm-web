@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import { ProfileTileDto } from "@/lib/types";
+import { ProfileTileDto } from '@/lib/types';
 
 type Props = {
   profile: ProfileTileDto;
@@ -38,22 +38,16 @@ export function ProfileHeader({ profile }: Props) {
         </div>
 
         {/* bio */}
-        {profile.bio && (
-          <p className="mb-6 text-lg text-gray-800">{profile.bio}</p>
-        )}
+        {profile.bio && <p className="mb-6 text-lg text-gray-800">{profile.bio}</p>}
 
         {/* フォロー情報 */}
         <div className="mb-6 flex gap-6 text-lg text-gray-600">
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-white">
-              {profile.following}
-            </span>
+            <span className="text-xl font-bold text-white">{profile.following}</span>
             <span>フォロー中</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-white">
-              {profile.followers}
-            </span>
+            <span className="text-xl font-bold text-white">{profile.followers}</span>
             <span>フォロワー</span>
           </div>
         </div>

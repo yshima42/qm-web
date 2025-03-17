@@ -1,6 +1,6 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
+import FetchDataSteps from '@/components/tutorial/fetch-data-steps';
 
-export default  function Home() {
+export default function Home() {
   return (
     <div className="flex w-full flex-1 flex-col gap-12">
       <div className="flex flex-col items-start gap-2">

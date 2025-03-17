@@ -1,9 +1,9 @@
-import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale";
-import Image from "next/image";
-import Link from "next/link";
+import { formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { StoryTileDto } from "@/lib/types";
+import { StoryTileDto } from '@/lib/types';
 
 type Props = {
   story: StoryTileDto;
@@ -41,19 +41,11 @@ export function StoryTile({ story }: Props) {
         <div className="flex-1">
           {/* ヘッダー */}
           <div className="mb-1 flex items-center gap-2">
-            <Link
-              href={`/profiles/${story.user_id}`}
-              className="hover:underline"
-            >
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
               <span className="font-bold">{story.profiles.display_name}</span>
             </Link>
-            <Link
-              href={`/profiles/${story.user_id}`}
-              className="hover:underline"
-            >
-              <span className="text-sm text-gray-500">
-                @{story.profiles.user_name}
-              </span>
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+              <span className="text-sm text-gray-500">@{story.profiles.user_name}</span>
             </Link>
             <span className="text-sm text-gray-500">・</span>
             <span className="text-sm text-gray-500">{createdAt}</span>
@@ -66,13 +58,10 @@ export function StoryTile({ story }: Props) {
             {/* 習慣カテゴリーとカウント */}
             <div className="mb-1 flex items-center gap-2">
               <span className="text-sm font-medium">
-                {story.habit_categories.habit_category_name} -{" "}
-                {story.trial_elapsed_days}日
+                {story.habit_categories.habit_category_name} - {story.trial_elapsed_days}日
               </span>
               {story.custom_habit_name && (
-                <span className="text-sm text-gray-600">
-                  ({story.custom_habit_name})
-                </span>
+                <span className="text-sm text-gray-600">({story.custom_habit_name})</span>
               )}
             </div>
 
@@ -82,12 +71,7 @@ export function StoryTile({ story }: Props) {
             {/* アクション */}
             <div className="flex gap-6 text-gray-500">
               <div className="flex items-center gap-1">
-                <svg
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -98,12 +82,7 @@ export function StoryTile({ story }: Props) {
                 <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-1">
-                <svg
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

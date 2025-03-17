@@ -1,11 +1,11 @@
-import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-import { ArticleCommentTile } from "@/components/articles/article-comment-tile";
-import { fetchArticleById, fetchCommentsByArticleId } from "@/lib/data";
+import { ArticleCommentTile } from '@/components/articles/article-comment-tile';
+import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 
 type Props = {
   params: {
@@ -61,13 +61,8 @@ export default async function ArticlePage({ params }: Props) {
               </div>
             </Link>
             <div>
-              <Link
-                href={`/profiles/${article.user_id}`}
-                className="hover:underline"
-              >
-                <p className="text-lg font-bold">
-                  {article.profiles.display_name}
-                </p>
+              <Link href={`/profiles/${article.user_id}`} className="hover:underline">
+                <p className="text-lg font-bold">{article.profiles.display_name}</p>
               </Link>
               <p className="text-gray-500">@{article.profiles.user_name}</p>
             </div>
@@ -94,12 +89,7 @@ export default async function ArticlePage({ params }: Props) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <svg
-                  className="size-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -110,12 +100,7 @@ export default async function ArticlePage({ params }: Props) {
                 <span>{article.article_likes[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg
-                  className="size-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

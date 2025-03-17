@@ -1,16 +1,12 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 type NotFoundBaseProps = {
   message: string;
   linkText: string;
   linkHref: string;
-}
+};
 
-export default function NotFoundBase({
-  message,
-  linkText,
-  linkHref,
-}: NotFoundBaseProps) {
+export default function NotFoundBase({ message, linkText, linkHref }: NotFoundBaseProps) {
   return (
     <main className="flex h-full flex-col items-center justify-center gap-2">
       <h2 className="text-xl font-semibold">{message}</h2>

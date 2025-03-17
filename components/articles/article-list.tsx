@@ -1,6 +1,6 @@
-import { ArticleTileDto } from "@/lib/types";
+import { ArticleTileDto } from '@/lib/types';
 
-import { ArticleTile } from "./article-tile";
+import { ArticleTile } from './article-tile';
 
 type ArticleListProps = {
   fetchArticlesFunc: () => Promise<ArticleTileDto[]>;

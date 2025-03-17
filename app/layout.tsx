@@ -1,44 +1,44 @@
-import { Geist } from "next/font/google";
-import Link from "next/link";
-import { ThemeProvider } from "next-themes";
+import { Geist } from 'next/font/google';
+import Link from 'next/link';
+import { ThemeProvider } from 'next-themes';
 
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { HabitCategoryName } from "@/lib/types";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import "./globals.css";
+import DeployButton from '@/components/deploy-button';
+import { EnvVarWarning } from '@/components/env-var-warning';
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import { HabitCategoryName } from '@/lib/types';
+import { hasEnvVars } from '@/utils/supabase/check-env-vars';
+import './globals.css';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+  : 'http://localhost:3000';
 
 const habitCategories: HabitCategoryName[] = [
-  "Game",
-  "Tobacco",
-  "Shopping",
-  "Drugs",
-  "Overeating",
-  "Porno",
-  "SNS",
-  "Gambling",
-  "Caffeine",
-  "Cosmetic Surgery",
-  "Custom",
-  "Alcohol",
-  "Codependency",
-  "Official",
+  'Game',
+  'Tobacco',
+  'Shopping',
+  'Drugs',
+  'Overeating',
+  'Porno',
+  'SNS',
+  'Gambling',
+  'Caffeine',
+  'Cosmetic Surgery',
+  'Custom',
+  'Alcohol',
+  'Codependency',
+  'Official',
 ];
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: 'Next.js and Supabase Starter Kit',
+  description: 'The fastest way to build apps with Next.js and Supabase',
 };
 
 const geistSans = Geist({
-  display: "swap",
-  subsets: ["latin"],
+  display: 'swap',
+  subsets: ['latin'],
 });
 
 export default function RootLayout({
@@ -60,7 +60,7 @@ export default function RootLayout({
               <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
                 <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
                   <div className="flex items-center gap-5 font-semibold">
-                    <Link href={"/"}>Next.js Supabase Starter</Link>
+                    <Link href={'/'}>Next.js Supabase Starter</Link>
                     <div className="flex items-center gap-2">
                       <DeployButton />
                       <Link href="/tutorial" className="hover:underline">
@@ -94,7 +94,7 @@ export default function RootLayout({
                     {Object.values(habitCategories).map((category) => (
                       <Link
                         key={category}
-                        href={`/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                        href={`/stories/habits/${category.toLowerCase().replace(/\s+/g, '-')}`}
                         className="block rounded px-4 py-2 transition-colors hover:bg-foreground/5"
                       >
                         {category}
@@ -107,7 +107,7 @@ export default function RootLayout({
 
               <footer className="mx-auto flex w-full items-center justify-center gap-8 border-t py-16 text-center text-xs">
                 <p>
-                  Powered by{" "}
+                  Powered by{' '}
                   <a
                     href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
                     target="_blank"
