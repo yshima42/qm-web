@@ -1,6 +1,6 @@
-import { fetchStories } from '@/lib/data';
+import { StoryList } from '@/components/stories/story-list';
 
-import { StoryList } from '@/features/stories/story-list';
+import { fetchStories } from '@/lib/data';
 
 export default function Page() {
   return <StoryList fetchStoriesFunc={fetchStories} />;

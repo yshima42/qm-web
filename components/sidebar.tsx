@@ -22,8 +22,8 @@ import { usePathname } from 'next/navigation';
 
 import { HabitCategoryName } from '@/lib/types';
 
-import { CategoryIcon } from '../ui/category-icon';
-import { SidebarIcon } from '../ui/sidebar-icon';
+import { CategoryIcon } from './ui/category-icon';
+import { SidebarIcon } from './ui/sidebar-icon';
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
