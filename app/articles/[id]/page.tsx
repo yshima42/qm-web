@@ -1,10 +1,11 @@
-import { fetchArticleById, fetchCommentsByArticleId } from "@/lib/data";
-import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArticleCommentTile } from "@/components/articles/article-comment-tile";
+import { formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
+import { ArticleCommentTile } from '@/components/articles/article-comment-tile';
+import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 
 type Props = {
   params: {
@@ -31,8 +32,8 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <div className="min-h-screen">
       {/* ヘッダー */}
-      <header className="border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+      <header className="sticky top-0 z-10 border-b border-gray-200">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
           <Link href="/articles" className="text-gray-600 hover:text-gray-900">
             ← 記事一覧に戻る
           </Link>
@@ -40,12 +41,12 @@ export default async function ArticlePage({ params }: Props) {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <main className="mx-auto max-w-3xl px-4 py-8">
         {/* 記事ヘッダー */}
         <div className="mb-8">
-          <div className="flex items-center gap-4 mb-6">
+          <div className="mb-6 flex items-center gap-4">
             <Link href={`/profiles/${article.user_id}`} className="block">
-              <div className="w-16 h-16 rounded-full overflow-hidden">
+              <div className="size-16 overflow-hidden rounded-full">
                 {article.profiles.avatar_url ? (
                   <Image
                     src={article.profiles.avatar_url}
@@ -55,29 +56,24 @@ export default async function ArticlePage({ params }: Props) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-200" />
+                  <div className="size-full bg-gray-200" />
                 )}
               </div>
             </Link>
             <div>
-              <Link
-                href={`/profiles/${article.user_id}`}
-                className="hover:underline"
-              >
-                <p className="font-bold text-lg">
-                  {article.profiles.display_name}
-                </p>
+              <Link href={`/profiles/${article.user_id}`} className="hover:underline">
+                <p className="text-lg font-bold">{article.profiles.display_name}</p>
               </Link>
               <p className="text-gray-500">@{article.profiles.user_name}</p>
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
+          <h1 className="mb-4 text-3xl font-bold">{article.title}</h1>
 
-          <div className="flex items-center gap-4 text-gray-500 text-sm mb-4">
+          <div className="mb-4 flex items-center gap-4 text-sm text-gray-500">
             <span>{createdAt}</span>
             <span>{article.article_likes[0]?.count ?? 0} いいね</span>
-            <span className="px-2 py-1 bg-gray-100 rounded-full">
+            <span className="rounded-full bg-gray-100 px-2 py-1">
               {article.habit_categories.habit_category_name}
             </span>
           </div>
@@ -89,16 +85,11 @@ export default async function ArticlePage({ params }: Props) {
         </div>
 
         {/* 記事フッター */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="flex justify-between items-center">
+        <div className="mt-12 border-t border-gray-200 pt-8">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -109,12 +100,7 @@ export default async function ArticlePage({ params }: Props) {
                 <span>{article.article_likes[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -130,7 +116,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* コメントセクション */}
         <div className="mt-12">
-          <h2 className="text-xl font-bold mb-6">
+          <h2 className="mb-6 text-xl font-bold">
             コメント ({article.article_comments[0]?.count ?? 0})
           </h2>
           <div className="space-y-2">

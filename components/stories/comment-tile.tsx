@@ -1,8 +1,9 @@
-import { CommentTileDto } from "@/lib/types";
-import Image from "next/image";
-import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale";
-import Link from "next/link";
+import { formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { CommentTileDto } from '@/lib/types';
 
 type Props = {
   comment: CommentTileDto;
@@ -15,11 +16,11 @@ export function CommentTile({ comment }: Props) {
   });
 
   return (
-    <div className="flex p-3 pl-12 border-b border-gray-200">
+    <div className="flex border-b border-gray-200 p-3 pl-12">
       {/* アバター */}
       <div className="mr-2">
         <Link href={`/profiles/${comment.user_id}`} className="block">
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          <div className="size-8 overflow-hidden rounded-full">
             {comment.profiles.avatar_url ? (
               <Image
                 src={comment.profiles.avatar_url}
@@ -29,7 +30,7 @@ export function CommentTile({ comment }: Props) {
                 className="object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gray-200" />
+              <div className="size-full bg-gray-200" />
             )}
           </div>
         </Link>
@@ -37,36 +38,21 @@ export function CommentTile({ comment }: Props) {
 
       {/* コメント本文 */}
       <div className="flex-1">
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <Link
-            href={`/profiles/${comment.user_id}`}
-            className="hover:underline"
-          >
-            <span className="font-bold text-sm">
-              {comment.profiles.display_name}
-            </span>
+        <div className="mb-0.5 flex items-center gap-1.5">
+          <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
+            <span className="text-sm font-bold">{comment.profiles.display_name}</span>
           </Link>
-          <Link
-            href={`/profiles/${comment.user_id}`}
-            className="hover:underline"
-          >
-            <span className="text-xs text-gray-500">
-              @{comment.profiles.user_name}
-            </span>
+          <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
+            <span className="text-xs text-gray-500">@{comment.profiles.user_name}</span>
           </Link>
           <span className="text-xs text-gray-500">・</span>
           <span className="text-xs text-gray-500">{createdAt}</span>
         </div>
-        <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
+        <p className="whitespace-pre-wrap text-sm">{comment.content}</p>
 
         {/* いいねボタン */}
-        <div className="flex items-center gap-1 mt-1 text-gray-500">
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+        <div className="mt-1 flex items-center gap-1 text-gray-500">
+          <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -74,9 +60,7 @@ export function CommentTile({ comment }: Props) {
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
           </svg>
-          <span className="text-xs">
-            {comment.comment_likes[0]?.count ?? 0}
-          </span>
+          <span className="text-xs">{comment.comment_likes[0]?.count ?? 0}</span>
         </div>
       </div>
     </div>

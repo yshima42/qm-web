@@ -1,8 +1,9 @@
-import { StoryTileDto } from "@/lib/types";
-import Image from "next/image";
-import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale";
-import Link from "next/link";
+import { formatDistanceToNow } from 'date-fns';
+import { ja } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { StoryTileDto } from '@/lib/types';
 
 type Props = {
   story: StoryTileDto;
@@ -20,7 +21,7 @@ export function StoryTile({ story }: Props) {
         {/* アバター部分 */}
         <div className="mr-3">
           <Link href={`/profiles/${story.user_id}`} className="block">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
+            <div className="size-12 overflow-hidden rounded-full">
               {story.profiles.avatar_url ? (
                 <Image
                   src={story.profiles.avatar_url}
@@ -30,7 +31,7 @@ export function StoryTile({ story }: Props) {
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gray-200" />
+                <div className="size-full bg-gray-200" />
               )}
             </div>
           </Link>
@@ -39,20 +40,12 @@ export function StoryTile({ story }: Props) {
         {/* メインコンテンツ */}
         <div className="flex-1">
           {/* ヘッダー */}
-          <div className="flex items-center gap-2 mb-1">
-            <Link
-              href={`/profiles/${story.user_id}`}
-              className="hover:underline"
-            >
+          <div className="mb-1 flex items-center gap-2">
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
               <span className="font-bold">{story.profiles.display_name}</span>
             </Link>
-            <Link
-              href={`/profiles/${story.user_id}`}
-              className="hover:underline"
-            >
-              <span className="text-sm text-gray-500">
-                @{story.profiles.user_name}
-              </span>
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+              <span className="text-sm text-gray-500">@{story.profiles.user_name}</span>
             </Link>
             <span className="text-sm text-gray-500">・</span>
             <span className="text-sm text-gray-500">{createdAt}</span>
@@ -60,18 +53,15 @@ export function StoryTile({ story }: Props) {
 
           <Link
             href={`/stories/${story.id}`}
-            className="block hover:bg-gray-50/50 transition-colors"
+            className="block transition-colors hover:bg-gray-50/50"
           >
             {/* 習慣カテゴリーとカウント */}
-            <div className="flex items-center gap-2 mb-1">
+            <div className="mb-1 flex items-center gap-2">
               <span className="text-sm font-medium">
-                {story.habit_categories.habit_category_name} -{" "}
-                {story.trial_elapsed_days}日
+                {story.habit_categories.habit_category_name} - {story.trial_elapsed_days}日
               </span>
               {story.custom_habit_name && (
-                <span className="text-sm text-gray-600">
-                  ({story.custom_habit_name})
-                </span>
+                <span className="text-sm text-gray-600">({story.custom_habit_name})</span>
               )}
             </div>
 
@@ -81,12 +71,7 @@ export function StoryTile({ story }: Props) {
             {/* アクション */}
             <div className="flex gap-6 text-gray-500">
               <div className="flex items-center gap-1">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -97,12 +82,7 @@ export function StoryTile({ story }: Props) {
                 <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-1">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
