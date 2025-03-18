@@ -1,12 +1,9 @@
-import {
-  fetchCommentedStoriesByUserId,
-  fetchProfileById,
-  fetchStoriesByUserId,
-} from "@/lib/data";
-import { notFound } from "next/navigation";
-import { ProfileHeader } from "@/components/profiles/profile-header";
-import { StoryList } from "@/components/stories/story-list";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { notFound } from 'next/navigation';
+
+import { ProfileHeader } from '@/components/profiles/profile-header';
+import { StoryList } from '@/components/stories/story-list';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { fetchCommentedStoriesByUserId, fetchProfileById, fetchStoriesByUserId } from '@/lib/data';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -30,9 +27,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(id)} />
         </TabsContent>
         <TabsContent value="comments">
-          <StoryList
-            fetchStoriesFunc={() => fetchCommentedStoriesByUserId(id)}
-          />
+          <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(id)} />
         </TabsContent>
       </Tabs>
     </main>

@@ -1,7 +1,8 @@
-import { CommentTile } from "@/components/stories/comment-tile";
-import { StoryTile } from "@/components/stories/story-tile";
-import { fetchStoryById, fetchCommentsByStoryId } from "@/lib/data";
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
+
+import { CommentTile } from '@/components/stories/comment-tile';
+import { StoryTile } from '@/components/stories/story-tile';
+import { fetchStoryById, fetchCommentsByStoryId } from '@/lib/data';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

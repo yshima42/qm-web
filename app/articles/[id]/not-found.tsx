@@ -1,4 +1,4 @@
-import NotFoundBase from "@/components/ui/not-found-base";
+import NotFoundBase from '@/components/ui/not-found-base';
 
 export default function NotFound() {
   return (
