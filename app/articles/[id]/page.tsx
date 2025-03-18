@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { ArticleCommentTile } from '@/components/articles/article-comment-tile';
-import { Tag } from '@/components/ui/tag';
+import { Tag } from '@/components/custom/tag';
 
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
+
+import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
 
 type Props = {
   params: {

@@ -10,8 +10,11 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Optionally log the error to an error reporting service
-    console.error(error);
+    console.error('アプリケーションエラー:', error.message, error.digest);
+    // 本番環境では外部サービスへのエラー送信を追加
+    // if (process.env.NODE_ENV === 'production') {
+    //   reportErrorToService(error);
+    // }
   }, [error]);
 
   return (
