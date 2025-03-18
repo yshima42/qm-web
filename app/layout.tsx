@@ -1,18 +1,19 @@
+'use client';
+
+import { Menu } from 'lucide-react';
 import { Geist } from 'next/font/google';
 import Link from 'next/link';
 import { ThemeProvider } from 'next-themes';
+import { useState } from 'react';
 
-import DeployButton from '@/components/deploy-button';
-import { EnvVarWarning } from '@/components/env-var-warning';
-import { Sidebar } from '@/components/sidebar';
+import { Sidebar, SidebarContent } from '@/components/sidebar';
 import { ThemeSwitcher } from '@/components/theme-switcher';
-import { HabitCategoryName } from '@/lib/types';
-import { hasEnvVars } from '@/utils/supabase/check-env-vars';
-import './globals.css';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000';
+import { HabitCategoryName } from '@/lib/types';
+
+import './globals.css';
 
 const habitCategories: HabitCategoryName[] = [
   'Game',
@@ -31,12 +32,6 @@ const habitCategories: HabitCategoryName[] = [
   'Official',
 ];
 
-export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
-};
-
 const geistSans = Geist({
   display: 'swap',
   subsets: ['latin'],
@@ -47,6 +42,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // ドロワーの状態を管理するための状態変数
+  const [sheetOpen, setSheetOpen] = useState(false);
+
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground" suppressHydrationWarning>
@@ -59,22 +57,47 @@ export default function RootLayout({
           <main className="flex min-h-screen flex-col items-center">
             <div className="flex w-full flex-1 flex-col items-center">
               <nav className="flex h-16 w-full justify-center border-b border-border">
-                <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
-                  <div className="flex items-center gap-5 font-semibold">
-                    <Link href={'/'}>Next.js Supabase Starter</Link>
-                    <div className="flex items-center gap-2">
-                      <DeployButton />
-                      <Link href="/tutorial" className="hover:underline">
-                        チュートリアル
-                      </Link>
-                    </div>
+                <div className="flex w-full max-w-5xl items-center justify-between p-3 px-4 sm:px-5">
+                  {/* 左：ハンバーガーメニュー（モバイルのみ表示） */}
+                  <div className="md:hidden">
+                    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                      <SheetTrigger asChild>
+                        <Button size="icon" variant="ghost" className="text-foreground">
+                          <Menu className="size-6" />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side="left" className="w-64 sm:max-w-xs">
+                        <SheetHeader>
+                          <SheetTitle>メニュー</SheetTitle>
+                        </SheetHeader>
+                        <div className="pt-4">
+                          <SidebarContent
+                            habitCategories={habitCategories}
+                            // リンクがクリックされたらドロワーを閉じる関数を渡す
+                            onLinkClick={() => {
+                              setSheetOpen(false);
+                            }}
+                          />
+                        </div>
+                      </SheetContent>
+                    </Sheet>
                   </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <></>}
+
+                  {/* 中央：アプリロゴ */}
+                  <div className="absolute left-1/2 -translate-x-1/2 font-bold text-foreground">
+                    <Link href="/">QuitMate</Link>
+                  </div>
+
+                  {/* 右：テーマ切り替え */}
+                  <div>
+                    <ThemeSwitcher />
+                  </div>
                 </div>
               </nav>
+
               <div className="flex w-full max-w-5xl">
                 <Sidebar habitCategories={habitCategories} />
-                <div className="flex-1 p-5">{children}</div>
+                <div className="flex-1 p-3 sm:p-5">{children}</div>
               </div>
 
               <footer className="mx-auto flex w-full items-center justify-center gap-8 border-t py-16 text-center text-xs">

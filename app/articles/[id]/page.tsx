@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 
 import { ArticleCommentTile } from '@/components/articles/article-comment-tile';
 import { Tag } from '@/components/ui/tag';
+
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 
 type Props = {
