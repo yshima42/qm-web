@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { ThemeProvider } from 'next-themes';
 import { useState } from 'react';
 
-import { Sidebar, SidebarContent } from '@/components/sidebar';
-import { ThemeSwitcher } from '@/components/theme-switcher';
+import { Sidebar, SidebarContent } from '@/components/custom/sidebar';
+import { ThemeSwitcher } from '@/components/custom/theme-switcher';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 

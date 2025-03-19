@@ -1,25 +1,32 @@
-import { formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { StoryLikeIcon, CommentIcon } from '@/components/custom/icon';
+
 import { StoryTileDto } from '@/lib/types';
 
-import { Tag } from '../../components/ui/tag';
+import { Tag } from '../../components/custom/tag';
 
 type Props = {
   story: StoryTileDto;
 };
 
 export function StoryTile({ story }: Props) {
-  const createdAt = formatDistanceToNow(new Date(story.created_at), {
-    addSuffix: true,
+  const storyDate = new Date(story.created_at);
+  const currentYear = new Date().getFullYear();
+  const storyYear = storyDate.getFullYear();
+
+  // 今年の場合は年を表示せず、そうでない場合は年を含める
+  const dateFormat = storyYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const createdAt = format(storyDate, dateFormat, {
     locale: ja,
   });
 
   return (
     <div className="block border-b border-gray-300 dark:border-gray-700">
-      <div className="flex p-4">
+      <div className="flex px-0 py-4">
         {/* アバター部分 */}
         <div className="mr-3">
           <Link href={`/profiles/${story.user_id}`} className="block">
@@ -49,7 +56,7 @@ export function StoryTile({ story }: Props) {
             <Link href={`/profiles/${story.user_id}`} className="hover:underline">
               <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
             </Link>
-            <span className="text-sm text-muted-foreground">・</span>
+            <span className="text-sm text-muted-foreground"> </span>
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
@@ -72,25 +79,11 @@ export function StoryTile({ story }: Props) {
             {/* アクション */}
             <div className="flex gap-6 text-muted-foreground">
               <div className="flex items-center gap-1">
-                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
+                <CommentIcon />
                 <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-1">
-                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+                <StoryLikeIcon />
                 <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
               </div>
             </div>
