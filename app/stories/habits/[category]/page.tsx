@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { StoryList } from '@/components/stories/story-list';
+
 import { fetchStoriesByHabitCategoryName } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 

@@ -16,7 +16,7 @@ export function ArticleCommentTile({ comment }: Props) {
   });
 
   return (
-    <div className="flex border-b border-gray-200 p-3 pl-12">
+    <div className="flex border-b border-border p-3 pl-12">
       {/* アバター */}
       <div className="mr-2">
         <Link href={`/profiles/${comment.user_id}`} className="block">
@@ -30,7 +30,7 @@ export function ArticleCommentTile({ comment }: Props) {
                 className="object-cover"
               />
             ) : (
-              <div className="size-full bg-gray-200" />
+              <div className="size-full bg-muted" />
             )}
           </div>
         </Link>
@@ -40,18 +40,20 @@ export function ArticleCommentTile({ comment }: Props) {
       <div className="flex-1">
         <div className="mb-0.5 flex items-center gap-1.5">
           <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
-            <span className="text-sm font-bold">{comment.profiles.display_name}</span>
+            <span className="text-sm font-bold text-foreground">
+              {comment.profiles.display_name}
+            </span>
           </Link>
           <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
-            <span className="text-xs text-gray-500">@{comment.profiles.user_name}</span>
+            <span className="text-xs text-muted-foreground">@{comment.profiles.user_name}</span>
           </Link>
-          <span className="text-xs text-gray-500">・</span>
-          <span className="text-xs text-gray-500">{createdAt}</span>
+          <span className="text-xs text-muted-foreground">・</span>
+          <span className="text-xs text-muted-foreground">{createdAt}</span>
         </div>
-        <p className="whitespace-pre-wrap text-sm">{comment.content}</p>
+        <p className="whitespace-pre-wrap text-sm text-foreground">{comment.content}</p>
 
         {/* いいねボタン */}
-        <div className="mt-1 flex items-center gap-1 text-gray-500">
+        <div className="mt-1 flex items-center gap-1 text-muted-foreground">
           <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"

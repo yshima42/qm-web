@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import { StoryTileDto } from '@/lib/types';
 
+import { Tag } from '../ui/tag';
+
 type Props = {
   story: StoryTileDto;
 };
@@ -16,7 +18,7 @@ export function StoryTile({ story }: Props) {
   });
 
   return (
-    <div className="block border-b border-gray-200">
+    <div className="block border-b border-gray-300 dark:border-gray-700">
       <div className="flex p-4">
         {/* アバター部分 */}
         <div className="mr-3">
@@ -31,7 +33,7 @@ export function StoryTile({ story }: Props) {
                   className="object-cover"
                 />
               ) : (
-                <div className="size-full bg-gray-200" />
+                <div className="size-full bg-muted" />
               )}
             </div>
           </Link>
@@ -42,34 +44,33 @@ export function StoryTile({ story }: Props) {
           {/* ヘッダー */}
           <div className="mb-1 flex items-center gap-2">
             <Link href={`/profiles/${story.user_id}`} className="hover:underline">
-              <span className="font-bold">{story.profiles.display_name}</span>
+              <span className="font-bold text-foreground">{story.profiles.display_name}</span>
             </Link>
             <Link href={`/profiles/${story.user_id}`} className="hover:underline">
-              <span className="text-sm text-gray-500">@{story.profiles.user_name}</span>
+              <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
             </Link>
-            <span className="text-sm text-gray-500">・</span>
-            <span className="text-sm text-gray-500">{createdAt}</span>
+            <span className="text-sm text-muted-foreground">・</span>
+            <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <Link
-            href={`/stories/${story.id}`}
-            className="block transition-colors hover:bg-gray-50/50"
-          >
+          <Link href={`/stories/${story.id}`} className="block transition-colors hover:bg-accent/5">
             {/* 習慣カテゴリーとカウント */}
-            <div className="mb-1 flex items-center gap-2">
-              <span className="text-sm font-medium">
+            <div className="mb-2 flex items-center gap-2">
+              <Tag>
                 {story.habit_categories.habit_category_name} - {story.trial_elapsed_days}日
-              </span>
+              </Tag>
               {story.custom_habit_name && (
-                <span className="text-sm text-gray-600">({story.custom_habit_name})</span>
+                <span className="ml-2 text-sm text-secondary-foreground">
+                  ({story.custom_habit_name})
+                </span>
               )}
             </div>
 
             {/* 本文 */}
-            <p className="mb-3 whitespace-pre-wrap">{story.content}</p>
+            <p className="mb-3 whitespace-pre-wrap text-foreground">{story.content}</p>
 
             {/* アクション */}
-            <div className="flex gap-6 text-gray-500">
+            <div className="flex gap-6 text-muted-foreground">
               <div className="flex items-center gap-1">
                 <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

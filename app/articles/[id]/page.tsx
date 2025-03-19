@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { ArticleCommentTile } from '@/components/articles/article-comment-tile';
+import { Tag } from '@/components/ui/tag';
+
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 
 type Props = {
@@ -72,10 +74,7 @@ export default async function ArticlePage({ params }: Props) {
 
           <div className="mb-4 flex items-center gap-4 text-sm text-gray-500">
             <span>{createdAt}</span>
-            <span>{article.article_likes[0]?.count ?? 0} いいね</span>
-            <span className="rounded-full bg-gray-100 px-2 py-1">
-              {article.habit_categories.habit_category_name}
-            </span>
+            <Tag>{article.habit_categories.habit_category_name}</Tag>
           </div>
         </div>
 

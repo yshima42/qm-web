@@ -66,12 +66,13 @@ export default tseslint.config(
           'newlines-between': 'always', // import groups 1行空ける
           pathGroups: [
             {
-              pattern: 'src/components/**',
+              pattern: '@/components/**',
               group: 'internal',
               position: 'before',
             },
-            { pattern: 'src/lib/**', group: 'internal', position: 'before' },
+            { pattern: '@/lib/**', group: 'internal', position: 'before' },
           ],
+          pathGroupsExcludedImportTypes: ['builtin'],
         },
       ],
       'import/newline-after-import': 'error',
