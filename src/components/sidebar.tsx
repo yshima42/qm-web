@@ -122,7 +122,7 @@ export function Sidebar({ habitCategories }: { habitCategories: HabitCategoryNam
 
       {/* 中画面用：コンパクトサイドバー（アイコンのみ） */}
       <aside className="sticky top-0 hidden h-screen w-16 shrink-0 pt-4 md:block lg:hidden">
-        <SidebarContent habitCategories={habitCategories} compact={true} />
+        <SidebarContent habitCategories={habitCategories} compact />
       </aside>
     </>
   );

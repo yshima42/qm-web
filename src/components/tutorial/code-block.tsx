@@ -53,7 +53,7 @@ export function CodeBlock({ code }: { code: string }) {
       <Button
         size="icon"
         onClick={() => void copy()}
-        variant={'outline'}
+        variant="outline"
         className="absolute right-2 top-2"
       >
         {icon}

@@ -3,16 +3,16 @@ import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArticleTileDto } from '@/lib/types';
+import { StoryTileDto } from '@/lib/types';
 
-import { Tag } from '../ui/tag';
+import { Tag } from '../../components/ui/tag';
 
 type Props = {
-  article: ArticleTileDto;
+  story: StoryTileDto;
 };
 
-export function ArticleTile({ article }: Props) {
-  const createdAt = formatDistanceToNow(new Date(article.created_at), {
+export function StoryTile({ story }: Props) {
+  const createdAt = formatDistanceToNow(new Date(story.created_at), {
     addSuffix: true,
     locale: ja,
   });
@@ -22,11 +22,11 @@ export function ArticleTile({ article }: Props) {
       <div className="flex p-4">
         {/* アバター部分 */}
         <div className="mr-3">
-          <Link href={`/profiles/${article.user_id}`} className="block">
+          <Link href={`/profiles/${story.user_id}`} className="block">
             <div className="size-12 overflow-hidden rounded-full">
-              {article.profiles.avatar_url ? (
+              {story.profiles.avatar_url ? (
                 <Image
-                  src={article.profiles.avatar_url}
+                  src={story.profiles.avatar_url}
                   alt="プロフィール画像"
                   width={48}
                   height={48}
@@ -43,28 +43,31 @@ export function ArticleTile({ article }: Props) {
         <div className="flex-1">
           {/* ヘッダー */}
           <div className="mb-1 flex items-center gap-2">
-            <Link href={`/profiles/${article.user_id}`} className="hover:underline">
-              <span className="font-bold text-foreground">{article.profiles.display_name}</span>
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+              <span className="font-bold text-foreground">{story.profiles.display_name}</span>
             </Link>
-            <Link href={`/profiles/${article.user_id}`} className="hover:underline">
-              <span className="text-sm text-gray-500">@{article.profiles.user_name}</span>
+            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+              <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
             </Link>
             <span className="text-sm text-muted-foreground">・</span>
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <Link
-            href={`/articles/${article.id}`}
-            className="block transition-colors hover:bg-accent/5"
-          >
-            {/* タイトルと習慣カテゴリー */}
-            <h2 className="mb-2 text-xl font-bold text-foreground">{article.title}</h2>
+          <Link href={`/stories/${story.id}`} className="block transition-colors hover:bg-accent/5">
+            {/* 習慣カテゴリーとカウント */}
             <div className="mb-2 flex items-center gap-2">
-              <Tag>{article.habit_categories.habit_category_name}</Tag>
+              <Tag>
+                {story.habit_categories.habit_category_name} - {story.trial_elapsed_days}日
+              </Tag>
+              {story.custom_habit_name && (
+                <span className="ml-2 text-sm text-secondary-foreground">
+                  ({story.custom_habit_name})
+                </span>
+              )}
             </div>
 
-            {/* 記事の説明文 */}
-            <p className="mb-3 line-clamp-3 text-secondary-foreground">{article.content}</p>
+            {/* 本文 */}
+            <p className="mb-3 whitespace-pre-wrap text-foreground">{story.content}</p>
 
             {/* アクション */}
             <div className="flex gap-6 text-muted-foreground">
@@ -77,7 +80,7 @@ export function ArticleTile({ article }: Props) {
                     d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                   />
                 </svg>
-                <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
+                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-1">
                 <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +91,7 @@ export function ArticleTile({ article }: Props) {
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
                 </svg>
-                <span className="text-sm">{article.article_likes[0]?.count ?? 0}</span>
+                <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
               </div>
             </div>
           </Link>
