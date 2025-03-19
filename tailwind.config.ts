@@ -23,6 +23,8 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          light: '#2E6C28', // ライトモードの時のメインカラー
+          dark: '#78DC77', // ダークモードの時のメインカラー
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',

@@ -3,27 +3,28 @@
 import {
   Home,
   BookOpen,
-  Coffee,
   ShoppingBag,
   Cigarette,
   Gamepad2,
   Wine,
-  PiggyBank,
   Pill,
   Utensils,
-  Heart,
   MessageSquare,
-  Sparkles,
   Users,
   BadgeCheck,
+  Dice5,
+  Zap,
+  UserRound,
+  Wrench,
+  Ban,
   LucideIcon,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 import { HabitCategoryName } from '@/lib/types';
 
-import { CategoryIcon } from '../ui/category-icon';
-import { SidebarIcon } from '../ui/sidebar-icon';
+import { CategoryIcon } from '../custom/category-icon';
+import { SidebarIcon } from '../custom/sidebar-icon';
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
@@ -45,12 +46,12 @@ export function SidebarContent({
     Shopping: ShoppingBag,
     Drugs: Pill,
     Overeating: Utensils,
-    Porno: Heart,
+    Porno: Ban,
     SNS: MessageSquare,
-    Gambling: PiggyBank,
-    Caffeine: Coffee,
-    'Cosmetic Surgery': Sparkles,
-    Custom: Sparkles,
+    Gambling: Dice5,
+    Caffeine: Zap,
+    'Cosmetic Surgery': UserRound,
+    Custom: Wrench,
     Alcohol: Wine,
     Codependency: Users,
     Official: BadgeCheck,
@@ -75,7 +76,7 @@ export function SidebarContent({
         />
         <SidebarIcon
           icon={BookOpen}
-          label="記事一覧"
+          label="記事"
           href="/articles"
           active={pathname === '/articles'}
           showLabel={!compact}
