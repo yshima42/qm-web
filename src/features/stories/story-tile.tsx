@@ -3,9 +3,11 @@ import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { DefaultAvatar } from '@/components/custom/default-avatar';
 import { StoryLikeIcon, CommentIcon } from '@/components/custom/icon';
 
-import { StoryTileDto } from '@/lib/types';
+import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { StoryTileDto, HabitCategoryName } from '@/lib/types';
 
 import { Tag } from '../../components/custom/tag';
 
@@ -24,6 +26,11 @@ export function StoryTile({ story }: Props) {
     locale: ja,
   });
 
+  // カテゴリー名を日本語に変換
+  const categoryDisplayName =
+    CATEGORY_DISPLAY_NAMES[story.habit_categories.habit_category_name as HabitCategoryName] ||
+    story.habit_categories.habit_category_name;
+
   return (
     <div className="block border-b border-gray-300 dark:border-gray-700">
       <div className="flex px-0 py-4">
@@ -40,7 +47,7 @@ export function StoryTile({ story }: Props) {
                   className="object-cover"
                 />
               ) : (
-                <div className="size-full bg-muted" />
+                <DefaultAvatar size="md" className="size-full bg-muted" />
               )}
             </div>
           </Link>
@@ -61,10 +68,10 @@ export function StoryTile({ story }: Props) {
           </div>
 
           <Link href={`/stories/${story.id}`} className="block transition-colors hover:bg-accent/5">
-            {/* 習慣カテゴリーとカウント */}
+            {/* 習慣カテゴリーとカウント - 日本語表示に修正 */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
-                {story.habit_categories.habit_category_name} - {story.trial_elapsed_days}日
+                {categoryDisplayName} - {story.trial_elapsed_days}日
               </Tag>
               {story.custom_habit_name && (
                 <span className="ml-2 text-sm text-secondary-foreground">

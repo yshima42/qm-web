@@ -20,19 +20,19 @@ import { HabitCategoryName } from '@/lib/types';
 
 // 習慣カテゴリーの一覧
 export const HABIT_CATEGORIES: HabitCategoryName[] = [
-  'Game',
-  'Tobacco',
-  'Shopping',
-  'Drugs',
-  'Overeating',
-  'Porno',
-  'SNS',
-  'Gambling',
-  'Caffeine',
-  'Cosmetic Surgery',
-  'Custom',
   'Alcohol',
+  'Gambling',
+  'Tobacco',
+  'Game',
+  'SNS',
+  'Overeating',
+  'Shopping',
+  'Caffeine',
+  'Drugs',
+  'Porno',
+  'Cosmetic Surgery',
   'Codependency',
+  'Custom',
   'Official',
 ];
 
@@ -57,11 +57,11 @@ export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
 // カテゴリーの日本語表示名（必要に応じて）
 export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
   Game: 'ゲーム',
-  Tobacco: 'タバコ',
-  Shopping: 'ショッピング',
+  Tobacco: 'たばこ',
+  Shopping: '買い物',
   Drugs: '薬物',
   Overeating: '過食',
-  Porno: 'アダルト',
+  Porno: 'ポルノ',
   SNS: 'SNS',
   Gambling: 'ギャンブル',
   Caffeine: 'カフェイン',
@@ -69,7 +69,7 @@ export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
   Custom: 'カスタム',
   Alcohol: 'アルコール',
   Codependency: '共依存',
-  Official: '公式',
+  Official: '運営',
 };
 
 // カテゴリーのURL生成関数

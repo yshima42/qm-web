@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
+import { Header } from '@/components/layout/header';
+
 import { fetchStoryById, fetchCommentsByStoryId } from '@/lib/data';
 
 import { CommentTile } from '@/features/stories/comment-tile';
@@ -15,13 +17,16 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   if (!story) notFound();
 
   return (
-    <main>
-      <StoryTile story={story} />
-      <div className="mt-4">
-        {comments.map((comment) => (
-          <CommentTile key={comment.id} comment={comment} />
-        ))}
-      </div>
-    </main>
+    <>
+      <Header title="ストーリー詳細" />
+      <main className="p-3 sm:p-5">
+        <StoryTile story={story} />
+        <div className="mt-4">
+          {comments.map((comment) => (
+            <CommentTile key={comment.id} comment={comment} />
+          ))}
+        </div>
+      </main>
+    </>
   );
 }
