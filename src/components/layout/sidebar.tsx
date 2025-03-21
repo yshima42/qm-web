@@ -18,9 +18,18 @@ import {
   Wrench,
   Ban,
   LucideIcon,
+  Menu,
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
+import { ThemeSwitcher } from '@/components/custom/theme-switcher';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+
+import { HABIT_CATEGORIES } from '@/lib/categories';
 import { HabitCategoryName } from '@/lib/types';
 
 import { CategoryIcon } from '../custom/category-icon';
@@ -64,6 +73,22 @@ export function SidebarContent({
 
   return (
     <div className="flex h-full flex-col">
+      {/* ロゴエリア（新規追加） */}
+      {!compact && (
+        <div className="mb-6 px-4 py-3">
+          <Link href="/" className="flex items-end gap-1" onClick={handleLinkClick}>
+            <Image
+              src="/icon-web.png"
+              alt="QuitMate Logo"
+              width={20}
+              height={20}
+              className="h-6 w-auto"
+            />
+            <span className="font-bold leading-tight">QuitMate</span>
+          </Link>
+        </div>
+      )}
+
       {/* メインナビゲーション */}
       <div className="mb-6 space-y-1">
         <SidebarIcon
@@ -109,22 +134,53 @@ export function SidebarContent({
           );
         })}
       </div>
+
+      {/* テーマスイッチャー（サイドバー下部に追加） */}
+      <div className="mt-auto px-4 py-3">
+        <ThemeSwitcher />
+      </div>
     </div>
   );
 }
 
-export function Sidebar({ habitCategories }: { habitCategories: HabitCategoryName[] }) {
+export function Sidebar() {
+  const [sheetOpen, setSheetOpen] = useState(false);
+
   return (
     <>
       {/* 大画面用：フルサイドバー（アイコン＋テキスト） */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 pt-4 lg:block">
-        <SidebarContent habitCategories={habitCategories} />
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r border-border pt-4 lg:block">
+        <SidebarContent habitCategories={HABIT_CATEGORIES} />
       </aside>
 
       {/* 中画面用：コンパクトサイドバー（アイコンのみ） */}
-      <aside className="sticky top-0 hidden h-screen w-16 shrink-0 pt-4 md:block lg:hidden">
-        <SidebarContent habitCategories={habitCategories} compact />
+      <aside className="sticky top-0 hidden h-screen w-16 shrink-0 border-r border-border pt-4 md:block lg:hidden">
+        <SidebarContent habitCategories={HABIT_CATEGORIES} compact />
       </aside>
+
+      {/* モバイル用：ハンバーガーメニュー */}
+      <div className="fixed left-4 top-4 z-50 md:hidden">
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline" className="rounded-full shadow-md">
+              <Menu className="size-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64 sm:max-w-xs">
+            <SheetHeader>
+              <SheetTitle>メニュー</SheetTitle>
+            </SheetHeader>
+            <div className="pt-4">
+              <SidebarContent
+                habitCategories={HABIT_CATEGORIES}
+                onLinkClick={() => {
+                  setSheetOpen(false);
+                }}
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
     </>
   );
 }
