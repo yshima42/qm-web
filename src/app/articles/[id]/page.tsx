@@ -17,17 +17,13 @@ import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function ArticlePage({ params }: Props) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const id = params.id;
   // 後で子コンポーネントに移動し、suspenseで読み込む。多分
   const [article, comments] = await Promise.all([
-    fetchArticleById(params.id),
-    fetchCommentsByArticleId(params.id),
+    fetchArticleById(id),
+    fetchCommentsByArticleId(id),
   ]);
 
   if (!article) {
@@ -52,8 +48,8 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <>
       <Header title={article.title} backUrl="/articles" />
-      <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-        <main className="mx-auto max-w-2xl px-2 py-6 sm:px-3">
+      <main className="p-3 sm:p-5">
+        <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* 記事ヘッダー */}
           <div className="mb-6">
             <div className="mb-4 flex items-center justify-between">
@@ -143,8 +139,8 @@ export default async function ArticlePage({ params }: Props) {
               )}
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </>
   );
 }
