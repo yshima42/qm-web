@@ -1,5 +1,8 @@
 import { notFound } from 'next/navigation';
 
+import { Header } from '@/components/layout/header';
+
+import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
 import { fetchStoriesByHabitCategoryName } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
@@ -34,5 +37,16 @@ export default async function Page(props: { params: Promise<{ category: string }
   if (!category) notFound();
 
   const habitCategory = capitalizeCategory(category);
-  return <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />;
+
+  // 日本語カテゴリー名を取得
+  const categoryDisplayName = CATEGORY_DISPLAY_NAMES[habitCategory];
+
+  return (
+    <>
+      <Header title={categoryDisplayName} backUrl="/stories" showBackButton={false} />
+      <main className="p-3 sm:p-5">
+        <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+      </main>
+    </>
+  );
 }

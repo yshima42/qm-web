@@ -1,99 +1,93 @@
-import { formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-import { ArticleTileDto } from '@/lib/types';
+import { DefaultAvatar } from '@/components/custom/default-avatar';
+import { CommentIcon, ArticleLikeIcon } from '@/components/custom/icon';
+import { Tag } from '@/components/custom/tag';
 
-import { Tag } from '../../components/ui/tag';
+import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { ArticleTileDto, HabitCategoryName } from '@/lib/types';
 
 type Props = {
   article: ArticleTileDto;
 };
 
 export function ArticleTile({ article }: Props) {
-  const createdAt = formatDistanceToNow(new Date(article.created_at), {
-    addSuffix: true,
+  const articleDate = new Date(article.created_at);
+  const currentYear = new Date().getFullYear();
+  const articleYear = articleDate.getFullYear();
+
+  // 今年の場合は年を表示せず、そうでない場合は年を含める
+  const dateFormat = articleYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const createdAt = format(articleDate, dateFormat, {
     locale: ja,
   });
 
-  return (
-    <div className="block border-b border-gray-300 dark:border-gray-700">
-      <div className="flex p-4">
-        {/* アバター部分 */}
-        <div className="mr-3">
-          <Link href={`/profiles/${article.user_id}`} className="block">
-            <div className="size-12 overflow-hidden rounded-full">
-              {article.profiles.avatar_url ? (
-                <Image
-                  src={article.profiles.avatar_url}
-                  alt="プロフィール画像"
-                  width={48}
-                  height={48}
-                  className="object-cover"
-                />
-              ) : (
-                <div className="size-full bg-muted" />
-              )}
-            </div>
-          </Link>
-        </div>
+  // カテゴリー名を日本語に変換
+  const categoryDisplayName =
+    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
+    article.habit_categories.habit_category_name;
 
-        {/* メインコンテンツ */}
-        <div className="flex-1">
-          {/* ヘッダー */}
-          <div className="mb-1 flex items-center gap-2">
-            <Link href={`/profiles/${article.user_id}`} className="hover:underline">
-              <span className="font-bold text-foreground">{article.profiles.display_name}</span>
-            </Link>
-            <Link href={`/profiles/${article.user_id}`} className="hover:underline">
-              <span className="text-sm text-gray-500">@{article.profiles.user_name}</span>
-            </Link>
-            <span className="text-sm text-muted-foreground">・</span>
-            <span className="text-sm text-muted-foreground">{createdAt}</span>
+  return (
+    <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
+      <Link href={`/articles/${article.id}`} className="block">
+        <div className="p-4">
+          {/* タイトル */}
+          <h2 className="mb-1 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">
+            {article.title}
+          </h2>
+
+          {/* カテゴリータグと日付 - 日本語表示に修正 */}
+          <div className="mb-1 flex items-center justify-between">
+            <Tag>{categoryDisplayName}</Tag>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{createdAt}</span>
           </div>
 
-          <Link
-            href={`/articles/${article.id}`}
-            className="block transition-colors hover:bg-accent/5"
-          >
-            {/* タイトルと習慣カテゴリー */}
-            <h2 className="mb-2 text-xl font-bold text-foreground">{article.title}</h2>
-            <div className="mb-2 flex items-center gap-2">
-              <Tag>{article.habit_categories.habit_category_name}</Tag>
-            </div>
+          {/* 記事の説明文 (Markdown) */}
+          <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-4 line-clamp-3 text-gray-700 dark:text-gray-300">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+          </div>
 
-            {/* 記事の説明文 */}
-            <p className="mb-3 line-clamp-3 text-secondary-foreground">{article.content}</p>
-
-            {/* アクション */}
-            <div className="flex gap-6 text-muted-foreground">
+          {/* アクションとユーザー情報 */}
+          <div className="flex items-center justify-between">
+            {/* コメントといいね */}
+            <div className="flex gap-4 text-gray-500 dark:text-gray-400">
               <div className="flex items-center gap-1">
-                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
+                <CommentIcon />
                 <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
               </div>
               <div className="flex items-center gap-1">
-                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+                <ArticleLikeIcon />
                 <span className="text-sm">{article.article_likes[0]?.count ?? 0}</span>
               </div>
             </div>
-          </Link>
+
+            {/* ユーザー情報 */}
+            <div className="flex items-center">
+              <div className="mr-2 size-6 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                {article.profiles.avatar_url ? (
+                  <Image
+                    src={article.profiles.avatar_url}
+                    alt="プロフィール画像"
+                    width={24}
+                    height={24}
+                    className="object-cover"
+                  />
+                ) : (
+                  <DefaultAvatar size="sm" className="size-full bg-gray-200 dark:bg-gray-700" />
+                )}
+              </div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                {article.profiles.display_name}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { DefaultAvatar } from '@/components/custom/default-avatar';
+
 import { CommentTileDto } from '@/lib/types';
 
 type Props = {
@@ -30,7 +32,7 @@ export function CommentTile({ comment }: Props) {
                 className="object-cover"
               />
             ) : (
-              <div className="size-full bg-muted" />
+              <DefaultAvatar size="md" className="size-full bg-muted" />
             )}
           </div>
         </Link>

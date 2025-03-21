@@ -1,131 +1,146 @@
-import { formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-import { Tag } from '@/components/ui/tag';
+import { DefaultAvatar } from '@/components/custom/default-avatar';
+import { CommentIcon, ArticleLikeIcon } from '@/components/custom/icon';
+import { Tag } from '@/components/custom/tag';
+import { Header } from '@/components/layout/header';
 
+import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
+import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function ArticlePage({ params }: Props) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const id = params.id;
   // 後で子コンポーネントに移動し、suspenseで読み込む。多分
   const [article, comments] = await Promise.all([
-    fetchArticleById(params.id),
-    fetchCommentsByArticleId(params.id),
+    fetchArticleById(id),
+    fetchCommentsByArticleId(id),
   ]);
 
   if (!article) {
     notFound();
   }
 
-  const createdAt = formatDistanceToNow(new Date(article.created_at), {
-    addSuffix: true,
+  const articleDate = new Date(article.created_at);
+  const currentYear = new Date().getFullYear();
+  const articleYear = articleDate.getFullYear();
+
+  // 今年の場合は年を表示せず、そうでない場合は年を含める
+  const dateFormat = articleYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const createdAt = format(articleDate, dateFormat, {
     locale: ja,
   });
 
+  // カテゴリー名を日本語に変換
+  const categoryDisplayName =
+    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
+    article.habit_categories.habit_category_name;
+
   return (
-    <div className="min-h-screen">
-      {/* ヘッダー */}
-      <header className="sticky top-0 z-10 border-b border-gray-200">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <Link href="/articles" className="text-gray-600 hover:text-gray-900">
-            ← 記事一覧に戻る
-          </Link>
-          {/* いいねボタンなどのアクションボタンをここに追加予定 */}
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-4 py-8">
-        {/* 記事ヘッダー */}
-        <div className="mb-8">
-          <div className="mb-6 flex items-center gap-4">
-            <Link href={`/profiles/${article.user_id}`} className="block">
-              <div className="size-16 overflow-hidden rounded-full">
-                {article.profiles.avatar_url ? (
-                  <Image
-                    src={article.profiles.avatar_url}
-                    alt="プロフィール画像"
-                    width={64}
-                    height={64}
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="size-full bg-gray-200" />
-                )}
+    <>
+      <Header title={article.title} backUrl="/articles" />
+      <main className="p-3 sm:p-5">
+        <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+          {/* 記事ヘッダー */}
+          <div className="mb-6">
+            <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {/* 英語名を日本語名に変換して表示 */}
+                <Tag>{categoryDisplayName}</Tag>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
               </div>
-            </Link>
-            <div>
-              <Link href={`/profiles/${article.user_id}`} className="hover:underline">
-                <p className="text-lg font-bold">{article.profiles.display_name}</p>
+
+              {/* いいねとコメントカウント（上部に表示） */}
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {article.article_likes[0]?.count ?? 0}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-6 flex items-center gap-3">
+              <Link href={`/profiles/${article.user_id}`} className="block">
+                <div className="size-9 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                  {article.profiles.avatar_url ? (
+                    <Image
+                      src={article.profiles.avatar_url}
+                      alt="プロフィール画像"
+                      width={36}
+                      height={36}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <DefaultAvatar size="md" className="size-full bg-gray-200 dark:bg-gray-700" />
+                  )}
+                </div>
               </Link>
-              <p className="text-gray-500">@{article.profiles.user_name}</p>
-            </div>
-          </div>
-
-          <h1 className="mb-4 text-3xl font-bold">{article.title}</h1>
-
-          <div className="mb-4 flex items-center gap-4 text-sm text-gray-500">
-            <span>{createdAt}</span>
-            <Tag>{article.habit_categories.habit_category_name}</Tag>
-          </div>
-        </div>
-
-        {/* 記事本文 */}
-        <div className="prose prose-lg max-w-none">
-          <div className="whitespace-pre-wrap">{article.content}</div>
-        </div>
-
-        {/* 記事フッター */}
-        <div className="mt-12 border-t border-gray-200 pt-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-                <span>{article.article_likes[0]?.count ?? 0}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
-                <span>{article.article_comments[0]?.count ?? 0}</span>
+              <div>
+                <Link href={`/profiles/${article.user_id}`} className="hover:underline">
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    {article.profiles.display_name}
+                  </p>
+                </Link>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  @{article.profiles.user_name}
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* コメントセクション */}
-        <div className="mt-12">
-          <h2 className="mb-6 text-xl font-bold">
-            コメント ({article.article_comments[0]?.count ?? 0})
-          </h2>
-          <div className="space-y-2">
-            {comments.map((comment) => (
-              <ArticleCommentTile key={comment.id} comment={comment} />
-            ))}
+          {/* 記事本文 (Markdown) */}
+          <div className="prose prose-gray prose-base dark:prose-invert max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+          </div>
+
+          {/* 記事フッター */}
+          <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {article.article_likes[0]?.count ?? 0}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {article.article_comments[0]?.count ?? 0}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* コメントセクション - 背景色を削除 */}
+          <div className="mt-8">
+            <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+              コメント ({article.article_comments[0]?.count ?? 0})
+            </h2>
+            <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
+              {comments.length > 0 ? (
+                comments.map((comment) => <ArticleCommentTile key={comment.id} comment={comment} />)
+              ) : (
+                <p className="py-4 text-center text-gray-500 dark:text-gray-400">
+                  コメントはまだありません
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }

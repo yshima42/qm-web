@@ -26,14 +26,14 @@ export function SidebarIcon({
       className={cn(
         'flex items-center gap-4 rounded-md px-4 py-2 transition-colors',
         active
-          ? 'bg-accent/10 font-medium text-foreground'
-          : 'text-muted-foreground hover:bg-accent/10 hover:text-foreground',
+          ? 'bg-primary-light/10 font-semibold text-primary-light dark:bg-primary-dark/10 dark:text-primary-dark'
+          : 'text-muted-foreground hover:bg-primary-light/10 hover:font-medium hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark',
         !showLabel && 'justify-center px-2',
       )}
       title={label}
       onClick={onClick}
     >
-      <Icon size={18} />
+      <Icon size={18} strokeWidth={active ? 2.5 : 2} className="transition-all" />
       {showLabel && <span>{label}</span>}
     </Link>
   );
