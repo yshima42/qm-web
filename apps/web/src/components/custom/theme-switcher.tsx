@@ -1,17 +1,16 @@
 'use client';
 
-import { Laptop, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-
-import { Button } from '@/components/ui/button';
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@quitmate/ui';
+import { Laptop, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
@@ -44,7 +43,7 @@ const ThemeSwitcher = () => {
       <DropdownMenuContent align="start">
         <DropdownMenuRadioGroup
           value={theme}
-          onValueChange={(e) => {
+          onValueChange={(e: string) => {
             setTheme(e);
           }}
         >

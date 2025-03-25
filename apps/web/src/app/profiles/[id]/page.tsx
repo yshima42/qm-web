@@ -1,12 +1,18 @@
 import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { fetchCommentedStoriesByUserId, fetchProfileById, fetchStoriesByUserId } from '@/lib/data';
 
 import { ProfileHeader } from '@/features/profiles/profile-header';
 import { StoryList } from '@/features/stories/story-list';
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '../../../../../../packages/ui/src/components/ui/tabs';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

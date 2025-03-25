@@ -1,9 +1,8 @@
 'use client';
 
+import { Button } from '@quitmate/ui';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
 
 type HeaderProps = {
   title: string;

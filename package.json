@@ -4,7 +4,8 @@
     "workspaces": ["apps/*", "packages/*"],
     "scripts": {
       "dev:web": "turbo run dev --filter=web",
-      "dev:lp": "turbo run dev --filter=lp"
+      "dev:lp": "turbo run dev --filter=lp",
+      "format": "prettier --write './apps/web/**/*.{js,ts,tsx,scss}'"
     },
     "devDependencies": {
       "turbo": "^1.12.0",
