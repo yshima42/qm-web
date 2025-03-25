@@ -22,7 +22,7 @@ export default tseslint.config(
     files: ['*.ts', '*.tsx'], // 読み込むファイル
   },
   {
-    ignores: ['**/.next/**/*', '*.config.mjs', 'next.config.js'], // 無視するファイル
+    ignores: ['**/.next/**/*', '*.config.mjs'], // 無視するファイル
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
