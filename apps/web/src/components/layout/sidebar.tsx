@@ -1,20 +1,25 @@
 'use client';
 
+import {
+  Button,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+  SheetTitle,
+  ThemeSwitcher,
+} from '@quitmate/ui';
 import { Home, BookOpen, Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-import { ThemeSwitcher } from '@/components/custom/theme-switcher';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
-
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS, HABIT_CATEGORIES } from '@/lib/categories';
 import { HabitCategoryName } from '@/lib/types';
 
-import { CategoryIcon } from '../custom/category-icon';
-import { SidebarIcon } from '../custom/sidebar-icon';
+import { CategoryIcon } from '../../../../../packages/ui/src/components/custom/category-icon';
+import { SidebarIcon } from '../../../../../packages/ui/src/components/custom/sidebar-icon';
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];

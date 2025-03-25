@@ -1,3 +1,4 @@
+import { DefaultAvatar, CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
@@ -6,9 +7,6 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { DefaultAvatar } from '@/components/custom/default-avatar';
-import { CommentIcon, ArticleLikeIcon } from '@/components/custom/icon';
-import { Tag } from '@/components/custom/tag';
 import { Header } from '@/components/layout/header';
 
 import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
