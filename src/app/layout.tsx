@@ -3,6 +3,7 @@
 import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
+import { SmartBanner } from '@/components/custom/smart-banner';
 import { Footer } from '@/components/layout/footer';
 import { Sidebar } from '@/components/layout/sidebar';
 
@@ -33,7 +34,7 @@ export default function RootLayout({
                 <Sidebar />
                 <div className="flex flex-1 flex-col">{children}</div>
               </div>
-
+              <SmartBanner />
               <Footer />
             </div>
           </main>
