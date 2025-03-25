@@ -1,10 +1,8 @@
+import { ArticleLikeIcon, DefaultAvatar } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { DefaultAvatar } from '@/components/custom/default-avatar';
-import { ArticleLikeIcon } from '@/components/custom/icon';
 
 import { ArticleCommentTileDto } from '@/lib/types';
 

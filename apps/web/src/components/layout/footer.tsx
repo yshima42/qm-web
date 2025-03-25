@@ -1,7 +1,6 @@
+import { ThemeSwitcher } from '@quitmate/ui';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { ThemeSwitcher } from '@/components/custom/theme-switcher';
 
 export function Footer() {
   return (

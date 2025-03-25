@@ -1,15 +1,11 @@
+import { StoryLikeIcon, CommentIcon, Tag, DefaultAvatar } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { DefaultAvatar } from '@/components/custom/default-avatar';
-import { StoryLikeIcon, CommentIcon } from '@/components/custom/icon';
-
 import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
 import { StoryTileDto, HabitCategoryName } from '@/lib/types';
-
-import { Tag } from '../../components/custom/tag';
 
 type Props = {
   story: StoryTileDto;

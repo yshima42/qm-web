@@ -1,15 +1,17 @@
 'use client';
 
+import { Button } from '../ui/button';
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@quitmate/ui';
+} from '../ui/dropdown-menu';
+
 import { Laptop, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 const ThemeSwitcher = () => {

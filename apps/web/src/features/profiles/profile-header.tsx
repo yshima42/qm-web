@@ -1,6 +1,5 @@
+import { DefaultAvatar } from '@quitmate/ui';
 import Image from 'next/image';
-
-import { DefaultAvatar } from '@/components/custom/default-avatar';
 
 import { ProfileTileDto } from '@/lib/types';
 

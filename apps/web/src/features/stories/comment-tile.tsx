@@ -1,9 +1,8 @@
+import { DefaultAvatar } from '@quitmate/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { DefaultAvatar } from '@/components/custom/default-avatar';
 
 import { CommentTileDto } from '@/lib/types';
 
