@@ -6,6 +6,9 @@ export const SmartBanner = () => {
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // セッションストレージからバナーの表示状態を取得
+    const isBannerHidden = sessionStorage.getItem('smartBannerHidden');
+
     // モバイルデバイスの検出
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
@@ -15,7 +18,7 @@ export const SmartBanner = () => {
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
     setIsIOS(isIOSDevice);
-    setIsVisible((isIOSDevice || isAndroid) && !isStandalone);
+    setIsVisible((isIOSDevice || isAndroid) && !isStandalone && !isBannerHidden);
   }, []);
 
   if (!isVisible) return null;
@@ -25,6 +28,8 @@ export const SmartBanner = () => {
       <button
         onClick={() => {
           setIsVisible(false);
+          // セッションストレージにバナーを閉じたことを記録
+          sessionStorage.setItem('smartBannerHidden', 'true');
         }}
         className="absolute left-2 text-gray-500 dark:text-gray-400"
       >
@@ -48,6 +53,10 @@ export const SmartBanner = () => {
               ? 'https://apps.apple.com/us/app/%E4%BE%9D%E5%AD%98%E7%97%87%E5%85%8B%E6%9C%8Dsns-quitmate-%E3%82%AF%E3%82%A4%E3%83%83%E3%83%88%E3%83%A1%E3%82%A4%E3%83%88/id6462843097'
               : 'https://play.google.com/store/apps/details?id=com.quitmate.quitmate'
           }
+          onClick={() => {
+            setIsVisible(false);
+            sessionStorage.setItem('smartBannerHidden', 'true');
+          }}
           className={`rounded-md px-4 py-1 text-sm ${
             isIOS ? 'text-blue-500 dark:text-blue-400' : 'bg-teal-500 text-white'
           }`}
