@@ -6,7 +6,7 @@
     "scripts": {
       "dev:web": "turbo run dev --filter=web",
       "dev:lp": "turbo run dev --filter=lp",
-      "format": "prettier --write './apps/web/**/*.{js,ts,tsx,scss}'"
+      "format": "prettier --write './apps/**/**/*.{js,ts,tsx,scss}'"
     },
     "devDependencies": {
       "turbo": "^2.4.4",
