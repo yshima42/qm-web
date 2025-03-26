@@ -2,13 +2,14 @@
     "name": "quitmate",
     "private": true,
     "workspaces": ["apps/*", "packages/*"],
+    "packageManager": "yarn@1.22.22",
     "scripts": {
       "dev:web": "turbo run dev --filter=web",
       "dev:lp": "turbo run dev --filter=lp",
       "format": "prettier --write './apps/web/**/*.{js,ts,tsx,scss}'"
     },
     "devDependencies": {
-      "turbo": "^1.12.0",
+      "turbo": "^2.4.4",
       "@eslint/js": "^9.22.0",
       "@next/eslint-plugin-next": "^15.2.2",
       "@types/node": "22.10.2",
