@@ -61,7 +61,7 @@ export const SmartBanner = () => {
             isIOS ? 'text-blue-500 dark:text-blue-400' : 'bg-teal-500 text-white'
           }`}
         >
-          View
+          アプリを開く
         </a>
       </div>
     </div>
