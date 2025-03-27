@@ -34,13 +34,13 @@ export const Features = () => {
             key={title}
             className="h-full border-none bg-white shadow-md transition-shadow hover:shadow-lg"
           >
-            <CardHeader className="flex items-center gap-4">
+            <CardHeader className="flex flex-col items-center gap-2 pb-4">
               <div className="p-2 text-[#2E6C28]">
-                <Icon size={40} strokeWidth={1.5} />
+                <Icon size={48} strokeWidth={1.5} />
               </div>
               <CardTitle className="text-gray-800">{title}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-2">
               <p className="text-gray-600">{description}</p>
             </CardContent>
           </Card>

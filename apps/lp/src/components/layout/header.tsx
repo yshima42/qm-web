@@ -1,9 +1,9 @@
 // apps/lp/src/components/layout/Header.tsx
 "use client";
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Logo } from "../sections/logo";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +15,7 @@ export const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between p-4">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/icon.png" alt="QuitMate" width={40} height={40} />
-          <span className="text-2xl font-semibold text-gray-800">QuitMate</span>
-        </Link>
+        <Logo />
 
         {/* デスクトップ用ナビゲーション */}
         <nav className="hidden gap-6 text-base text-gray-600 md:flex">
