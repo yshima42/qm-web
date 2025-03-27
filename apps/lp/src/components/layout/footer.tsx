@@ -10,19 +10,19 @@ export const Footer = () => {
         <div className="flex flex-wrap justify-center gap-6">
           <Link
             href="/terms"
-            className="transition-colors hover:text-primary-light"
+            className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
             利用規約
           </Link>
           <Link
             href="/privacy"
-            className="transition-colors hover:text-primary-light"
+            className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
             プライバシーポリシー
           </Link>
           <Link
             href="/contact"
-            className="transition-colors hover:text-primary-light"
+            className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
             お問い合わせ
           </Link>
