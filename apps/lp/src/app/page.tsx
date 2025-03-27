@@ -1,10 +1,17 @@
-import { Button } from '@quitmate/ui';
+import { Features } from "@/components/sections/features";
+import { FinalCTA } from "@/components/sections/final-cta";
+import { Hero } from "@/components/sections/hero";
+import { Intro } from "@/components/sections/intro";
+import { Testimonials } from "@/components/sections/testimonials";
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-3xl font-bold mb-4">QuitMateへようこそ</h1>
-      <Button>はじめる</Button>
+    <main>
+      <Hero />
+      <Intro />
+      <Features />
+      <Testimonials />
+      <FinalCTA />
     </main>
   );
 }
