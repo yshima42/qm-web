@@ -1,5 +1,4 @@
-'use client';
-
+import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
@@ -12,6 +11,55 @@ const geistSans = Geist({
   display: 'swap',
   subsets: ['latin'],
 });
+
+export const metadata: Metadata = {
+  title: 'QuitMate（クイットメイト） | 依存症克服SNS',
+  description:
+    '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
+  keywords: ['依存症', '禁酒', '禁ギャンブル', '禁煙', '禁欲'],
+  applicationName: 'QuitMate（クイットメイト）',
+  creator: 'QuitMate（クイットメイト）',
+  publisher: 'QuitMate（クイットメイト）',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://quitmate.app'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ja-JP': '/ja',
+    },
+  },
+  openGraph: {
+    title: 'QuitMate（クイットメイト） | 依存症克服SNS',
+    description:
+      '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
+    url: 'https://quitmate.app',
+    siteName: 'QuitMate（クイットメイト）',
+    images: [
+      {
+        url: '/images/ogp.png',
+        width: 1200,
+        height: 630,
+        alt: 'QuitMate OGP Image',
+      },
+    ],
+    locale: 'ja_JP',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'QuitMate（クイットメイト）',
+    description: '依存症克服SNS',
+    images: ['/images/ogp.png'],
+    creator: '@QuitMate_JP',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
 
 export default function RootLayout({
   children,

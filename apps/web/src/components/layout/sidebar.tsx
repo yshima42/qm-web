@@ -47,7 +47,7 @@ export function SidebarContent({
         <div className="mb-6 px-4 py-3">
           <Link href="/" className="flex items-end gap-1" onClick={handleLinkClick}>
             <Image
-              src="/icon-web.png"
+              src="/images/icon-web.png"
               alt="QuitMate Logo"
               width={20}
               height={20}
@@ -147,7 +147,7 @@ export function Sidebar() {
                 }}
               >
                 <Image
-                  src="/icon-web.png"
+                  src="/images/icon-web.png"
                   alt="QuitMate Logo"
                   width={20}
                   height={20}
