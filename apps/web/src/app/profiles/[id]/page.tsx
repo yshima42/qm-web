@@ -1,3 +1,4 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
 import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
@@ -6,13 +7,6 @@ import { fetchCommentedStoriesByUserId, fetchProfileById, fetchStoriesByUserId }
 
 import { ProfileHeader } from '@/features/profiles/profile-header';
 import { StoryList } from '@/features/stories/story-list';
-
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '../../../../../../packages/ui/src/components/ui/tabs';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

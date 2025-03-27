@@ -1,35 +1,40 @@
 {
-    "name": "quitmate",
-    "private": true,
-    "workspaces": ["apps/*", "packages/*"],
-    "scripts": {
-      "dev:web": "turbo run dev --filter=web",
-      "dev:lp": "turbo run dev --filter=lp",
-      "format": "prettier --write './apps/web/**/*.{js,ts,tsx,scss}'"
-    },
-    "devDependencies": {
-      "turbo": "^1.12.0",
-      "@eslint/js": "^9.22.0",
-      "@next/eslint-plugin-next": "^15.2.2",
-      "@types/node": "22.10.2",
-      "@types/react": "^19.0.2",
-      "@types/react-dom": "19.0.2",
-      "eslint": "^9.22.0",
-      "eslint-config-next": "^15.2.2",
-      "eslint-config-prettier": "^10.1.1",
-      "eslint-plugin-import": "^2.31.0",
-      "eslint-plugin-tailwindcss": "^3.18.0",
-      "eslint-plugin-unused-imports": "^4.1.4",
-      "husky": "^9.1.7",
-      "lint-staged": "^15.5.0",
-      "pinst": "^3.0.0",
-      "postcss": "8.4.49",
-      "prettier": "^3.5.3",
-      "prettier-plugin-tailwindcss": "^0.6.11",
-      "tailwind-merge": "^2.5.2",
-      "tailwindcss": "3.4.17",
-      "tailwindcss-animate": "^1.0.7",
-      "typescript": "5.7.2",
-      "typescript-eslint": "^8.26.1"
-    }
+  "name": "quitmate",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "yarn@1.22.22",
+  "scripts": {
+    "dev:web": "turbo run dev --filter=web",
+    "dev:lp": "turbo run dev --filter=lp",
+    "format": "prettier --write './apps/**/**/*.{js,ts,tsx,scss}'"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.23.0",
+    "@next/eslint-plugin-next": "^15.2.2",
+    "@types/node": "22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "19.0.2",
+    "eslint": "^9.22.0",
+    "eslint-config-next": "^15.2.2",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-tailwindcss": "^3.17.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "pinst": "^3.0.0",
+    "postcss": "8.4.49",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "turbo": "^2.4.4",
+    "typescript": "5.7.2",
+    "typescript-eslint": "^8.26.1"
   }
+}

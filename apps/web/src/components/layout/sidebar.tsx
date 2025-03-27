@@ -8,6 +8,8 @@ import {
   SheetTrigger,
   SheetTitle,
   ThemeSwitcher,
+  CategoryIcon,
+  SidebarIcon,
 } from '@quitmate/ui';
 import { Home, BookOpen, Menu } from 'lucide-react';
 import Image from 'next/image';
@@ -17,9 +19,6 @@ import { useState } from 'react';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS, HABIT_CATEGORIES } from '@/lib/categories';
 import { HabitCategoryName } from '@/lib/types';
-
-import { CategoryIcon } from '../../../../../packages/ui/src/components/custom/category-icon';
-import { SidebarIcon } from '../../../../../packages/ui/src/components/custom/sidebar-icon';
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
