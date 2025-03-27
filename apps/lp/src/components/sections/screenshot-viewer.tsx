@@ -119,18 +119,20 @@ export const ScreenshotViewer = ({
           ))}
         </div>
 
-        {/* 前後ボタン - PCの場合のみ表示 */}
-        {screenshots.length > 1 && !isMobile && (
+        {/* 前後ボタン - PCとモバイルの位置を近づける */}
+        {screenshots.length > 1 && (
           <>
             <button
               onClick={prevScreenshot}
-              className="absolute -left-2 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200"
+              className={`absolute top-1/2 z-10 flex items-center justify-center rounded-full bg-gray-50/80 text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200 ${
+                isMobile ? "-left-4 size-8" : "-left-1 size-10"
+              } -translate-y-1/2`}
               aria-label="前のスクリーンショット"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width={isMobile ? "16" : "20"}
+                height={isMobile ? "16" : "20"}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -143,13 +145,15 @@ export const ScreenshotViewer = ({
             </button>
             <button
               onClick={nextScreenshot}
-              className="absolute -right-2 top-1/2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200"
+              className={`absolute top-1/2 z-10 flex items-center justify-center rounded-full bg-gray-50/80 text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200 ${
+                isMobile ? "-right-4 size-8" : "-right-1 size-10"
+              } -translate-y-1/2`}
               aria-label="次のスクリーンショット"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width={isMobile ? "16" : "20"}
+                height={isMobile ? "16" : "20"}
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

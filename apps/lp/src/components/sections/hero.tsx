@@ -24,10 +24,10 @@ export const Hero = () => {
   ];
 
   return (
-    <section className="flex items-center justify-center bg-gradient-to-b from-[#f8fbf7] to-white p-8 md:py-16">
+    <section className="flex items-center justify-center bg-gradient-to-b from-[#f8fbf7] to-white p-8 py-12 md:py-16">
       <div className="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
         <div className="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
-          <h1 className="mb-2 text-3xl font-medium leading-tight text-gray-800 md:mb-4 md:text-4xl md:font-bold lg:text-4xl">
+          <h1 className="mb-2 text-3xl font-semibold leading-tight text-gray-800 md:mb-4 md:text-4xl md:font-bold lg:text-4xl">
             共になら、やめられる
           </h1>
           <p className="mb-4 text-lg text-gray-600 md:mb-6 md:text-xl lg:text-2xl">
