@@ -1,7 +1,6 @@
-import { DefaultAvatar, CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
+import { CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -14,6 +13,7 @@ import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
+import { UserAvatar } from '@/features/profiles/user-avatar';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -45,11 +45,15 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <>
-      <Header title={article.title} backUrl="/articles" />
+      <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
       <main className="p-3 sm:p-5">
         <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* 記事ヘッダー */}
           <div className="mb-6">
+            {/* モバイルでのみ表示されるタイトル */}
+            <h1 className="mb-4 text-xl font-bold text-gray-900 dark:text-white sm:hidden">
+              {article.title}
+            </h1>
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {/* 英語名を日本語名に変換して表示 */}
@@ -69,23 +73,14 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             </div>
 
             <div className="mb-6 flex items-center gap-3">
-              <Link href={`/profiles/${article.user_id}`} className="block">
-                <div className="size-9 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-                  {article.profiles.avatar_url ? (
-                    <Image
-                      src={article.profiles.avatar_url}
-                      alt="プロフィール画像"
-                      width={36}
-                      height={36}
-                      className="object-cover"
-                    />
-                  ) : (
-                    <DefaultAvatar size="md" className="size-full bg-gray-200 dark:bg-gray-700" />
-                  )}
-                </div>
-              </Link>
+              <UserAvatar
+                username={article.profiles.user_name}
+                displayName={article.profiles.display_name}
+                avatarUrl={article.profiles.avatar_url}
+                size="md"
+              />
               <div>
-                <Link href={`/profiles/${article.user_id}`} className="hover:underline">
+                <Link href={`/${article.profiles.user_name}`} className="hover:underline">
                   <p className="font-medium text-gray-900 dark:text-white">
                     {article.profiles.display_name}
                   </p>

@@ -19,16 +19,25 @@ export function Footer() {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
-        <Link href="/about" className="hover:text-foreground hover:underline">
+        <Link href="https://about.quitmate.app" className="hover:text-foreground hover:underline">
           QuitMateについて
         </Link>
-        <Link href="/terms" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/terms"
+          className="hover:text-foreground hover:underline"
+        >
           利用規約
         </Link>
-        <Link href="/privacy" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/privacy"
+          className="hover:text-foreground hover:underline"
+        >
           プライバシーポリシー
         </Link>
-        <Link href="/contact" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/contact"
+          className="hover:text-foreground hover:underline"
+        >
           お問い合わせ
         </Link>
       </div>

@@ -100,6 +100,21 @@ export async function fetchStoriesByUserId(userId: string) {
   return data as StoryTileDto[];
 }
 
+export async function fetchStoriesByUsername(username: string) {
+  const supabase = await createClient();
+
+  // ユーザー名から直接ストーリーを取得する
+  // profiles!stories_user_id_fkey.user_name で結合検索
+  const { data } = await supabase
+    .from('stories')
+    .select(STORY_SELECT_QUERY)
+    .eq('profiles.user_name', username)
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+
+  return data as StoryTileDto[];
+}
+
 export async function fetchCommentedStoriesByUserId(userId: string) {
   const supabase = await createClient();
   const { data } = await supabase
@@ -108,6 +123,21 @@ export async function fetchCommentedStoriesByUserId(userId: string) {
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
     .limit(FETCH_LIMIT);
+  const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
+  return stories;
+}
+
+export async function fetchCommentedStoriesByUsername(username: string) {
+  const supabase = await createClient();
+
+  // ユーザー名からコメントしたストーリーを取得
+  const { data } = await supabase
+    .from('distinct_user_story_comments')
+    .select(`*, stories(${STORY_SELECT_QUERY})`)
+    .eq('profiles.user_name', username) // user_idではなくuser_nameで検索
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+
   const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
   return stories;
 }
@@ -123,23 +153,29 @@ export async function fetchCommentsByStoryId(storyId: string) {
   return data as CommentTileDto[];
 }
 
-export async function fetchProfileById(id: string) {
+export async function fetchProfileByUsername(username: string) {
   const supabase = await createClient();
 
-  const [profileResult, followersResult, followingResult] = await Promise.all([
-    supabase
-      .from('profiles')
-      .select('*, followers!followers_followed_id_fkey(count)')
-      .eq('id', id)
-      .maybeSingle(),
-    // profileと一緒に二つ同時に取得できなかったため、このようにした
-    supabase.from('followers').select('count').eq('followed_id', id),
-    supabase.from('followers').select('count').eq('follower_id', id),
-  ]);
+  const profileResult = await supabase
+    .from('profiles')
+    .select('*, followers!followers_followed_id_fkey(count)')
+    .eq('user_name', username)
+    .maybeSingle();
 
   if (!profileResult.data) {
     return null;
   }
+
+  // プロファイルデータ全体に型を指定
+  type ProfileData = { id: string; [key: string]: unknown };
+  const profileData = profileResult.data as ProfileData;
+  const userId = profileData.id;
+
+  // 別々のクエリとして実行
+  const [followersResult, followingResult] = await Promise.all([
+    supabase.from('followers').select('count').eq('followed_id', userId),
+    supabase.from('followers').select('count').eq('follower_id', userId),
+  ]);
 
   return {
     ...profileResult.data,

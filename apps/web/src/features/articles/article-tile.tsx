@@ -31,7 +31,7 @@ export function ArticleTile({ article }: Props) {
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
-      <Link href={`/articles/${article.id}`} className="block">
+      <Link href={`/${article.profiles.user_name}/articles/${article.id}`} className="block">
         <div className="p-4">
           {/* タイトル */}
           <h2 className="mb-1 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">

@@ -1,11 +1,12 @@
-import { StoryLikeIcon, CommentIcon, Tag, DefaultAvatar } from '@quitmate/ui';
+import { StoryLikeIcon, CommentIcon, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
 import { StoryTileDto, HabitCategoryName } from '@/lib/types';
+
+import { UserAvatar } from '../profiles/user-avatar';
 
 type Props = {
   story: StoryTileDto;
@@ -32,38 +33,32 @@ export function StoryTile({ story }: Props) {
       <div className="flex px-0 py-4">
         {/* アバター部分 */}
         <div className="mr-3">
-          <Link href={`/profiles/${story.user_id}`} className="block">
-            <div className="size-12 overflow-hidden rounded-full">
-              {story.profiles.avatar_url ? (
-                <Image
-                  src={story.profiles.avatar_url}
-                  alt="プロフィール画像"
-                  width={48}
-                  height={48}
-                  className="object-cover"
-                />
-              ) : (
-                <DefaultAvatar size="md" className="size-full bg-muted" />
-              )}
-            </div>
-          </Link>
+          <UserAvatar
+            username={story.profiles.user_name}
+            displayName={story.profiles.display_name}
+            avatarUrl={story.profiles.avatar_url}
+            size="md"
+          />
         </div>
 
         {/* メインコンテンツ */}
         <div className="flex-1">
           {/* ヘッダー */}
           <div className="mb-1 flex items-center gap-2">
-            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+            <Link href={`/${story.profiles.user_name}`} className="hover:underline">
               <span className="font-bold text-foreground">{story.profiles.display_name}</span>
             </Link>
-            <Link href={`/profiles/${story.user_id}`} className="hover:underline">
+            <Link href={`/${story.profiles.user_name}`} className="hover:underline">
               <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
             </Link>
             <span className="text-sm text-muted-foreground"> </span>
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <Link href={`/stories/${story.id}`} className="block transition-colors hover:bg-accent/5">
+          <Link
+            href={`/${story.profiles.user_name}/stories/${story.id}`}
+            className="block transition-colors hover:bg-accent/5"
+          >
             {/* 習慣カテゴリーとカウント - 日本語表示に修正 */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
