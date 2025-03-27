@@ -77,9 +77,9 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@eslint/js@9.23.0", "@eslint/js@^9.22.0":
+"@eslint/js@9.23.0", "@eslint/js@^9.22.0", "@eslint/js@^9.23.0":
   version "9.23.0"
-  resolved "https://registry.npmjs.org/@eslint/js/-/js-9.23.0.tgz"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.23.0.tgz#c09ded4f3dc63b40b933bcaeb853fceddb64da30"
   integrity sha512-35MJ8vCPU0ZMxo7zfev2pypqTwWTofFZO6m4KAtdoFhRpLJUpHTZZ+KB3C7Hb1d7bULYwO4lJXGCi5Se+8OMbw==
 
 "@eslint/object-schema@^2.1.6":
@@ -2083,7 +2083,7 @@ eslint-plugin-react@^7.37.0:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
-eslint-plugin-tailwindcss@^3.18.0:
+eslint-plugin-tailwindcss@^3.17.0, eslint-plugin-tailwindcss@^3.18.0:
   version "3.18.0"
   resolved "https://registry.npmjs.org/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.18.0.tgz"
   integrity sha512-PQDU4ZMzFH0eb2DrfHPpbgo87Zgg2EXSMOj1NSfzdZm+aJzpuwGerfowMIaVehSREEa0idbf/eoNYAOHSJoDAQ==
@@ -4860,6 +4860,11 @@ tailwindcss@4.0.15, tailwindcss@^4:
   version "4.0.15"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.0.15.tgz"
   integrity sha512-6ZMg+hHdMJpjpeCCFasX7K+U615U9D+7k5/cDK/iRwl6GptF24+I/AbKgOnXhVKePzrEyIXutLv36n4cRsq3Sg==
+
+tailwindcss@^4.0.16:
+  version "4.0.16"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.0.16.tgz#c6551e4ea882895e33994c1ebd064929bdd6bb32"
+  integrity sha512-i/SbG7ThTIcLshcFJL+je7hCv9dPis4Xl4XNeel6iZNX42pp/BZ+la+SbZIPoYE+PN8zhKbnHblpQ/lhOWwIeQ==
 
 tapable@^2.2.0:
   version "2.2.1"
