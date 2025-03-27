@@ -3,7 +3,7 @@ import { Card, CardContent } from "@quitmate/ui";
 
 const testimonials = [
   {
-    name: "禁ギャンブルカテゴリ",
+    name: "ギャンブルカテゴリ",
     title: "素晴らしいアプリ！",
     message:
       "身内に重度のギャンブル依存症がおります。" +
@@ -12,7 +12,7 @@ const testimonials = [
       "家族としても本当に感謝しています。",
   },
   {
-    name: "禁酒カテゴリ",
+    name: "アルコールカテゴリ",
     title: "再発しても励ましてくれる場所",
     message:
       "とても素敵なアプリです。克服期間が100日を越えている人もいます。皆さんでフォローしあって、方法を考え克服に向けて頑張っています。",
@@ -29,7 +29,7 @@ export const Testimonials = () => {
   return (
     <section className="bg-[#f8fbf7] px-6  py-20 text-center">
       <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">
-        QuitMateを使ってよかったこと
+        ユーザーの声
       </h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
