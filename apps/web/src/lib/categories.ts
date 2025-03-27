@@ -76,3 +76,20 @@ export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
 export function getCategoryUrl(category: HabitCategoryName): string {
   return `/stories/habits/${category.toLowerCase().replace(/\s+/g, '-')}`;
 }
+
+/**
+ * 習慣カテゴリー名を表示用の名前に変換する
+ * カスタムカテゴリーの場合はカスタム習慣名を返す
+ */
+export function getCategoryDisplayName(
+  categoryName: string,
+  customHabitName?: string | null,
+): string {
+  // カスタムカテゴリーでカスタム習慣名がある場合はカスタム習慣名を返す
+  if (categoryName.toLowerCase() === 'custom' && customHabitName) {
+    return customHabitName;
+  }
+
+  // それ以外の場合は定義済みの日本語名または元のカテゴリー名を返す
+  return CATEGORY_DISPLAY_NAMES[categoryName as HabitCategoryName] || categoryName;
+}
