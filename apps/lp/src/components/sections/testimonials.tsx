@@ -27,22 +27,22 @@ const testimonials = [
 
 export const Testimonials = () => {
   return (
-    <section className="py-20 px-6 bg-[#f8fbf7] text-center">
-      <h2 className="text-3xl md:text-4xl font-semibold mb-12 text-gray-800">
+    <section className="bg-[#f8fbf7] px-6  py-20 text-center">
+      <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">
         QuitMateを使ってよかったこと
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
           <Card
             key={index}
-            className="text-left h-full bg-white border-none shadow-md"
+            className="h-full border-none bg-white text-left shadow-md"
           >
             <CardContent className="p-6">
-              <div className="flex justify-center mb-4">
+              <div className="mb-4 flex justify-center">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className="w-5 h-5 text-yellow-400"
+                    className="size-5 text-yellow-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -50,13 +50,13 @@ export const Testimonials = () => {
                   </svg>
                 ))}
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="mb-2 text-lg font-semibold text-gray-800">
                 {item.title}
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="mb-4 text-sm text-gray-600">
                 &quot;{item.message}&quot;
               </p>
-              <p className="text-sm text-right text-gray-700 font-semibold">
+              <p className="text-right text-sm font-semibold text-gray-700">
                 — {item.name}
               </p>
             </CardContent>

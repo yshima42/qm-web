@@ -15,6 +15,7 @@
     "postpack": "pinst --enable"
   },
   "dependencies": {
+    "framer-motion": "^12.6.2",
     "gray-matter": "^4.0.3",
     "next": "15.2.4",
     "react": "^19.0.0",

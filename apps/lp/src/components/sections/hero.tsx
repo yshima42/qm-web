@@ -1,10 +1,28 @@
 "use client";
 
-import Image from "next/image";
-
+import { ScreenshotViewer } from "../sections/screenshot-viewer";
 import { StoreBadges } from "../sections/store-badge";
 
 export const Hero = () => {
+  const screenshots = [
+    {
+      src: "/images/screenshot-stories.png",
+      alt: "QuitMateアプリのストーリー画面",
+    },
+    {
+      src: "/images/screenshot-categories.png",
+      alt: "QuitMateアプリのカテゴリ画面",
+    },
+    {
+      src: "/images/screenshot-program.png",
+      alt: "QuitMateアプリのプログラム画面",
+    },
+    {
+      src: "/images/screenshot-habits.png",
+      alt: "QuitMateアプリの習慣画面",
+    },
+  ];
+
   return (
     <section className="flex items-center justify-center bg-gradient-to-b from-[#f8fbf7] to-white p-8 md:py-16">
       <div className="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
@@ -12,22 +30,16 @@ export const Hero = () => {
           <h1 className="mb-2 text-3xl font-bold leading-tight text-gray-800 md:mb-4 md:text-4xl lg:text-4xl">
             共になら、やめられる
           </h1>
-          <p className="mb-4 text-lg md:text-xl lg:text-2xl text-gray-600 md:mb-6">
-            禁酒・禁ギャンブル・禁煙・禁欲等
+          <p className="mb-4 text-lg text-gray-600 md:mb-6 md:text-xl lg:text-2xl">
+            禁酒・禁ギャンブル・禁煙・禁欲など
             <br />
             依存症を克服するための匿名SNSアプリ
           </p>
           <StoreBadges size="xl" />
         </div>
 
-        <div className="relative mt-4 h-[550px] w-full md:mt-0 md:w-[350px] lg:w-[400px]">
-          <Image
-            src="/images/screenshot-stories.png"
-            alt="QuitMateアプリのスクリーンショット"
-            fill
-            className="object-contain drop-shadow-xl"
-            priority
-          />
+        <div className="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
+          <ScreenshotViewer screenshots={screenshots} />
         </div>
       </div>
     </section>
