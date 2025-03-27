@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AppConfig } from "./app-config";
+import { AppConfig } from "../../app-config";
 
 type LogoProps = {
   xl?: boolean;
@@ -22,7 +22,10 @@ export const Logo = ({ xl = false }: LogoProps) => {
         />
         <span
           className={`${fontStyle} font-medium text-gray-800`}
-          style={{ fontWeight: 550, letterSpacing: "0.02em" }}
+          style={{
+            fontWeight: 550,
+            fontFamily: "'Inter', 'Noto Sans JP', sans-serif",
+          }}
         >
           {AppConfig.site_name}
         </span>

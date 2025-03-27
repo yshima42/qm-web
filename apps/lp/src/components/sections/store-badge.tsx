@@ -6,7 +6,7 @@ import Link from "next/link";
 type StoreBadgeProps = {
   store: "apple" | "google";
   className?: string;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large" | "xl";
 };
 
 // ストアごとのURL
@@ -34,6 +34,10 @@ const sizeMapping = {
   large: {
     height: 60,
     width: { apple: 180, google: 200 },
+  },
+  xl: {
+    height: 70,
+    width: { apple: 210, google: 230 },
   },
 };
 
@@ -67,7 +71,7 @@ export function StoreBadge({
 // 両方のバッジを表示するコンポーネント
 type StoreBadgesProps = {
   direction?: "row" | "column";
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large" | "xl";
   className?: string;
 };
 

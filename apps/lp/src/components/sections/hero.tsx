@@ -12,11 +12,12 @@ export const Hero = () => {
           <h1 className="mb-2 text-3xl font-bold leading-tight text-gray-800 md:mb-4 md:text-4xl lg:text-4xl">
             共になら、やめられる
           </h1>
-          <p className="mb-4 text-lg text-gray-600 md:mb-6">
-            QuitMateは、アルコール・ギャンブル・たばこなど、依存症の克服を支える匿名SNSアプリです。
+          <p className="mb-4 text-lg md:text-xl lg:text-2xl text-gray-600 md:mb-6">
+            禁酒・禁ギャンブル・禁煙・禁欲等
+            <br />
+            依存症を克服するための匿名SNSアプリ
           </p>
-
-          <StoreBadges size="medium" />
+          <StoreBadges size="xl" />
         </div>
 
         <div className="relative mt-4 h-[550px] w-full md:mt-0 md:w-[350px] lg:w-[400px]">
