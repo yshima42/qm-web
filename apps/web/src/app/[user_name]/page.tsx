@@ -14,11 +14,12 @@ import { ProfileHeader } from '@/features/profiles/profile-header';
 import { StoryList } from '@/features/stories/story-list';
 
 type Props = {
-  params: { user_name: string };
+  params: Promise<{ user_name: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const user_name = params.user_name;
+  const resolvedParams = await params;
+  const user_name = resolvedParams.user_name;
   const profile = await fetchProfileByUsername(user_name);
 
   if (!profile) {
