@@ -21,8 +21,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "QuitMate | 依存症を仲間と乗り越えるSNS",
-  description: "QuitMateは、依存症に悩む人が匿名で支え合えるSNSアプリです。",
+  title: "QuitMate（クイットメイト） | 依存症克服SNS",
+  description:
+    "依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。",
+  metadataBase: new URL("https://about.quitmate.app"),
+  openGraph: {
+    title: "QuitMate（クイットメイト）",
+    description: "依存症克服SNS",
+    url: "https://about.quitmate.app",
+    siteName: "QuitMate",
+    images: [
+      {
+        url: "/images/ogp.png",
+        width: 1200,
+        height: 630,
+        alt: "QuitMate OGP Image",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QuitMate（クイットメイト）",
+    description: "依存症克服SNS",
+    images: ["/images/ogp.png"],
+    creator: "@QuitMate_JP",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -31,10 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="ja"
-      className={`${notoSansJP.variable} ${inter.variable} light`}
-    >
+    <html lang="ja" className={`${notoSansJP.variable} ${inter.variable}`}>
       <body className="min-h-screen bg-white">
         <Header />
         <main className="flex-1">{children}</main>
