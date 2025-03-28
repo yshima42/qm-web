@@ -10,9 +10,10 @@ import { UserAvatar } from '../profiles/user-avatar';
 
 type Props = {
   story: StoryTileDto;
+  disableLink?: boolean;
 };
 
-export function StoryTile({ story }: Props) {
+export function StoryTile({ story, disableLink = false }: Props) {
   const storyDate = new Date(story.created_at);
   const currentYear = new Date().getFullYear();
   const storyYear = storyDate.getFullYear();
@@ -28,6 +29,22 @@ export function StoryTile({ story }: Props) {
     story.habit_categories.habit_category_name,
     story.custom_habit_name,
   );
+
+  // メインコンテンツの部分をラップするコンポーネント
+  const ContentWrapper = ({ children }: { children: React.ReactNode }) => {
+    if (disableLink) {
+      return <div className="block transition-colors">{children}</div>;
+    }
+
+    return (
+      <Link
+        href={`/${story.profiles.user_name}/stories/${story.id}`}
+        className="block transition-colors hover:bg-accent/5"
+      >
+        {children}
+      </Link>
+    );
+  };
 
   return (
     <div className="block border-b border-gray-300 dark:border-gray-700">
@@ -56,10 +73,7 @@ export function StoryTile({ story }: Props) {
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <Link
-            href={`/${story.profiles.user_name}/stories/${story.id}`}
-            className="block transition-colors hover:bg-accent/5"
-          >
+          <ContentWrapper>
             {/* 習慣カテゴリーとカウント - 日本語表示に修正 */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
@@ -81,7 +95,7 @@ export function StoryTile({ story }: Props) {
                 <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
               </div>
             </div>
-          </Link>
+          </ContentWrapper>
         </div>
       </div>
     </div>
