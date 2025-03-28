@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server';
+import { createAnonServerClient, createClient } from '@/utils/supabase/server';
 
 import {
   ArticleCommentTileDto,
@@ -34,7 +34,7 @@ export async function fetchArticles() {
 }
 
 export async function fetchArticleById(id: string) {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const result = await supabase
     .from('articles')
     .select(ARTICLE_SELECT_QUERY)
@@ -44,18 +44,18 @@ export async function fetchArticleById(id: string) {
 }
 
 export async function fetchCommentsByArticleId(articleId: string) {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const { data } = await supabase
     .from('article_comments')
     .select(
       '*, profiles!article_comments_user_id_fkey(user_name, display_name, avatar_url), article_comment_likes(count)',
     )
     .eq('article_id', articleId);
-  return data as ArticleCommentTileDto[];
+  return data as ArticleCommentTileDto[] | null;
 }
 
 export async function fetchStories() {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const { data } = await supabase
     .from('stories')
     .select(STORY_SELECT_QUERY)
@@ -63,6 +63,79 @@ export async function fetchStories() {
     .limit(FETCH_LIMIT);
 
   return data as StoryTileDto[];
+}
+
+// data層の関数の命名がpresentational層に依存していて微妙な気がするが、とりあえず
+export async function fetchStoryDetailPageStaticParams(limit?: number) {
+  const supabase = createAnonServerClient();
+  const now = new Date().toISOString();
+  let allStories: { id: string; profiles: { user_name: string } }[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('stories')
+      .select(STORY_SELECT_QUERY)
+      .lte('created_at', now)
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allStories = [
+      ...allStories,
+      ...(result.data as unknown as { id: string; profiles: { user_name: string } }[]),
+    ];
+
+    // 指定された制限に達した場合、ループを終了
+    if (limit && allStories.length >= limit) {
+      allStories = allStories.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allStories;
+}
+
+export async function fetchArticlePageStaticParams(limit?: number) {
+  const supabase = createAnonServerClient();
+  const now = new Date().toISOString();
+  let allStories: { id: string; profiles: { user_name: string } }[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('stories')
+      .select(STORY_SELECT_QUERY)
+      .lte('created_at', now)
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allStories = [
+      ...allStories,
+      ...(result.data as unknown as { id: string; profiles: { user_name: string } }[]),
+    ];
+
+    // 指定された制限に達した場合、ループを終了
+    if (limit && allStories.length >= limit) {
+      allStories = allStories.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allStories;
 }
 
 export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
@@ -80,7 +153,7 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
 }
 
 export async function fetchStoryById(id: string) {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const result = await supabase
     .from('stories')
     .select(STORY_SELECT_QUERY)
@@ -113,14 +186,43 @@ export async function fetchCommentedStoriesByUserId(userId: string) {
 }
 
 export async function fetchCommentsByStoryId(storyId: string) {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const { data } = await supabase
     .from('comments')
     .select(
       '*, profiles!comments_user_id_fkey(user_name, display_name, avatar_url), comment_likes(count)',
     )
     .eq('story_id', storyId);
-  return data as CommentTileDto[];
+  return data as CommentTileDto[] | null;
+}
+
+export async function fetchProfilePageStaticParams(limit?: number) {
+  const supabase = createAnonServerClient();
+  let allUsernames: { user_name: string }[] = [];
+  let page = 0;
+  const pageSize = 1000; // Supabaseのデフォルト最大値
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('profiles')
+      .select('user_name')
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('user_name', { ascending: true });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allUsernames = [...allUsernames, ...result.data];
+    if (limit && allUsernames.length >= limit) {
+      allUsernames = allUsernames.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allUsernames;
 }
 
 export async function fetchProfileByUsername(username: string) {
