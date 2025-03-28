@@ -1,8 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import {
   fetchCommentedStoriesByUserId,
@@ -64,21 +66,23 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   return (
     <>
       <Header title="プロフィール" />
-      <main className="p-3 sm:p-5">
-        <ProfileHeader profile={profile} />
-        <Tabs defaultValue="posts" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="posts">投稿</TabsTrigger>
-            <TabsTrigger value="comments">コメント</TabsTrigger>
-          </TabsList>
-          <TabsContent value="posts">
-            <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(profile.id)} />
-          </TabsContent>
-          <TabsContent value="comments">
-            <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(profile.id)} />
-          </TabsContent>
-        </Tabs>
-      </main>
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <main className="p-3 sm:p-5">
+          <ProfileHeader profile={profile} />
+          <Tabs defaultValue="posts" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="posts">投稿</TabsTrigger>
+              <TabsTrigger value="comments">コメント</TabsTrigger>
+            </TabsList>
+            <TabsContent value="posts">
+              <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(profile.id)} />
+            </TabsContent>
+            <TabsContent value="comments">
+              <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(profile.id)} />
+            </TabsContent>
+          </Tabs>
+        </main>
+      </Suspense>
     </>
   );
 }
