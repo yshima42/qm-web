@@ -7,22 +7,37 @@ export function Footer() {
     <footer className="mx-auto flex w-full flex-col items-center justify-center gap-4 border-t py-8 text-center">
       <div className="flex items-center justify-center">
         <Link href="/" className="flex flex-col items-center">
-          <Image src="/icon-web.png" alt="QuitMate Logo" width={40} height={40} className="mb-2" />
+          <Image
+            src="/images/icon-web.png"
+            alt="QuitMate Logo"
+            width={40}
+            height={40}
+            className="mb-2"
+          />
           <p className="text-sm font-medium">共になら、やめられる</p>
         </Link>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
-        <Link href="/about" className="hover:text-foreground hover:underline">
+        <Link href="https://about.quitmate.app" className="hover:text-foreground hover:underline">
           QuitMateについて
         </Link>
-        <Link href="/terms" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/terms"
+          className="hover:text-foreground hover:underline"
+        >
           利用規約
         </Link>
-        <Link href="/privacy" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/privacy"
+          className="hover:text-foreground hover:underline"
+        >
           プライバシーポリシー
         </Link>
-        <Link href="/contact" className="hover:text-foreground hover:underline">
+        <Link
+          href="https://about.quitmate.app/contact"
+          className="hover:text-foreground hover:underline"
+        >
           お問い合わせ
         </Link>
       </div>

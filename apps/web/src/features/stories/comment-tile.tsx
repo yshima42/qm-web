@@ -1,10 +1,10 @@
-import { DefaultAvatar } from '@quitmate/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { CommentTileDto } from '@/lib/types';
+
+import { UserAvatar } from '../profiles/user-avatar';
 
 type Props = {
   comment: CommentTileDto;
@@ -20,32 +20,23 @@ export function CommentTile({ comment }: Props) {
     <div className="flex border-b border-border p-3 pl-12">
       {/* アバター */}
       <div className="mr-2">
-        <Link href={`/profiles/${comment.user_id}`} className="block">
-          <div className="size-8 overflow-hidden rounded-full">
-            {comment.profiles.avatar_url ? (
-              <Image
-                src={comment.profiles.avatar_url}
-                alt="プロフィール画像"
-                width={32}
-                height={32}
-                className="object-cover"
-              />
-            ) : (
-              <DefaultAvatar size="md" className="size-full bg-muted" />
-            )}
-          </div>
-        </Link>
+        <UserAvatar
+          username={comment.profiles.user_name}
+          displayName={comment.profiles.display_name}
+          avatarUrl={comment.profiles.avatar_url}
+          size="sm"
+        />
       </div>
 
       {/* コメント本文 */}
       <div className="flex-1">
         <div className="mb-0.5 flex items-center gap-1.5">
-          <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
+          <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
             <span className="text-sm font-bold text-foreground">
               {comment.profiles.display_name}
             </span>
           </Link>
-          <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
+          <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
             <span className="text-xs text-muted-foreground">@{comment.profiles.user_name}</span>
           </Link>
           <span className="text-xs text-muted-foreground">・</span>

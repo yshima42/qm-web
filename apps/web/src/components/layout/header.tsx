@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@quitmate/ui';
+import clsx from 'clsx';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +11,11 @@ type HeaderProps = {
   showBackButton?: boolean;
   backUrl?: string;
   rightElement?: React.ReactNode;
+  hideTitle?: {
+    mobile?: boolean;
+    desktop?: boolean;
+  };
+  icon?: React.ReactNode;
 };
 
 export function Header({
@@ -18,6 +24,8 @@ export function Header({
   showBackButton = true,
   backUrl,
   rightElement,
+  hideTitle,
+  icon,
 }: HeaderProps) {
   const router = useRouter();
 
@@ -44,11 +52,35 @@ export function Header({
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           {titleElement ? (
             <>
-              <div className="md:hidden">{titleElement}</div>
-              <h1 className="hidden whitespace-nowrap text-base font-medium md:block">{title}</h1>
+              <div
+                className={clsx(
+                  hideTitle?.mobile ? 'hidden' : '',
+                  hideTitle?.desktop ? 'md:hidden' : 'md:block',
+                )}
+              >
+                {titleElement}
+              </div>
+              {!titleElement && (
+                <h1
+                  className={clsx(
+                    'whitespace-nowrap text-base font-medium',
+                    'md:hidden',
+                    hideTitle?.desktop ? 'hidden' : 'block',
+                  )}
+                >
+                  {title}
+                </h1>
+              )}
             </>
           ) : (
-            <h1 className="whitespace-nowrap text-base font-medium">{title}</h1>
+            <div className="flex items-center justify-center gap-2">
+              {icon && <div className="text-foreground">{icon}</div>}
+              <h1
+                className={`whitespace-nowrap text-base font-medium ${hideTitle?.mobile ? 'hidden md:block' : ''} ${hideTitle?.desktop ? 'md:hidden' : ''}`}
+              >
+                {title}
+              </h1>
+            </div>
           )}
         </div>
 

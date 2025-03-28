@@ -11,7 +11,7 @@ export default function Page() {
   const logoElement = (
     <div className="flex items-center gap-1">
       <Image
-        src="/icon-web.png"
+        src="/images/icon-web.png"
         alt="QuitMate Logo"
         width={20}
         height={20}
