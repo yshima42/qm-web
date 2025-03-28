@@ -1,4 +1,4 @@
-import { StoryLikeIcon, CommentIcon, Tag } from '@quitmate/ui';
+import { CommentIconWithDownload, StoryLikeIconWithDownload, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Link from 'next/link';
@@ -83,19 +83,19 @@ export function StoryTile({ story, disableLink = false }: Props) {
 
             {/* 本文 */}
             <p className="mb-3 whitespace-pre-wrap text-foreground">{story.content}</p>
-
-            {/* アクション */}
-            <div className="flex gap-6 text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <CommentIcon />
-                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <StoryLikeIcon />
-                <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-              </div>
-            </div>
           </ContentWrapper>
+
+          {/* アクション - ContentWrapperの外に移動 */}
+          <div className="flex gap-6 text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <CommentIconWithDownload />
+              <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <StoryLikeIconWithDownload />
+              <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
