@@ -1,6 +1,7 @@
 import { CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -14,6 +15,32 @@ import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
 import { UserAvatar } from '@/features/profiles/user-avatar';
+
+// Props型を修正して現在のページコンポーネントと整合させる
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+  const article = await fetchArticleById(id);
+
+  if (!article) {
+    return {
+      title: '記事が見つかりません',
+    };
+  }
+
+  const categoryDisplayName =
+    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
+    article.habit_categories.habit_category_name;
+
+  return {
+    title: `${article.title} | ${categoryDisplayName}`,
+    description: article.content.substring(0, 300) || '記事詳細ページです',
+  };
+}
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

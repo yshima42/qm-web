@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
@@ -11,6 +12,27 @@ import {
 
 import { ProfileHeader } from '@/features/profiles/profile-header';
 import { StoryList } from '@/features/stories/story-list';
+
+type Props = {
+  params: Promise<{ user_name: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const user_name = resolvedParams.user_name;
+  const profile = await fetchProfileByUsername(user_name);
+
+  if (!profile) {
+    return {
+      title: 'ユーザーが見つかりません',
+    };
+  }
+
+  return {
+    title: `${profile.display_name} on QuitMate`,
+    description: profile.bio ?? `${profile.display_name}のプロフィールページです。`,
+  };
+}
 
 export default async function Page(props: { params: Promise<{ user_name: string }> }) {
   const params = await props.params;
