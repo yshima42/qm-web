@@ -1,7 +1,8 @@
 "use client";
 
+import { StoreBadges } from "@quitmate/ui";
+
 import { ScreenshotViewer } from "../sections/screenshot-viewer";
-import { StoreBadges } from "../sections/store-badge";
 
 export const Hero = () => {
   const screenshots = [

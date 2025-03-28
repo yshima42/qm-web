@@ -1,6 +1,7 @@
 import { ArticleLikeIcon, CommentIcon, DefaultAvatar, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
@@ -14,7 +15,8 @@ type Props = {
 };
 
 export function ArticleTile({ article }: Props) {
-  const articleDate = new Date(article.created_at);
+  // 記事日時を東京時間に変換
+  const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
 

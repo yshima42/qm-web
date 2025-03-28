@@ -1,3 +1,5 @@
+import { IconWithDownloadDialog } from "./app-download-dialog";
+
 type IconProps = {
   className?: string;
 };
@@ -38,5 +40,30 @@ export function ArticleLikeIcon({ className = 'size-5' }: IconProps) {
         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
       />
     </svg>
+  );
+}
+
+// 既存のアイコンをラップする使用例
+export function CommentIconWithDownload({ className = 'size-5' }: IconProps) {
+  return (
+    <IconWithDownloadDialog className="cursor-pointer">
+      <CommentIcon className={className} />
+    </IconWithDownloadDialog>
+  );
+}
+
+export function StoryLikeIconWithDownload({ className = 'size-5' }: IconProps) {
+  return (
+    <IconWithDownloadDialog className="cursor-pointer">
+      <StoryLikeIcon className={className} />
+    </IconWithDownloadDialog>
+  );
+}
+
+export function ArticleLikeIconWithDownload({ className = 'size-5' }: IconProps) {
+  return (
+    <IconWithDownloadDialog className="cursor-pointer">
+      <ArticleLikeIcon className={className} />
+    </IconWithDownloadDialog>
   );
 }

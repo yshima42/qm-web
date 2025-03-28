@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
+
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { fetchArticles } from '@/lib/data';
 
@@ -8,9 +11,11 @@ export default function Page() {
   return (
     <>
       <Header title="記事一覧" showBackButton={false} />
-      <div className="p-3 sm:p-5">
-        <ArticleList fetchArticlesFunc={fetchArticles} />
-      </div>
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <div className="p-3 sm:p-5">
+          <ArticleList fetchArticlesFunc={fetchArticles} />
+        </div>
+      </Suspense>
     </>
   );
 }

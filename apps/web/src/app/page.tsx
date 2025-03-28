@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { fetchStories } from '@/lib/data';
 
@@ -29,9 +31,11 @@ export default function Page() {
         // カスタム要素としてロゴを渡す（モバイルでのみ表示）
         titleElement={logoElement}
       />
-      <main className="p-3 sm:p-5">
-        <StoryList fetchStoriesFunc={fetchStories} />
-      </main>
+      <Suspense fallback={<LoadingSpinner />}>
+        <main className="p-3 sm:p-5">
+          <StoryList fetchStoriesFunc={fetchStories} />
+        </main>
+      </Suspense>
     </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { StoreBadges } from "../sections/store-badge";
+import { StoreBadges } from "@quitmate/ui";
 
 export const FinalCTA = () => {
   return (

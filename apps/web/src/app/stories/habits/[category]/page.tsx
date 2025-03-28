@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
 import { fetchStoriesByHabitCategoryName } from '@/lib/data';
@@ -53,7 +55,9 @@ export default async function Page(props: { params: Promise<{ category: string }
         icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
       />
       <main className="p-3 sm:p-5">
-        <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+        </Suspense>
       </main>
     </>
   );

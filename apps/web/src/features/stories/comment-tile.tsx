@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 
 import { CommentTileDto } from '@/lib/types';
@@ -11,7 +12,9 @@ type Props = {
 };
 
 export function CommentTile({ comment }: Props) {
-  const createdAt = formatDistanceToNow(new Date(comment.created_at), {
+  // コメント日時を東京時間に変換
+  const commentDate = toZonedTime(new Date(comment.created_at), 'Asia/Tokyo');
+  const createdAt = formatDistanceToNow(commentDate, {
     addSuffix: true,
     locale: ja,
   });
