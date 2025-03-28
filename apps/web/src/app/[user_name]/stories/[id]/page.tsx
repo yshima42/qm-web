@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import {
   fetchStoryById,
@@ -78,16 +80,18 @@ export default async function Page({
   return (
     <>
       <Header title="ストーリー詳細" />
-      <main className="p-3 sm:p-5">
-        <StoryTile story={story} />
-        {comments && comments.length > 0 && (
-          <div className="mt-4">
-            {comments.map((comment) => (
-              <CommentTile key={comment.id} comment={comment} />
-            ))}
-          </div>
-        )}
-      </main>
+      <Suspense fallback={<LoadingSpinner />}>
+        <main className="p-3 sm:p-5">
+          <StoryTile story={story} />
+          {comments && comments.length > 0 && (
+            <div className="mt-4">
+              {comments.map((comment) => (
+                <CommentTile key={comment.id} comment={comment} />
+              ))}
+            </div>
+          )}
+        </main>
+      </Suspense>
     </>
   );
 }

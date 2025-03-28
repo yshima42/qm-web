@@ -4,8 +4,10 @@ import { ja } from 'date-fns/locale';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, getCategoryDisplayName } from '@/lib/categories';
 import {
@@ -107,95 +109,99 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <>
-      <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
-      <main className="p-3 sm:p-5">
-        <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-          {/* 記事ヘッダー */}
-          <div className="mb-8">
-            {/* モバイルでのみ表示されるタイトル */}
-            <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
-              {article.title}
-            </h1>
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                {/* 英語名を日本語名に変換して表示 */}
-                <Tag>{categoryDisplayName}</Tag>
-                <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
-              </div>
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
+        <main className="p-3 sm:p-5">
+          <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+            {/* 記事ヘッダー */}
+            <div className="mb-8">
+              {/* モバイルでのみ表示されるタイトル */}
+              <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
+                {article.title}
+              </h1>
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {/* 英語名を日本語名に変換して表示 */}
+                  <Tag>{categoryDisplayName}</Tag>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
+                </div>
 
-              {/* いいねとコメントカウント（上部に表示） */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1">
-                  <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {article.article_likes[0]?.count ?? 0}
-                  </span>
+                {/* いいねとコメントカウント（上部に表示） */}
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1">
+                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      {article.article_likes[0]?.count ?? 0}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mb-8 flex items-center gap-3">
-              <UserAvatar
-                username={article.profiles.user_name}
-                displayName={article.profiles.display_name}
-                avatarUrl={article.profiles.avatar_url}
-                size="md"
-              />
-              <div>
-                <Link href={`/${article.profiles.user_name}`} className="hover:underline">
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {article.profiles.display_name}
+              <div className="mb-8 flex items-center gap-3">
+                <UserAvatar
+                  username={article.profiles.user_name}
+                  displayName={article.profiles.display_name}
+                  avatarUrl={article.profiles.avatar_url}
+                  size="md"
+                />
+                <div>
+                  <Link href={`/${article.profiles.user_name}`} className="hover:underline">
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      {article.profiles.display_name}
+                    </p>
+                  </Link>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    @{article.profiles.user_name}
                   </p>
-                </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  @{article.profiles.user_name}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* 記事本文 (Markdown) */}
-          <article className="prose max-w-none dark:prose-invert lg:prose-lg">
-            <MarkdownRenderer content={article.content} />
-          </article>
-
-          {/* 記事フッター */}
-          <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
-                  <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {article.article_likes[0]?.count ?? 0}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {article.article_comments[0]?.count ?? 0}
-                  </span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* コメントセクション - 背景色を削除 */}
-          <div className="mt-8">
-            <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
-              コメント ({article.article_comments[0]?.count ?? 0})
-            </h2>
-            <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
-              {comments && comments.length > 0 ? (
-                comments.map((comment) => <ArticleCommentTile key={comment.id} comment={comment} />)
-              ) : (
-                <p className="py-4 text-center text-gray-500 dark:text-gray-400">
-                  コメントはまだありません
-                </p>
-              )}
+            {/* 記事本文 (Markdown) */}
+            <article className="prose max-w-none dark:prose-invert lg:prose-lg">
+              <MarkdownRenderer content={article.content} />
+            </article>
+
+            {/* 記事フッター */}
+            <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-2">
+                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {article.article_likes[0]?.count ?? 0}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {article.article_comments[0]?.count ?? 0}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* コメントセクション - 背景色を削除 */}
+            <div className="mt-8">
+              <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+                コメント ({article.article_comments[0]?.count ?? 0})
+              </h2>
+              <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
+                {comments && comments.length > 0 ? (
+                  comments.map((comment) => (
+                    <ArticleCommentTile key={comment.id} comment={comment} />
+                  ))
+                ) : (
+                  <p className="py-4 text-center text-gray-500 dark:text-gray-400">
+                    コメントはまだありません
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </Suspense>
     </>
   );
 }
