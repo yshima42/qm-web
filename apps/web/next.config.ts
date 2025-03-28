@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
   },
   // eslint-disable-next-line @typescript-eslint/require-await
   async headers() {
+    if (process.env.NODE_ENV === 'development') {
+      return [];
+    }
+
     return [
       {
         source: '/(.*)',

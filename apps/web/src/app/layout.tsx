@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 
 import { Footer } from '@/components/layout/footer';
 import { Sidebar } from '@/components/layout/sidebar';
+import { SmartBanner } from '@/components/ui/smart-banner';
 
 import './globals.css';
 
@@ -81,7 +82,7 @@ export default function RootLayout({
                 <Sidebar />
                 <div className="flex flex-1 flex-col">{children}</div>
               </div>
-
+              <SmartBanner />
               <Footer />
             </div>
           </main>
