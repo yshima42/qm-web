@@ -49,11 +49,11 @@ export function SidebarContent({
             <Image
               src="/images/icon-web.png"
               alt="QuitMate Logo"
-              width={20}
-              height={20}
-              className="h-6 w-auto"
+              width={24}
+              height={24}
+              className="h-8 w-auto"
             />
-            <span className="font-bold leading-tight">QuitMate</span>
+            <span className="text-2xl font-medium leading-tight">QuitMate</span>
           </Link>
         </div>
       )}
@@ -149,11 +149,11 @@ export function Sidebar() {
                 <Image
                   src="/images/icon-web.png"
                   alt="QuitMate Logo"
-                  width={20}
-                  height={20}
-                  className="h-6 w-auto"
+                  width={24}
+                  height={24}
+                  className="h-8 w-auto"
                 />
-                <span className="font-bold leading-tight">QuitMate</span>
+                <span className="text-2xl font-medium leading-tight">QuitMate</span>
               </Link>
             </SheetHeader>
             <div className="pt-4">
