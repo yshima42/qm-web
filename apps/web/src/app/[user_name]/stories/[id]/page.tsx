@@ -42,7 +42,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <>
       <Header title="ストーリー詳細" />
       <main className="p-3 sm:p-5">
-        <StoryTile story={story} disableLink />
+        <StoryTile story={story} disableLink showFullContent />
         <div className="mt-4">
           {comments.map((comment) => (
             <CommentTile key={comment.id} comment={comment} />
