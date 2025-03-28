@@ -46,7 +46,7 @@ export function ArticleTile({ article }: Props) {
           </div>
 
           {/* 記事の説明文 (Markdown) */}
-          <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-4 line-clamp-3 text-gray-700 dark:text-gray-300">
+          <div className="prose-sm mb-4 line-clamp-3 text-gray-700 dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 dark:text-gray-300">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
           </div>
 

@@ -4,13 +4,12 @@ import { ja } from 'date-fns/locale';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 import { Header } from '@/components/layout/header';
 
 import { CATEGORY_DISPLAY_NAMES, getCategoryDisplayName } from '@/lib/categories';
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
+import { MarkdownRenderer } from '@/lib/markdown-render';
 import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
@@ -77,9 +76,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       <main className="p-3 sm:p-5">
         <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* 記事ヘッダー */}
-          <div className="mb-6">
+          <div className="mb-8">
             {/* モバイルでのみ表示されるタイトル */}
-            <h1 className="mb-4 text-xl font-bold text-gray-900 dark:text-white sm:hidden">
+            <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
               {article.title}
             </h1>
             <div className="mb-4 flex items-center justify-between">
@@ -100,7 +99,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               </div>
             </div>
 
-            <div className="mb-6 flex items-center gap-3">
+            <div className="mb-8 flex items-center gap-3">
               <UserAvatar
                 username={article.profiles.user_name}
                 displayName={article.profiles.display_name}
@@ -121,9 +120,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           </div>
 
           {/* 記事本文 (Markdown) */}
-          <div className="prose prose-gray prose-base dark:prose-invert max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
-          </div>
+          <article className="prose max-w-none dark:prose-invert lg:prose-lg">
+            <MarkdownRenderer content={article.content} />
+          </article>
 
           {/* 記事フッター */}
           <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">

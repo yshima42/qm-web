@@ -1,3 +1,4 @@
+import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
 
@@ -70,9 +71,78 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'var(--tw-prose-body)',
+            'h1, h2, h3': {
+              fontWeight: 'bold',
+              color: 'var(--tw-prose-headings)',
+            },
+            h1: {
+              fontSize: '2.25rem',
+              marginTop: '2.5rem',
+              marginBottom: '1.5rem',
+            },
+            h2: {
+              fontSize: '1.875rem',
+              marginTop: '2rem',
+              marginBottom: '1rem',
+              paddingBottom: '0.5rem',
+              borderBottomWidth: '1px',
+            },
+            h3: {
+              fontSize: '1.5rem',
+              marginTop: '1.5rem',
+              marginBottom: '0.75rem',
+            },
+            p: {
+              marginTop: '1rem',
+              marginBottom: '1rem',
+              lineHeight: '1.75',
+            },
+            img: {
+              borderRadius: '0.375rem',
+              margin: '2rem auto',
+              boxShadow: 'var(--tw-shadow-md)',
+            },
+            blockquote: {
+              fontStyle: 'italic',
+              paddingLeft: '1rem',
+              borderLeftWidth: '4px',
+            },
+            code: {
+              color: 'var(--tw-prose-code)',
+              backgroundColor: 'var(--tw-prose-code-bg)',
+              padding: '0.25rem 0.375rem',
+              borderRadius: '0.25rem',
+            },
+            pre: {
+              backgroundColor: 'var(--tw-prose-pre-bg)',
+              color: 'var(--tw-prose-pre-code)',
+              padding: '1rem',
+              borderRadius: '0.5rem',
+              overflowX: 'auto',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+            },
+            a: {
+              color: 'var(--tw-prose-links)',
+              fontWeight: '500',
+              textDecoration: 'none',
+            },
+            'a:hover': {
+              textDecoration: 'underline',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [animate],
+  plugins: [animate, typography],
 } satisfies Config;
 
 export default config;
