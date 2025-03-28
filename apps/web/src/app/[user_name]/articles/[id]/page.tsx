@@ -8,7 +8,11 @@ import { notFound } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 
 import { CATEGORY_DISPLAY_NAMES, getCategoryDisplayName } from '@/lib/categories';
-import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
+import {
+  fetchArticleById,
+  fetchArticlePageStaticParams,
+  fetchCommentsByArticleId,
+} from '@/lib/data';
 import { MarkdownRenderer } from '@/lib/markdown-render';
 import { HabitCategoryName } from '@/lib/types';
 
@@ -40,6 +44,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | ${categoryDisplayName}`,
     description: article.content.substring(0, 300) || '記事詳細ページです',
   };
+}
+
+// Next.js will invalidate the cache when a
+// request comes in, at most once every 60 seconds.
+// @/lib/で定数を定義しここで利用したらエラーが起きたのでベタがき
+export const revalidate = 60;
+
+// We'll prerender only the params from `generateStaticParams` at build time.
+// If a request comes in for a path that hasn't been generated,
+// Next.js will server-render the page on-demand.
+export const dynamicParams = true; // or false, to 404 on unknown paths
+
+export async function generateStaticParams() {
+  try {
+    const articles = await fetchArticlePageStaticParams(10);
+
+    // storiesがnullまたは空配列の場合は空配列を返す
+    if (!Array.isArray(articles) || articles.length === 0) {
+      console.log('No articles found or invalid data returned');
+      return [];
+    }
+
+    // 必要なプロパティが存在することを確認
+    return articles.map((article) => ({
+      id: String(article.id),
+      user_name: article.profiles.user_name,
+    }));
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [];
+  }
 }
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -150,7 +185,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               コメント ({article.article_comments[0]?.count ?? 0})
             </h2>
             <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
-              {comments.length > 0 ? (
+              {comments && comments.length > 0 ? (
                 comments.map((comment) => <ArticleCommentTile key={comment.id} comment={comment} />)
               ) : (
                 <p className="py-4 text-center text-gray-500 dark:text-gray-400">
