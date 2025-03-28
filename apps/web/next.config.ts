@@ -4,6 +4,9 @@ const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-i
 
 const nextConfig: NextConfig = {
   /* config options here */
+  env: {
+    TZ: 'Asia/Tokyo',
+  },
   images: {
     remotePatterns: [
       {
