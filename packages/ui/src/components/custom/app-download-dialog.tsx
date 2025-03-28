@@ -9,17 +9,15 @@ const AppDownloadDialogContent = () => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>アプリをダウンロード</DialogTitle>
-        <DialogDescription>
-          より良い体験のために、アプリをダウンロードしてください。
+        <DialogTitle className="text-xl md:text-2xl">アプリをダウンロード</DialogTitle>
+        <DialogDescription className="text-base md:text-lg mt-2">
+          まずは無料でダウンロード！あなただけじゃない。共になら、やめられる。
         </DialogDescription>
       </DialogHeader>
-      <div className="flex flex-col gap-6 py-4">
-        <p className="text-center">アプリを使うとより快適に利用できます。今すぐダウンロードしましょう！</p>
-        
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex flex-col items-center">
-            <p className="font-medium mb-3">QRコードでダウンロード</p>
+      <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-4">
+        <div className="flex flex-col items-center space-y-4 md:space-y-6">
+          <div className="hidden md:flex md:flex-col md:items-center">
+            <p className="font-medium mb-2">QRコードでダウンロード</p>
             <div className="bg-white p-2 rounded-lg">
               <Image 
                 src="/images/qr-code.svg" 
@@ -32,7 +30,7 @@ const AppDownloadDialogContent = () => {
           </div>
           
           <div className="flex flex-col items-center">
-            <p className="font-medium mb-3">ストアからダウンロード</p>
+            <p className="font-medium mb-2 md:mb-3">ストアからダウンロード</p>
             <StoreBadges size="medium" />
           </div>
         </div>
