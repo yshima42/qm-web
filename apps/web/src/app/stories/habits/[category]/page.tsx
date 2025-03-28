@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
 import { fetchStoriesByHabitCategoryName } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
@@ -41,9 +41,17 @@ export default async function Page(props: { params: Promise<{ category: string }
   // 日本語カテゴリー名を取得
   const categoryDisplayName = CATEGORY_DISPLAY_NAMES[habitCategory];
 
+  // カテゴリーアイコンを取得
+  const CategoryIcon = CATEGORY_ICONS[habitCategory];
+
   return (
     <>
-      <Header title={categoryDisplayName} backUrl="/stories" showBackButton={false} />
+      <Header
+        title={categoryDisplayName}
+        backUrl="/stories"
+        showBackButton={false}
+        icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
+      />
       <main className="p-3 sm:p-5">
         <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
       </main>

@@ -1,19 +1,46 @@
-import { DefaultAvatar, CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
+import { CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import Image from 'next/image';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 import { Header } from '@/components/layout/header';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { CATEGORY_DISPLAY_NAMES, getCategoryDisplayName } from '@/lib/categories';
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
+import { MarkdownRenderer } from '@/lib/markdown-render';
 import { HabitCategoryName } from '@/lib/types';
 
 import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
+import { UserAvatar } from '@/features/profiles/user-avatar';
+
+// Props型を修正して現在のページコンポーネントと整合させる
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+  const article = await fetchArticleById(id);
+
+  if (!article) {
+    return {
+      title: '記事が見つかりません',
+    };
+  }
+
+  const categoryDisplayName = getCategoryDisplayName(
+    article.habit_categories.habit_category_name,
+    article.custom_habit_name,
+  );
+
+  return {
+    title: `${article.title} | ${categoryDisplayName}`,
+    description: article.content.substring(0, 300) || '記事詳細ページです',
+  };
+}
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -45,11 +72,15 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <>
-      <Header title={article.title} backUrl="/articles" />
+      <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
       <main className="p-3 sm:p-5">
         <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* 記事ヘッダー */}
-          <div className="mb-6">
+          <div className="mb-8">
+            {/* モバイルでのみ表示されるタイトル */}
+            <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
+              {article.title}
+            </h1>
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {/* 英語名を日本語名に変換して表示 */}
@@ -68,24 +99,15 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               </div>
             </div>
 
-            <div className="mb-6 flex items-center gap-3">
-              <Link href={`/profiles/${article.user_id}`} className="block">
-                <div className="size-9 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-                  {article.profiles.avatar_url ? (
-                    <Image
-                      src={article.profiles.avatar_url}
-                      alt="プロフィール画像"
-                      width={36}
-                      height={36}
-                      className="object-cover"
-                    />
-                  ) : (
-                    <DefaultAvatar size="md" className="size-full bg-gray-200 dark:bg-gray-700" />
-                  )}
-                </div>
-              </Link>
+            <div className="mb-8 flex items-center gap-3">
+              <UserAvatar
+                username={article.profiles.user_name}
+                displayName={article.profiles.display_name}
+                avatarUrl={article.profiles.avatar_url}
+                size="md"
+              />
               <div>
-                <Link href={`/profiles/${article.user_id}`} className="hover:underline">
+                <Link href={`/${article.profiles.user_name}`} className="hover:underline">
                   <p className="font-medium text-gray-900 dark:text-white">
                     {article.profiles.display_name}
                   </p>
@@ -98,9 +120,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           </div>
 
           {/* 記事本文 (Markdown) */}
-          <div className="prose prose-gray prose-base dark:prose-invert max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
-          </div>
+          <article className="prose max-w-none dark:prose-invert lg:prose-lg">
+            <MarkdownRenderer content={article.content} />
+          </article>
 
           {/* 記事フッター */}
           <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">

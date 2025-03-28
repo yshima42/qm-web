@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
@@ -6,6 +7,27 @@ import { fetchStoryById, fetchCommentsByStoryId } from '@/lib/data';
 
 import { CommentTile } from '@/features/stories/comment-tile';
 import { StoryTile } from '@/features/stories/story-tile';
+
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+  const story = await fetchStoryById(id);
+
+  if (!story) {
+    return {
+      title: 'ストーリーが見つかりません',
+    };
+  }
+
+  return {
+    title: `${story.profiles.display_name} | QuitMate`,
+    description: story.content.substring(0, 300) || 'ストーリー詳細ページです',
+  };
+}
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

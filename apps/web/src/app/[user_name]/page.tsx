@@ -1,21 +1,49 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Header } from '@/components/layout/header';
 
-import { fetchCommentedStoriesByUserId, fetchProfileById, fetchStoriesByUserId } from '@/lib/data';
+import {
+  fetchCommentedStoriesByUserId,
+  fetchProfileByUsername,
+  fetchStoriesByUserId,
+} from '@/lib/data';
 
 import { ProfileHeader } from '@/features/profiles/profile-header';
 import { StoryList } from '@/features/stories/story-list';
 
-export default async function Page(props: { params: Promise<{ id: string }> }) {
+type Props = {
+  params: Promise<{ user_name: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const user_name = resolvedParams.user_name;
+  const profile = await fetchProfileByUsername(user_name);
+
+  if (!profile) {
+    return {
+      title: 'ユーザーが見つかりません',
+    };
+  }
+
+  return {
+    title: `${profile.display_name} on QuitMate`,
+    description: profile.bio ?? `${profile.display_name}のプロフィールページです。`,
+  };
+}
+
+export default async function Page(props: { params: Promise<{ user_name: string }> }) {
   const params = await props.params;
-  const id = params.id;
+  const user_name = params.user_name;
   // 後で子コンポーネントに移動し、suspenseで読み込む
   // const story = await fetchStoryById(id);
   // const comments = await fetchCommentsByStoryId(id);
 
-  const profile = await fetchProfileById(id);
+  console.log('user_name', user_name);
+
+  const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
 
   return (
@@ -29,10 +57,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <TabsTrigger value="comments">コメント</TabsTrigger>
           </TabsList>
           <TabsContent value="posts">
-            <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(id)} />
+            <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(profile.id)} />
           </TabsContent>
           <TabsContent value="comments">
-            <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(id)} />
+            <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(profile.id)} />
           </TabsContent>
         </Tabs>
       </main>

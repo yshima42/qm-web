@@ -6,8 +6,8 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
-import { ArticleTileDto, HabitCategoryName } from '@/lib/types';
+import { getCategoryDisplayName } from '@/lib/categories';
+import { ArticleTileDto } from '@/lib/types';
 
 type Props = {
   article: ArticleTileDto;
@@ -25,13 +25,14 @@ export function ArticleTile({ article }: Props) {
   });
 
   // カテゴリー名を日本語に変換
-  const categoryDisplayName =
-    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
-    article.habit_categories.habit_category_name;
+  const categoryDisplayName = getCategoryDisplayName(
+    article.habit_categories.habit_category_name,
+    article.custom_habit_name,
+  );
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
-      <Link href={`/articles/${article.id}`} className="block">
+      <Link href={`/${article.profiles.user_name}/articles/${article.id}`} className="block">
         <div className="p-4">
           {/* タイトル */}
           <h2 className="mb-1 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">
@@ -45,7 +46,7 @@ export function ArticleTile({ article }: Props) {
           </div>
 
           {/* 記事の説明文 (Markdown) */}
-          <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-4 line-clamp-3 text-gray-700 dark:text-gray-300">
+          <div className="prose-sm mb-4 line-clamp-3 text-gray-700 dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 dark:text-gray-300">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
           </div>
 
