@@ -1,6 +1,7 @@
 import { CommentIconWithDownload, ArticleLikeIconWithDownload, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -55,7 +56,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const articleDate = new Date(article.created_at);
+  // 記事日時を東京時間に変換
+  const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
 

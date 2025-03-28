@@ -1,6 +1,7 @@
 import { CommentIconWithDownload, StoryLikeIconWithDownload, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 
 import { getCategoryDisplayName } from '@/lib/categories';
@@ -14,7 +15,8 @@ type Props = {
 };
 
 export function StoryTile({ story, disableLink = false }: Props) {
-  const storyDate = new Date(story.created_at);
+  // storyDateをUTC時間から東京時間に変換
+  const storyDate = toZonedTime(new Date(story.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
   const storyYear = storyDate.getFullYear();
 
