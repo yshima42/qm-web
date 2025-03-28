@@ -10,6 +10,7 @@ import {
   ThemeSwitcher,
   CategoryIcon,
   SidebarIcon,
+  StoreBadges,
 } from '@quitmate/ui';
 import { Home, BookOpen, Menu } from 'lucide-react';
 import Image from 'next/image';
@@ -49,11 +50,11 @@ export function SidebarContent({
             <Image
               src="/images/icon-web.png"
               alt="QuitMate Logo"
-              width={20}
-              height={20}
-              className="h-6 w-auto"
+              width={24}
+              height={24}
+              className="h-8 w-auto"
             />
-            <span className="font-bold leading-tight">QuitMate</span>
+            <span className="text-2xl font-medium leading-tight">QuitMate</span>
           </Link>
         </div>
       )}
@@ -106,7 +107,25 @@ export function SidebarContent({
       </div>
 
       {/* テーマスイッチャー（サイドバー下部に追加） */}
-      <div className="mt-auto px-4 py-3">
+      <div className="mt-auto space-y-4 px-4 py-3">
+        {/* PC表示の場合のみアプリダウンロード情報を表示 */}
+        {!compact && (
+          <div className="hidden rounded-lg border border-border bg-card p-3 shadow-sm lg:block">
+            <h4 className="mb-2 text-center text-sm font-medium">アプリをダウンロード</h4>
+            <div className="mb-3 flex justify-center">
+              <div className="rounded bg-white p-0">
+                <Image
+                  src="/images/qr-code.svg"
+                  alt="アプリダウンロードQRコード"
+                  width={100}
+                  height={100}
+                  className="rounded-none"
+                />
+              </div>
+            </div>
+            <StoreBadges size="small" />
+          </div>
+        )}
         <ThemeSwitcher />
       </div>
     </div>
@@ -149,11 +168,11 @@ export function Sidebar() {
                 <Image
                   src="/images/icon-web.png"
                   alt="QuitMate Logo"
-                  width={20}
-                  height={20}
-                  className="h-6 w-auto"
+                  width={24}
+                  height={24}
+                  className="h-8 w-auto"
                 />
-                <span className="font-bold leading-tight">QuitMate</span>
+                <span className="text-2xl font-medium leading-tight">QuitMate</span>
               </Link>
             </SheetHeader>
             <div className="pt-4">

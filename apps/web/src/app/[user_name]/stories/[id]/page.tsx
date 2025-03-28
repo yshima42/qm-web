@@ -82,7 +82,7 @@ export default async function Page({
       <Header title="ストーリー詳細" />
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
-          <StoryTile story={story} />
+          <StoryTile story={story} disableLink />
           {comments && comments.length > 0 && (
             <div className="mt-4">
               {comments.map((comment) => (

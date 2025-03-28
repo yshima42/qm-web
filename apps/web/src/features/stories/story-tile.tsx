@@ -1,6 +1,7 @@
-import { StoryLikeIcon, CommentIcon, Tag } from '@quitmate/ui';
+import { CommentIconWithDownload, StoryLikeIconWithDownload, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 
 import { getCategoryDisplayName } from '@/lib/categories';
@@ -10,10 +11,12 @@ import { UserAvatar } from '../profiles/user-avatar';
 
 type Props = {
   story: StoryTileDto;
+  disableLink?: boolean;
 };
 
-export function StoryTile({ story }: Props) {
-  const storyDate = new Date(story.created_at);
+export function StoryTile({ story, disableLink = false }: Props) {
+  // storyDateをUTC時間から東京時間に変換
+  const storyDate = toZonedTime(new Date(story.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
   const storyYear = storyDate.getFullYear();
 
@@ -28,6 +31,22 @@ export function StoryTile({ story }: Props) {
     story.habit_categories.habit_category_name,
     story.custom_habit_name,
   );
+
+  // メインコンテンツの部分をラップするコンポーネント
+  const ContentWrapper = ({ children }: { children: React.ReactNode }) => {
+    if (disableLink) {
+      return <div className="block transition-colors">{children}</div>;
+    }
+
+    return (
+      <Link
+        href={`/${story.profiles.user_name}/stories/${story.id}`}
+        className="block transition-colors hover:bg-accent/5"
+      >
+        {children}
+      </Link>
+    );
+  };
 
   return (
     <div className="block border-b border-gray-300 dark:border-gray-700">
@@ -56,10 +75,7 @@ export function StoryTile({ story }: Props) {
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <Link
-            href={`/${story.profiles.user_name}/stories/${story.id}`}
-            className="block transition-colors hover:bg-accent/5"
-          >
+          <ContentWrapper>
             {/* 習慣カテゴリーとカウント - 日本語表示に修正 */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
@@ -69,19 +85,19 @@ export function StoryTile({ story }: Props) {
 
             {/* 本文 */}
             <p className="mb-3 whitespace-pre-wrap text-foreground">{story.content}</p>
+          </ContentWrapper>
 
-            {/* アクション */}
-            <div className="flex gap-6 text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <CommentIcon />
-                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <StoryLikeIcon />
-                <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-              </div>
+          {/* アクション - ContentWrapperの外に移動 */}
+          <div className="flex gap-6 text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <CommentIconWithDownload />
+              <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
             </div>
-          </Link>
+            <div className="flex items-center gap-1">
+              <StoryLikeIconWithDownload />
+              <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

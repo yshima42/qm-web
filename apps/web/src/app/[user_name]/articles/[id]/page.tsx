@@ -1,6 +1,7 @@
-import { CommentIcon, ArticleLikeIcon, Tag } from '@quitmate/ui';
+import { CommentIconWithDownload, ArticleLikeIconWithDownload, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { toZonedTime } from 'date-fns-tz';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -92,7 +93,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const articleDate = new Date(article.created_at);
+  // 記事日時を東京時間に変換
+  const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
 
@@ -129,7 +131,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                 {/* いいねとコメントカウント（上部に表示） */}
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1">
-                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       {article.article_likes[0]?.count ?? 0}
                     </span>
@@ -167,13 +169,13 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-2">
-                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
                     <span className="text-gray-700 dark:text-gray-300">
                       {article.article_likes[0]?.count ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                    <CommentIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
                     <span className="text-gray-700 dark:text-gray-300">
                       {article.article_comments[0]?.count ?? 0}
                     </span>
