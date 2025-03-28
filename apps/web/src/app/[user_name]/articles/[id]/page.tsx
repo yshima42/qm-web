@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 
 import { Header } from '@/components/layout/header';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { CATEGORY_DISPLAY_NAMES, getCategoryDisplayName } from '@/lib/categories';
 import { fetchArticleById, fetchCommentsByArticleId } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
@@ -32,9 +32,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const categoryDisplayName =
-    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
-    article.habit_categories.habit_category_name;
+  const categoryDisplayName = getCategoryDisplayName(
+    article.habit_categories.habit_category_name,
+    article.custom_habit_name,
+  );
 
   return {
     title: `${article.title} | ${categoryDisplayName}`,

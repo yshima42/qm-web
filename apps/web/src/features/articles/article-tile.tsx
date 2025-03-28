@@ -6,8 +6,8 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
-import { ArticleTileDto, HabitCategoryName } from '@/lib/types';
+import { getCategoryDisplayName } from '@/lib/categories';
+import { ArticleTileDto } from '@/lib/types';
 
 type Props = {
   article: ArticleTileDto;
@@ -25,9 +25,10 @@ export function ArticleTile({ article }: Props) {
   });
 
   // カテゴリー名を日本語に変換
-  const categoryDisplayName =
-    CATEGORY_DISPLAY_NAMES[article.habit_categories.habit_category_name as HabitCategoryName] ||
-    article.habit_categories.habit_category_name;
+  const categoryDisplayName = getCategoryDisplayName(
+    article.habit_categories.habit_category_name,
+    article.custom_habit_name,
+  );
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">

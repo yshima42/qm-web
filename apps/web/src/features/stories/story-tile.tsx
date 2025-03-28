@@ -3,8 +3,8 @@ import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Link from 'next/link';
 
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
-import { StoryTileDto, HabitCategoryName } from '@/lib/types';
+import { getCategoryDisplayName } from '@/lib/categories';
+import { StoryTileDto } from '@/lib/types';
 
 import { UserAvatar } from '../profiles/user-avatar';
 
@@ -24,9 +24,10 @@ export function StoryTile({ story }: Props) {
   });
 
   // カテゴリー名を日本語に変換
-  const categoryDisplayName =
-    CATEGORY_DISPLAY_NAMES[story.habit_categories.habit_category_name as HabitCategoryName] ||
-    story.habit_categories.habit_category_name;
+  const categoryDisplayName = getCategoryDisplayName(
+    story.habit_categories.habit_category_name,
+    story.custom_habit_name,
+  );
 
   return (
     <div className="block border-b border-gray-300 dark:border-gray-700">
@@ -64,11 +65,6 @@ export function StoryTile({ story }: Props) {
               <Tag>
                 {categoryDisplayName} - {story.trial_elapsed_days}日
               </Tag>
-              {story.custom_habit_name && (
-                <span className="ml-2 text-sm text-secondary-foreground">
-                  ({story.custom_habit_name})
-                </span>
-              )}
             </div>
 
             {/* 本文 */}
