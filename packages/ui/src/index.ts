@@ -10,3 +10,5 @@ export * from './components/custom/theme-switcher';
 export * from './components/custom/default-avatar';
 export * from './components/custom/icon';
 export * from './components/custom/tag';
+export * from './components/custom/store-badge';
+export * from './components/custom/app-download-dialog';
