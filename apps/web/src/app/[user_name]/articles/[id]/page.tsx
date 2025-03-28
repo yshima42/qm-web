@@ -72,13 +72,17 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <>
-      <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
+      <Header
+        title={article.title}
+        backUrl="/articles"
+        hideTitle={{ mobile: true, desktop: true }}
+      />
       <main className="p-3 sm:p-5">
         <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* 記事ヘッダー */}
           <div className="mb-8">
-            {/* モバイルでのみ表示されるタイトル */}
-            <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
+            {/* 常に表示されるタイトル（モバイルとデスクトップ両方） */}
+            <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
               {article.title}
             </h1>
             <div className="mb-4 flex items-center justify-between">
