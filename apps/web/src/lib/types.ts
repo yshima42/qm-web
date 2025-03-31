@@ -25,6 +25,12 @@ export type HabitCategoryName =
   | 'Codependency'
   | 'Official';
 
+export type StoryXmlDto = {
+  id: string;
+  profiles: { user_name: string };
+  created_at: string;
+};
+
 export type StoryTileDto = Story & {
   profiles: ProfileForAvatar;
   habit_categories: StoryHabitCategory;

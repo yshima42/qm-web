@@ -7,6 +7,7 @@ import {
   HabitCategoryName,
   ProfileTileDto,
   StoryTileDto,
+  StoryXmlDto,
 } from './types';
 
 const STORY_SELECT_QUERY = `*, 
@@ -14,6 +15,10 @@ const STORY_SELECT_QUERY = `*,
   profiles!stories_user_id_fkey(user_name, display_name, avatar_url), 
   likes(count), 
   comments(count)`;
+
+const STORY_XML_SELECT_QUERY = `id, 
+  profiles!stories_user_id_fkey(user_name), 
+  created_at`;
 
 const ARTICLE_SELECT_QUERY = `*, 
   habit_categories!inner(habit_category_name), 
@@ -63,6 +68,52 @@ export async function fetchStories() {
     .limit(FETCH_LIMIT);
 
   return data as StoryTileDto[];
+}
+
+type FetchStoriesXmlParams = {
+  limit?: number;
+  startDate?: string;
+  monthsAgo?: number;
+};
+
+export async function fetchStoriesXml({ limit, startDate, monthsAgo }: FetchStoriesXmlParams = {}) {
+  const supabase = createAnonServerClient();
+  const now = new Date().toISOString();
+
+  // monthsAgoが指定された場合、その月数分前の日時を計算
+  const calculatedStartDate = monthsAgo
+    ? new Date(new Date().setMonth(new Date().getMonth() - monthsAgo)).toISOString()
+    : startDate;
+
+  let allStories: StoryXmlDto[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('stories')
+      .select(STORY_XML_SELECT_QUERY)
+      .lte('created_at', now)
+      .gte('created_at', calculatedStartDate ?? '1970-01-01T00:00:00Z')
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allStories = [...allStories, ...(result.data as unknown as StoryXmlDto[])];
+
+    // 指定された制限に達した場合、ループを終了
+    if (limit && allStories.length >= limit) {
+      allStories = allStories.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allStories;
 }
 
 // data層の関数の命名がpresentational層に依存していて微妙な気がするが、とりあえず
