@@ -36,7 +36,12 @@ export const Hero = () => {
             <br />
             依存症を克服するための匿名SNSアプリ
           </p>
-          <StoreBadges size="xl" />
+          <div className="hidden md:block">
+            <StoreBadges size="xl" />
+          </div>
+          <div className="block md:hidden">
+            <StoreBadges size="medium" />
+          </div>
         </div>
 
         <div className="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
