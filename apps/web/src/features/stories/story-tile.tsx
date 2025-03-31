@@ -1,8 +1,16 @@
-import { CommentIconWithDownload, StoryLikeIconWithDownload, Tag } from '@quitmate/ui';
+'use client';
+
+import {
+  AutoLinkText,
+  CommentIconWithDownload,
+  StoryLikeIconWithDownload,
+  Tag,
+} from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { getCategoryDisplayName } from '@/lib/categories';
 import { StoryTileDto } from '@/lib/types';
@@ -16,6 +24,8 @@ type Props = {
 };
 
 export function StoryTile({ story, disableLink = false, showFullContent = false }: Props) {
+  const router = useRouter();
+
   // storyDateをUTC時間から東京時間に変換
   const storyDate = toZonedTime(new Date(story.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
@@ -55,20 +65,27 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
     ? `${story.content.substring(0, maxContentLength)}...`
     : story.content;
 
-  // メインコンテンツの部分をラップするコンポーネント
-  const ContentWrapper = ({ children }: { children: React.ReactNode }) => {
-    if (disableLink) {
-      return <div className="block transition-colors">{children}</div>;
+  const handleClick = () => {
+    if (!disableLink) {
+      router.push(`/${story.profiles.user_name}/stories/${story.id}`);
     }
+  };
 
-    return (
-      <Link
-        href={`/${story.profiles.user_name}/stories/${story.id}`}
-        className="block transition-colors hover:bg-accent/5"
-      >
-        {children}
-      </Link>
-    );
+  // 「もっと見る」ボタンのハンドラー
+  const handleMoreClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!disableLink) {
+      router.push(`/${story.profiles.user_name}/stories/${story.id}`);
+    }
+  };
+
+  // リンクの伝播を止めるハンドラー
+  const handleContentClick = (e: React.MouseEvent) => {
+    // テキスト内のリンク（AutoLinkText内のa要素）がクリックされた場合のみ
+    // イベントの伝播を停止する。それ以外はタイル全体のクリックを有効にする
+    if ((e.target as HTMLElement).tagName === 'A') {
+      e.stopPropagation();
+    }
   };
 
   return (
@@ -98,27 +115,33 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          <ContentWrapper>
-            {/* 習慣カテゴリーとカウント - 日本語表示に修正 */}
+          {/* クリック可能領域 */}
+          <div
+            className={`block ${!disableLink ? 'cursor-pointer transition-colors hover:bg-accent/5' : ''}`}
+            onClick={handleClick}
+          >
+            {/* 習慣カテゴリーとカウント */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
                 {categoryDisplayName} - {story.trial_elapsed_days}日
               </Tag>
             </div>
 
-            {/* 本文 - 省略表示対応 */}
-            <p className="mb-3 whitespace-pre-wrap text-foreground">
-              {displayContent}
-              {/* 「もっと見る」ボタンの色をgreen-800に変更 */}
+            {/* 本文 - AutoLinkTextを使用 */}
+            <div className="mb-3 whitespace-pre-wrap text-foreground" onClick={handleContentClick}>
+              <AutoLinkText text={displayContent} />
               {isContentTruncated && (
-                <span className="ml-1 text-sm font-medium text-green-800 dark:text-green-500">
+                <span
+                  className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500"
+                  onClick={handleMoreClick}
+                >
                   もっと見る
                 </span>
               )}
-            </p>
-          </ContentWrapper>
+            </div>
+          </div>
 
-          {/* アクション - ContentWrapperの外に移動 */}
+          {/* アクション */}
           <div className="flex gap-6 text-muted-foreground">
             <div className="flex items-center gap-1">
               <CommentIconWithDownload />
