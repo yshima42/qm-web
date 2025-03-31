@@ -29,9 +29,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // ストーリー内容から短い抜粋を作成
+  const description = story.content.substring(0, 300) || 'ストーリー詳細ページです';
+
+  // ストーリーに添付された画像があれば使用（オプション）
+  // const storyImage = story.image_url || '/images/ogp.png';
+
   return {
-    title: `${story.profiles.display_name} | QuitMate`,
-    description: story.content.substring(0, 300) || 'ストーリー詳細ページです',
+    title: `${story.profiles.display_name}のストーリー`,
+    description: description,
+    openGraph: {
+      title: `${story.profiles.display_name}のストーリー | QuitMate`,
+      description: description,
+      type: 'article',
+      // images: [{ url: storyImage }],
+      publishedTime: story.created_at,
+      authors: [story.profiles.display_name],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${story.profiles.display_name}のストーリー | QuitMate`,
+      description: description,
+      // images: [storyImage],
+      creator: `@${story.profiles.user_name}`,
+    },
   };
 }
 
