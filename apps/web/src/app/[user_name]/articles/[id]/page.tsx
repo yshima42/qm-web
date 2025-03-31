@@ -43,9 +43,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     article.custom_habit_name,
   );
 
+  // 記事内容から短い抜粋を作成
+  const description = article.content.substring(0, 300) || '記事詳細ページです';
+
+  // 記事の最初の画像URLを探す（オプション）
+  // const firstImageUrl = extractFirstImageFromMarkdown(article.content);
+  // const ogImage = firstImageUrl || '/images/ogp.png';
+
   return {
     title: `${article.title} | ${categoryDisplayName}`,
-    description: article.content.substring(0, 300) || '記事詳細ページです',
+    description: description,
+    openGraph: {
+      title: `${article.title} | ${categoryDisplayName}`,
+      description: description,
+      type: 'article',
+      // images: [{ url: ogImage }],
+      publishedTime: article.created_at,
+      authors: [article.profiles.display_name],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${article.title} | ${categoryDisplayName}`,
+      description: description,
+      // images: [ogImage],
+      creator: `@${article.profiles.user_name}`,
+    },
   };
 }
 

@@ -31,9 +31,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const description = profile.bio ?? `${profile.display_name}のプロフィールページです。`;
+  const profileImage = profile.avatar_url ?? '/images/ogp.png';
+
   return {
     title: `${profile.display_name} on QuitMate`,
-    description: profile.bio ?? `${profile.display_name}のプロフィールページです。`,
+    description: description,
+    openGraph: {
+      title: `${profile.display_name} | QuitMate`,
+      description: description,
+      type: 'profile',
+      images: [{ url: profileImage }],
+      firstName: profile.display_name,
+      username: profile.user_name,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${profile.display_name} | QuitMate`,
+      description: description,
+      images: [profileImage],
+      creator: `@${profile.user_name}`,
+    },
   };
 }
 // @/lib/で定数を定義しここで利用したらエラーが起きたのでベタがき
