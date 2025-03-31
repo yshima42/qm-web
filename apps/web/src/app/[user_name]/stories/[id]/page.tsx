@@ -36,10 +36,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // const storyImage = story.image_url || '/images/ogp.png';
 
   return {
-    title: `${story.profiles.display_name}のストーリー`,
+    title: story.profiles.display_name,
     description: description,
     openGraph: {
-      title: `${story.profiles.display_name}のストーリー | QuitMate`,
+      title: story.profiles.display_name,
       description: description,
       type: 'article',
       // images: [{ url: storyImage }],
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${story.profiles.display_name}のストーリー | QuitMate`,
+      title: story.profiles.display_name,
       description: description,
       // images: [storyImage],
       creator: `@${story.profiles.user_name}`,
