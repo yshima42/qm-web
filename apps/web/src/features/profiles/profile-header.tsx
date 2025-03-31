@@ -1,4 +1,4 @@
-import { DefaultAvatar } from '@quitmate/ui';
+import { AutoLinkText, DefaultAvatar } from '@quitmate/ui';
 import Image from 'next/image';
 
 import { ProfileTileDto } from '@/lib/types';
@@ -37,7 +37,9 @@ export function ProfileHeader({ profile }: Props) {
 
           {/* bio */}
           {profile.bio && (
-            <p className="mb-4 text-sm text-foreground sm:text-base">{profile.bio}</p>
+            <p className="mb-4 text-sm text-foreground sm:text-base">
+              <AutoLinkText text={profile.bio} />
+            </p>
           )}
 
           {/* フォロー情報 */}
