@@ -1,11 +1,10 @@
 import "./globals.css";
+import { GoogleAnalytics } from "@quitmate/analytics";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
-
-import { GoogleAnalytics } from "@/utils/google-analytics";
 
 // 日本語フォントの設定
 const notoSansJP = Noto_Sans_JP({

@@ -1,23 +1,10 @@
-"use client";
+'use client';
 
-import { usePathname, useSearchParams } from "next/navigation";
-import Script from "next/script";
-import { useEffect } from "react";
-
-// 詳細な型定義
-type GTagEvent = {
-  page_path?: string;
-  page_title?: string;
-  page_location?: string;
-  send_to?: string;
-  [key: string]: unknown;
-};
-
-type GTagFunction = (
-  command: "config" | "event" | "js",
-  targetId: string,
-  options?: GTagEvent,
-) => void;
+import { usePathname, useSearchParams } from 'next/navigation';
+import Script from 'next/script';
+import { useEffect } from 'react';
+import { GTagFunction } from './types';
+import React from 'react';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -27,20 +14,14 @@ declare global {
   }
 }
 
-export const GoogleAnalytics = ({
-  measurementId,
-}: {
-  measurementId: string;
-}) => {
+export const GoogleAnalytics = ({ measurementId }: { measurementId: string }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
     if (pathname && window.gtag) {
-      window.gtag("config", measurementId, {
-        page_path:
-          pathname +
-          (searchParams.toString() ? `?${searchParams.toString()}` : ""),
+      window.gtag('config', measurementId, {
+        page_path: pathname + (searchParams.toString() ? `?${searchParams.toString()}` : ''),
       });
     }
   }, [pathname, searchParams, measurementId]);
