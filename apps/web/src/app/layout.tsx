@@ -14,7 +14,10 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'QuitMate（クイットメイト） | 依存症克服SNS',
+  title: {
+    default: 'QuitMate（クイットメイト） | 依存症克服SNS',
+    template: '%s | QuitMate',
+  },
   description:
     '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
   keywords: ['依存症', '禁酒', '禁ギャンブル', '禁煙', '禁欲'],
@@ -34,7 +37,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'QuitMate（クイットメイト） | 依存症克服SNS',
+    title: {
+      default: 'QuitMate（クイットメイト） | 依存症克服SNS',
+      template: '%s | QuitMate',
+    },
     description:
       '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
     url: 'https://quitmate.app',
@@ -52,7 +58,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'QuitMate（クイットメイト）',
+    title: {
+      default: 'QuitMate（クイットメイト）',
+      template: '%s | QuitMate',
+    },
     description: '依存症克服SNS',
     images: ['/images/ogp.png'],
     creator: '@QuitMate_JP',
