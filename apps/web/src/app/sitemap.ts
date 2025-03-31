@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { fetchStoriesXml } from '@/lib/data';
+import { fetchProfilesXml, fetchStoriesXml } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -43,6 +43,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     })),
   ];
+  const profiles = await fetchProfilesXml({
+    limit: 49000,
+  });
+  const profilesPages: MetadataRoute.Sitemap = profiles.map((profile) => ({
+    url: `${url}/${profile.user_name}`,
+    lastModified: new Date(profile.created_at),
+  }));
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
@@ -55,5 +62,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${url}/${story.profiles.user_name}/stories/${story.id}`,
     lastModified: new Date(story.created_at),
   }));
-  return [...defaultPages, ...storiesPages];
+  return [...defaultPages, ...profilesPages, ...storiesPages];
 }

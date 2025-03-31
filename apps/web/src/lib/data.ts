@@ -6,6 +6,7 @@ import {
   CommentTileDto,
   HabitCategoryName,
   ProfileTileDto,
+  ProfileXmlDto,
   StoryTileDto,
   StoryXmlDto,
 } from './types';
@@ -70,20 +71,14 @@ export async function fetchStories() {
   return data as StoryTileDto[];
 }
 
-type FetchStoriesXmlParams = {
+type FetchXmlParams = {
   limit?: number;
   startDate?: string;
-  monthsAgo?: number;
 };
 
-export async function fetchStoriesXml({ limit, startDate, monthsAgo }: FetchStoriesXmlParams = {}) {
+export async function fetchStoriesXml({ limit, startDate }: FetchXmlParams = {}) {
   const supabase = createAnonServerClient();
   const now = new Date().toISOString();
-
-  // monthsAgoが指定された場合、その月数分前の日時を計算
-  const calculatedStartDate = monthsAgo
-    ? new Date(new Date().setMonth(new Date().getMonth() - monthsAgo)).toISOString()
-    : startDate;
 
   let allStories: StoryXmlDto[] = [];
   let page = 0;
@@ -94,7 +89,7 @@ export async function fetchStoriesXml({ limit, startDate, monthsAgo }: FetchStor
       .from('stories')
       .select(STORY_XML_SELECT_QUERY)
       .lte('created_at', now)
-      .gte('created_at', calculatedStartDate ?? '1970-01-01T00:00:00Z')
+      .gte('created_at', startDate ?? '1970-01-01T00:00:00Z')
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('created_at', { ascending: false });
 
@@ -114,6 +109,38 @@ export async function fetchStoriesXml({ limit, startDate, monthsAgo }: FetchStor
   }
 
   return allStories;
+}
+
+export async function fetchProfilesXml({ limit }: FetchXmlParams = {}) {
+  const supabase = createAnonServerClient();
+
+  let allProfiles: ProfileXmlDto[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('profiles')
+      .select('user_name, created_at')
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allProfiles = [...allProfiles, ...(result.data as unknown as ProfileXmlDto[])];
+
+    // 指定された制限に達した場合、ループを終了
+    if (limit && allProfiles.length >= limit) {
+      allProfiles = allProfiles.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allProfiles;
 }
 
 // data層の関数の命名がpresentational層に依存していて微妙な気がするが、とりあえず
