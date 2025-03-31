@@ -40,10 +40,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${profile.display_name} | QuitMate`,
       description: description,
-      type: 'profile',
-      images: [{ url: profileImage }],
-      firstName: profile.display_name,
-      username: profile.user_name,
+      type: 'website',
+      images: [
+        {
+          url: profileImage,
+          width: 1200,
+          height: 630,
+          alt: `${profile.display_name}のプロフィール画像`,
+        },
+      ],
     },
     twitter: {
       card: 'summary',
