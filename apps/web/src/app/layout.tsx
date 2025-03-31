@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@quitmate/analytics';
 import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
@@ -76,9 +77,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
+
   return (
-    <html lang="en" className={geistSans.className} suppressHydrationWarning>
+    <html lang="ja" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground" suppressHydrationWarning>
+        {gaId && <GoogleAnalytics measurementId={gaId} />}
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
