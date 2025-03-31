@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${profile.display_name} on QuitMate`,
     description: description,
     openGraph: {
-      title: `${profile.display_name} | QuitMate`,
+      title: profile.display_name,
       description: description,
       type: 'website',
       images: [
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary',
-      title: `${profile.display_name} | QuitMate`,
+      title: profile.display_name,
       description: description,
       images: [profileImage],
       creator: `@${profile.user_name}`,
