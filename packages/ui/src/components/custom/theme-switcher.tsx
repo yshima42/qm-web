@@ -32,7 +32,7 @@ const ThemeSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm">
+        <Button variant="ghost" size="sm" aria-label="テーマを切り替える">
           {theme === 'light' ? (
             <Sun key="light" size={ICON_SIZE} className="text-muted-foreground" />
           ) : theme === 'dark' ? (

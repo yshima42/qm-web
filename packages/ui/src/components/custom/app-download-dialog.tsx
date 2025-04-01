@@ -60,7 +60,7 @@ export function IconWithDownloadDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className={className}>
+        <button className={className} aria-label="ダウンロードダイアログを開く">
           {children}
         </button>
       </DialogTrigger>

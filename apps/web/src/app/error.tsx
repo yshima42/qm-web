@@ -25,6 +25,7 @@ export default function Error({
             reset();
           }
         }
+        aria-label="もう一度読み込む"
       >
         もう一度読み込む
       </button>
