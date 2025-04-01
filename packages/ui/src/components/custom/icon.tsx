@@ -42,28 +42,3 @@ export function ArticleLikeIcon({ className = 'size-5' }: IconProps) {
     </svg>
   );
 }
-
-// 既存のアイコンをラップする使用例
-export function CommentIconWithDownload({ className = 'size-5' }: IconProps) {
-  return (
-    <IconWithDownloadDialog className="cursor-pointer">
-      <CommentIcon className={className} />
-    </IconWithDownloadDialog>
-  );
-}
-
-export function StoryLikeIconWithDownload({ className = 'size-5' }: IconProps) {
-  return (
-    <IconWithDownloadDialog className="cursor-pointer">
-      <StoryLikeIcon className={className} />
-    </IconWithDownloadDialog>
-  );
-}
-
-export function ArticleLikeIconWithDownload({ className = 'size-5' }: IconProps) {
-  return (
-    <IconWithDownloadDialog className="cursor-pointer">
-      <ArticleLikeIcon className={className} />
-    </IconWithDownloadDialog>
-  );
-}

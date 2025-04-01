@@ -1,4 +1,4 @@
-import { CommentIconWithDownload, ArticleLikeIconWithDownload, Tag } from '@quitmate/ui';
+import { CommentIcon, ArticleLikeIcon, IconWithDownloadDialog, Tag } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -152,12 +152,14 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
                 {/* いいねとコメントカウント（上部に表示） */}
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {article.article_likes[0]?.count ?? 0}
-                    </span>
-                  </div>
+                  <IconWithDownloadDialog className="cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        {article.article_likes[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </IconWithDownloadDialog>
                 </div>
               </div>
 
@@ -190,18 +192,22 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {article.article_likes[0]?.count ?? 0}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CommentIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {article.article_comments[0]?.count ?? 0}
-                    </span>
-                  </div>
+                  <IconWithDownloadDialog className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {article.article_likes[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </IconWithDownloadDialog>
+                  <IconWithDownloadDialog className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {article.article_comments[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </IconWithDownloadDialog>
                 </div>
               </div>
             </div>

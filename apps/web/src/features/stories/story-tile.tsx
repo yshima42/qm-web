@@ -2,8 +2,9 @@
 
 import {
   AutoLinkText,
-  CommentIconWithDownload,
-  StoryLikeIconWithDownload,
+  CommentIcon,
+  StoryLikeIcon,
+  IconWithDownloadDialog,
   Tag,
 } from '@quitmate/ui';
 import { format } from 'date-fns';
@@ -143,14 +144,19 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
 
           {/* アクション */}
           <div className="flex gap-6 text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <CommentIconWithDownload />
-              <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <StoryLikeIconWithDownload />
-              <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-            </div>
+            <IconWithDownloadDialog className="cursor-pointer">
+              <div className="flex items-center gap-1">
+                <CommentIcon className="size-5" />
+                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+              </div>
+            </IconWithDownloadDialog>
+
+            <IconWithDownloadDialog className="cursor-pointer">
+              <div className="flex items-center gap-1">
+                <StoryLikeIcon className="size-5" />
+                <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
+              </div>
+            </IconWithDownloadDialog>
           </div>
         </div>
       </div>
