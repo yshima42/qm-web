@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { useEffect } from 'react';
 import { GTagFunction } from './types';
 import React from 'react';
+import { Suspense } from 'react';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -14,7 +15,8 @@ declare global {
   }
 }
 
-export const GoogleAnalytics = ({ measurementId }: { measurementId: string }) => {
+// 実際のGoogleAnalytics機能を含むコンポーネント
+export function GoogleAnalyticsContent({ measurementId }: { measurementId: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -48,4 +50,13 @@ export const GoogleAnalytics = ({ measurementId }: { measurementId: string }) =>
       />
     </>
   );
-};
+}
+
+// 親コンポーネント - Suspenseでラップ
+export function GoogleAnalytics({ measurementId }: { measurementId: string }) {
+  return (
+    <Suspense fallback={null}>
+      <GoogleAnalyticsContent measurementId={measurementId} />
+    </Suspense>
+  );
+}
