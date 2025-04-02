@@ -4,8 +4,9 @@
         "cache": false
       },
       "build": {
+        "cache": false,
         "dependsOn": ["^build"],
-        "outputs": [".next/**", "dist/**"]
+        "outputs": [".next/**", "dist/**", "out/**"]
       }
     }
   }
