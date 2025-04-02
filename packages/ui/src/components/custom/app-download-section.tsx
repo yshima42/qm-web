@@ -3,10 +3,12 @@ import { StoreBadges } from '@quitmate/ui';
 import React from 'react';
 
 type AppDownloadSectionProps = {
-  displayName: string;
+  message?: string;
 };
 
-export function AppDownloadSection({ displayName }: AppDownloadSectionProps) {
+export function AppDownloadSection({ 
+  message = 'もっと多くのストーリーを読むには\nアプリをダウンロードしよう' 
+}: AppDownloadSectionProps) {
   return (
     <div className="mb-6 mt-8 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">
       <div className="mb-4">
@@ -20,9 +22,8 @@ export function AppDownloadSection({ displayName }: AppDownloadSectionProps) {
         />
         <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">QuitMate</h3>
       </div>
-      <p className="mb-6 font-bold text-gray-900 dark:text-white">
-        {displayName}さんを<br />
-        アプリでフォローしよう
+      <p className="mb-6 font-bold text-gray-900 dark:text-white whitespace-pre-line">
+        {message}
       </p>
       <StoreBadges size="medium" />
     </div>
