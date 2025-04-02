@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
@@ -14,8 +14,28 @@ type Props = {
 export function CommentTile({ comment }: Props) {
   // コメント日時を東京時間に変換
   const commentDate = toZonedTime(new Date(comment.created_at), 'Asia/Tokyo');
-  const createdAt = formatDistanceToNow(commentDate, {
-    addSuffix: true,
+
+  // 今日の日付を取得して東京時間に変換
+  const today = toZonedTime(new Date(), 'Asia/Tokyo');
+  const currentYear = new Date().getFullYear();
+  const commentYear = commentDate.getFullYear();
+
+  const isToday =
+    commentDate.getDate() === today.getDate() &&
+    commentDate.getMonth() === today.getMonth() &&
+    commentDate.getFullYear() === today.getFullYear();
+
+  // 今日の場合は時間のみ、今年の場合は月日と時間、それ以外は年月日と時間を表示
+  let dateFormat;
+  if (isToday) {
+    dateFormat = 'H:mm';
+  } else if (commentYear === currentYear) {
+    dateFormat = 'M/d H:mm';
+  } else {
+    dateFormat = 'yyyy/M/d H:mm';
+  }
+
+  const createdAt = format(commentDate, dateFormat, {
     locale: ja,
   });
 

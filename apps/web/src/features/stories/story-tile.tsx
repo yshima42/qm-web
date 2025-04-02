@@ -92,16 +92,16 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
           className="mr-3"
           onClick={(e) => {
             e.stopPropagation();
+            // ここでプロフィールページに遷移
+            router.push(`/${story.profiles.user_name}`);
           }}
         >
-          <Link href={`/${story.profiles.user_name}`}>
-            <UserAvatar
-              username={story.profiles.user_name}
-              displayName={story.profiles.display_name}
-              avatarUrl={story.profiles.avatar_url}
-              size="md"
-            />
-          </Link>
+          <UserAvatar
+            username={story.profiles.user_name}
+            displayName={story.profiles.display_name}
+            avatarUrl={story.profiles.avatar_url}
+            size="md"
+          />
         </div>
 
         {/* メインコンテンツ */}
