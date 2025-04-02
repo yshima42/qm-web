@@ -264,7 +264,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             </div>
 
             {/* アプリダウンロードセクションを追加 */}
-            <AppDownloadSection displayName={article.profiles.display_name} />
+            <AppDownloadSection
+              message={`${article.profiles.display_name}さんを\nアプリでフォローしよう`}
+            />
           </div>
         </main>
       </Suspense>
