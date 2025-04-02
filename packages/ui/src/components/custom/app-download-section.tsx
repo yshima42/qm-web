@@ -8,7 +8,7 @@ type AppDownloadSectionProps = {
 
 export function AppDownloadSection({ displayName }: AppDownloadSectionProps) {
   return (
-    <div className="mb-6 mt-8 rounded-lg bg-gray-50 p-6 text-center">
+    <div className="mb-6 mt-8 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">
       <div className="mb-4">
         <Image 
           src="/images/app-icon.png" 
@@ -18,9 +18,9 @@ export function AppDownloadSection({ displayName }: AppDownloadSectionProps) {
           className="mx-auto mb-2"
           priority
         />
-        <h3 className="mb-1 text-2xl font-bold">QuitMate</h3>
+        <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">QuitMate</h3>
       </div>
-      <p className="mb-6 font-bold">
+      <p className="mb-6 font-bold text-gray-900 dark:text-white">
         {displayName}さんを<br />
         アプリでフォローしよう
       </p>
