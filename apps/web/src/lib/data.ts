@@ -3,6 +3,7 @@ import { createAnonServerClient, createClient } from '@/utils/supabase/server';
 import {
   ArticleCommentTileDto,
   ArticleTileDto,
+  ArticleXmlDto,
   CommentTileDto,
   HabitCategoryName,
   ProfileTileDto,
@@ -26,6 +27,10 @@ const ARTICLE_SELECT_QUERY = `*,
   profiles!articles_user_id_fkey(user_name, display_name, avatar_url), 
   article_likes(count), 
   article_comments(count)`;
+
+const ARTICLE_XML_SELECT_QUERY = `id, 
+  profiles!articles_user_id_fkey(user_name), 
+  created_at`;
 
 const FETCH_LIMIT = 100;
 
@@ -332,4 +337,38 @@ export async function fetchProfileByUsername(username: string) {
     followers: followersResult.data?.[0]?.count ?? 0,
     following: followingResult.data?.[0]?.count ?? 0,
   } as ProfileTileDto;
+}
+
+export async function fetchArticlesXml({ limit, startDate }: FetchXmlParams = {}) {
+  const supabase = createAnonServerClient();
+  const now = new Date().toISOString();
+
+  let allArticles: ArticleXmlDto[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('articles')
+      .select(ARTICLE_XML_SELECT_QUERY)
+      .lte('created_at', now)
+      .gte('created_at', startDate ?? '1970-01-01T00:00:00Z')
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allArticles = [...allArticles, ...(result.data as unknown as ArticleXmlDto[])];
+
+    if (limit && allArticles.length >= limit) {
+      allArticles = allArticles.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allArticles;
 }

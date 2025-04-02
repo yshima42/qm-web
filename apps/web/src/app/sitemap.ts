@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { fetchProfilesXml, fetchStoriesXml } from '@/lib/data';
+import { fetchArticlesXml, fetchProfilesXml, fetchStoriesXml } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -62,5 +62,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${url}/${story.profiles.user_name}/stories/${story.id}`,
     lastModified: new Date(story.created_at),
   }));
-  return [...defaultPages, ...profilesPages, ...storiesPages];
+
+  const articles = await fetchArticlesXml({
+    limit: 49000,
+  });
+  const articlesPages: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${url}/${article.profiles.user_name}/articles/${article.id}`,
+    lastModified: new Date(article.created_at),
+  }));
+  return [...defaultPages, ...profilesPages, ...storiesPages, ...articlesPages];
 }

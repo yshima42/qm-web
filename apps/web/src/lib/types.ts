@@ -36,6 +36,12 @@ export type ProfileXmlDto = {
   created_at: string;
 };
 
+export type ArticleXmlDto = {
+  id: string;
+  profiles: { user_name: string };
+  created_at: string;
+};
+
 export type StoryTileDto = Story & {
   profiles: ProfileForAvatar;
   habit_categories: StoryHabitCategory;
