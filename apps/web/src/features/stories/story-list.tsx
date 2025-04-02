@@ -1,9 +1,12 @@
+import { AppDownloadSection } from '@quitmate/ui';
+
 import { StoryTileDto } from '@/lib/types';
 
 import { StoryTile } from './story-tile';
 
 type StoryListProps = {
   fetchStoriesFunc: () => Promise<StoryTileDto[]>;
+  displayName?: string;
 };
 
 export async function StoryList({ fetchStoriesFunc }: StoryListProps) {
@@ -14,6 +17,10 @@ export async function StoryList({ fetchStoriesFunc }: StoryListProps) {
       {stories.map((story) => (
         <StoryTile key={story.id} story={story} />
       ))}
+
+      <div className="mt-8">
+        <AppDownloadSection />
+      </div>
     </div>
   );
 }
