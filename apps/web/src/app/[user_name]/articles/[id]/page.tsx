@@ -1,4 +1,11 @@
-import { CommentIcon, ArticleLikeIcon, IconWithDownloadDialog, Tag } from '@quitmate/ui';
+import {
+  CommentIcon,
+  ArticleLikeIcon,
+  AppDownloadDialogTrigger,
+  Tag,
+  ShareButton,
+  AppDownloadSection,
+} from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -152,14 +159,23 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
                 {/* いいねとコメントカウント（上部に表示） */}
                 <div className="flex items-center gap-4">
-                  <IconWithDownloadDialog className="cursor-pointer">
+                  <AppDownloadDialogTrigger className="cursor-pointer">
                     <div className="flex items-center gap-1">
                       <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
                       <span className="text-sm text-gray-500 dark:text-gray-400">
                         {article.article_likes[0]?.count ?? 0}
                       </span>
                     </div>
-                  </IconWithDownloadDialog>
+                  </AppDownloadDialogTrigger>
+
+                  {/* シェアボタンを追加 */}
+                  <ShareButton
+                    url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+                    title={article.title}
+                    text={`${article.title} | ${categoryDisplayName}`}
+                    dialogTitle="記事をシェアする"
+                    className="p-0"
+                  />
                 </div>
               </div>
 
@@ -192,23 +208,31 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <IconWithDownloadDialog className="cursor-pointer">
+                  <AppDownloadDialogTrigger className="cursor-pointer">
                     <div className="flex items-center gap-2">
                       <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
                       <span className="text-gray-700 dark:text-gray-300">
                         {article.article_likes[0]?.count ?? 0}
                       </span>
                     </div>
-                  </IconWithDownloadDialog>
-                  <IconWithDownloadDialog className="cursor-pointer">
+                  </AppDownloadDialogTrigger>
+                  <AppDownloadDialogTrigger className="cursor-pointer">
                     <div className="flex items-center gap-2">
                       <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
                       <span className="text-gray-700 dark:text-gray-300">
                         {article.article_comments[0]?.count ?? 0}
                       </span>
                     </div>
-                  </IconWithDownloadDialog>
+                  </AppDownloadDialogTrigger>
                 </div>
+
+                {/* 汎用シェアボタン */}
+                <ShareButton
+                  url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+                  title={article.title}
+                  text={`${article.title} | ${categoryDisplayName}`}
+                  dialogTitle="記事をシェアする"
+                />
               </div>
             </div>
 
@@ -229,6 +253,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                 )}
               </div>
             </div>
+
+            {/* アプリダウンロードセクションを追加 */}
+            <AppDownloadSection displayName={article.profiles.display_name} />
           </div>
         </main>
       </Suspense>

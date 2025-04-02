@@ -1,4 +1,4 @@
-import { ArticleLikeIcon, IconWithDownloadDialog } from '@quitmate/ui';
+import { ArticleLikeIcon, AppDownloadDialogTrigger } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import Link from 'next/link';
@@ -52,12 +52,12 @@ export function ArticleCommentTile({ comment }: Props) {
 
         {/* いいねボタン */}
         <div className="mt-1 flex items-center gap-1 text-muted-foreground">
-          <IconWithDownloadDialog className="cursor-pointer">
+          <AppDownloadDialogTrigger className="cursor-pointer">
             <div className="flex items-center gap-1">
               <ArticleLikeIcon className="size-4" />
               <span className="text-xs">{comment.article_comment_likes[0]?.count ?? 0}</span>
             </div>
-          </IconWithDownloadDialog>
+          </AppDownloadDialogTrigger>
         </div>
       </div>
     </div>

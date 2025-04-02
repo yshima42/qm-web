@@ -50,7 +50,7 @@ export function AppDownloadDialog() {
 }
 
 // アイコンをダイアログトリガーとして使用するラッパーコンポーネント
-export function IconWithDownloadDialog({ 
+export function AppDownloadDialogTrigger({ 
   children, 
   className 
 }: { 

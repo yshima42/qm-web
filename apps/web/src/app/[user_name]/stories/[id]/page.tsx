@@ -1,3 +1,4 @@
+import { AppDownloadSection } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -92,7 +93,6 @@ export default async function Page({
 }) {
   const resolvedParams = await params;
   const id = resolvedParams.id;
-  // 後で子コンポーネントに移動し、suspenseで読み込む
   const story = await fetchStoryById(id);
   const comments = await fetchCommentsByStoryId(id);
 
@@ -111,6 +111,9 @@ export default async function Page({
               ))}
             </div>
           )}
+
+          {/* アプリダウンロードセクションをコンポーネントに置き換え */}
+          <AppDownloadSection displayName={story.profiles.display_name} />
         </main>
       </Suspense>
     </>

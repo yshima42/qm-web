@@ -1,4 +1,4 @@
-import { AutoLinkText, DefaultAvatar } from '@quitmate/ui';
+import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger } from '@quitmate/ui';
 import Image from 'next/image';
 
 import { ProfileTileDto } from '@/lib/types';
@@ -43,16 +43,18 @@ export function ProfileHeader({ profile }: Props) {
           )}
 
           {/* フォロー情報 */}
-          <div className="flex gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <span className="font-semibold text-foreground">{profile.following}</span>
-              <span>フォロー中</span>
+          <AppDownloadDialogTrigger className="cursor-pointer">
+            <div className="flex gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-foreground">{profile.following}</span>
+                <span>フォロー中</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-foreground">{profile.followers}</span>
+                <span>フォロワー</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold text-foreground">{profile.followers}</span>
-              <span>フォロワー</span>
-            </div>
-          </div>
+          </AppDownloadDialogTrigger>
         </div>
       </div>
     </div>

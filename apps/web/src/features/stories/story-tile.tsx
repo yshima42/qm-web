@@ -4,7 +4,7 @@ import {
   AutoLinkText,
   CommentIcon,
   StoryLikeIcon,
-  IconWithDownloadDialog,
+  AppDownloadDialogTrigger,
   Tag,
 } from '@quitmate/ui';
 import { format } from 'date-fns';
@@ -72,14 +72,6 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
     }
   };
 
-  // 「もっと見る」ボタンのハンドラー
-  const handleMoreClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!disableLink) {
-      router.push(`/${story.profiles.user_name}/stories/${story.id}`);
-    }
-  };
-
   // リンクの伝播を止めるハンドラー
   const handleContentClick = (e: React.MouseEvent) => {
     // テキスト内のリンク（AutoLinkText内のa要素）がクリックされた場合のみ
@@ -90,22 +82,37 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
   };
 
   return (
-    <div className="block border-b border-gray-300 dark:border-gray-700">
+    <div
+      className="block cursor-pointer border-b border-gray-300 transition-colors hover:bg-accent/5 dark:border-gray-700"
+      onClick={handleClick}
+    >
       <div className="flex px-0 py-4">
         {/* アバター部分 */}
-        <div className="mr-3">
-          <UserAvatar
-            username={story.profiles.user_name}
-            displayName={story.profiles.display_name}
-            avatarUrl={story.profiles.avatar_url}
-            size="md"
-          />
+        <div
+          className="mr-3"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Link href={`/${story.profiles.user_name}`}>
+            <UserAvatar
+              username={story.profiles.user_name}
+              displayName={story.profiles.display_name}
+              avatarUrl={story.profiles.avatar_url}
+              size="md"
+            />
+          </Link>
         </div>
 
         {/* メインコンテンツ */}
         <div className="flex-1">
           {/* ヘッダー */}
-          <div className="mb-1 flex items-center gap-2">
+          <div
+            className="mb-1 flex items-center gap-2"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <Link href={`/${story.profiles.user_name}`} className="hover:underline">
               <span className="font-bold text-foreground">{story.profiles.display_name}</span>
             </Link>
@@ -116,11 +123,8 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
             <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
-          {/* クリック可能領域 */}
-          <div
-            className={`block ${!disableLink ? 'cursor-pointer transition-colors hover:bg-accent/5' : ''}`}
-            onClick={handleClick}
-          >
+          {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
+          <div>
             {/* 習慣カテゴリーとカウント */}
             <div className="mb-2 flex items-center gap-2">
               <Tag>
@@ -132,10 +136,7 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
             <div className="mb-3 whitespace-pre-wrap text-foreground" onClick={handleContentClick}>
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
-                <span
-                  className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500"
-                  onClick={handleMoreClick}
-                >
+                <span className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500">
                   もっと見る
                 </span>
               )}
@@ -144,19 +145,33 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
 
           {/* アクション */}
           <div className="flex gap-6 text-muted-foreground">
-            <IconWithDownloadDialog className="cursor-pointer">
-              <div className="flex items-center gap-1">
-                <CommentIcon className="size-5" />
-                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-              </div>
-            </IconWithDownloadDialog>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="inline-flex"
+            >
+              <AppDownloadDialogTrigger className="cursor-pointer">
+                <div className="flex items-center gap-1">
+                  <CommentIcon className="size-5" />
+                  <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+                </div>
+              </AppDownloadDialogTrigger>
+            </div>
 
-            <IconWithDownloadDialog className="cursor-pointer">
-              <div className="flex items-center gap-1">
-                <StoryLikeIcon className="size-5" />
-                <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-              </div>
-            </IconWithDownloadDialog>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="inline-flex"
+            >
+              <AppDownloadDialogTrigger className="cursor-pointer">
+                <div className="flex items-center gap-1">
+                  <StoryLikeIcon className="size-5" />
+                  <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
+                </div>
+              </AppDownloadDialogTrigger>
+            </div>
           </div>
         </div>
       </div>

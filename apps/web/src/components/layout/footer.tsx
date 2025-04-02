@@ -1,4 +1,4 @@
-import { ThemeSwitcher } from '@quitmate/ui';
+import { ThemeSwitcher, StoreBadges } from '@quitmate/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,6 +16,10 @@ export function Footer() {
           />
           <p className="text-sm font-medium">共になら、やめられる</p>
         </Link>
+      </div>
+
+      <div className="mt-2 block sm:hidden">
+        <StoreBadges size="small" />
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
