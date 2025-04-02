@@ -53,9 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // 記事内容から短い抜粋を作成
   const description = article.content.substring(0, 300) || '記事詳細ページです';
 
-  // 記事の最初の画像URLを探す（オプション）
-  // const firstImageUrl = extractFirstImageFromMarkdown(article.content);
-  // const ogImage = firstImageUrl || '/images/ogp.png';
+  // プロフィール画像URLを取得（存在する場合）
+  const profileImageUrl = article.profiles.avatar_url ?? null;
 
   return {
     title: `${article.title} | ${categoryDisplayName}`,
@@ -64,15 +63,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${article.title} | ${categoryDisplayName}`,
       description: description,
       type: 'article',
-      // images: [{ url: ogImage }],
+      // プロフィール画像があれば小さいサイズで表示
+      ...(profileImageUrl && {
+        images: [
+          {
+            url: profileImageUrl,
+            width: 100,
+            height: 100,
+            alt: `${article.profiles.display_name}のプロフィール画像`,
+          },
+        ],
+      }),
       publishedTime: article.created_at,
       authors: [article.profiles.display_name],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary', // summaryにすることで小さめに表示
       title: `${article.title} | ${categoryDisplayName}`,
       description: description,
-      // images: [ogImage],
+      ...(profileImageUrl && { images: [profileImageUrl] }),
       creator: `@${article.profiles.user_name}`,
     },
   };

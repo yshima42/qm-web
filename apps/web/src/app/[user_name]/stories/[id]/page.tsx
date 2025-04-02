@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // ストーリー内容から短い抜粋を作成
   const description = story.content.substring(0, 300) || 'ストーリー詳細ページです';
 
-  // ストーリーに添付された画像があれば使用（オプション）
-  // const storyImage = story.image_url || '/images/ogp.png';
+  // プロフィール画像URLを取得（存在する場合）
+  const profileImageUrl = story.profiles.avatar_url ?? null;
 
   return {
     title: story.profiles.display_name,
@@ -43,15 +43,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: story.profiles.display_name,
       description: description,
       type: 'article',
-      // images: [{ url: storyImage }],
+      // プロフィール画像があれば小さいサイズで表示
+      ...(profileImageUrl && {
+        images: [
+          {
+            url: profileImageUrl,
+            width: 100,
+            height: 100,
+            alt: `${story.profiles.display_name}のプロフィール画像`,
+          },
+        ],
+      }),
       publishedTime: story.created_at,
       authors: [story.profiles.display_name],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary', // summaryにすることで小さめに表示
       title: story.profiles.display_name,
       description: description,
-      // images: [storyImage],
+      ...(profileImageUrl && { images: [profileImageUrl] }),
       creator: `@${story.profiles.user_name}`,
     },
   };
