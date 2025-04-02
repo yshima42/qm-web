@@ -11,6 +11,7 @@ const nextConfig = {
   experimental: {
     turboCaching: false,
   },
+  unstable_disableWithNoCache: true,
 };
 
 export default nextConfig;
