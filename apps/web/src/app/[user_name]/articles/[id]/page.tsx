@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | ${categoryDisplayName}`,
     description: description,
     openGraph: {
-      title: `${article.title} | ${categoryDisplayName}`,
+      title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
       type: 'article',
       // プロフィール画像があれば小さいサイズで表示
@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary', // summaryにすることで小さめに表示
-      title: `${article.title} | ${categoryDisplayName}`,
+      title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
       ...(profileImageUrl && { images: [profileImageUrl] }),
       creator: `@${article.profiles.user_name}`,
