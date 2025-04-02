@@ -4,6 +4,12 @@
         "cache": false
       },
       "build": {
+        "dependsOn": ["^build"],
+        "outputs": [".next/**", "dist/**", "out/**"]
+      }
+    },
+    "pipeline": {
+      "lp#build": {
         "cache": false,
         "dependsOn": ["^build"],
         "outputs": [".next/**", "dist/**", "out/**"]
