@@ -8,6 +8,9 @@ const nextConfig = {
   // basePath: '/your-base-path',
   // 明示的に静的生成するパスを指定（念のため）
   trailingSlash: true,
+  experimental: {
+    turboCaching: false,
+  },
 };
 
 export default nextConfig;
