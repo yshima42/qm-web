@@ -151,7 +151,12 @@ export function Sidebar() {
       <div className="fixed left-4 top-[7px] z-50 md:hidden">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="rounded-full shadow-md">
+            <Button
+              size="icon"
+              variant="outline"
+              className="rounded-full shadow-md"
+              aria-label="メニューを開く"
+            >
               <Menu className="size-5" />
             </Button>
           </SheetTrigger>

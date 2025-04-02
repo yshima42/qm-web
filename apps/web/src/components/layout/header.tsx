@@ -42,7 +42,13 @@ export function Header({
       <div className="relative flex h-14 items-center justify-between px-4">
         <div className="flex w-24 items-center justify-start">
           {showBackButton && (
-            <Button variant="ghost" size="icon" onClick={handleBack} className="ml-12 md:ml-0">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleBack}
+              className="ml-12 md:ml-0"
+              aria-label="戻る"
+            >
               <ArrowLeft className="size-5" />
               <span className="sr-only">戻る</span>
             </Button>

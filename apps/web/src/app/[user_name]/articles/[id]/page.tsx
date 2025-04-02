@@ -1,4 +1,11 @@
-import { CommentIconWithDownload, ArticleLikeIconWithDownload, Tag } from '@quitmate/ui';
+import {
+  CommentIcon,
+  ArticleLikeIcon,
+  AppDownloadDialogTrigger,
+  Tag,
+  ShareButton,
+  AppDownloadSection,
+} from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -46,9 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // 記事内容から短い抜粋を作成
   const description = article.content.substring(0, 300) || '記事詳細ページです';
 
-  // 記事の最初の画像URLを探す（オプション）
-  // const firstImageUrl = extractFirstImageFromMarkdown(article.content);
-  // const ogImage = firstImageUrl || '/images/ogp.png';
+  // プロフィール画像URLを取得（存在する場合）
+  const profileImageUrl = article.profiles.avatar_url ?? null;
 
   return {
     title: `${article.title} | ${categoryDisplayName}`,
@@ -57,15 +63,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${article.title} | ${categoryDisplayName}`,
       description: description,
       type: 'article',
-      // images: [{ url: ogImage }],
+      // プロフィール画像があれば小さいサイズで表示
+      ...(profileImageUrl && {
+        images: [
+          {
+            url: profileImageUrl,
+            width: 100,
+            height: 100,
+            alt: `${article.profiles.display_name}のプロフィール画像`,
+          },
+        ],
+      }),
       publishedTime: article.created_at,
       authors: [article.profiles.display_name],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary', // summaryにすることで小さめに表示
       title: `${article.title} | ${categoryDisplayName}`,
       description: description,
-      // images: [ogImage],
+      ...(profileImageUrl && { images: [profileImageUrl] }),
       creator: `@${article.profiles.user_name}`,
     },
   };
@@ -152,12 +168,23 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
                 {/* いいねとコメントカウント（上部に表示） */}
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {article.article_likes[0]?.count ?? 0}
-                    </span>
-                  </div>
+                  <AppDownloadDialogTrigger className="cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        {article.article_likes[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </AppDownloadDialogTrigger>
+
+                  {/* シェアボタンを追加 */}
+                  <ShareButton
+                    url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+                    title={article.title}
+                    text={`${article.title} | ${article.profiles.display_name}`}
+                    dialogTitle="記事をシェアする"
+                    className="p-0"
+                  />
                 </div>
               </div>
 
@@ -190,19 +217,31 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <ArticleLikeIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {article.article_likes[0]?.count ?? 0}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CommentIconWithDownload className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {article.article_comments[0]?.count ?? 0}
-                    </span>
-                  </div>
+                  <AppDownloadDialogTrigger className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {article.article_likes[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </AppDownloadDialogTrigger>
+                  <AppDownloadDialogTrigger className="cursor-pointer">
+                    <div className="flex items-center gap-2">
+                      <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {article.article_comments[0]?.count ?? 0}
+                      </span>
+                    </div>
+                  </AppDownloadDialogTrigger>
                 </div>
+
+                {/* 汎用シェアボタン */}
+                <ShareButton
+                  url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+                  title={article.title}
+                  text={`${article.title} | ${article.profiles.display_name}`}
+                  dialogTitle="記事をシェアする"
+                />
               </div>
             </div>
 
@@ -223,6 +262,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                 )}
               </div>
             </div>
+
+            {/* アプリダウンロードセクションを追加 */}
+            <AppDownloadSection displayName={article.profiles.display_name} />
           </div>
         </main>
       </Suspense>
