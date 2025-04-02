@@ -1,3 +1,4 @@
+import { AppDownloadSection } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -32,8 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // ストーリー内容から短い抜粋を作成
   const description = story.content.substring(0, 300) || 'ストーリー詳細ページです';
 
-  // ストーリーに添付された画像があれば使用（オプション）
-  // const storyImage = story.image_url || '/images/ogp.png';
+  // プロフィール画像URLを取得（存在する場合）
+  const profileImageUrl = story.profiles.avatar_url ?? null;
 
   return {
     title: story.profiles.display_name,
@@ -42,15 +43,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: story.profiles.display_name,
       description: description,
       type: 'article',
-      // images: [{ url: storyImage }],
+      // プロフィール画像があれば小さいサイズで表示
+      ...(profileImageUrl && {
+        images: [
+          {
+            url: profileImageUrl,
+            width: 100,
+            height: 100,
+            alt: `${story.profiles.display_name}のプロフィール画像`,
+          },
+        ],
+      }),
       publishedTime: story.created_at,
       authors: [story.profiles.display_name],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary', // summaryにすることで小さめに表示
       title: story.profiles.display_name,
       description: description,
-      // images: [storyImage],
+      ...(profileImageUrl && { images: [profileImageUrl] }),
       creator: `@${story.profiles.user_name}`,
     },
   };
@@ -92,7 +103,6 @@ export default async function Page({
 }) {
   const resolvedParams = await params;
   const id = resolvedParams.id;
-  // 後で子コンポーネントに移動し、suspenseで読み込む
   const story = await fetchStoryById(id);
   const comments = await fetchCommentsByStoryId(id);
 
@@ -111,6 +121,9 @@ export default async function Page({
               ))}
             </div>
           )}
+
+          {/* アプリダウンロードセクションをコンポーネントに置き換え */}
+          <AppDownloadSection displayName={story.profiles.display_name} />
         </main>
       </Suspense>
     </>

@@ -1,4 +1,4 @@
-import { AutoLinkText, DefaultAvatar } from '@quitmate/ui';
+import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from '@quitmate/ui';
 import Image from 'next/image';
 
 import { ProfileTileDto } from '@/lib/types';
@@ -9,7 +9,13 @@ type Props = {
 
 export function ProfileHeader({ profile }: Props) {
   return (
-    <div className="mb-6 rounded-lg border border-border bg-card p-6 shadow-sm">
+    <div className="relative mb-6 rounded-lg border border-border bg-card p-6 shadow-sm">
+      <ShareButton
+        title={`${profile.display_name}のプロフィール | QuitMate`}
+        text={`${profile.display_name}のプロフィール on QuitMate`}
+        dialogTitle="プロフィールをシェア"
+        className="absolute right-4 top-4"
+      />
       <div className="flex flex-col sm:flex-row sm:items-center">
         {/* アバター画像 */}
         <div className="mb-4 sm:mb-0 sm:mr-6">
@@ -43,16 +49,18 @@ export function ProfileHeader({ profile }: Props) {
           )}
 
           {/* フォロー情報 */}
-          <div className="flex gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <span className="font-semibold text-foreground">{profile.following}</span>
-              <span>フォロー中</span>
+          <AppDownloadDialogTrigger className="cursor-pointer">
+            <div className="flex gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-foreground">{profile.following}</span>
+                <span>フォロー中</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-foreground">{profile.followers}</span>
+                <span>フォロワー</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold text-foreground">{profile.followers}</span>
-              <span>フォロワー</span>
-            </div>
-          </div>
+          </AppDownloadDialogTrigger>
         </div>
       </div>
     </div>
