@@ -172,7 +172,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                   <ShareButton
                     url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
                     title={article.title}
-                    text={`${article.title} | ${categoryDisplayName}`}
+                    text={`${article.title} | ${article.profiles.display_name}`}
                     dialogTitle="記事をシェアする"
                     className="p-0"
                   />
@@ -230,7 +230,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                 <ShareButton
                   url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
                   title={article.title}
-                  text={`${article.title} | ${categoryDisplayName}`}
+                  text={`${article.title} | ${article.profiles.display_name}`}
                   dialogTitle="記事をシェアする"
                 />
               </div>
