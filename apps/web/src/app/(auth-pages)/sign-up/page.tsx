@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
-import { FormMessage, Message } from '@/components/form-message';
-import { SubmitButton } from '@/components/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 import { signUpAction } from '@/app/actions';
+import { FormMessage, Message } from '@/features/auth/form-message';
+import { SubmitButton } from '@/features/auth/submit-button';
 
 export default async function Signup(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;

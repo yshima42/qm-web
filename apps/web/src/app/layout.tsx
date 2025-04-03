@@ -3,10 +3,11 @@ import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
-import HeaderAuth from '@/components/header-auth';
 import { Footer } from '@/components/layout/footer';
 import { Sidebar } from '@/components/layout/sidebar';
 import { SmartBanner } from '@/components/ui/smart-banner';
+
+import HeaderAuth from '@/features/auth/header-auth';
 
 import './globals.css';
 
