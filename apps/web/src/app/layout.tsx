@@ -4,10 +4,7 @@ import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import { Footer } from '@/components/layout/footer';
-import { Sidebar } from '@/components/layout/sidebar';
 import { SmartBanner } from '@/components/ui/smart-banner';
-
-import HeaderAuth from '@/features/auth/header-auth';
 
 import './globals.css';
 
@@ -95,9 +92,10 @@ export default function RootLayout({
           <main className="flex min-h-screen flex-col items-center">
             <div className="flex w-full flex-1 flex-col items-center">
               {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
-              <HeaderAuth />
+              {/* <HeaderAuth /> */}
               <div className="flex w-full max-w-5xl">
-                <Sidebar />
+                {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
+                {/* <Sidebar /> */}
                 <div className="flex flex-1 flex-col">{children}</div>
               </div>
               <SmartBanner />
