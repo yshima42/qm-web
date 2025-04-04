@@ -1,7 +1,8 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { resetPasswordAction } from '@/app/actions';
+import { resetPasswordAction } from '@/lib/auth-actions';
+
 import { FormMessage, Message } from '@/features/auth/form-message';
 import { SubmitButton } from '@/features/auth/submit-button';
 

@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { forgotPasswordAction } from '@/app/actions';
+import { forgotPasswordAction } from '@/lib/auth-actions';
+
 import { FormMessage, Message } from '@/features/auth/form-message';
 import { SubmitButton } from '@/features/auth/submit-button';
 
