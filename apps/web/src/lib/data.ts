@@ -35,7 +35,7 @@ const ARTICLE_XML_SELECT_QUERY = `id,
 const FETCH_LIMIT = 100;
 
 export async function fetchArticles() {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
   const { data } = await supabase
     .from('articles')
     .select(ARTICLE_SELECT_QUERY)
@@ -309,7 +309,7 @@ export async function fetchProfilePageStaticParams(limit?: number) {
 }
 
 export async function fetchProfileByUsername(username: string) {
-  const supabase = await createClient();
+  const supabase = createAnonServerClient();
 
   const profileResult = await supabase
     .from('profiles')
