@@ -5,6 +5,7 @@ import {
   Tag,
   ShareButton,
   AppDownloadSection,
+  Logo,
 } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
@@ -150,7 +151,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <>
       <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <Header title={article.title} backUrl="/articles" hideTitle={{ mobile: true }} />
+        <Header titleElement={<Logo />} />
         <main className="p-3 sm:p-5">
           <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
             {/* 記事ヘッダー */}

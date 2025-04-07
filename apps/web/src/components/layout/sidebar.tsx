@@ -111,7 +111,7 @@ export function SidebarContent({
         {/* PC表示の場合のみアプリダウンロード情報を表示 */}
         {!compact && (
           <div className="hidden rounded-lg border border-border bg-card p-3 shadow-sm lg:block">
-            <h4 className="mb-2 text-center text-sm font-medium">アプリをダウンロード</h4>
+            <h4 className="mb-2 text-center text-sm font-medium">QuitMateをダウンロード</h4>
             <div className="mb-3 flex justify-center">
               <div className="rounded bg-white p-0">
                 <Image

@@ -15,3 +15,4 @@ export * from './components/custom/app-download-dialog';
 export * from './components/custom/auto-link-text';
 export * from './components/custom/share-button';
 export * from './components/custom/app-download-section';
+export * from './components/custom/logo';
