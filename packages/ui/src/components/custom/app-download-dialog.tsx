@@ -9,16 +9,16 @@ const AppDownloadDialogContent = () => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="text-xl md:text-2xl">アプリをダウンロード</DialogTitle>
+        <DialogTitle className="text-xl md:text-2xl">QuitMateをダウンロード</DialogTitle>
         <DialogDescription className="text-base md:text-lg mt-2">
-          まずは無料でダウンロード！あなただけじゃない。共になら、やめられる。
+          「やめたくても、やめられない」のは、あなただけじゃない。
         </DialogDescription>
       </DialogHeader>
       <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-4">
         <div className="flex flex-col items-center space-y-4 md:space-y-6">
           <div className="hidden md:flex md:flex-col md:items-center">
-            <p className="font-medium mb-2">QRコードでダウンロード</p>
-            <div className="bg-white p-2 rounded-lg">
+            <p className="font-medium">QRコードからダウンロード</p>
+            <div className="bg-white rounded-lg">
               <Image 
                 src="/images/qr-code.svg" 
                 alt="アプリダウンロードQRコード" 

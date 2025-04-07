@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
+import { Logo, Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -88,7 +88,7 @@ export default async function Page(props: { params: Promise<{ user_name: string 
 
   return (
     <>
-      <Header title="プロフィール" />
+      <Header titleElement={<Logo />} />
       <Suspense fallback={<LoadingSpinner fullHeight />}>
         <main className="p-3 sm:p-5">
           <ProfileHeader profile={profile} />
