@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@quitmate/ui';
+// import { Button } from '@quitmate/ui';
 import clsx from 'clsx';
-import { ArrowLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+// import { ArrowLeft } from 'lucide-react';
+// import { useRouter } from 'next/navigation';
 
 type HeaderProps = {
-  title: string;
+  title?: string;
   titleElement?: React.ReactNode;
   showBackButton?: boolean;
   backUrl?: string;
@@ -21,26 +21,26 @@ type HeaderProps = {
 export function Header({
   title,
   titleElement,
-  showBackButton = true,
-  backUrl,
+  // showBackButton = true,
+  // backUrl,
   rightElement,
   hideTitle,
   icon,
 }: HeaderProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleBack = () => {
-    if (backUrl) {
-      router.push(backUrl);
-    } else {
-      router.back();
-    }
-  };
+  // const handleBack = () => {
+  //   if (backUrl) {
+  //     router.push(backUrl);
+  //   } else {
+  //     router.back();
+  //   }
+  // };
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="relative flex h-14 items-center justify-between px-4">
-        <div className="flex w-24 items-center justify-start">
+        {/* <div className="flex w-24 items-center justify-start">
           {showBackButton && (
             <Button
               variant="ghost"
@@ -53,7 +53,7 @@ export function Header({
               <span className="sr-only">戻る</span>
             </Button>
           )}
-        </div>
+        </div> */}
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           {titleElement ? (

@@ -1,4 +1,4 @@
-import { AppDownloadSection } from '@quitmate/ui';
+import { AppDownloadSection, Logo } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -110,7 +110,7 @@ export default async function Page({
 
   return (
     <>
-      <Header title="ストーリー詳細" />
+      <Header titleElement={<Logo />} />
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
           <StoryTile story={story} disableLink showFullContent />
