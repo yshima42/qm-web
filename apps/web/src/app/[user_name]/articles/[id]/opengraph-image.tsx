@@ -27,8 +27,9 @@ export default async function Image({ params }: { params: { id: string } }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(to right, #4ade80, #15803d)', // green400-green800
-          padding: '4px', // 枠線の太さ
+          background: 'linear-gradient(to right, #86efac, #16a34a)', // より明るい緑から暗い緑へ
+          padding: '16px', // 枠線をより太く
+          borderRadius: '24px', // 角丸の追加
         }}
       >
         <div
@@ -37,12 +38,64 @@ export default async function Image({ params }: { params: { id: string } }) {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            background: '#f0fdf4', // 薄緑色背景 (green-50)
+            justifyContent: 'space-between',
+            background: 'white', // 背景を白に変更
             padding: '48px 60px',
+            borderRadius: '16px', // 内側の角も丸く
           }}
         >
-          {article?.title}
-          {displayName}
+          {/* タイトル部分 - 左上に配置 */}
+          <div
+            style={{
+              fontSize: '48px',
+              fontWeight: 'bold',
+              color: '#111827', // テキストを濃い色に
+              lineHeight: 1.2,
+              maxWidth: '80%',
+            }}
+          >
+            {article?.title}
+          </div>
+
+          {/* 下部の情報エリア - 名前とQuitMate */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              width: '100%',
+            }}
+          >
+            {/* 左下に名前 */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 'bold',
+                  color: '#374151', // ダークグレイ
+                }}
+              >
+                {displayName}
+              </div>
+            </div>
+
+            {/* 右下にQuitMate */}
+            <div
+              style={{
+                fontSize: '28px',
+                fontWeight: 'bold',
+                color: '#16a34a', // グリーン
+              }}
+            >
+              QuitMate
+            </div>
+          </div>
         </div>
       </div>
     ),
