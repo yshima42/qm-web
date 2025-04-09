@@ -15,6 +15,7 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: { id: string } }) {
   const article = await fetchArticleById(params.id);
   const displayName = article?.profiles.display_name;
+  const userAvatar = article?.profiles.avatar_url;
 
   return new ImageResponse(
     (
@@ -73,6 +74,13 @@ export default async function Image({ params }: { params: { id: string } }) {
                 gap: '12px',
               }}
             >
+              {userAvatar && (
+                <img
+                  src={userAvatar}
+                  alt="User Avatar"
+                  style={{ width: '48px', height: '48px', borderRadius: '50%' }}
+                />
+              )}
               <div
                 style={{
                   fontSize: '46px',
