@@ -20,7 +20,7 @@ export function AppDownloadSection({
           className="mx-auto mb-2"
           priority
         />
-        <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">QuitMate</h3>
+        <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">依存克服SNS QuitMate</h3>
       </div>
       <p className="mb-6 font-bold text-gray-900 dark:text-white whitespace-pre-line">
         {message}
