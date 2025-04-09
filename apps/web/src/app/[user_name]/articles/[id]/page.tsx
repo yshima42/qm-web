@@ -54,9 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // 記事内容から短い抜粋を作成
   const description = article.content.substring(0, 300) || '記事詳細ページです';
 
-  // プロフィール画像URLを取得（存在する場合）
-  const profileImageUrl = article.profiles.avatar_url ?? null;
-
   return {
     title: `${article.title} | ${categoryDisplayName}`,
     description: description,
@@ -64,25 +61,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
       type: 'article',
-      // プロフィール画像があれば小さいサイズで表示
-      ...(profileImageUrl && {
-        images: [
-          {
-            url: profileImageUrl,
-            width: 100,
-            height: 100,
-            alt: `${article.profiles.display_name}のプロフィール画像`,
-          },
-        ],
-      }),
+      // OGP画像はopengraph-image.tsxによって自動的に処理されるため、ここでの指定は不要
       publishedTime: article.created_at,
       authors: [article.profiles.display_name],
     },
     twitter: {
-      card: 'summary', // summaryにすることで小さめに表示
+      card: 'summary_large_image', // 大きい画像を表示
       title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
-      ...(profileImageUrl && { images: [profileImageUrl] }),
+      // Twitter画像も自動的に処理されるため、ここでの指定は不要
       creator: `@${article.profiles.user_name}`,
     },
   };
