@@ -15,6 +15,7 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: { id: string } }) {
   const article = await fetchArticleById(params.id);
   const displayName = article?.profiles.display_name;
+  const userName = article?.profiles.user_name;
 
   return new ImageResponse(
     (
@@ -27,9 +28,9 @@ export default async function Image({ params }: { params: { id: string } }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(to right, #86efac, #16a34a)', // より明るい緑から暗い緑へ
-          padding: '16px', // 枠線をより太く
-          borderRadius: '24px', // 角丸の追加
+          background: 'linear-gradient(to right, #90D982, #2E6C28)', // より明るい緑から暗い緑へ
+          padding: '48px', // 枠線をより太く
+          borderRadius: '0px', // 角丸の追加
         }}
       >
         <div
@@ -47,8 +48,8 @@ export default async function Image({ params }: { params: { id: string } }) {
           {/* タイトル部分 - 左上に配置 */}
           <div
             style={{
-              fontSize: '48px',
-              fontWeight: 'bold',
+              fontSize: '56px',
+              fontWeight: '800',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
               maxWidth: '80%',
@@ -70,27 +71,35 @@ export default async function Image({ params }: { params: { id: string } }) {
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
+                flexDirection: 'column',
                 gap: '12px',
               }}
             >
               <div
                 style={{
-                  fontSize: '24px',
+                  fontSize: '46px',
                   fontWeight: 'bold',
                   color: '#374151', // ダークグレイ
                 }}
               >
                 {displayName}
               </div>
+              <div
+                style={{
+                  fontSize: '32px',
+                  color: '#6B7280', // ミディアムグレイ
+                }}
+              >
+                @{userName}
+              </div>
             </div>
 
             {/* 右下にQuitMate */}
             <div
               style={{
-                fontSize: '28px',
+                fontSize: '48px',
                 fontWeight: 'bold',
-                color: '#16a34a', // グリーン
+                color: '#111827',
               }}
             >
               QuitMate
