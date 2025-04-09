@@ -48,7 +48,7 @@ export default async function Image({ params }: { params: { id: string } }) {
           <div
             style={{
               fontSize: '64px',
-              fontWeight: 'bold',
+              fontWeight: '900',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
               maxWidth: '80%',
@@ -78,7 +78,7 @@ export default async function Image({ params }: { params: { id: string } }) {
                 <img
                   src={userAvatar}
                   alt="User Avatar"
-                  style={{ width: '48px', height: '48px', borderRadius: '50%' }}
+                  style={{ width: '56px', height: '56px', borderRadius: '50%' }}
                 />
               )}
               <div
@@ -93,15 +93,20 @@ export default async function Image({ params }: { params: { id: string } }) {
             </div>
 
             {/* 右下にQuitMate */}
-            <div
+            <img
+              src="https://www.quitmate.app/images/text-logo.png"
+              alt="QuitMate"
+              style={{ height: '56px' }}
+            />
+            {/* <div
               style={{
                 fontSize: '46px',
                 fontWeight: 'bold',
-                color: '#111827', // グリーン
+                color: '#111827',
               }}
             >
               QuitMate
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
