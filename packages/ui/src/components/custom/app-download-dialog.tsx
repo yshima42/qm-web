@@ -9,7 +9,7 @@ const AppDownloadDialogContent = () => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="text-xl md:text-2xl">QuitMateをダウンロード</DialogTitle>
+        <DialogTitle className="text-xl md:text-2xl">依存克服SNS QuitMate</DialogTitle>
         <DialogDescription className="text-base md:text-lg mt-2">
           「やめたくても、やめられない」のは、あなただけじゃない。
         </DialogDescription>
