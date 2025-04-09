@@ -27,9 +27,8 @@ export default async function Image({ params }: { params: { id: string } }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(to right, #86efac, #16a34a)', // より明るい緑から暗い緑へ
-          padding: '16px', // 枠線をより太く
-          borderRadius: '24px', // 角丸の追加
+          background: 'linear-gradient(to right, #90D982, #2E6C28)', // より明るい緑から暗い緑へ
+          padding: '48px', // 枠線をより太く
         }}
       >
         <div
@@ -41,13 +40,13 @@ export default async function Image({ params }: { params: { id: string } }) {
             justifyContent: 'space-between',
             background: 'white', // 背景を白に変更
             padding: '48px 60px',
-            borderRadius: '16px', // 内側の角も丸く
+            borderRadius: '24px', // 内側の角も丸く
           }}
         >
           {/* タイトル部分 - 左上に配置 */}
           <div
             style={{
-              fontSize: '48px',
+              fontSize: '64px',
               fontWeight: 'bold',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
@@ -76,7 +75,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             >
               <div
                 style={{
-                  fontSize: '24px',
+                  fontSize: '46px',
                   fontWeight: 'bold',
                   color: '#374151', // ダークグレイ
                 }}
@@ -88,9 +87,9 @@ export default async function Image({ params }: { params: { id: string } }) {
             {/* 右下にQuitMate */}
             <div
               style={{
-                fontSize: '28px',
+                fontSize: '46px',
                 fontWeight: 'bold',
-                color: '#16a34a', // グリーン
+                color: '#111827', // グリーン
               }}
             >
               QuitMate
