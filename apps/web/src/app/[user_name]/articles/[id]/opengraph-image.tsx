@@ -15,6 +15,7 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: { id: string } }) {
   const article = await fetchArticleById(params.id);
   const displayName = article?.profiles.display_name;
+  const userName = article?.profiles.user_name;
 
   return new ImageResponse(
     (
@@ -27,9 +28,9 @@ export default async function Image({ params }: { params: { id: string } }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(to right, #86efac, #16a34a)', // より明るい緑から暗い緑へ
-          padding: '16px', // 枠線をより太く
-          borderRadius: '24px', // 角丸の追加
+          background: 'linear-gradient(to right, #90D982, #2E6C28)', // より明るい緑から暗い緑へ
+          padding: '24px', // 枠線をさらに太く
+          borderRadius: '0px', // 角丸なし
         }}
       >
         <div
@@ -41,17 +42,17 @@ export default async function Image({ params }: { params: { id: string } }) {
             justifyContent: 'space-between',
             background: 'white', // 背景を白に変更
             padding: '48px 60px',
-            borderRadius: '16px', // 内側の角も丸く
+            borderRadius: '16px', // 内側の角は丸く
           }}
         >
           {/* タイトル部分 - 左上に配置 */}
           <div
             style={{
-              fontSize: '48px',
-              fontWeight: 'bold',
+              fontSize: '56px', // フォントサイズ大きく
+              fontWeight: '800', // より太く
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
-              maxWidth: '80%',
+              maxWidth: '90%', // 幅を広げる
             }}
           >
             {article?.title}
@@ -66,31 +67,39 @@ export default async function Image({ params }: { params: { id: string } }) {
               width: '100%',
             }}
           >
-            {/* 左下に名前 */}
+            {/* 左下に名前とユーザーネーム */}
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
+                flexDirection: 'column',
+                gap: '4px',
               }}
             >
               <div
                 style={{
-                  fontSize: '24px',
-                  fontWeight: 'bold',
+                  fontSize: '32px', // フォントサイズ大きく
+                  fontWeight: '700', // より太く
                   color: '#374151', // ダークグレイ
                 }}
               >
                 {displayName}
+              </div>
+              <div
+                style={{
+                  fontSize: '22px',
+                  color: '#6B7280', // ミディアムグレイ
+                }}
+              >
+                @{userName}
               </div>
             </div>
 
             {/* 右下にQuitMate */}
             <div
               style={{
-                fontSize: '28px',
-                fontWeight: 'bold',
-                color: '#16a34a', // グリーン
+                fontSize: '36px', // フォントサイズ大きく
+                fontWeight: '700', // より太く
+                color: '#000000', // 黒に変更
               }}
             >
               QuitMate
