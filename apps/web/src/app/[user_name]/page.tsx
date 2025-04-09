@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const profileImage = profile.avatar_url ?? '/images/ogp.png';
 
   return {
-    title: `${profile.display_name} on QuitMate`,
+    title: profile.display_name,
     description: description,
     openGraph: {
       title: profile.display_name,
