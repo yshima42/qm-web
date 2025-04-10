@@ -1,6 +1,3 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-
 import { ImageResponse } from 'next/og';
 
 import { fetchArticleById } from '@/lib/data';
@@ -19,12 +16,6 @@ export default async function Image({ params }: { params: { id: string } }) {
   const article = await fetchArticleById(params.id);
   const displayName = article?.profiles.display_name;
   const userAvatar = article?.profiles.avatar_url;
-
-  // フォントファイルを読み込む（プロジェクトルートからのパス）
-  // 注：実際のフォントファイルの場所に合わせて調整してください
-  const notoSansJP = await readFile(join(process.cwd(), 'assets/fonts/NotoSansJP-Regular.ttf'));
-
-  const notoSansJPBold = await readFile(join(process.cwd(), 'assets/fonts/NotoSansJP-Bold.ttf'));
 
   return new ImageResponse(
     (
@@ -51,15 +42,13 @@ export default async function Image({ params }: { params: { id: string } }) {
             background: 'white', // 背景を白に変更
             padding: '48px 60px',
             borderRadius: '24px', // 内側の角も丸く
-            fontFamily: 'Noto Sans JP',
           }}
         >
           {/* タイトル部分 - 左上に配置 */}
           <div
             style={{
               fontSize: '64px',
-              fontWeight: '900',
-              fontFamily: 'Noto Sans JP',
+              fontWeight: 'bolder',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
               maxWidth: '80%',
@@ -96,7 +85,6 @@ export default async function Image({ params }: { params: { id: string } }) {
                 style={{
                   fontSize: '46px',
                   fontWeight: 'bold',
-                  fontFamily: 'Noto Sans JP',
                   color: '#374151', // ダークグレイ
                 }}
               >
@@ -128,20 +116,6 @@ export default async function Image({ params }: { params: { id: string } }) {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
       ...size,
-      fonts: [
-        {
-          name: 'Noto Sans JP',
-          data: notoSansJP,
-          style: 'normal',
-          weight: 400,
-        },
-        {
-          name: 'Noto Sans JP',
-          data: notoSansJPBold,
-          style: 'normal',
-          weight: 700,
-        },
-      ],
     },
   );
 }
