@@ -48,7 +48,7 @@ export default async function Image({ params }: { params: { id: string } }) {
           <div
             style={{
               fontSize: '64px',
-              fontWeight: '900',
+              fontWeight: 'bolder',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
               maxWidth: '80%',
