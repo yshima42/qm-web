@@ -11,11 +11,19 @@ export const size = {
 
 export const contentType = 'image/png';
 
+// 日本語フォントファイルを取得
+const notoSansJP = fetch(
+  new URL('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap'),
+).then((res) => res.arrayBuffer());
+
 // Image generation
 export default async function Image({ params }: { params: { id: string } }) {
   const article = await fetchArticleById(params.id);
   const displayName = article?.profiles.display_name;
   const userAvatar = article?.profiles.avatar_url;
+
+  // 日本語フォントデータを読み込む
+  const jpFont = await notoSansJP;
 
   return new ImageResponse(
     (
@@ -42,6 +50,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             background: 'white', // 背景を白に変更
             padding: '48px 60px',
             borderRadius: '24px', // 内側の角も丸く
+            fontFamily: 'Noto Sans JP, sans-serif',
           }}
         >
           {/* タイトル部分 - 左上に配置 */}
@@ -49,6 +58,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             style={{
               fontSize: '64px',
               fontWeight: '900',
+              fontFamily: 'Noto Sans JP, sans-serif',
               color: '#111827', // テキストを濃い色に
               lineHeight: 1.2,
               maxWidth: '80%',
@@ -85,6 +95,7 @@ export default async function Image({ params }: { params: { id: string } }) {
                 style={{
                   fontSize: '46px',
                   fontWeight: 'bold',
+                  fontFamily: 'Noto Sans JP, sans-serif',
                   color: '#374151', // ダークグレイ
                 }}
               >
@@ -116,6 +127,14 @@ export default async function Image({ params }: { params: { id: string } }) {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
       ...size,
+      fonts: [
+        {
+          name: 'Noto Sans JP',
+          data: jpFont,
+          style: 'normal',
+          weight: 400,
+        },
+      ],
     },
   );
 }
