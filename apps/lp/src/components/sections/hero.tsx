@@ -1,10 +1,13 @@
 "use client";
 
 import { StoreBadges } from "@quitmate/ui";
+import { useTranslations } from "next-intl";
 
 import { ScreenshotViewer } from "../sections/screenshot-viewer";
 
 export const Hero = () => {
+  const t = useTranslations("hero");
+
   const screenshots = [
     {
       src: "/images/screenshot-stories.png",
@@ -29,12 +32,10 @@ export const Hero = () => {
       <div className="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
         <div className="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
           <h1 className="mb-2 text-3xl font-semibold leading-tight text-gray-800 md:mb-4 md:text-4xl md:font-bold lg:text-4xl">
-            共になら、やめられる
+            {t("title")}
           </h1>
           <p className="mb-4 text-lg text-gray-600 md:mb-6 md:text-xl lg:text-2xl">
-            禁酒・禁ギャンブル・禁煙・禁欲など
-            <br />
-            依存症を克服するための匿名SNSアプリ
+            {t("description")}
           </p>
           <div className="hidden md:block">
             <StoreBadges size="xl" />
