@@ -1,4 +1,7 @@
 {
+    "config": {
+        "language-code": "ja"
+    },
     "hero": {
         "title": "共になら、やめられる",
         "description": "禁酒・禁ギャンブル・禁煙・禁欲など依存症を克服するための匿名SNSアプリ"
@@ -68,5 +71,17 @@
     "not-found": {
         "message": "指定されたページは存在しません。",
         "link-text": "トップ画面に戻る"
+    },
+    "contact": {
+        "title": "お問い合わせ",
+        "description": "QuitMateへのお問い合わせはこちらから。"
+    },
+    "privacy": {
+        "title": "プライバシーポリシー",
+        "description": "QuitMateのプライバシーポリシーをご確認ください。"
+    },
+    "terms": {
+        "title": "利用規約",
+        "description": "QuitMateの利用規約をご確認ください。"
     }
 }

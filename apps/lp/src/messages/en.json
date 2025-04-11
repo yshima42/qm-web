@@ -1,4 +1,7 @@
 {
+    "config": {
+        "language-code": "en"
+    },
     "hero": {
       "title": "You don’t have to quit alone",
       "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions."
@@ -68,6 +71,17 @@
     "not-found": {
       "message": "Oops! This page doesn’t exist.",
       "link-text": "Back to homepage"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with the QuitMate team here."
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "description": "Read QuitMate’s privacy policy."
+    },
+    "terms": {
+        "title": "Terms of Service",
+        "description": "Read QuitMate’s terms of service."
     }
-}
-  
+  }
