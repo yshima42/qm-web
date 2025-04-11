@@ -2,9 +2,14 @@ import "./globals.css";
 import { GoogleAnalytics } from "@quitmate/analytics";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
+import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+
+import { routing } from "@/i18n/routing";
 
 // 日本語フォントの設定
 const notoSansJP = Noto_Sans_JP({
@@ -53,22 +58,37 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: {
+  params,
+}: Readonly<{
   children: React.ReactNode;
-}) {
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  // SSG対応
+  setRequestLocale(locale);
+  // 言語ファイルの読み込み
+  const messages = await getMessages();
+
   // Google Analytics測定IDを環境変数から取得
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
 
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${inter.variable}`}>
+    <html lang={locale} className={`${notoSansJP.variable} ${inter.variable}`}>
       <body className="min-h-screen bg-white">
         {/* Google Analyticsコンポーネントを追加 */}
         {gaId && <GoogleAnalytics measurementId={gaId} />}
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

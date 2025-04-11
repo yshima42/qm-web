@@ -1,8 +1,9 @@
 // apps/lp/src/components/layout/Header.tsx
 "use client";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
+
+import { Link } from "@/i18n/routing";
 
 import { Logo } from "../sections/logo";
 
