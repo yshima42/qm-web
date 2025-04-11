@@ -1,35 +1,32 @@
 // apps/lp/src/components/sections/Testimonials.tsx
 import { Card, CardContent } from "@quitmate/ui";
-
-const testimonials = [
-  {
-    name: "ギャンブルカテゴリ",
-    title: "素晴らしいアプリ！",
-    message:
-      "身内に重度のギャンブル依存症がおります。" +
-      "通院も全く効果がなく大変苦労していましたがこのアプリに出会ってから嘘のようにギャンブルをしなくなりました。" +
-      "同じような経験をしている方々と励まし合って前向きな気持ちになれているようです。" +
-      "家族としても本当に感謝しています。",
-  },
-  {
-    name: "アルコールカテゴリ",
-    title: "再発しても励ましてくれる場所",
-    message:
-      "とても素敵なアプリです。克服期間が100日を越えている人もいます。皆さんでフォローしあって、方法を考え克服に向けて頑張っています。",
-  },
-  {
-    name: "過食カテゴリ",
-    title: "もっと早く知りたかった",
-    message:
-      "もっと早くこのアプリに出会いたかった。でも早いも遅いもない、このアプリに出会えたことが自分にとってすごく幸運なことだと思っています。",
-  },
-];
+import { useTranslations } from "next-intl";
 
 export const Testimonials = () => {
+  const t = useTranslations("testimonials");
+
+  const testimonials = [
+    {
+      name: t("testimonial1.name"),
+      title: t("testimonial1.title"),
+      message: t("testimonial1.message"),
+    },
+    {
+      name: t("testimonial2.name"),
+      title: t("testimonial2.title"),
+      message: t("testimonial2.message"),
+    },
+    {
+      name: t("testimonial3.name"),
+      title: t("testimonial3.title"),
+      message: t("testimonial3.message"),
+    },
+  ];
+
   return (
     <section className="bg-[#f8fbf7] px-6  py-20 text-center">
       <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">
-        ユーザーの声
+        {t("title")}
       </h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
