@@ -1,8 +1,8 @@
 "use client";
 
-import { StoreBadges } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
+import { StoreBadges } from "./store-badge";
 import { ScreenshotViewer } from "../sections/screenshot-viewer";
 
 export const Hero = () => {

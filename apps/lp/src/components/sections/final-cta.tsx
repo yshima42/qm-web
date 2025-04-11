@@ -1,7 +1,8 @@
 "use client";
 
-import { StoreBadges } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
+
+import { StoreBadges } from "./store-badge";
 
 export const FinalCTA = () => {
   const t = useTranslations("final-cta");
