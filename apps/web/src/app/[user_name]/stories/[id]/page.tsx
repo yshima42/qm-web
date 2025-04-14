@@ -123,9 +123,7 @@ export default async function Page({
           )}
 
           {/* アプリダウンロードセクションをコンポーネントに置き換え */}
-          <AppDownloadSection
-            message={`${story.profiles.display_name}さんを\nアプリでフォローしよう`}
-          />
+          <AppDownloadSection />
         </main>
       </Suspense>
     </>

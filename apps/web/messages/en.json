@@ -1,4 +1,7 @@
 {
+    "config": {
+        "language-code": "en"
+    },
     "HomePage": {
       "title": "Hello world!"
     },
@@ -44,5 +47,16 @@
       "shareTextSuffix": "'s Profile",
       "following": "Following",
       "followers": "Followers"
+    },
+    "ProfilePage": {
+      "posts": "Posts",
+      "comments": "Comments"
+    },
+    "AppDownloadSection": {
+      "title": "Addiction Recovery SNS QuitMate",
+      "message": "To read more stories, download the app"
+    },
+    "category-tag": {
+      "days": " days"
     }
   }

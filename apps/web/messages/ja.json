@@ -1,4 +1,7 @@
 {
+    "config": {
+        "language-code": "ja"
+    },
     "HomePage": {
       "title": "こんにちは世界！"
     },
@@ -44,5 +47,16 @@
         "shareTextSuffix": "のプロフィール",
         "following": "フォロー中",
         "followers": "フォロワー"
+    },
+    "ProfilePage": {
+        "posts": "投稿",
+        "comments": "コメント"
+    },
+    "AppDownloadSection": {
+        "title": "依存克服SNS QuitMate",
+        "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
+    },
+    "category-tag": {
+        "days": "日"
     }
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 type StoreBadgeProps = {
   store: "apple" | "google";
@@ -17,10 +18,10 @@ const storeUrls = {
 };
 
 // ストアごとの画像パス
-const storeBadgeImages = {
-  apple: "/images/apple-store-badge.png",
-  google: "/images/google-play-badge.png",
-};
+// const storeBadgeImages = {
+//   apple: "/images/apple-store-badge.png",
+//   google: "/images/google-play-badge.png",
+// };
 
 // サイズごとの高さと幅のマッピング
 const sizeMapping = {
@@ -47,6 +48,7 @@ export function StoreBadge({
   className = "",
   size = "medium",
 }: StoreBadgeProps) {
+  const t = useTranslations('config');
   const { height } = sizeMapping[size];
   const width = sizeMapping[size].width[store];
   const imageAltText = store === "apple" ? "App Store" : "Google Play";
@@ -58,7 +60,7 @@ export function StoreBadge({
     <Link href={storeUrls[store]} target="_blank">
       <div className={`flex items-center ${className}`} style={heightStyle}>
         <Image
-          src={storeBadgeImages[store]}
+          src={`/images/${t('language-code')}/${store}-badge.png`}
           alt={imageAltText}
           width={width}
           height={height}
