@@ -127,7 +127,7 @@ export const ScreenshotViewer = ({
               className={`absolute top-1/2 z-10 flex items-center justify-center rounded-full bg-gray-50/80 text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200 ${
                 isMobile ? "-left-4 size-8" : "-left-1 size-10"
               } -translate-y-1/2`}
-              aria-label="前のスクリーンショット"
+              aria-label="previous screenshot"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ export const ScreenshotViewer = ({
               className={`absolute top-1/2 z-10 flex items-center justify-center rounded-full bg-gray-50/80 text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200 ${
                 isMobile ? "-right-4 size-8" : "-right-1 size-10"
               } -translate-y-1/2`}
-              aria-label="次のスクリーンショット"
+              aria-label="next screenshot"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

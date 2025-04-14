@@ -1,0 +1,87 @@
+{
+    "config": {
+        "language-code": "en"
+    },
+    "hero": {
+      "title": "You don’t have to quit alone",
+      "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions."
+    },
+    "intro": {
+      "title": "A supportive social network for addiction recovery",
+      "description": "Struggling to quit? You’re not alone. QuitMate is a safe, anonymous space where people facing similar challenges come together to support each other in overcoming addictions and unhealthy habits."
+    },
+    "features": {
+      "title": "Why QuitMate works",
+      "feature1": {
+        "title": "Communities focused on your struggle",
+        "description": "Connect with others going through the same thing. Choose from alcohol, gambling, binge eating, smoking, social media, gaming, plastic surgery, shopping, porn, drugs, caffeine, and codependency."
+      },
+      "feature2": {
+        "title": "Share your journey. Get support.",
+        "description": "Post your feelings and progress openly—or privately. Get encouragement, tips, and empathy from others. No real name or photo required."
+      },
+      "feature3": {
+        "title": "Track your clean time",
+        "description": "See how long you’ve stayed addiction-free. Each hour and day adds up, helping you stay motivated through small wins."
+      }
+    },
+    "testimonials": {
+      "title": "What our users say",
+      "testimonial1": {
+        "name": "Gambling Recovery",
+        "title": "This app changed everything",
+        "message": "My family member had a serious gambling problem. Therapy didn’t help, and we were at a loss. But after finding this app, they suddenly stopped gambling. The support from others with similar experiences has made a huge difference. We’re so thankful."
+      },
+      "testimonial2": {
+        "name": "Alcohol Recovery",
+        "title": "Support even after relapse",
+        "message": "Such a great app. Some people here have been sober for over 100 days. We support each other, share ideas, and keep moving forward together."
+      },
+      "testimonial3": {
+        "name": "Binge Eating Recovery",
+        "title": "I wish I found it sooner",
+        "message": "I really wish I had discovered this app earlier. But even now, finding it feels like such a gift. I’m so glad I did."
+      }
+    },
+    "final-cta": {
+      "title": "Take the first step with others by your side",
+      "description": "With QuitMate, your will to quit becomes the strength to keep going.",
+      "store-badges": {
+        "title": "App Store",
+        "description": "Rated 4.9+ stars on the App Store."
+      }
+    },
+    "footer": {
+      "links": {
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "contact": "Contact Us"
+      }
+    },
+    "header": {
+      "links": {
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "contact": "Contact Us"
+      },
+      "label": {
+        "menu": "Menu"
+      }
+    },
+    "not-found": {
+      "message": "Oops! This page doesn’t exist.",
+      "link-text": "Back to homepage"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with the QuitMate team here."
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "description": "Read QuitMate’s privacy policy."
+    },
+    "terms": {
+        "title": "Terms of Service",
+        "description": "Read QuitMate’s terms of service."
+    }
+  }

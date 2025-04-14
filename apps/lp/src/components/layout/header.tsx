@@ -1,12 +1,17 @@
 // apps/lp/src/components/layout/Header.tsx
 "use client";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { Link } from "@/i18n/routing";
+
+import { LanguageSetting } from "../sections/language-setting";
 import { Logo } from "../sections/logo";
 
 export const Header = () => {
+  const t = useTranslations("header");
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -19,35 +24,41 @@ export const Header = () => {
         <Logo />
 
         {/* デスクトップ用ナビゲーション */}
-        <nav className="hidden gap-6 text-base text-gray-600 md:flex">
-          <Link
-            href="/terms"
-            className="transition-colors hover:text-primary-light"
-          >
-            利用規約
-          </Link>
-          <Link
-            href="/privacy"
-            className="transition-colors hover:text-primary-light"
-          >
-            プライバシーポリシー
-          </Link>
-          <Link
-            href="/contact"
-            className="transition-colors hover:text-primary-light"
-          >
-            お問い合わせ
-          </Link>
-        </nav>
+        <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
+          <nav className="flex gap-6">
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-primary-light"
+            >
+              {t("links.terms")}
+            </Link>
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-primary-light"
+            >
+              {t("links.privacy")}
+            </Link>
+            <Link
+              href="/contact"
+              className="transition-colors hover:text-primary-light"
+            >
+              {t("links.contact")}
+            </Link>
+          </nav>
+          <LanguageSetting />
+        </div>
 
         {/* モバイル用ハンバーガーメニュー */}
-        <button
-          className="p-2 text-gray-600 md:hidden"
-          onClick={toggleMenu}
-          aria-label="メニュー"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <LanguageSetting />
+          <button
+            className="p-2 text-gray-600"
+            onClick={toggleMenu}
+            aria-label={t("label.menu")}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* モバイル用ドロップダウンメニュー */}
@@ -61,7 +72,7 @@ export const Header = () => {
                 setIsMenuOpen(false);
               }}
             >
-              利用規約
+              {t("links.terms")}
             </Link>
             <Link
               href="/privacy"
@@ -70,7 +81,7 @@ export const Header = () => {
                 setIsMenuOpen(false);
               }}
             >
-              プライバシーポリシー
+              {t("links.privacy")}
             </Link>
             <Link
               href="/contact"
@@ -79,7 +90,7 @@ export const Header = () => {
                 setIsMenuOpen(false);
               }}
             >
-              お問い合わせ
+              {t("links.contact")}
             </Link>
           </nav>
         </div>
