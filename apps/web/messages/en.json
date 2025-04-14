@@ -8,6 +8,41 @@
       "ja": "Japanese"
     },
     "ArticlesPage": {
-      "title": "Articles"
+      "title": "Articles",
+      "shareDialogTitle": "Share Article",
+      "preFollowMessage": "Follow ",
+      "postFollowMessage": " on the app",
+      "noComments": "No comments yet",
+      "comments": "Comments",
+      "notFound": "The specified article does not exist.",
+      "linkText": "Back to articles"
+    },
+    "Categories": {
+      "Game": "Game",
+      "Tobacco": "Tobacco",
+      "Shopping": "Shopping",
+      "Drugs": "Drugs",
+      "Overeating": "Overeating",
+      "Porno": "Porno",
+      "SNS": "SNS",
+      "Gambling": "Gambling",
+      "Caffeine": "Caffeine",
+      "Cosmetic Surgery": "Cosmetic Surgery",
+      "Custom": "Custom",
+      "Alcohol": "Alcohol",
+      "Codependency": "Codependency",
+      "Official": "Official"
+    },
+    "ShareButton": {
+      "copyLinkError": "Failed to copy link",
+      "copied": "Copied",
+      "copyLink": "Copy Link"
+    },
+    "ProfileHeader": {
+      "shareDialogTitle": "Share Profile",
+      "shareTitleSuffix": "'s Profile",
+      "shareTextSuffix": "'s Profile",
+      "following": "Following",
+      "followers": "Followers"
     }
   }

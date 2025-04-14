@@ -81,8 +81,6 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   // const story = await fetchStoryById(id);
   // const comments = await fetchCommentsByStoryId(id);
 
-  console.log('user_name', user_name);
-
   const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
 

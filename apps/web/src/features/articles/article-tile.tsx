@@ -1,4 +1,4 @@
-import { ArticleLikeIcon, CommentIcon, DefaultAvatar, Tag } from '@quitmate/ui';
+import { ArticleLikeIcon, CommentIcon, DefaultAvatar } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -7,8 +7,9 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { getCategoryDisplayName } from '@/lib/categories';
 import { ArticleTileDto } from '@/lib/types';
+
+import { CategoryTag } from '../common/category-tag';
 
 type Props = {
   article: ArticleTileDto;
@@ -26,12 +27,6 @@ export function ArticleTile({ article }: Props) {
     locale: ja,
   });
 
-  // カテゴリー名を日本語に変換
-  const categoryDisplayName = getCategoryDisplayName(
-    article.habit_categories.habit_category_name,
-    article.custom_habit_name,
-  );
-
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
       <Link href={`/${article.profiles.user_name}/articles/${article.id}`} className="block">
@@ -41,9 +36,12 @@ export function ArticleTile({ article }: Props) {
             {article.title}
           </h2>
 
-          {/* カテゴリータグと日付 - 日本語表示に修正 */}
+          {/* カテゴリータグと日付 */}
           <div className="mb-1 flex items-center justify-between">
-            <Tag>{categoryDisplayName}</Tag>
+            <CategoryTag
+              category={article.habit_categories.habit_category_name}
+              customHabitName={article.custom_habit_name}
+            />
             <span className="text-xs text-gray-500 dark:text-gray-400">{createdAt}</span>
           </div>
 

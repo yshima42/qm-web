@@ -8,6 +8,41 @@
       "ja": "日本語"
     },
     "ArticlesPage": {
-      "title": "記事一覧"
+      "title": "記事一覧",
+      "shareDialogTitle": "記事をシェアする",
+      "preFollowMessage": "",
+      "postFollowMessage": "さんを\nアプリでフォローしよう",
+      "noComments": "コメントはまだありません",
+      "comments": "コメント",
+      "notFound": "指定された記事は存在しません。",
+      "linkText": "記事一覧に戻る"
+    },
+    "Categories": {
+        "Game": "ゲーム",
+        "Tobacco": "たばこ",
+        "Shopping": "買い物",
+        "Drugs": "薬物",
+        "Overeating": "過食",
+        "Porno": "ポルノ",
+        "SNS": "SNS",
+        "Gambling": "ギャンブル",
+        "Caffeine": "カフェイン",
+        "Cosmetic Surgery": "美容整形",
+        "Custom": "カスタム",
+        "Alcohol": "アルコール",
+        "Codependency": "共依存",
+        "Official": "運営"
+    },
+    "ShareButton": {
+        "copyLinkError": "リンクをコピーに失敗しました",
+        "copied": "コピーしました",
+        "copyLink": "リンクをコピー"
+    },
+    "ProfileHeader": {
+        "shareDialogTitle": "プロフィールをシェア",
+        "shareTitleSuffix": "のプロフィール",
+        "shareTextSuffix": "のプロフィール",
+        "following": "フォロー中",
+        "followers": "フォロワー"
     }
 }
