@@ -58,5 +58,12 @@
     },
     "category-tag": {
       "days": " days"
+    },
+    "footer": {
+      "title": "You don't have to quit alone",
+      "about": "About QuitMate",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "contact": "Contact"
     }
   }
