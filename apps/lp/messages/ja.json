@@ -2,6 +2,10 @@
     "config": {
         "language-code": "ja"
     },
+    "common": {
+        "title": "QuitMate（クイットメイト）| 依存症克服SNS",
+        "description": "依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。"
+    },
     "hero": {
         "title": "共になら、やめられる",
         "description": "禁酒・禁ギャンブル・禁煙・禁欲など依存症を克服するための匿名SNSアプリ"
