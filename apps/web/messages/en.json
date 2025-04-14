@@ -2,15 +2,12 @@
     "config": {
         "language-code": "en"
     },
-    "HomePage": {
-      "title": "Hello world!"
-    },
-    "LocaleSwitcher": {
+    "locale-switcher": {
       "label": "Language",
       "en": "English",
       "ja": "Japanese"
     },
-    "ArticlesPage": {
+    "articles-page": {
       "title": "Articles",
       "shareDialogTitle": "Share Article",
       "preFollowMessage": "Follow ",
@@ -20,7 +17,7 @@
       "notFound": "The specified article does not exist.",
       "linkText": "Back to articles"
     },
-    "Categories": {
+    "categories": {
       "Game": "Game",
       "Tobacco": "Tobacco",
       "Shopping": "Shopping",
@@ -36,23 +33,23 @@
       "Codependency": "Codependency",
       "Official": "Official"
     },
-    "ShareButton": {
+    "share-button": {
       "copyLinkError": "Failed to copy link",
       "copied": "Copied",
       "copyLink": "Copy Link"
     },
-    "ProfileHeader": {
+    "profile-header": {
       "shareDialogTitle": "Share Profile",
       "shareTitleSuffix": "'s Profile",
       "shareTextSuffix": "'s Profile",
       "following": "Following",
       "followers": "Followers"
     },
-    "ProfilePage": {
+    "profile-page": {
       "posts": "Posts",
       "comments": "Comments"
     },
-    "AppDownloadSection": {
+    "app-download-section": {
       "title": "Addiction Recovery SNS QuitMate",
       "message": "To read more stories, download the app"
     },

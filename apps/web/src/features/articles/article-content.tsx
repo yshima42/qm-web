@@ -12,7 +12,6 @@ import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
-// import { useTranslations } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
 
@@ -33,7 +32,7 @@ type ArticleContentProps = {
 };
 
 export function ArticleContent({ article, comments }: ArticleContentProps) {
-  const t = useTranslations('ArticlesPage');
+  const t = useTranslations('articles-page');
 
   const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();

@@ -31,10 +31,10 @@ export function ShareButton({
   url, 
   title,
   text, 
-  dialogTitle = "シェアする", 
+  dialogTitle = "Share", 
   className = ""
 }: ShareButtonProps) {
-  const t = useTranslations('ShareButton');
+  const t = useTranslations('share-button');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 

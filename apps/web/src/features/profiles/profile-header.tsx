@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function ProfileHeader({ profile }: Props) {
-  const t = useTranslations('ProfileHeader');
+  const t = useTranslations('profile-header');
 
   return (
     <div className="relative mb-6 rounded-lg border border-border bg-card p-6 shadow-sm">

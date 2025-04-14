@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function ProfileTabs({ profile }: Props) {
-  const t = useTranslations('ProfilePage');
+  const t = useTranslations('profile-page');
 
   return (
     <Tabs defaultValue="posts" className="w-full">

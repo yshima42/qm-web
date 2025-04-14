@@ -10,7 +10,7 @@ import { fetchArticles } from '@/lib/data';
 import { ArticleList } from '@/features/articles/article-list';
 
 export default function Page() {
-  const t = useTranslations('ArticlesPage');
+  const t = useTranslations('articles-page');
 
   return (
     <>

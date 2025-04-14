@@ -9,7 +9,7 @@ type AppDownloadSectionProps = {
 export function AppDownloadSection({ 
   message  
 }: AppDownloadSectionProps) {
-  const t = useTranslations('AppDownloadSection');
+  const t = useTranslations('app-download-section');
 
   return (
     <div className="mb-6 mt-8 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">

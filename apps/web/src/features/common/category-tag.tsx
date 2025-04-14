@@ -9,7 +9,7 @@ type Props = {
 
 export function CategoryTag({ category, customHabitName, elapsedDays }: Props) {
   const t = useTranslations('category-tag');
-  const tCategory = useTranslations('Categories');
+  const tCategory = useTranslations('categories');
   return (
     <Tag>
       {category === 'Custom' ? customHabitName : tCategory(category)}{' '}

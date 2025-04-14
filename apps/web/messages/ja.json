@@ -2,15 +2,12 @@
     "config": {
         "language-code": "ja"
     },
-    "HomePage": {
-      "title": "こんにちは世界！"
-    },
-    "LocaleSwitcher": {
+    "locale-switcher": {
       "label": "言語",
       "en": "英語",
       "ja": "日本語"
     },
-    "ArticlesPage": {
+    "articles-page": {
       "title": "記事一覧",
       "shareDialogTitle": "記事をシェアする",
       "preFollowMessage": "",
@@ -20,7 +17,7 @@
       "notFound": "指定された記事は存在しません。",
       "linkText": "記事一覧に戻る"
     },
-    "Categories": {
+    "categories": {
         "Game": "ゲーム",
         "Tobacco": "たばこ",
         "Shopping": "買い物",
@@ -36,23 +33,23 @@
         "Codependency": "共依存",
         "Official": "運営"
     },
-    "ShareButton": {
+    "share-button": {
         "copyLinkError": "リンクをコピーに失敗しました",
         "copied": "コピーしました",
         "copyLink": "リンクをコピー"
     },
-    "ProfileHeader": {
+    "profile-header": {
         "shareDialogTitle": "プロフィールをシェア",
         "shareTitleSuffix": "のプロフィール",
         "shareTextSuffix": "のプロフィール",
         "following": "フォロー中",
         "followers": "フォロワー"
     },
-    "ProfilePage": {
+    "profile-page": {
         "posts": "投稿",
         "comments": "コメント"
     },
-    "AppDownloadSection": {
+    "app-download-section": {
         "title": "依存克服SNS QuitMate",
         "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
     },
