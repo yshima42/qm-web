@@ -1,6 +1,8 @@
 import { GoogleAnalytics } from '@quitmate/analytics';
 import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import { ThemeProvider } from 'next-themes';
 
 import { Footer } from '@/components/layout/footer';
@@ -71,38 +73,41 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
 
+  const locale = await getLocale();
+
   return (
-    <html lang="ja" className={geistSans.className} suppressHydrationWarning>
+    <html lang={locale} className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground" suppressHydrationWarning>
         {gaId && <GoogleAnalytics measurementId={gaId} />}
-
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="flex min-h-screen flex-col items-center">
-            <div className="flex w-full flex-1 flex-col items-center">
-              {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
-              {/* <HeaderAuth /> */}
-              <div className="flex w-full max-w-5xl">
-                {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
-                {/* <Sidebar /> */}
-                <div className="flex flex-1 flex-col">{children}</div>
+        <NextIntlClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex min-h-screen flex-col items-center">
+              <div className="flex w-full flex-1 flex-col items-center">
+                {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
+                {/* <HeaderAuth /> */}
+                <div className="flex w-full max-w-5xl">
+                  {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
+                  {/* <Sidebar /> */}
+                  <div className="flex flex-1 flex-col">{children}</div>
+                </div>
+                <SmartBanner />
+                <Footer />
               </div>
-              <SmartBanner />
-              <Footer />
-            </div>
-          </main>
-        </ThemeProvider>
+            </main>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -2,6 +2,8 @@
 
 // import { Button } from '@quitmate/ui';
 import clsx from 'clsx';
+
+import LocaleSwitcher from '../ui/locale-switcher';
 // import { ArrowLeft } from 'lucide-react';
 // import { useRouter } from 'next/navigation';
 
@@ -90,7 +92,10 @@ export function Header({
           )}
         </div>
 
-        <div className="flex w-24 justify-end">{rightElement}</div>
+        <div className="flex w-24 items-center justify-end gap-2">
+          <LocaleSwitcher />
+          {rightElement}
+        </div>
       </div>
     </header>
   );
