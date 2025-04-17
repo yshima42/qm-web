@@ -13,7 +13,7 @@ import {
   Link2,
 } from 'lucide-react';
 import { XLogo } from './icon';
-
+import { useTranslations } from 'next-intl';
 type ShareButtonProps = {
   // シェアするURL（指定しない場合は現在のURLが使用される）
   url?: string;
@@ -31,9 +31,10 @@ export function ShareButton({
   url, 
   title,
   text, 
-  dialogTitle = "シェアする", 
+  dialogTitle = "Share", 
   className = ""
 }: ShareButtonProps) {
+  const t = useTranslations('share-button');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -48,7 +49,7 @@ export function ShareButton({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('クリップボードへのコピーに失敗しました:', err);
+      console.error(`${t('copyLinkError')}:`, err);
     }
   };
 
@@ -74,7 +75,7 @@ export function ShareButton({
               className="flex items-center gap-2 rounded-md border border-gray-200 px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <Link2 className="size-5" />
-              <span>{copied ? 'コピーしました' : 'リンクをコピー'}</span>
+              <span>{copied ? t('copied') : t('copyLink')}</span>
             </button>
           </div>
           

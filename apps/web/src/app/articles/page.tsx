@@ -1,4 +1,5 @@
 import { Logo } from '@quitmate/ui';
+import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
@@ -9,13 +10,15 @@ import { fetchArticles } from '@/lib/data';
 import { ArticleList } from '@/features/articles/article-list';
 
 export default function Page() {
+  const t = useTranslations('articles-page');
+
   return (
     <>
       <Header
         titleElement={
           <div className="flex items-center">
             <Logo size="small" />
-            <p className="ml-2 font-medium">記事一覧</p>
+            <p className="ml-2 font-medium">{t('title')}</p>
           </div>
         }
       />

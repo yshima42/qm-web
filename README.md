@@ -11,3 +11,7 @@
 # vercelデプロイ先
 - [qm-web](https://qm-web.vercel.app/)
 - [qm-lp](https://qm-lp.vercel.app/)
+
+# グローバル対応
+こちらを参考に実装しました（LPはwith i18n routing, Webはwith i18n routing）
+- https://next-intl.dev/

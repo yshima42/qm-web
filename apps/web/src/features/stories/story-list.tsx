@@ -19,7 +19,7 @@ export async function StoryList({ fetchStoriesFunc }: StoryListProps) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return <AppDownloadSection message="IOS / Androidアプリのインストールはこちらから" />;
+    return <AppDownloadSection />;
   }
 
   const stories = await fetchStoriesFunc();

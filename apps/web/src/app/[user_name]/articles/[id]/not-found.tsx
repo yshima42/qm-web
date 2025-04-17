@@ -1,11 +1,7 @@
 import { NotFoundBase } from '@quitmate/ui';
+import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
-  return (
-    <NotFoundBase
-      message="指定された記事は存在しません。"
-      linkText="記事一覧に戻る"
-      linkHref="/articles"
-    />
-  );
+  const t = useTranslations('articles-page');
+  return <NotFoundBase message={t('notFound')} linkText={t('linkText')} linkHref="/articles" />;
 }

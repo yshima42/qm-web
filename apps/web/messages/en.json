@@ -1,0 +1,66 @@
+{
+    "config": {
+        "language-code": "en"
+    },
+    "locale-switcher": {
+      "label": "Language",
+      "en": "English",
+      "ja": "Japanese"
+    },
+    "articles-page": {
+      "title": "Articles",
+      "shareDialogTitle": "Share Article",
+      "preFollowMessage": "Follow ",
+      "postFollowMessage": " on the app",
+      "noComments": "No comments yet",
+      "comments": "Comments",
+      "notFound": "The specified article does not exist.",
+      "linkText": "Back to articles"
+    },
+    "categories": {
+      "Game": "Game",
+      "Tobacco": "Tobacco",
+      "Shopping": "Shopping",
+      "Drugs": "Drugs",
+      "Overeating": "Overeating",
+      "Porno": "Porno",
+      "SNS": "SNS",
+      "Gambling": "Gambling",
+      "Caffeine": "Caffeine",
+      "Cosmetic Surgery": "Cosmetic Surgery",
+      "Custom": "Custom",
+      "Alcohol": "Alcohol",
+      "Codependency": "Codependency",
+      "Official": "Official"
+    },
+    "share-button": {
+      "copyLinkError": "Failed to copy link",
+      "copied": "Copied",
+      "copyLink": "Copy Link"
+    },
+    "profile-header": {
+      "shareDialogTitle": "Share Profile",
+      "shareTitleSuffix": "'s Profile",
+      "shareTextSuffix": "'s Profile",
+      "following": "Following",
+      "followers": "Followers"
+    },
+    "profile-page": {
+      "posts": "Posts",
+      "comments": "Comments"
+    },
+    "app-download-section": {
+      "title": "Addiction Recovery SNS QuitMate",
+      "message": "To read more stories, download the app"
+    },
+    "category-tag": {
+      "days": " days"
+    },
+    "footer": {
+      "title": "You don't have to quit alone",
+      "about": "About QuitMate",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "contact": "Contact"
+    }
+  }
