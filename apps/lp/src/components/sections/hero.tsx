@@ -7,23 +7,24 @@ import { ScreenshotViewer } from "../sections/screenshot-viewer";
 
 export const Hero = () => {
   const t = useTranslations("hero");
+  const tConfig = useTranslations("config");
 
   const screenshots = [
     {
-      src: "/images/screenshot-stories.png",
-      alt: "QuitMateアプリのストーリー画面",
+      src: `/images/${tConfig("language-code")}/screenshot-stories.png`,
+      alt: t("screenshot-stories-alt"),
     },
     {
-      src: "/images/screenshot-categories.png",
-      alt: "QuitMateアプリのカテゴリ画面",
+      src: `/images/${tConfig("language-code")}/screenshot-categories.png`,
+      alt: t("screenshot-categories-alt"),
     },
     {
-      src: "/images/screenshot-program.png",
-      alt: "QuitMateアプリのプログラム画面",
+      src: `/images/${tConfig("language-code")}/screenshot-program.png`,
+      alt: t("screenshot-program-alt"),
     },
     {
-      src: "/images/screenshot-habits.png",
-      alt: "QuitMateアプリの習慣画面",
+      src: `/images/${tConfig("language-code")}/screenshot-habits.png`,
+      alt: t("screenshot-habits-alt"),
     },
   ];
 
