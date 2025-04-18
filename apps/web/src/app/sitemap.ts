@@ -3,6 +3,8 @@ import type { MetadataRoute } from 'next';
 import { fetchArticlesXml, fetchProfilesXml, fetchStoriesXml } from '@/lib/data';
 import { HabitCategoryName } from '@/lib/types';
 
+import { SITEMAP_LIMITS } from '@/utils/constants';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = process.env.NEXT_PUBLIC_URL;
   if (!url) {
@@ -44,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
   const profiles = await fetchProfilesXml({
-    limit: 49000,
+    limit: SITEMAP_LIMITS.PROFILES,
   });
   const profilesPages: MetadataRoute.Sitemap = profiles.map((profile) => ({
     url: `${url}/${profile.user_name}`,
@@ -54,9 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
   const stories = await fetchStoriesXml({
-    // sitemapの上限は50000なので、それを超えないようにする
-    limit: 49000,
-    startDate: threeMonthsAgo.toISOString(),
+    limit: SITEMAP_LIMITS.STORIES,
   });
   const storiesPages: MetadataRoute.Sitemap = stories.map((story) => ({
     url: `${url}/${story.profiles.user_name}/stories/${story.id}`,
@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const articles = await fetchArticlesXml({
-    limit: 49000,
+    limit: SITEMAP_LIMITS.ARTICLES,
   });
   const articlesPages: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${url}/${article.profiles.user_name}/articles/${article.id}`,

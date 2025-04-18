@@ -78,23 +78,25 @@ export async function fetchStories() {
 
 type FetchXmlParams = {
   limit?: number;
-  startDate?: string;
 };
 
-export async function fetchStoriesXml({ limit, startDate }: FetchXmlParams = {}) {
+export async function fetchStoriesXml({ limit }: FetchXmlParams = {}) {
   const supabase = createAnonServerClient();
-  const now = new Date().toISOString();
 
   let allStories: StoryXmlDto[] = [];
   let page = 0;
   const pageSize = 1000;
+  // const result = await supabase
+  //   .rpc('get_stories_by_engagement_adjusted_ranged')
+  //   .select(STORY_XML_SELECT_QUERY);
+  // console.log('count@', result);
 
   while (page < Number.MAX_SAFE_INTEGER) {
     const result = await supabase
-      .from('stories')
+      .rpc('get_stories_by_engagement_adjusted_ranged', {
+        p_limit: limit ?? 5000,
+      })
       .select(STORY_XML_SELECT_QUERY)
-      .lte('created_at', now)
-      .gte('created_at', startDate ?? '1970-01-01T00:00:00Z')
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('created_at', { ascending: false });
 
@@ -339,7 +341,7 @@ export async function fetchProfileByUsername(username: string) {
   } as ProfileTileDto;
 }
 
-export async function fetchArticlesXml({ limit, startDate }: FetchXmlParams = {}) {
+export async function fetchArticlesXml({ limit }: FetchXmlParams = {}) {
   const supabase = createAnonServerClient();
   const now = new Date().toISOString();
 
@@ -352,7 +354,6 @@ export async function fetchArticlesXml({ limit, startDate }: FetchXmlParams = {}
       .from('articles')
       .select(ARTICLE_XML_SELECT_QUERY)
       .lte('created_at', now)
-      .gte('created_at', startDate ?? '1970-01-01T00:00:00Z')
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('created_at', { ascending: false });
 
