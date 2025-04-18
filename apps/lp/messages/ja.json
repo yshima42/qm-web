@@ -8,7 +8,11 @@
     },
     "hero": {
         "title": "共になら、やめられる",
-        "description": "禁酒・禁ギャンブル・禁煙・禁欲など依存症を克服するための匿名SNSアプリ"
+        "description": "禁酒・禁ギャンブル・禁煙・禁欲など依存症を克服するための匿名SNSアプリ",
+        "screenshot-stories-alt": "QuitMateアプリのストーリー画面",
+        "screenshot-categories-alt": "QuitMateアプリのカテゴリ画面",
+        "screenshot-program-alt": "QuitMateアプリのプログラム画面",
+        "screenshot-habits-alt": "QuitMateアプリの習慣画面"
     },
     "intro": {
         "title": "依存症を克服するためのSNS",
