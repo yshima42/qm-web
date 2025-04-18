@@ -8,7 +8,11 @@
     },
     "hero": {
       "title": "You don’t have to quit alone",
-      "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions."
+      "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions.",
+      "screenshot-stories-alt": "QuitMate app story screen",
+      "screenshot-categories-alt": "QuitMate app category screen",
+      "screenshot-program-alt": "QuitMate app program screen",
+      "screenshot-habits-alt": "QuitMate app habits screen"
     },
     "intro": {
       "title": "A supportive social network for addiction recovery",
