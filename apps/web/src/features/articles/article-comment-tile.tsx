@@ -37,7 +37,7 @@ export function ArticleCommentTile({ comment }: Props) {
       {/* コメント本文 */}
       <div className="flex-1">
         <div className="mb-0.5 flex items-center gap-1.5">
-          <Link href={`/profiles/${comment.user_id}`} className="hover:underline">
+          <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
             <span className="text-sm font-bold text-foreground">
               {comment.profiles.display_name}
             </span>
