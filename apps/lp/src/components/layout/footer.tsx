@@ -1,8 +1,11 @@
 // apps/lp/src/components/layout/Footer.tsx
 import { X, PenLine } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+
+import { Link } from "@/i18n/routing";
 
 export const Footer = () => {
+  const t = useTranslations("footer");
   return (
     <footer className="border-t border-gray-200 bg-white text-base text-gray-600">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8">
@@ -12,19 +15,19 @@ export const Footer = () => {
             href="/terms"
             className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
-            利用規約
+            {t("links.terms")}
           </Link>
           <Link
             href="/privacy"
             className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
-            プライバシーポリシー
+            {t("links.privacy")}
           </Link>
           <Link
             href="/contact"
             className="text-sm transition-colors hover:text-primary-light md:text-base"
           >
-            お問い合わせ
+            {t("links.contact")}
           </Link>
         </div>
 

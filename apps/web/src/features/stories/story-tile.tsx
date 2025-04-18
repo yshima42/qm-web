@@ -1,21 +1,15 @@
 'use client';
 
-import {
-  AutoLinkText,
-  CommentIcon,
-  StoryLikeIcon,
-  AppDownloadDialogTrigger,
-  Tag,
-} from '@quitmate/ui';
+import { AutoLinkText, CommentIcon, StoryLikeIcon, AppDownloadDialogTrigger } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { getCategoryDisplayName } from '@/lib/categories';
 import { StoryTileDto } from '@/lib/types';
 
+import { CategoryTag } from '../common/category-tag';
 import { UserAvatar } from '../profiles/user-avatar';
 
 type Props = {
@@ -53,13 +47,6 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
     locale: ja,
   });
 
-  // カテゴリー名を日本語に変換
-  const categoryDisplayName = getCategoryDisplayName(
-    story.habit_categories.habit_category_name,
-    story.custom_habit_name,
-  );
-
-  // 文章の長さ制限と「もっと見る」の表示ロジック
   const maxContentLength = 120;
   const isContentTruncated = !showFullContent && story.content.length > maxContentLength;
   const displayContent = isContentTruncated
@@ -127,9 +114,11 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
           <div>
             {/* 習慣カテゴリーとカウント */}
             <div className="mb-2 flex items-center gap-2">
-              <Tag>
-                {categoryDisplayName} - {story.trial_elapsed_days}日
-              </Tag>
+              <CategoryTag
+                category={story.habit_categories.habit_category_name}
+                customHabitName={story.custom_habit_name}
+                elapsedDays={story.trial_elapsed_days}
+              />
             </div>
 
             {/* 本文 - AutoLinkTextを使用 */}

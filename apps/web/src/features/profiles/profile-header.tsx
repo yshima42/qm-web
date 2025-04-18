@@ -1,5 +1,6 @@
 import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from '@quitmate/ui';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { ProfileTileDto } from '@/lib/types';
 
@@ -8,12 +9,14 @@ type Props = {
 };
 
 export function ProfileHeader({ profile }: Props) {
+  const t = useTranslations('profile-header');
+
   return (
     <div className="relative mb-6 rounded-lg border border-border bg-card p-6 shadow-sm">
       <ShareButton
-        title={`${profile.display_name}のプロフィール | QuitMate`}
-        text={`${profile.display_name}のプロフィール on QuitMate`}
-        dialogTitle="プロフィールをシェア"
+        title={`${profile.display_name}${t('shareTitleSuffix')}`}
+        text={`${profile.display_name}${t('shareTextSuffix')}`}
+        dialogTitle={t('shareDialogTitle')}
         className="absolute right-4 top-4"
       />
       <div className="flex flex-col sm:flex-row sm:items-center">
@@ -53,11 +56,11 @@ export function ProfileHeader({ profile }: Props) {
             <div className="flex gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <span className="font-semibold text-foreground">{profile.following}</span>
-                <span>フォロー中</span>
+                <span>{t('following')}</span>
               </div>
               <div className="flex items-center gap-1">
                 <span className="font-semibold text-foreground">{profile.followers}</span>
-                <span>フォロワー</span>
+                <span>{t('followers')}</span>
               </div>
             </div>
           </AppDownloadDialogTrigger>

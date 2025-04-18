@@ -2,6 +2,8 @@
 
 // import { Button } from '@quitmate/ui';
 import clsx from 'clsx';
+
+import LocaleSwitcher from '../ui/locale-switcher';
 // import { ArrowLeft } from 'lucide-react';
 // import { useRouter } from 'next/navigation';
 
@@ -40,20 +42,7 @@ export function Header({
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="relative flex h-14 items-center justify-between px-4">
-        {/* <div className="flex w-24 items-center justify-start">
-          {showBackButton && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleBack}
-              className="ml-12 md:ml-0"
-              aria-label="戻る"
-            >
-              <ArrowLeft className="size-5" />
-              <span className="sr-only">戻る</span>
-            </Button>
-          )}
-        </div> */}
+        <div className="w-24" />
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           {titleElement ? (
@@ -90,7 +79,10 @@ export function Header({
           )}
         </div>
 
-        <div className="flex w-24 justify-end">{rightElement}</div>
+        <div className="flex w-24 items-center justify-end gap-2">
+          {rightElement}
+          <LocaleSwitcher />
+        </div>
       </div>
     </header>
   );
