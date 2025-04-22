@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+
+import { Link } from "@/i18n/routing";
 
 import { AppConfig } from "../../app-config";
 
