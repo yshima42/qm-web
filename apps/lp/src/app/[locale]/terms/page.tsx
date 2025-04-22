@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
 
+import { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { DocumentLayout } from "@/components/layout/document-layout";
 import { MarkdownContent } from "@/components/sections/markdown-content";
@@ -14,10 +16,16 @@ export function generateStaticParams() {
 }
 
 // ビルド時にのみ実行される
-export function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("terms");
+  const tConfig = await getTranslations("config");
+
   return {
-    title: "利用規約 - QuitMate",
-    description: "QuitMateの利用規約をご確認ください。",
+    title: t("title"),
+    description: t("description"),
+    metadataBase: new URL(
+      `https://about.quitmate.app/${tConfig("language-code")}`,
+    ),
   };
 }
 

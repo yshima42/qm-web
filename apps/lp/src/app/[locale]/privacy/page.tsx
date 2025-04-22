@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
 
+import { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { DocumentLayout } from "@/components/layout/document-layout";
 import { MarkdownContent } from "@/components/sections/markdown-content";
@@ -13,11 +15,16 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// メタデータ生成
-export function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("privacy");
+  const tConfig = await getTranslations("config");
+
   return {
-    title: "プライバシーポリシー - QuitMate",
-    description: "QuitMateのプライバシーポリシーをご確認ください。",
+    title: t("title"),
+    description: t("description"),
+    metadataBase: new URL(
+      `https://about.quitmate.app/${tConfig("language-code")}`,
+    ),
   };
 }
 
