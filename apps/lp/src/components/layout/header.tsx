@@ -27,6 +27,12 @@ export const Header = () => {
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
             <Link
+              href="/blog"
+              className="transition-colors hover:text-primary-light"
+            >
+              {t("links.blog")}
+            </Link>
+            <Link
               href="/terms"
               className="transition-colors hover:text-primary-light"
             >
@@ -65,6 +71,15 @@ export const Header = () => {
       {isMenuOpen && (
         <div className="absolute z-50 w-full bg-white px-6 py-4 shadow-lg md:hidden">
           <nav className="flex flex-col space-y-4">
+            <Link
+              href="/blog"
+              className="text-gray-600 transition-colors hover:text-primary-light"
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
+            >
+              {t("links.blog")}
+            </Link>
             <Link
               href="/terms"
               className="text-gray-600 transition-colors hover:text-primary-light"
