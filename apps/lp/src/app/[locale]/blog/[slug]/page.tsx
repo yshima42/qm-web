@@ -180,10 +180,10 @@ export default async function BlogPost({
 
           <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white shadow-sm rounded-2xl p-6 sm:p-10 lg:p-12 mb-12">
-              <div className="prose prose-green prose-lg max-w-none">
+              <div className="prose prose-green prose-xl max-w-none mx-auto">
                 <MarkdownContent
                   content={post.content}
-                  className="prose-green"
+                  className="prose-green max-w-3xl mx-auto"
                 />
               </div>
             </div>

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Link, routing } from "@/i18n/routing";
 import { getAllPosts } from "@/utils/blog";
 
@@ -91,78 +93,87 @@ export default async function BlogPage({
             {/* 特集記事 - 最新の記事を特集として表示 */}
             {posts.length > 0 && (
               <div className="relative">
-                <div className="relative lg:flex rounded-2xl overflow-hidden bg-white shadow-xl">
-                  <div className="lg:w-1/2 p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center text-sm font-medium text-green-700 mb-4">
-                        <svg
-                          className="mr-1.5 h-4 w-4"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
-                            clipRule="evenodd"
+                <Link href={`/blog/${posts[0].slug}`} className="block group">
+                  <div className="relative flex flex-col lg:flex-row rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
+                    {/* 画像部分（スマホでは上に表示） */}
+                    <div className="lg:w-1/2 bg-gray-100 flex items-center justify-center p-6 lg:p-12 order-first">
+                      {posts[0].coverImage ? (
+                        <div className="w-full h-64 lg:h-full overflow-hidden rounded-xl">
+                          <Image
+                            src={posts[0].coverImage}
+                            alt={posts[0].title}
+                            width={600}
+                            height={400}
+                            className="w-full h-full object-cover"
                           />
-                        </svg>
-                        {new Date(posts[0].date).toLocaleDateString(
-                          locale === "ja" ? "ja-JP" : "en-US",
-                          {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          },
-                        )}
-                      </div>
-                      <Link
-                        href={`/blog/${posts[0].slug}`}
-                        className="block group"
-                      >
+                        </div>
+                      ) : (
+                        <div className="w-full h-64 lg:h-full bg-green-800 bg-opacity-10 rounded-xl flex items-center justify-center p-8">
+                          <svg
+                            className="h-24 w-24 text-green-700 opacity-25"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* テキスト部分（スマホでは下に表示） */}
+                    <div className="lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-between order-last">
+                      <div>
+                        <div className="flex items-center text-sm font-medium text-green-700 mb-4">
+                          <svg
+                            className="mr-1.5 h-4 w-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {new Date(posts[0].date).toLocaleDateString(
+                            locale === "ja" ? "ja-JP" : "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
+                        </div>
                         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 group-hover:text-green-700 transition duration-300">
                           {posts[0].title}
                         </h2>
                         <p className="mt-4 text-lg leading-relaxed text-gray-600">
                           {posts[0].excerpt}
                         </p>
-                      </Link>
-                    </div>
-                    <div className="mt-8">
-                      <Link
-                        href={`/blog/${posts[0].slug}`}
-                        className="inline-flex items-center font-semibold text-green-700 hover:text-green-800 transition-all duration-200"
-                      >
-                        {locale === "ja" ? "続きを読む" : "Read article"}
-                        <svg
-                          className="ml-2 h-5 w-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </Link>
+                      </div>
+                      <div className="mt-8">
+                        <span className="inline-flex items-center font-semibold text-green-700 group-hover:text-green-800 transition-all duration-200">
+                          {locale === "ja" ? "続きを読む" : "Read article"}
+                          <svg
+                            className="ml-2 h-5 w-5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="lg:w-1/2 bg-gray-100 flex items-center justify-center p-12">
-                    <div className="w-full h-full bg-green-800 bg-opacity-10 rounded-xl flex items-center justify-center p-8">
-                      <svg
-                        className="h-24 w-24 text-green-700 opacity-25"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                </Link>
               </div>
             )}
 
@@ -182,20 +193,32 @@ export default async function BlogPage({
                       className="flex flex-col h-full"
                     >
                       <div className="p-1">
-                        <div className="bg-gray-100 h-40 rounded-lg flex items-center justify-center">
-                          <div className="w-full h-full bg-green-800 bg-opacity-5 rounded-lg flex items-center justify-center">
-                            <svg
-                              className="h-12 w-12 text-green-700 opacity-25"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
+                        <div className="h-40 rounded-lg overflow-hidden">
+                          {post.coverImage ? (
+                            <Image
+                              src={post.coverImage}
+                              alt={post.title}
+                              width={400}
+                              height={200}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                              <div className="w-full h-full bg-green-800 bg-opacity-5 rounded-lg flex items-center justify-center">
+                                <svg
+                                  className="h-12 w-12 text-green-700 opacity-25"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="flex-1 p-6">

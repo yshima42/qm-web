@@ -13,7 +13,28 @@ export type BlogPost = {
   excerpt: string;
   content: string;
   author?: string;
+  coverImage?: string; // カバー画像のパス
 };
+
+/**
+ * マークダウンコンテンツから最初の画像を抽出する
+ */
+export function extractFirstImage(content: string): string | undefined {
+  // ![alt](image.jpg) または ![alt](image.png) などのパターンを検索
+  const imageRegex = /!\[.*?\]\((.*?\.(?:png|jpg|jpeg|gif|webp))\)/i;
+  const match = imageRegex.exec(content);
+
+  const imagePath = match?.[1];
+  if (imagePath) {
+    // 画像パスが相対パスの場合はblog/imagesディレクトリを付加
+    if (!imagePath.startsWith("/")) {
+      return `/blog/images/${imagePath}`;
+    }
+    return imagePath;
+  }
+
+  return undefined;
+}
 
 /**
  * 指定された言語のすべての記事を取得する
@@ -41,6 +62,9 @@ export function getAllPosts(locale: string): BlogPost[] {
       // メタデータと内容を解析
       const { data, content } = matter(fileContents);
 
+      // 記事の内容から最初の画像を抽出
+      const coverImage = extractFirstImage(content);
+
       return {
         slug,
         title: data.title ?? "",
@@ -48,6 +72,7 @@ export function getAllPosts(locale: string): BlogPost[] {
         excerpt: data.excerpt ?? "",
         content,
         author: data.author ?? "",
+        coverImage,
       };
     });
 
@@ -84,6 +109,9 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
 
     const { data, content } = matter(fileContents);
 
+    // 記事の内容から最初の画像を抽出
+    const coverImage = extractFirstImage(content);
+
     return {
       slug,
       title: data.title ?? "",
@@ -91,6 +119,7 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
       excerpt: data.excerpt ?? "",
       content,
       author: data.author ?? "",
+      coverImage,
     };
   } catch {
     return null;

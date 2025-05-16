@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -21,38 +22,94 @@ export function MarkdownContent({
         components={{
           h1: ({ ...props }) => (
             <h1
-              className="mb-6 mt-10 text-3xl font-bold text-gray-900 pb-2 border-b border-gray-100"
+              className="mb-8 mt-16 text-4xl font-bold text-gray-900 pb-3 border-b border-gray-100"
               {...props}
             />
           ),
           h2: ({ ...props }) => (
             <h2
-              className="mb-4 mt-8 pb-2 text-2xl font-bold text-gray-900 border-b border-gray-100"
+              className="mb-4 mt-14 pb-2 text-3xl font-bold text-gray-900 border-b border-gray-100"
               {...props}
             />
           ),
           h3: ({ ...props }) => (
             <h3
-              className="mb-3 mt-6 text-xl font-semibold text-gray-900"
+              className="mb-4 mt-10 text-2xl font-semibold text-gray-900"
               {...props}
             />
           ),
-          p: ({ ...props }) => (
-            <p className="mb-5 leading-relaxed text-gray-700" {...props} />
-          ),
+          p: ({ node, ...props }) => {
+            // pタグの子要素が画像だけの場合は特別な処理をする
+            if (node && "children" in node) {
+              const element = node;
+              const children = element.children;
+
+              // 子要素が1つの画像だけかチェック
+              if (
+                children.length === 1 &&
+                children[0].type === "element" &&
+                "tagName" in children[0] &&
+                children[0].tagName === "img"
+              ) {
+                // imgタグの属性を取得
+                const imgNode = children[0];
+                const imgProperties =
+                  "properties" in imgNode ? imgNode.properties : {};
+                const src =
+                  typeof imgProperties.src === "string"
+                    ? imgProperties.src
+                    : undefined;
+                const alt =
+                  typeof imgProperties.alt === "string"
+                    ? imgProperties.alt
+                    : "";
+
+                if (src) {
+                  // 画像パスが相対パスの場合、ブログ画像への絶対パスに変換
+                  const imageSrc = src.startsWith("/")
+                    ? src
+                    : `/blog/images/${src}`;
+
+                  // pタグではなく直接divとImageを返す
+                  return (
+                    <div className="my-10 overflow-hidden rounded-lg shadow-md">
+                      <Image
+                        src={imageSrc}
+                        alt={alt}
+                        width={800}
+                        height={450}
+                        className="w-full h-auto object-cover"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
+                    </div>
+                  );
+                }
+              }
+            }
+
+            // 通常のpタグを返す
+            return (
+              <p
+                className="mb-8 text-lg leading-loose text-gray-800"
+                {...props}
+              />
+            );
+          },
           ul: ({ ...props }) => (
             <ul
-              className="mb-5 list-disc pl-6 text-gray-700 space-y-2"
+              className="mb-10 mt-6 list-disc pl-8 text-gray-800 space-y-4 text-lg"
               {...props}
             />
           ),
           ol: ({ ...props }) => (
             <ol
-              className="mb-5 list-decimal pl-6 text-gray-700 space-y-2"
+              className="mb-10 mt-6 list-decimal pl-8 text-gray-800 space-y-4 text-lg"
               {...props}
             />
           ),
-          li: ({ ...props }) => <li className="mb-1" {...props} />,
+          li: ({ ...props }) => (
+            <li className="mb-3 pl-2 leading-loose" {...props} />
+          ),
           a: ({ ...props }) => (
             <a
               className="font-medium text-green-700 hover:text-green-800 transition-colors border-b border-green-200 hover:border-green-700 no-underline"
@@ -67,7 +124,7 @@ export function MarkdownContent({
           ),
           blockquote: ({ ...props }) => (
             <blockquote
-              className="border-l-4 border-green-300 bg-green-50 pl-4 italic text-gray-700 py-3 px-4 my-5 rounded-r"
+              className="border-l-4 border-green-300 bg-green-50 pl-6 italic text-gray-700 py-5 px-6 my-8 rounded-r text-lg leading-relaxed"
               {...props}
             />
           ),
@@ -79,7 +136,7 @@ export function MarkdownContent({
           ),
           pre: ({ ...props }) => (
             <pre
-              className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto mb-5 font-mono text-sm"
+              className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto mb-8 font-mono text-sm"
               {...props}
             />
           ),

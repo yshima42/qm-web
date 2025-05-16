@@ -15,8 +15,11 @@
     "postpack": "pinst --enable"
   },
   "dependencies": {
+    "@vercel/og": "^0.6.8",
+    "canvas": "^3.1.0",
     "framer-motion": "^12.6.2",
     "gray-matter": "^4.0.3",
+    "nanoid": "^5.1.5",
     "next": "15.2.4",
     "next-intl": "^4.0.2",
     "next-mdx-remote": "^5.0.0",
