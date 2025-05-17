@@ -92,6 +92,12 @@ const config = {
     },
   },
   plugins: [animate],
+  // Tailwind CSS v4用設定
+  future: {
+    respectDefaultRingColorOpacity: true,
+    disableColorOpacityUtilitiesByDefault: true,
+    enableTransitionableRelativeColors: true,
+  },
 } satisfies Config;
 
 export default config;

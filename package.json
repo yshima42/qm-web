@@ -6,6 +6,9 @@
     "packages/*"
   ],
   "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=22.15.0"
+  },
   "scripts": {
     "dev:web": "turbo run dev --filter=web",
     "dev:lp": "turbo run dev --filter=lp",
@@ -22,16 +25,16 @@
     "eslint-config-next": "^15.2.2",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-tailwindcss": "^3.17.0",
+    "eslint-plugin-tailwindcss": "4.0.0-alpha.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "pinst": "^3.0.0",
     "postcss": "8.4.49",
     "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
+    "prettier-plugin-tailwindcss": "^0.6.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^4.1.7",
     "tailwindcss-animate": "^1.0.7",
     "turbo": "^2.4.4",
     "typescript": "5.7.2",
