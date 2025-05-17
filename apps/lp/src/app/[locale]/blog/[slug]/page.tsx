@@ -72,13 +72,13 @@ export default async function BlogPost({
     return (
       <div className="min-h-screen bg-[#f8fbf7]">
         {/* ナビゲーション */}
-        <div className="max-w-5xl mx-auto px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center text-sm text-gray-600 hover:text-green-700 transition-colors"
+            className="inline-flex items-center text-sm text-gray-600 transition-colors hover:text-green-700"
           >
             <svg
-              className="h-4 w-4 mr-1"
+              className="mr-1 size-4"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
@@ -94,8 +94,8 @@ export default async function BlogPost({
         </div>
 
         {/* 記事ヘッダー */}
-        <header className="max-w-5xl mx-auto px-4 pt-10 pb-10 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
+        <header className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 flex justify-center">
               {/* 言語切替リンク */}
               <div className="flex space-x-4">
@@ -107,10 +107,10 @@ export default async function BlogPost({
                       key={lang}
                       href={`/blog/${slug}`}
                       locale={lang}
-                      className="inline-flex items-center text-sm font-medium px-3 py-1 rounded-full bg-gray-100 text-gray-800 hover:bg-green-100 hover:text-green-800 transition-colors"
+                      className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 transition-colors hover:bg-green-100 hover:text-green-800"
                     >
                       <svg
-                        className="h-4 w-4 mr-1"
+                        className="mr-1 size-4"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -127,14 +127,14 @@ export default async function BlogPost({
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-6">
+            <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
               {post.title}
             </h1>
 
-            <div className="flex items-center justify-center text-gray-500 text-sm">
+            <div className="flex items-center justify-center text-sm text-gray-500">
               <time dateTime={post.date} className="flex items-center">
                 <svg
-                  className="h-4 w-4 mr-1.5"
+                  className="mr-1.5 size-4"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -158,7 +158,7 @@ export default async function BlogPost({
                   <span className="mx-2">•</span>
                   <span className="flex items-center">
                     <svg
-                      className="h-4 w-4 mr-1.5"
+                      className="mr-1.5 size-4"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -174,28 +174,28 @@ export default async function BlogPost({
 
         {/* 記事の内容 - 見出しとデコレーションを追加 */}
         <div className="relative overflow-hidden pb-16">
-          <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-[#f8fbf7] to-white pointer-events-none"></div>
-          <div className="absolute right-0 top-[20%] w-96 h-96 bg-green-100 opacity-20 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-          <div className="absolute left-0 bottom-[30%] w-64 h-64 bg-green-100 opacity-20 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f8fbf7] to-white"></div>
+          <div className="absolute right-0 top-[20%] size-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-100 opacity-20 blur-3xl"></div>
+          <div className="absolute bottom-[30%] left-0 size-64 translate-x-1/3 translate-y-1/3 rounded-full bg-green-100 opacity-20 blur-3xl"></div>
 
-          <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white shadow-sm rounded-2xl p-6 sm:p-10 lg:p-12 mb-12">
-              <div className="prose prose-green prose-xl max-w-none mx-auto">
+          <main className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 rounded-2xl bg-white p-6 shadow-sm sm:p-10 lg:p-12">
+              <div className="prose prose-xl mx-auto max-w-none">
                 <MarkdownContent
                   content={post.content}
-                  className="prose-green max-w-3xl mx-auto"
+                  className="mx-auto max-w-3xl"
                 />
               </div>
             </div>
 
             {/* 記事フッター */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-12 gap-6">
+            <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800 transition-colors group"
+                className="group inline-flex items-center text-sm font-medium text-green-700 transition-colors hover:text-green-800"
               >
                 <svg
-                  className="h-5 w-5 mr-2 transition-transform group-hover:-translate-x-1"
+                  className="mr-2 size-5 transition-transform group-hover:-translate-x-1"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -217,11 +217,11 @@ export default async function BlogPost({
                     href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-gray-200 text-gray-500 hover:text-blue-500 hover:border-blue-500 transition-colors"
+                    className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-500 hover:text-blue-500"
                     aria-label="Share on Twitter"
                   >
                     <svg
-                      className="h-4 w-4"
+                      className="size-4"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -233,11 +233,11 @@ export default async function BlogPost({
                     href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 transition-colors"
+                    className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-600 hover:text-blue-600"
                     aria-label="Share on Facebook"
                   >
                     <svg
-                      className="h-4 w-4"
+                      className="size-4"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -253,11 +253,11 @@ export default async function BlogPost({
                     href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-gray-200 text-gray-500 hover:text-blue-700 hover:border-blue-700 transition-colors"
+                    className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-700 hover:text-blue-700"
                     aria-label="Share on LinkedIn"
                   >
                     <svg
-                      className="h-4 w-4"
+                      className="size-4"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
@@ -276,13 +276,13 @@ export default async function BlogPost({
     // エラーが発生しても最小限の内容を表示する
     return (
       <div className="min-h-screen bg-[#f8fbf7]">
-        <main className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-sm p-8">
-            <div className="bg-red-50 p-5 rounded-lg border border-red-100">
+        <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="rounded-xl bg-white p-8 shadow-sm">
+            <div className="rounded-lg border border-red-100 bg-red-50 p-5">
               <div className="flex items-start">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <svg
-                    className="h-6 w-6 text-red-600"
+                    className="size-6 text-red-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -299,9 +299,9 @@ export default async function BlogPost({
                   <h3 className="text-lg font-medium text-red-800">
                     エラーが発生しました
                   </h3>
-                  <div className="mt-2 text-red-700 text-sm">
+                  <div className="mt-2 text-sm text-red-700">
                     <p>ブログ記事の表示中にエラーが発生しました。</p>
-                    <pre className="mt-2 text-xs bg-red-50 p-2 rounded border border-red-100 overflow-auto">
+                    <pre className="mt-2 overflow-auto rounded border border-red-100 bg-red-50 p-2 text-xs">
                       {error instanceof Error ? error.message : "不明なエラー"}
                     </pre>
                   </div>
@@ -314,7 +314,7 @@ export default async function BlogPost({
                 className="inline-flex items-center text-sm text-green-700 hover:text-green-800"
               >
                 <svg
-                  className="h-4 w-4 mr-1"
+                  className="mr-1 size-4"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

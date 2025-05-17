@@ -45,14 +45,14 @@ export default async function BlogPage({
       {/* ブログヘッダーセクション - モダンなミニマルデザイン */}
       <div className="relative overflow-hidden bg-white">
         <div className="absolute inset-0 bg-[#f8fbf7]"></div>
-        <div className="absolute inset-y-0 right-0 w-1/2 bg-[#2E6C28] opacity-10 rounded-l-full"></div>
+        <div className="absolute inset-y-0 right-0 w-1/2 rounded-l-full bg-[#2E6C28] opacity-10"></div>
 
-        <div className="relative max-w-5xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-5xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-lg text-center md:max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
               {locale === "ja" ? "QuitMate Journal" : "QuitMate Journal"}
             </h1>
-            <p className="mt-3 text-xl text-gray-500 max-w-2xl mx-auto">
+            <p className="mx-auto mt-3 max-w-2xl text-xl text-gray-500">
               {locale === "ja"
                 ? "回復の旅路に役立つ洞察、ストーリー、そして最新情報"
                 : "Insights, stories, and updates to support your recovery journey"}
@@ -62,11 +62,11 @@ export default async function BlogPage({
       </div>
 
       {/* コンテンツセクション - モダンなカードデザイン */}
-      <main className="max-w-5xl mx-auto px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         {posts.length === 0 ? (
-          <div className="text-center py-16">
+          <div className="py-16 text-center">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="mx-auto size-12 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -93,24 +93,24 @@ export default async function BlogPage({
             {/* 特集記事 - 最新の記事を特集として表示 */}
             {posts.length > 0 && (
               <div className="relative">
-                <Link href={`/blog/${posts[0].slug}`} className="block group">
-                  <div className="relative flex flex-col lg:flex-row rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Link href={`/blog/${posts[0].slug}`} className="group block">
+                  <div className="relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl lg:flex-row">
                     {/* 画像部分（スマホでは上に表示） */}
-                    <div className="lg:w-1/2 bg-gray-100 flex items-center justify-center p-6 lg:p-12 order-first">
+                    <div className="order-first flex items-center justify-center bg-gray-100 p-6 lg:w-1/2 lg:p-12">
                       {posts[0].coverImage ? (
-                        <div className="w-full h-64 lg:h-full overflow-hidden rounded-xl">
+                        <div className="h-64 w-full overflow-hidden rounded-xl lg:h-full">
                           <Image
                             src={posts[0].coverImage}
                             alt={posts[0].title}
                             width={600}
                             height={400}
-                            className="w-full h-full object-cover"
+                            className="size-full object-cover"
                           />
                         </div>
                       ) : (
-                        <div className="w-full h-64 lg:h-full bg-green-800 bg-opacity-10 rounded-xl flex items-center justify-center p-8">
+                        <div className="flex h-64 w-full items-center justify-center rounded-xl bg-green-800 p-8 lg:h-full">
                           <svg
-                            className="h-24 w-24 text-green-700 opacity-25"
+                            className="size-24 text-green-700 opacity-25"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -125,11 +125,11 @@ export default async function BlogPage({
                     </div>
 
                     {/* テキスト部分（スマホでは下に表示） */}
-                    <div className="lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-between order-last">
+                    <div className="order-last flex flex-col justify-between p-6 sm:p-8 lg:w-1/2 lg:p-12">
                       <div>
-                        <div className="flex items-center text-sm font-medium text-green-700 mb-4">
+                        <div className="mb-4 flex items-center text-sm font-medium text-green-700">
                           <svg
-                            className="mr-1.5 h-4 w-4"
+                            className="mr-1.5 size-4"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -148,7 +148,7 @@ export default async function BlogPage({
                             },
                           )}
                         </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 group-hover:text-green-700 transition duration-300">
+                        <h2 className="text-2xl font-bold text-gray-900 transition duration-300 group-hover:text-green-700 sm:text-3xl">
                           {posts[0].title}
                         </h2>
                         <p className="mt-4 text-lg leading-relaxed text-gray-600">
@@ -156,10 +156,10 @@ export default async function BlogPage({
                         </p>
                       </div>
                       <div className="mt-8">
-                        <span className="inline-flex items-center font-semibold text-green-700 group-hover:text-green-800 transition-all duration-200">
+                        <span className="inline-flex items-center font-semibold text-green-700 transition-all duration-200 group-hover:text-green-800">
                           {locale === "ja" ? "続きを読む" : "Read article"}
                           <svg
-                            className="ml-2 h-5 w-5"
+                            className="ml-2 size-5"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                           >
@@ -179,34 +179,34 @@ export default async function BlogPage({
 
             {/* 記事一覧 */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-8">
+              <h2 className="mb-8 text-2xl font-bold text-gray-900">
                 {locale === "ja" ? "最新の記事" : "Latest Articles"}
               </h2>
               <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {posts.slice(posts.length > 0 ? 1 : 0).map((post) => (
                   <div
                     key={post.slug}
-                    className="flex flex-col bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+                    className="flex flex-col overflow-hidden rounded-xl bg-white transition-all duration-300 hover:shadow-lg"
                   >
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="flex flex-col h-full"
+                      className="flex h-full flex-col"
                     >
                       <div className="p-1">
-                        <div className="h-40 rounded-lg overflow-hidden">
+                        <div className="h-40 overflow-hidden rounded-lg">
                           {post.coverImage ? (
                             <Image
                               src={post.coverImage}
                               alt={post.title}
                               width={400}
                               height={200}
-                              className="w-full h-full object-cover"
+                              className="size-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                              <div className="w-full h-full bg-green-800 bg-opacity-5 rounded-lg flex items-center justify-center">
+                            <div className="flex size-full items-center justify-center bg-gray-100">
+                              <div className="flex size-full items-center justify-center rounded-lg bg-green-800">
                                 <svg
-                                  className="h-12 w-12 text-green-700 opacity-25"
+                                  className="size-12 text-green-700 opacity-25"
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >
@@ -222,9 +222,9 @@ export default async function BlogPage({
                         </div>
                       </div>
                       <div className="flex-1 p-6">
-                        <div className="flex items-center text-sm font-medium text-green-700 mb-2">
+                        <div className="mb-2 flex items-center text-sm font-medium text-green-700">
                           <svg
-                            className="mr-1.5 h-3.5 w-3.5"
+                            className="mr-1.5 size-3.5"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -243,18 +243,18 @@ export default async function BlogPage({
                             },
                           )}
                         </div>
-                        <h3 className="font-semibold text-xl text-gray-900 mb-2 group-hover:text-green-700 transition duration-300">
+                        <h3 className="mb-2 text-xl font-semibold text-gray-900 transition duration-300 group-hover:text-green-700">
                           {post.title}
                         </h3>
-                        <p className="text-gray-600 line-clamp-2 mb-4">
+                        <p className="mb-4 line-clamp-2 text-gray-600">
                           {post.excerpt}
                         </p>
-                        <div className="mt-auto pt-4 flex items-center font-medium text-green-700">
+                        <div className="mt-auto flex items-center pt-4 font-medium text-green-700">
                           <span className="text-sm">
                             {locale === "ja" ? "読む" : "Read article"}
                           </span>
                           <svg
-                            className="ml-1 h-4 w-4"
+                            className="ml-1 size-4"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                             aria-hidden="true"

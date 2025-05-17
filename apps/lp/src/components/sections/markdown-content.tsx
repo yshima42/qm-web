@@ -22,13 +22,13 @@ export function MarkdownContent({
         components={{
           h1: ({ ...props }) => (
             <h1
-              className="mb-8 mt-16 text-4xl font-bold text-gray-900 pb-3 border-b border-gray-100"
+              className="mb-8 mt-16 border-b border-gray-100 pb-3 text-4xl font-bold text-gray-900"
               {...props}
             />
           ),
           h2: ({ ...props }) => (
             <h2
-              className="mb-4 mt-14 pb-2 text-3xl font-bold text-gray-900 border-b border-gray-100"
+              className="mb-4 mt-14 border-b border-gray-100 pb-2 text-3xl font-bold text-gray-900"
               {...props}
             />
           ),
@@ -78,7 +78,7 @@ export function MarkdownContent({
                         alt={alt}
                         width={800}
                         height={450}
-                        className="w-full h-auto object-cover"
+                        className="h-auto w-full object-cover"
                         sizes="(max-width: 768px) 100vw, 800px"
                       />
                     </div>
@@ -97,13 +97,13 @@ export function MarkdownContent({
           },
           ul: ({ ...props }) => (
             <ul
-              className="mb-10 mt-6 list-disc pl-8 text-gray-800 space-y-4 text-lg"
+              className="mb-10 mt-6 list-disc space-y-4 pl-8 text-lg text-gray-800"
               {...props}
             />
           ),
           ol: ({ ...props }) => (
             <ol
-              className="mb-10 mt-6 list-decimal pl-8 text-gray-800 space-y-4 text-lg"
+              className="mb-10 mt-6 list-decimal space-y-4 pl-8 text-lg text-gray-800"
               {...props}
             />
           ),
@@ -112,7 +112,7 @@ export function MarkdownContent({
           ),
           a: ({ ...props }) => (
             <a
-              className="font-medium text-green-700 hover:text-green-800 transition-colors border-b border-green-200 hover:border-green-700 no-underline"
+              className="border-b border-green-200 font-medium text-green-700 no-underline transition-colors hover:border-green-700 hover:text-green-800"
               {...props}
             />
           ),
@@ -124,19 +124,19 @@ export function MarkdownContent({
           ),
           blockquote: ({ ...props }) => (
             <blockquote
-              className="border-l-4 border-green-300 bg-green-50 pl-6 italic text-gray-700 py-5 px-6 my-8 rounded-r text-lg leading-relaxed"
+              className="my-8 rounded-r border-l-4 border-green-300 bg-green-50 px-6 py-5 text-lg italic leading-relaxed text-gray-700"
               {...props}
             />
           ),
           code: ({ ...props }) => (
             <code
-              className="rounded bg-gray-100 px-1.5 py-0.5 text-gray-800 font-mono text-sm"
+              className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800"
               {...props}
             />
           ),
           pre: ({ ...props }) => (
             <pre
-              className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto mb-8 font-mono text-sm"
+              className="mb-8 overflow-auto rounded-lg bg-gray-900 p-4 font-mono text-sm text-gray-100"
               {...props}
             />
           ),
