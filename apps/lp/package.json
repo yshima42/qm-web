@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "TAILWIND_ENGINE=js OXIDE_DISABLE=1 next build",
     "start": "next start",
-    "export": "next build",
+    "export": "TAILWIND_ENGINE=js OXIDE_DISABLE=1 next build",
     "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\"",
     "lint:fix": "eslint --ext .ts,.js,.tsx . --fix && prettier --write \"./**/*.{ts,js,tsx}\"",
     "format": "prettier --write './**/*.{js,ts,tsx,scss}'",
@@ -39,7 +39,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
-    "tailwindcss": "^4",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "tailwindcss": {
+    "engine": "js"
   }
 }
