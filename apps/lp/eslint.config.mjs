@@ -52,6 +52,9 @@ export default tseslint.config(
         whitelist: ['hidden-scrollbar', '-webkit-scrollbar'],
       },
     },
+    rules: {
+      'tailwindcss/classnames-order': 'off', // Tailwindのクラス順序の警告を無効化
+    },
   },
   {
     // eslint-plugin-importに関する設定

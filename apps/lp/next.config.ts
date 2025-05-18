@@ -10,10 +10,19 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: false,
     dirs: ["src"],
   },
+  images: {
+    domains: [],
+    // 静的ページのビルド時に画像を最適化する場合はfalseに設定
+    unoptimized: false,
+    // 外部画像の最適化を有効にする場合は、ここにドメインを追加
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
   // output: "export",
-  // images: {
-  //   unoptimized: true,
-  // },
   // // 必要に応じて、ベースパスの設定（サブディレクトリにデプロイする場合）
   // // basePath: '/your-base-path',
   // // 明示的に静的生成するパスを指定（念のため）
