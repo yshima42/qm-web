@@ -5,6 +5,11 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
+  eslint: {
+    // 警告とエラーをビルド時に表示するが、ビルドを失敗させない
+    ignoreDuringBuilds: false,
+    dirs: ["src"],
+  },
   // output: "export",
   // images: {
   //   unoptimized: true,
