@@ -37,12 +37,12 @@ export default function BlogPage() {
         <div className="absolute inset-0 bg-[#f8fbf7]"></div>
         <div className="absolute inset-y-0 right-0 w-1/2 rounded-l-full bg-[#2E6C28] opacity-10"></div>
 
-        <div className="relative mx-auto max-w-5xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-5xl px-4 py-8 pb-6 sm:py-12 sm:pb-8 lg:py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-lg text-center md:max-w-3xl">
-            <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="mb-3 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
               {t("journal-title")}
             </h1>
-            <p className="mx-auto mt-3 max-w-2xl text-xl text-gray-500">
+            <p className="mx-auto mt-2 max-w-2xl text-lg sm:text-xl text-gray-500">
               {t("journal-description")}
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function BlogPage() {
       </div>
 
       {/* コンテンツセクション - モダンなカードデザイン */}
-      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <main className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         {posts.length === 0 ? (
           <div className="py-16 text-center">
             <svg
@@ -73,7 +73,7 @@ export default function BlogPage() {
             <p className="mt-1 text-gray-500">{t("content-preparing")}</p>
           </div>
         ) : (
-          <div className="space-y-20">
+          <div className="space-y-12">
             {/* 特集記事 - 最新の記事を特集として表示 */}
             {posts.length > 0 && (
               <div className="relative">
