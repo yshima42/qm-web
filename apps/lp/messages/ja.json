@@ -92,5 +92,18 @@
     "terms": {
         "title": "利用規約",
         "description": "QuitMateの利用規約をご確認ください。"
+    },
+    "blog": {
+        "title": "ブログ | QuitMate",
+        "description": "QuitMateの公式ブログ。依存症回復に関する情報や最新ニュースを発信しています。",
+        "journal-title": "QuitMate Journal",
+        "journal-description": "回復の旅路に役立つ洞察、ストーリー、そして最新情報",
+        "no-posts": "まだ記事がありません",
+        "content-preparing": "コンテンツは準備中です。もうしばらくお待ちください。",
+        "read-more": "続きを読む",
+        "latest-articles": "最新の記事",
+        "read-article": "読む",
+        "back-to-blog": "ブログに戻る",
+        "share": "共有:"
     }
 }

@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { MarkdownContent } from "@/components/sections/markdown-content";
 
@@ -24,15 +27,15 @@ export function generateStaticParams() {
   return params;
 }
 
-// ビルド時に実行される
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
-  const { locale, slug } = await params;
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-  const post = getPostBySlug(slug, locale);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const t = await getTranslations("blog");
+  const tConfig = await getTranslations("config");
+  const post = getPostBySlug(resolvedParams.slug, tConfig("language-code"));
 
   if (!post) {
     return {
@@ -43,39 +46,33 @@ export async function generateMetadata({
   return {
     title: `${post.title} | QuitMate`,
     description: post.excerpt,
-    alternates: {
-      canonical: `/${locale}/blog/${slug}`,
-      languages: {
-        en: `/en/blog/${slug}`,
-        ja: `/ja/blog/${slug}`,
-      },
-    },
+    metadataBase: new URL(
+      `https://about.quitmate.app/${tConfig("language-code")}`,
+    ),
   };
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
+export default async function BlogPost({ params }: Props) {
   try {
-    const { locale, slug } = await params;
-
-    const post = getPostBySlug(slug, locale);
+    const resolvedParams = await params;
+    const tConfig = await getTranslations("config");
+    const locale = tConfig("language-code");
+    const post = getPostBySlug(resolvedParams.slug, locale);
+    const t = await getTranslations("blog");
 
     if (!post) {
       notFound();
     }
 
-    const alternateVersions = getAlternateLanguageVersions(slug);
+    const alternateVersions = getAlternateLanguageVersions(resolvedParams.slug);
 
     return (
       <div className="min-h-screen bg-[#f8fbf7]">
         {/* ナビゲーション */}
-        <div className="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-4 pt-4 sm:pt-8 sm:px-6 lg:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center text-sm text-gray-600 transition-colors hover:text-green-700"
+            className={`inline-flex items-center text-sm text-gray-600 transition-colors hover:text-green-700 ${locale === "en" ? "font-serif" : ""}`}
           >
             <svg
               className="mr-1 size-4"
@@ -89,23 +86,23 @@ export default async function BlogPost({
                 clipRule="evenodd"
               />
             </svg>
-            <span>{locale === "ja" ? "ブログに戻る" : "Back to blog"}</span>
+            <span>{t("back-to-blog")}</span>
           </Link>
         </div>
 
         {/* 記事ヘッダー */}
-        <header className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+        <header className="mx-auto max-w-5xl px-4 py-6 sm:py-10 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-6 flex justify-center">
               {/* 言語切替リンク */}
               <div className="flex space-x-4">
                 {Object.entries(alternateVersions).map(([lang, exists]) => {
-                  if (lang === locale || !exists) return null;
+                  if (lang === tConfig("language-code") || !exists) return null;
 
                   return (
                     <Link
                       key={lang}
-                      href={`/blog/${slug}`}
+                      href={`/blog/${resolvedParams.slug}`}
                       locale={lang}
                       className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 transition-colors hover:bg-green-100 hover:text-green-800"
                     >
@@ -127,11 +124,15 @@ export default async function BlogPost({
               </div>
             </div>
 
-            <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h1
+              className={`mb-6 tracking-tight text-gray-900 ${locale === "en" ? "text-[32px] sm:text-[40px] leading-[1.2] sm:leading-[1.25] font-bold font-serif" : "text-3xl font-bold leading-[1.15] sm:leading-[1.2] sm:text-4xl"}`}
+            >
               {post.title}
             </h1>
 
-            <div className="flex items-center justify-center text-sm text-gray-500">
+            <div
+              className={`flex items-center justify-center text-sm text-gray-500 ${locale === "en" ? "font-serif" : ""}`}
+            >
               <time dateTime={post.date} className="flex items-center">
                 <svg
                   className="mr-1.5 size-4"
@@ -175,21 +176,29 @@ export default async function BlogPost({
         {/* 記事の内容 - 見出しとデコレーションを追加 */}
         <div className="relative overflow-hidden pb-16">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f8fbf7] to-white"></div>
-          <div className="absolute right-0 top-[20%] size-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-100 opacity-20 blur-3xl"></div>
-          <div className="absolute bottom-[30%] left-0 size-64 translate-x-1/3 translate-y-1/3 rounded-full bg-green-100 opacity-20 blur-3xl"></div>
+          <div
+            className={`absolute right-0 top-[20%] size-96 -translate-x-1/2 -translate-y-1/2 rounded-full ${locale === "en" ? "bg-gray-50" : "bg-green-100"} opacity-20 blur-3xl`}
+          ></div>
+          <div
+            className={`absolute bottom-[30%] left-0 size-64 translate-x-1/3 translate-y-1/3 rounded-full ${locale === "en" ? "bg-gray-50" : "bg-green-100"} opacity-20 blur-3xl`}
+          ></div>
 
           <main className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-12 rounded-2xl bg-white p-6 shadow-sm sm:p-10 lg:p-12">
-              <div className="prose prose-xl mx-auto max-w-none">
+            <div
+              className={`mb-8 sm:mb-12 bg-transparent ${locale === "en" ? "px-0 sm:p-6" : "p-0 sm:p-6"} shadow-none sm:rounded-2xl sm:bg-white sm:shadow-sm md:p-10 lg:p-12`}
+            >
+              <div
+                className={`prose prose-lg sm:prose-xl mx-auto max-w-none prose-img:rounded-lg prose-img:mx-auto prose-blockquote:border-l-green-500 prose-blockquote:font-normal prose-blockquote:text-gray-600 prose-blockquote:italic prose-li:marker:text-gray-500 prose-ul:pl-5 prose-ol:pl-5 ${locale === "en" ? "font-serif" : ""} prose-headings:mt-12 prose-headings:mb-4 ${locale === "en" ? "prose-p:my-7" : "prose-p:my-5"} prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.9em] prose-code:before:content-none prose-code:after:content-none prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-200 ${locale === "en" ? "leading-relaxed" : ""}`}
+              >
                 <MarkdownContent
                   content={post.content}
-                  className="mx-auto max-w-3xl"
+                  className={`mx-auto ${locale === "en" ? "max-w-[648px]" : "max-w-[680px]"} ${locale === "en" ? "prose-headings:font-medium" : "prose-headings:font-semibold"} ${locale === "en" ? "prose-p:text-[18px] sm:prose-p:text-[21px] prose-p:leading-[28px] sm:prose-p:leading-[32px] prose-p:font-serif prose-p:font-normal prose-p:tracking-[-0.003em] prose-strong:font-medium" : "prose-p:text-[1.06rem] sm:prose-p:text-[1.2rem] prose-p:leading-[1.6] sm:prose-p:leading-[1.7]"} prose-p:text-gray-800 prose-a:text-green-700 prose-a:no-underline hover:prose-a:underline ${locale === "en" ? "prose-li:text-[18px] sm:prose-li:text-[21px] prose-li:leading-[28px] sm:prose-li:leading-[32px] prose-li:font-serif" : "prose-li:text-[1.06rem] sm:prose-li:text-[1.2rem] prose-li:leading-[1.6] sm:prose-li:leading-[1.7]"} prose-li:text-gray-800 prose-headings:text-gray-900 prose-headings:tracking-tight ${locale === "en" ? "prose-h2:text-[24px] sm:prose-h2:text-[28px] prose-h3:text-[22px] sm:prose-h3:text-[24px]" : "prose-h2:text-[1.5rem] sm:prose-h2:text-[1.7rem] prose-h3:text-[1.2rem] sm:prose-h3:text-[1.4rem]"}`}
                 />
               </div>
             </div>
 
             {/* 記事フッター */}
-            <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-8 sm:mt-12 flex flex-col gap-4 sm:gap-6 sm:flex-row sm:items-center sm:justify-between">
               <Link
                 href="/blog"
                 className="group inline-flex items-center text-sm font-medium text-green-700 transition-colors hover:text-green-800"
@@ -205,16 +214,14 @@ export default async function BlogPost({
                     clipRule="evenodd"
                   />
                 </svg>
-                {locale === "ja" ? "ブログに戻る" : "Back to blog"}
+                {t("back-to-blog")}
               </Link>
 
               <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-500">
-                  {locale === "ja" ? "共有:" : "Share:"}
-                </span>
+                <span className="text-sm text-gray-500">{t("share")}</span>
                 <div className="flex space-x-3">
                   <a
-                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${resolvedParams.slug}`)}&text=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-500 hover:text-blue-500"
@@ -230,7 +237,7 @@ export default async function BlogPost({
                     </svg>
                   </a>
                   <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}`}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${resolvedParams.slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-600 hover:text-blue-600"
@@ -250,7 +257,7 @@ export default async function BlogPost({
                     </svg>
                   </a>
                   <a
-                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${resolvedParams.slug}`)}&title=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex size-8 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-blue-700 hover:text-blue-700"
@@ -274,11 +281,13 @@ export default async function BlogPost({
     );
   } catch (error) {
     // エラーが発生しても最小限の内容を表示する
+    const t = await getTranslations("blog");
+
     return (
       <div className="min-h-screen bg-[#f8fbf7]">
-        <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="rounded-xl bg-white p-8 shadow-sm">
-            <div className="rounded-lg border border-red-100 bg-red-50 p-5">
+        <main className="mx-auto max-w-5xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+          <div className="bg-transparent p-0 shadow-none sm:rounded-xl sm:bg-white sm:p-8 sm:shadow-sm">
+            <div className="rounded-lg border border-red-100 bg-red-50 p-3 sm:p-5">
               <div className="flex items-start">
                 <div className="shrink-0">
                   <svg
@@ -324,7 +333,7 @@ export default async function BlogPost({
                     clipRule="evenodd"
                   />
                 </svg>
-                ブログに戻る
+                {t("back-to-blog")}
               </Link>
             </div>
           </div>

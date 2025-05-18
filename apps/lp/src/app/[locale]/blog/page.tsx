@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { Link, routing } from "@/i18n/routing";
 import { getAllPosts } from "@/utils/blog";
@@ -9,36 +12,23 @@ export function generateStaticParams() {
 }
 
 // ビルド時に実行される
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("blog");
+  const tConfig = await getTranslations("config");
 
   return {
-    title: locale === "ja" ? "ブログ | QuitMate" : "Blog | QuitMate",
-    description:
-      locale === "ja"
-        ? "QuitMateの公式ブログ。依存症回復に関する情報や最新ニュースを発信しています。"
-        : "QuitMate official blog. Find information and the latest news about addiction recovery.",
-    alternates: {
-      canonical: `/${locale}/blog`,
-      languages: {
-        en: "/en/blog",
-        ja: "/ja/blog",
-      },
-    },
+    title: t("title"),
+    description: t("description"),
+    metadataBase: new URL(
+      `https://about.quitmate.app/${tConfig("language-code")}`,
+    ),
   };
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const posts = getAllPosts(locale);
+export default function BlogPage() {
+  const t = useTranslations("blog");
+  const tConfig = useTranslations("config");
+  const posts = getAllPosts(tConfig("language-code"));
 
   return (
     <div className="min-h-screen bg-[#f8fbf7]">
@@ -50,12 +40,10 @@ export default async function BlogPage({
         <div className="relative mx-auto max-w-5xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-lg text-center md:max-w-3xl">
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-              {locale === "ja" ? "QuitMate Journal" : "QuitMate Journal"}
+              {t("journal-title")}
             </h1>
             <p className="mx-auto mt-3 max-w-2xl text-xl text-gray-500">
-              {locale === "ja"
-                ? "回復の旅路に役立つ洞察、ストーリー、そして最新情報"
-                : "Insights, stories, and updates to support your recovery journey"}
+              {t("journal-description")}
             </p>
           </div>
         </div>
@@ -80,13 +68,9 @@ export default async function BlogPage({
               />
             </svg>
             <h3 className="mt-2 text-lg font-medium text-gray-900">
-              {locale === "ja" ? "まだ記事がありません" : "No posts yet"}
+              {t("no-posts")}
             </h3>
-            <p className="mt-1 text-gray-500">
-              {locale === "ja"
-                ? "コンテンツは準備中です。もうしばらくお待ちください。"
-                : "Content is being prepared. Please check back soon."}
-            </p>
+            <p className="mt-1 text-gray-500">{t("content-preparing")}</p>
           </div>
         ) : (
           <div className="space-y-20">
@@ -140,7 +124,9 @@ export default async function BlogPage({
                             />
                           </svg>
                           {new Date(posts[0].date).toLocaleDateString(
-                            locale === "ja" ? "ja-JP" : "en-US",
+                            tConfig("language-code") === "ja"
+                              ? "ja-JP"
+                              : "en-US",
                             {
                               year: "numeric",
                               month: "long",
@@ -157,7 +143,7 @@ export default async function BlogPage({
                       </div>
                       <div className="mt-8">
                         <span className="inline-flex items-center font-semibold text-green-700 transition-all duration-200 group-hover:text-green-800">
-                          {locale === "ja" ? "続きを読む" : "Read article"}
+                          {t("read-more")}
                           <svg
                             className="ml-2 size-5"
                             viewBox="0 0 20 20"
@@ -180,7 +166,7 @@ export default async function BlogPage({
             {/* 記事一覧 */}
             <div>
               <h2 className="mb-8 text-2xl font-bold text-gray-900">
-                {locale === "ja" ? "最新の記事" : "Latest Articles"}
+                {t("latest-articles")}
               </h2>
               <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {posts.slice(posts.length > 0 ? 1 : 0).map((post) => (
@@ -235,7 +221,9 @@ export default async function BlogPage({
                             />
                           </svg>
                           {new Date(post.date).toLocaleDateString(
-                            locale === "ja" ? "ja-JP" : "en-US",
+                            tConfig("language-code") === "ja"
+                              ? "ja-JP"
+                              : "en-US",
                             {
                               year: "numeric",
                               month: "long",
@@ -250,9 +238,7 @@ export default async function BlogPage({
                           {post.excerpt}
                         </p>
                         <div className="mt-auto flex items-center pt-4 font-medium text-green-700">
-                          <span className="text-sm">
-                            {locale === "ja" ? "読む" : "Read article"}
-                          </span>
+                          <span className="text-sm">{t("read-article")}</span>
                           <svg
                             className="ml-1 size-4"
                             viewBox="0 0 20 20"

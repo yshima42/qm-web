@@ -92,5 +92,18 @@
     "terms": {
         "title": "Terms of Service",
         "description": "Read QuitMate's terms of service."
+    },
+    "blog": {
+        "title": "Blog | QuitMate",
+        "description": "QuitMate official blog. Find information and the latest news about addiction recovery.",
+        "journal-title": "QuitMate Journal",
+        "journal-description": "Insights, stories, and updates to support your recovery journey",
+        "no-posts": "No posts yet",
+        "content-preparing": "Content is being prepared. Please check back soon.",
+        "read-more": "Read article",
+        "latest-articles": "Latest Articles",
+        "read-article": "Read article",
+        "back-to-blog": "Back to blog",
+        "share": "Share:"
     }
   }
