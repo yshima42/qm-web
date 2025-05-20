@@ -27,6 +27,12 @@ export const Header = () => {
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
             <Link
+              href="/blog"
+              className="transition-colors hover:text-primary-light"
+            >
+              {t("links.blog")}
+            </Link>
+            <Link
               href="/terms"
               className="transition-colors hover:text-primary-light"
             >
