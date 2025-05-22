@@ -77,6 +77,29 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
               {...props}
             />
           ),
+          table: ({ ...props }) => (
+            <table
+              className="my-8 w-full border-collapse text-xl text-gray-800"
+              {...props}
+            />
+          ),
+          thead: ({ ...props }) => <thead className="bg-gray-100" {...props} />,
+          tbody: ({ ...props }) => <tbody {...props} />,
+          tr: ({ ...props }) => (
+            <tr className="border-b border-gray-100" {...props} />
+          ),
+          th: ({ ...props }) => (
+            <th
+              className="border border-gray-400 px-4 py-2 text-left font-semibold text-gray-900"
+              {...props}
+            />
+          ),
+          td: ({ ...props }) => (
+            <td
+              className="border border-gray-400 px-4 py-2 text-gray-800"
+              {...props}
+            />
+          ),
           img: ({ src, alt }) => {
             // 画像パスの処理
             let imgSrc = src;

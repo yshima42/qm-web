@@ -20,7 +20,7 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
   {
-    files: ['*.ts', '*.tsx'], // 読み込むファイル
+    files: ['*.ts', '*.tsx'], // TypeScriptファイル
   },
   {
     ignores: ['**/.next/**/*', '*.config.mjs'], // 無視するファイル
@@ -43,6 +43,13 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
+    },
+  },
+  {
+    // MDXファイル用の設定（TypeScriptパーサーを使わない）
+    files: ['*.mdx'],
+    languageOptions: {
+      parser: null, // TypeScriptパーサーを使わない
     },
   },
   {
