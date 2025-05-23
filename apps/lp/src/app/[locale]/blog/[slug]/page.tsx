@@ -65,10 +65,54 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // ベースURL
+  const baseUrl = `https://about.quitmate.app`;
+  // 記事のフルURL
+  const postUrl = `${baseUrl}/${languageCode}/blog/${resolvedParams.slug}`;
+
+  // 短い説明文を作成 (300文字以内)
+  const description =
+    post.excerpt || post.content.substring(0, 300) || "QuitMate Journal";
+
   return {
     title: `${post.title} | QuitMate`,
-    description: post.excerpt,
-    metadataBase: new URL(`https://about.quitmate.app/${languageCode}`),
+    description: description,
+    metadataBase: new URL(baseUrl),
+    openGraph: {
+      type: "article",
+      url: postUrl,
+      title: post.title,
+      description: description,
+      siteName: "QuitMate",
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: post.author ? [post.author] : ["QuitMate Team"],
+      locale: languageCode,
+      images: post.coverImage
+        ? [
+            {
+              url: post.coverImage,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: post.coverImage ? "summary_large_image" : "summary",
+      title: post.title,
+      description: description,
+      creator: "@QuitMate_app",
+      images: post.coverImage ?? undefined,
+    },
+    alternates: {
+      canonical: postUrl,
+      languages: {
+        en: `${baseUrl}/en/blog/${resolvedParams.slug}`,
+        ja: `${baseUrl}/ja/blog/${resolvedParams.slug}`,
+      },
+    },
   };
 }
 
@@ -101,6 +145,7 @@ type Post = {
   date: string;
   author?: string;
   content: string;
+  coverImage?: string;
 };
 
 // 記事ヘッダーコンポーネント
