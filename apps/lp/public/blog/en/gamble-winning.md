@@ -1,7 +1,7 @@
 ---
 
 title: "Is 'Winning Overall' in Gambling Really Possible?"
-date: "2025-05-22"
+date: "2025-05-27"
 excerpt: "We've all heard someone claim they're 'winning overall' in gambling—but is this truly possible? This article explores whether long-term profit in gambling exists, why people believe they can win, and how this belief relates to gambling addiction."
 author: "QuitMate"
 ------------------
