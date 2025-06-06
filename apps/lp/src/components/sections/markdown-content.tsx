@@ -18,41 +18,43 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         components={{
           h1: ({ ...props }) => (
             <h1
-              className="mt-12 mb-8 text-5xl font-bold leading-tight text-gray-900"
+              className="mt-12 mb-8 text-[2.75rem] font-bold leading-tight text-gray-900"
               {...props}
             />
           ),
           h2: ({ ...props }) => (
             <h2
-              className="mt-14 mb-6 text-3xl font-bold leading-tight text-gray-900"
+              className="mt-14 mb-6 text-[1.75rem] font-bold leading-tight text-gray-900"
               {...props}
             />
           ),
           h3: ({ ...props }) => (
             <h3
-              className="mt-8 mb-4 text-2xl font-semibold leading-tight text-gray-900"
+              className="mt-8 mb-4 text-[1.375rem] font-semibold leading-tight text-gray-900"
               {...props}
             />
           ),
           p: ({ ...props }) => (
             <p
-              className="mb-6 text-xl leading-relaxed text-gray-800"
+              className="mb-6 text-[1.185rem] leading-relaxed text-gray-800"
               {...props}
             />
           ),
           ul: ({ ...props }) => (
             <ul
-              className="mb-6 pl-8 text-xl list-disc text-gray-800"
+              className="mb-6 pl-8 text-[1.185rem] list-disc text-gray-800"
               {...props}
             />
           ),
           ol: ({ ...props }) => (
             <ol
-              className="mb-6 pl-8 text-xl list-decimal text-gray-800"
+              className="mb-6 pl-8 text-[1.185rem] list-decimal text-gray-800"
               {...props}
             />
           ),
-          li: ({ ...props }) => <li className="mb-3 text-xl" {...props} />,
+          li: ({ ...props }) => (
+            <li className="mb-3 text-[1.185rem]" {...props} />
+          ),
           a: ({ ...props }) => (
             <a
               className="font-medium text-green-600 hover:underline"
