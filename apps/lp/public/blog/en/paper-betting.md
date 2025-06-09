@@ -7,7 +7,7 @@ author: "QuitMate"
 
 ---
 
-## **3‑Line Takeaways**
+## ✅ **3‑Line Takeaways**
 
 > - Paper betting reignites your brain’s craving circuit
 > - Dopamine fires for imagined wins and losses almost like real money

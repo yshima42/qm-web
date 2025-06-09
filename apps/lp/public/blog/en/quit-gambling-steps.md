@@ -5,7 +5,7 @@ excerpt: "Ready to stop gambling for good? Follow these 5 therapist-backed steps
 author: "QuitMate"
 ---
 
-> **3-Line Takeaways**  
+## ✅ **3‑Line Takeaways**
 > • Face the numbers and admit the problem.  
 > • Remove all betting access and build a support network.  
 > • Cravings peak for 10–20 min—surf the urge, then reset.

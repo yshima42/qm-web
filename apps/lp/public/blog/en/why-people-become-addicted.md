@@ -5,7 +5,7 @@ excerpt: "If you’ve ever said, 'I want to quit, but I can’t,' you’re not a
 author: "QuitMate"
 ---
 
-> **3-Line Takeaways**  
+## ✅ **3‑Line Takeaways**
 > • Addiction builds a powerful habit loop: _want → do → feel better_  
 > • Stress weakens the brain’s “brake” system  
 > • Risk goes up when genes, early life, and stress overlap

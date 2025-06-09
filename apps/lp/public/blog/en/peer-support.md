@@ -5,7 +5,7 @@ excerpt: 'When people who share your story stand beside you, both your commitmen
 author: 'QuitMate'
 ---
 
-### ✅ Three Key Takeaways in 3 Lines
+## ✅ **3‑Line Takeaways**
 - Peer support raises treatment retention by **about 1.4 ×** while sharply easing loneliness  
 - A hybrid model that blends in-person and online participation produces the **lowest dropout rates**  
 - Government funding and AI technology are rapidly **widening the circle** of peer connection  

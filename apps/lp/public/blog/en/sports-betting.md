@@ -5,7 +5,7 @@ excerpt: "Sports-betting apps exploded in 2024—so did gambling harm. This plai
 author: "QuitMate"
 ---
 
-> **3-Line Takeaways**  
+## ✅ **3‑Line Takeaways** 
 > • In-play odds turn one match into hundreds of tiny dopamine hits  
 > • Quick deposits + celebrity ads normalise 24/7 wagering  
 > • Five simple guardrails—blocks, budgets, breathing space—cut relapse risk fast
