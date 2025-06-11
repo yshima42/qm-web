@@ -14,8 +14,6 @@ author: "QuitMate"
 
 ![reflection](reflection.png)
 
-## A Small Moment of Reflection Can Change Everything: How Tiny Reminders Support Addiction Recovery
-
 Humans aren't always rational.  
 Especially in addiction, even when we *want* to stop, we often find ourselves doing the opposite—like our actions are being controlled by someone else.
 
@@ -25,7 +23,7 @@ Even a small reminder of our values can make a big difference.
 
 ---
 
-### ■ The Experiment That Changed Behavior Without Rules
+## The Experiment That Changed Behavior Without Rules
 
 In the book *Predictably Irrational*, behavioral economist Dan Ariely describes a powerful experiment.  
 Students were given a test where they scored themselves—no one was watching.  
@@ -43,7 +41,7 @@ This suggests that people don’t need punishments or perfect memory.
 
 ---
 
-### ■ This Applies to Addiction, Too
+## This Applies to Addiction, Too
 
 In addiction recovery, relying only on willpower often fails.  
 But what if, instead of forcing ourselves to “be stronger,” we made space for small moments of reflection?
@@ -58,7 +56,7 @@ But they create just enough mental space to interrupt the automatic cycle of cra
 
 ---
 
-### ■ What QuitMate Offers: A Place to Reflect, Not Just Resist
+## What QuitMate Offers: A Place to Reflect, Not Just Resist
 
 QuitMate is a social platform designed for recovery—where people share struggles, victories, relapses, and reflections.
 
@@ -70,7 +68,7 @@ The feed itself becomes a gentle reminder: *You’re not alone. You’re trying.
 
 ---
 
-### ■ You Don’t Need a “Perfect Decision” to Change
+## You Don’t Need a “Perfect Decision” to Change
 
 People often believe that major change requires major effort.  
 But more often, it starts with something small.
@@ -86,7 +84,7 @@ But if you take a moment—even once a day—to reflect, that’s real progress.
 
 ---
 
-### ■ Final Thoughts
+## Final Thoughts
 
 You don’t need more willpower.  
 You need more moments of reflection.
