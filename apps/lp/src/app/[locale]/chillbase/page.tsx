@@ -5,7 +5,6 @@ import {
   ChillBaseIntro,
   ChillBaseTarget,
 } from "@/chillbase/components";
-
 import { routing } from "@/i18n/routing";
 
 // SSG対応

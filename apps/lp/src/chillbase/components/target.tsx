@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export const ChillBaseTarget = () => {
   const t = useTranslations("chillbase.target");
@@ -20,10 +20,7 @@ export const ChillBaseTarget = () => {
               key={index}
               className="flex items-start gap-4 rounded-lg bg-gray-50 p-4"
             >
-              <CheckCircle2
-                className="mt-1 flex-shrink-0 text-blue-500"
-                size={24}
-              />
+              <CheckCircle2 className="mt-1 shrink-0 text-blue-500" size={24} />
               <p className="text-lg text-gray-700">{item}</p>
             </div>
           ))}

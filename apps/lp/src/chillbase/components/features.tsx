@@ -1,8 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@quitmate/ui";
-import { useTranslations } from "next-intl";
 import { Music, Timer, Gift } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export const ChillBaseFeatures = () => {
   const t = useTranslations("chillbase.features");
