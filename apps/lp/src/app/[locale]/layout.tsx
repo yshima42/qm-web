@@ -37,9 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL(
-      `https://about.quitmate.app/${tConfig("language-code")}`,
-    ),
+    metadataBase: new URL("https://about.quitmate.app"),
     openGraph: {
       title: t("title"),
       description: t("description"),

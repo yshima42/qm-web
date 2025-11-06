@@ -6,7 +6,7 @@ excerpt: "A simple rat study from the 1970s shows that *community*, not willpowe
 author: "QuitMate"
 ------------------
 
-> **Key takeaway:** Even morphine-addicted rats chose plain water once they gained friends and fun. Connection beats chemicals.
+> ✅ **Key takeaway:** Even morphine-addicted rats chose plain water once they gained friends and fun. Connection beats chemicals.
 
 ## 1. Quick Picture of the Rat Park Experiment
 
