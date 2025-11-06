@@ -1,0 +1,38 @@
+{
+    "chillbase": {
+        "hero": {
+            "title": "For those who struggle to stay focused, find your calm space here.",
+            "description": "ChillBase combines lo-fi music, a Pomodoro timer, and a gentle reward system to help you focus without pressure."
+        },
+        "intro": {
+            "title": "About ChillBase",
+            "description": "Let calming lo-fi music and gentle structure help you focus and feel grounded. Whether you're studying or working, ChillBase supports a relaxed kind of productivity that lasts."
+        },
+        "features": {
+            "title": "Focus Meets Relaxation",
+            "feature1": {
+                "title": "Lo-fi & Classic Music",
+                "description": "A curated mix of chill lo-fi tracks and soothing classics to keep your mind clear."
+            },
+            "feature2": {
+                "title": "Pomodoro Timer",
+                "description": "25-minute focus sessions with short breaks to maintain a natural rhythm."
+            },
+            "feature3": {
+                "title": "Reward System",
+                "description": "The more you continue, the more fun it becomes. Earn coins to stay motivated and customize your space."
+            }
+        },
+        "target": {
+            "title": "Perfect For You If You",
+            "item1": "Struggle to focus or often get distracted",
+            "item2": "Find yourself pulled away by your phone or social media",
+            "item3": "Want to build a steady rhythm of focus and rest to boost productivity"
+        },
+        "cta": {
+            "title": "Start Now",
+            "description": "Let calming lo-fi music and gentle structure help you focus and feel grounded. Whether you're studying or working, ChillBase supports a relaxed kind of productivity that lasts."
+        }
+    }
+}
+
