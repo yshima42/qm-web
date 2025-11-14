@@ -44,6 +44,25 @@ You agree not to engage in any of the following while using the Service:
 - Religious proselytizing
 - Any other behavior we deem inappropriate
 
+## 4.1 Child Safety Policy (CSAE / CSAM Prohibition)
+
+QuitMate explicitly prohibits all forms of Child Sexual Abuse and Exploitation (CSAE) and Child Sexual Abuse Material (CSAM).
+
+The following actions are strictly forbidden when using the Service:
+
+1. Posting, sharing, transmitting, or linking to any images, videos, audio, text, or other content that constitutes CSAE or CSAM  
+2. Making sexual remarks, requests, or advances toward minors  
+3. Attempting to engage in sexual communication, grooming, or solicitation involving minors  
+4. Any aiding, facilitating, or attempting to enable CSAE/CSAM-related activities  
+
+If any of the above actions are detected, QuitMate may take the following actions:
+
+- Immediate removal of the violating content  
+- Suspension or termination of the associated account  
+- Reporting the incident to relevant law enforcement or child protection authorities  
+
+QuitMate complies fully with Google Play's Child Safety standards and all applicable laws concerning child protection.
+
 ## 5. Suspension of the Service
 
 We may suspend or discontinue the Service without prior notice for reasons including:
