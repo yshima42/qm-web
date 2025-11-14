@@ -105,43 +105,5 @@
         "read-article": "読む",
         "back-to-blog": "ブログに戻る",
         "share": "共有:"
-    },
-    "chillbase": {
-        "hero": {
-            "title": "集中が苦手な人に、落ち着ける場所を。",
-            "description": "ChillBaseは、Lofi音楽・ポモドーロタイマー・ゆるやかな報酬システムを組み合わせた、\"がんばりすぎない集中アプリ\"です。",
-            "screenshot1-alt": "ChillBaseアプリのスクリーンショット1",
-            "screenshot2-alt": "ChillBaseアプリのスクリーンショット2",
-            "screenshot3-alt": "ChillBaseアプリのスクリーンショット3"
-        },
-        "intro": {
-            "title": "ChillBaseについて",
-            "description": "Lofiミュージックとポモドーロで、心を落ち着けて集中する時間を。仕事にも勉強にも、ChillBaseが\"続けられる集中\"をサポート。"
-        },
-        "features": {
-            "title": "集中 × 癒しのデザイン",
-            "feature1": {
-                "title": "Lofi & クラシック音楽",
-                "description": "集中を促すチルなLofiと、落ち着きを与えるクラシックを厳選。"
-            },
-            "feature2": {
-                "title": "ポモドーロタイマー",
-                "description": "25分集中＋5分休憩で、無理なく続けられるリズムをサポート。"
-            },
-            "feature3": {
-                "title": "ごほうび機能",
-                "description": "続けるほどに楽しみが増える、モチベーション設計。"
-            }
-        },
-        "target": {
-            "title": "こんな人におすすめ",
-            "item1": "先延ばし癖やADHD傾向があり、集中が続きにくい",
-            "item2": "スマホやSNSに気を取られて、作業に戻れない",
-            "item3": "集中と休憩のリズムで、生産性を上げたい"
-        },
-        "cta": {
-            "title": "今すぐはじめよう",
-            "description": "Lofiミュージックとポモドーロで、心を落ち着けて集中する時間を。仕事にも勉強にも、ChillBaseが\"続けられる集中\"をサポート。"
-        }
     }
 }
