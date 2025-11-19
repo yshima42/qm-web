@@ -1,16 +1,25 @@
 {
-    "tasks": {
-      "dev": {
-        "cache": false
-      },
-      "build": {
-        "dependsOn": ["^build"],
-        "outputs": [".next/**", "dist/**", "out/**"]
-      },
-      "lp#build": {
-        "cache": false,
-        "dependsOn": ["^build"],
-        "outputs": [".next/**", "dist/**", "out/**"]
-      }
+  "tasks": {
+    "dev": {
+      "cache": false
+    },
+    "dev:local": {
+      "cache": false
+    },
+    "dev:dev": {
+      "cache": false
+    },
+    "dev:prod": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "out/**"]
+    },
+    "lp#build": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "out/**"]
     }
   }
+}

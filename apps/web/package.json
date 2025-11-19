@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:local": "env-cmd -f .env.local next dev",
+    "dev:dev": "env-cmd -f .env.dev next dev",
+    "dev:prod": "env-cmd -f .env.prod next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\"",
@@ -34,6 +36,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
+    "env-cmd": "^11.0.0",
     "lucide-react": "^0.468.0",
     "next": "15.2.4",
     "next-intl": "^4.0.2",
