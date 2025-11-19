@@ -16,9 +16,10 @@ import { Home, BookOpen, Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS, HABIT_CATEGORIES } from '@/lib/categories';
+import { CATEGORY_ICONS, HABIT_CATEGORIES } from '@/lib/categories';
 import { HabitCategoryName } from '@/lib/types';
 
 type SidebarContentProps = {
@@ -35,6 +36,8 @@ export function SidebarContent({
   skipLogo = false,
 }: SidebarContentProps) {
   const pathname = usePathname();
+  const t = useTranslations('sidebar');
+  const tCategory = useTranslations('categories');
 
   // リンククリック時に追加処理を行うラッパー関数
   const handleLinkClick = () => {
@@ -63,7 +66,7 @@ export function SidebarContent({
       <div className="mb-6 space-y-1 pr-2">
         <SidebarIcon
           icon={Home}
-          label="ホーム"
+          label={t('home')}
           href="/"
           active={pathname === '/'}
           showLabel={!compact}
@@ -71,7 +74,7 @@ export function SidebarContent({
         />
         <SidebarIcon
           icon={BookOpen}
-          label="記事"
+          label={t('articles')}
           href="/articles"
           active={pathname === '/articles'}
           showLabel={!compact}
@@ -85,12 +88,14 @@ export function SidebarContent({
       {/* 習慣カテゴリー - コンテナにパディングを追加 */}
       <div className="space-y-1 overflow-y-auto pr-2">
         {!compact && (
-          <h3 className="mb-2 px-4 text-sm font-medium text-muted-foreground">習慣カテゴリー</h3>
+          <h3 className="mb-2 px-4 text-sm font-medium text-muted-foreground">
+            {t('habitCategories')}
+          </h3>
         )}
         {habitCategories.map((category) => {
           const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, '-')}`;
           const Icon = CATEGORY_ICONS[category];
-          const displayName = CATEGORY_DISPLAY_NAMES[category];
+          const displayName = tCategory(category);
 
           return (
             <CategoryIcon
@@ -111,12 +116,12 @@ export function SidebarContent({
         {/* PC表示の場合のみアプリダウンロード情報を表示 */}
         {!compact && (
           <div className="hidden rounded-lg border border-border bg-card p-3 shadow-sm lg:block">
-            <h4 className="mb-2 text-center text-sm font-medium">QuitMateをダウンロード</h4>
+            <h4 className="mb-2 text-center text-sm font-medium">{t('downloadTitle')}</h4>
             <div className="mb-3 flex justify-center">
               <div className="rounded bg-white p-0">
                 <Image
                   src="/images/qr-code.svg"
-                  alt="アプリダウンロードQRコード"
+                  alt={t('qrCodeAlt')}
                   width={100}
                   height={100}
                   className="rounded-none"
@@ -134,6 +139,7 @@ export function SidebarContent({
 
 export function Sidebar() {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const t = useTranslations('sidebar');
 
   return (
     <>
@@ -155,14 +161,14 @@ export function Sidebar() {
               size="icon"
               variant="outline"
               className="rounded-full shadow-md"
-              aria-label="メニューを開く"
+              aria-label={t('openMenu')}
             >
               <Menu className="size-5" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-64 sm:max-w-xs">
             <SheetHeader className="pb-2">
-              <SheetTitle className="sr-only">ナビゲーションメニュー</SheetTitle>
+              <SheetTitle className="sr-only">{t('navigationMenu')}</SheetTitle>
               <Link
                 href="/"
                 className="flex items-end gap-1"

@@ -1,5 +1,7 @@
 export const dynamic = 'force-dynamic';
 
+import { Button } from '@quitmate/ui';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { EXTERNAL_URLS } from '@/lib/urls';
@@ -24,6 +26,11 @@ export default function Page() {
             </a>{' '}
             にリダイレクトされます
           </p>
+          <div className="pt-4">
+            <Link href="/stories/habits/alcohol">
+              <Button size="lg">ストーリー（アルコール）へ</Button>
+            </Link>
+          </div>
         </div>
       </div>
     );

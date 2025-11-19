@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
+import { Sidebar } from '@/components/layout/sidebar';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
@@ -47,18 +48,21 @@ export default async function Page(props: { params: Promise<{ category: string }
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
   return (
-    <>
-      <Header
-        title={categoryDisplayName}
-        backUrl="/stories"
-        showBackButton={false}
-        icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
-      />
-      <main className="p-3 sm:p-5">
-        <Suspense fallback={<LoadingSpinner />}>
-          <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
-        </Suspense>
-      </main>
-    </>
+    <div className="flex w-full">
+      <Sidebar />
+      <div className="flex flex-1 flex-col">
+        <Header
+          title={categoryDisplayName}
+          backUrl="/stories"
+          showBackButton={false}
+          icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
+        />
+        <main className="p-3 sm:p-5">
+          <Suspense fallback={<LoadingSpinner />}>
+            <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+          </Suspense>
+        </main>
+      </div>
+    </div>
   );
 }

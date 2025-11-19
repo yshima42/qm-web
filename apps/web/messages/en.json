@@ -57,6 +57,15 @@
     "category-tag": {
       "days": " days"
     },
+    "sidebar": {
+      "home": "Home",
+      "articles": "Articles",
+      "habitCategories": "Habit Categories",
+      "downloadTitle": "Download QuitMate",
+      "qrCodeAlt": "App download QR code",
+      "openMenu": "Open menu",
+      "navigationMenu": "Navigation menu"
+    },
     "footer": {
       "title": "You don't have to quit alone",
       "about": "About QuitMate",

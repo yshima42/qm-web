@@ -57,6 +57,15 @@
     "category-tag": {
         "days": "日"
     },
+    "sidebar": {
+        "home": "ホーム",
+        "articles": "記事",
+        "habitCategories": "習慣カテゴリー",
+        "downloadTitle": "QuitMateをダウンロード",
+        "qrCodeAlt": "アプリダウンロードQRコード",
+        "openMenu": "メニューを開く",
+        "navigationMenu": "ナビゲーションメニュー"
+    },
     "footer": {
         "title": "共になら、やめられる",
         "about": "QuitMateについて",
