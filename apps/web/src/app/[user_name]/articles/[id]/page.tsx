@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const categoryDisplayName = getCategoryDisplayName(
-    article.habit_categories.habit_category_name,
+    article.habit_categories?.habit_category_name ?? 'General',
     article.custom_habit_name,
   );
 
