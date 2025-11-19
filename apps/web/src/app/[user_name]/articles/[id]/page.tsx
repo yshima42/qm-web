@@ -1,5 +1,10 @@
+import { Logo } from '@quitmate/ui';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+
+import { Header } from '@/components/layout/header';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { getCategoryDisplayName } from '@/lib/categories';
 import {
@@ -85,5 +90,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  return <ArticleContent article={article} comments={comments} />;
+  return (
+    <>
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <Header titleElement={<Logo />} />
+      </Suspense>
+      <ArticleContent article={article} comments={comments} />
+    </>
+  );
 }
