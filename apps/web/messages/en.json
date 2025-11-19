@@ -31,7 +31,8 @@
       "Custom": "Custom",
       "Alcohol": "Alcohol",
       "Codependency": "Codependency",
-      "Official": "Official"
+      "Official": "Official",
+      "General": "General"
     },
     "share-button": {
       "copyLinkError": "Failed to copy link",
@@ -55,6 +56,15 @@
     },
     "category-tag": {
       "days": " days"
+    },
+    "sidebar": {
+      "home": "Home",
+      "articles": "Articles",
+      "habitCategories": "Habit Categories",
+      "downloadTitle": "Download QuitMate",
+      "qrCodeAlt": "App download QR code",
+      "openMenu": "Open menu",
+      "navigationMenu": "Navigation menu"
     },
     "footer": {
       "title": "You don't have to quit alone",

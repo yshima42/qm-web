@@ -7,7 +7,9 @@
   ],
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "dev:web": "turbo run dev --filter=web",
+    "dev:web:local": "turbo run dev:local --filter=web",
+    "dev:web:dev": "turbo run dev:dev --filter=web",
+    "dev:web:prod": "turbo run dev:prod --filter=web",
     "dev:lp": "turbo run dev --filter=lp",
     "format": "prettier --write './apps/**/**/*.{js,ts,tsx,scss}'"
   },

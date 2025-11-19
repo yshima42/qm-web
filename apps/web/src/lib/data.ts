@@ -36,11 +36,17 @@ const FETCH_LIMIT = 100;
 
 export async function fetchArticles() {
   const supabase = createAnonServerClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('articles')
     .select(ARTICLE_SELECT_QUERY)
     .order('created_at', { ascending: false })
     .limit(FETCH_LIMIT);
+
+  if (error) {
+    console.error('Error fetching articles:', error);
+    return [];
+  }
+
   return data as ArticleTileDto[];
 }
 
