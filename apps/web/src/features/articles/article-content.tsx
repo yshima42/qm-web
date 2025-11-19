@@ -54,7 +54,7 @@ export function ArticleContent({ article, comments }: ArticleContentProps) {
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <CategoryTag
-                    category={article.habit_categories.habit_category_name}
+                    category={article.habit_categories?.habit_category_name ?? 'General'}
                     customHabitName={article.custom_habit_name}
                   />
                   <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>

@@ -27,10 +27,12 @@ export function ArticleTile({ article }: Props) {
     locale: ja,
   });
 
+  const articleUrl = `/${article.profiles.user_name}/articles/${article.id}`;
+
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
-      <Link href={`/${article.profiles.user_name}/articles/${article.id}`} className="block">
-        <div className="p-4">
+      <div className="p-4">
+        <Link href={articleUrl} className="block">
           {/* タイトル */}
           <h2 className="mb-1 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">
             {article.title}
@@ -39,32 +41,51 @@ export function ArticleTile({ article }: Props) {
           {/* カテゴリータグと日付 */}
           <div className="mb-1 flex items-center justify-between">
             <CategoryTag
-              category={article.habit_categories.habit_category_name}
+              category={article.habit_categories?.habit_category_name ?? 'General'}
               customHabitName={article.custom_habit_name}
             />
             <span className="text-xs text-gray-500 dark:text-gray-400">{createdAt}</span>
           </div>
+        </Link>
 
-          {/* 記事の説明文 (Markdown) */}
-          <div className="prose-sm mb-4 line-clamp-3 text-gray-700 dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 dark:text-gray-300">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+        {/* 記事の説明文 (Markdown) */}
+        <div className="prose-sm mb-4 line-clamp-3 text-gray-700 dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 dark:text-gray-300">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a: ({ href, children, ...props }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-green-800 no-underline hover:underline dark:text-green-400"
+                  {...props}
+                >
+                  {children}
+                </a>
+              ),
+            }}
+          >
+            {article.content}
+          </ReactMarkdown>
+        </div>
+
+        {/* アクションとユーザー情報 */}
+        <div className="flex items-center justify-between">
+          {/* コメントといいね */}
+          <div className="flex gap-4 text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-1">
+              <CommentIcon />
+              <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <ArticleLikeIcon />
+              <span className="text-sm">{article.article_likes[0]?.count ?? 0}</span>
+            </div>
           </div>
 
-          {/* アクションとユーザー情報 */}
-          <div className="flex items-center justify-between">
-            {/* コメントといいね */}
-            <div className="flex gap-4 text-gray-500 dark:text-gray-400">
-              <div className="flex items-center gap-1">
-                <CommentIcon />
-                <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <ArticleLikeIcon />
-                <span className="text-sm">{article.article_likes[0]?.count ?? 0}</span>
-              </div>
-            </div>
-
-            {/* ユーザー情報 */}
+          {/* ユーザー情報 */}
+          <Link href={articleUrl}>
             <div className="flex items-center">
               <div className="mr-2 size-6 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
                 {article.profiles.avatar_url ? (
@@ -83,9 +104,9 @@ export function ArticleTile({ article }: Props) {
                 {article.profiles.display_name}
               </span>
             </div>
-          </div>
+          </Link>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

@@ -61,7 +61,7 @@ export type ProfileTileDto = Profile & {
 
 export type ArticleTileDto = Article & {
   profiles: ProfileForAvatar;
-  habit_categories: StoryHabitCategory;
+  habit_categories: StoryHabitCategory | null;
   article_likes: { count: number }[];
   article_comments: { count: number }[];
 };

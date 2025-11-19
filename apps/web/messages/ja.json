@@ -31,7 +31,8 @@
         "Custom": "カスタム",
         "Alcohol": "アルコール",
         "Codependency": "共依存",
-        "Official": "運営"
+        "Official": "運営",
+        "General": "一般"
     },
     "share-button": {
         "copyLinkError": "リンクをコピーに失敗しました",

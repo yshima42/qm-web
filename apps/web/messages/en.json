@@ -31,7 +31,8 @@
       "Custom": "Custom",
       "Alcohol": "Alcohol",
       "Codependency": "Codependency",
-      "Official": "Official"
+      "Official": "Official",
+      "General": "General"
     },
     "share-button": {
       "copyLinkError": "Failed to copy link",

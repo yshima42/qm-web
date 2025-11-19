@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: process.env.NEXT_SUPABASE_DOMAIN ?? 'undefined',
       },
+      // ローカルで画像見るために追加
+      {
+        protocol: 'https',
+        hostname: process.env.NEXT_SUPABASE_IMAGE_DOMAIN ?? 'undefined',
+      },
     ],
   },
   // eslint-disable-next-line @typescript-eslint/require-await
