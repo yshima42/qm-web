@@ -1,7 +1,6 @@
-'use client';
-
-// import { Button } from '@quitmate/ui';
 import clsx from 'clsx';
+
+import AuthButton from '@/features/auth/header-auth';
 
 import LocaleSwitcher from '../ui/locale-switcher';
 // import { ArrowLeft } from 'lucide-react';
@@ -81,6 +80,7 @@ export function Header({
 
         <div className="flex w-24 items-center justify-end gap-2">
           {rightElement}
+          <AuthButton />
           <LocaleSwitcher />
         </div>
       </div>
