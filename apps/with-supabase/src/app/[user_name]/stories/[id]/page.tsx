@@ -10,10 +10,10 @@ import {
   fetchStoryById,
   fetchCommentsByStoryId,
   fetchStoryDetailPageStaticParams,
-} from '@/lib/data';
+} from '@/features/stories/data/data';
 
-import { CommentTile } from '@/features/stories/comment-tile';
-import { StoryTile } from '@/features/stories/story-tile';
+import { CommentTile } from '@/features/stories/ui/comment-tile';
+import { StoryTile } from '@/features/stories/ui/story-tile';
 
 type Props = {
   params: Promise<{ id: string }>;

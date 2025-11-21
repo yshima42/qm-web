@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@quitmate/ui';
 
-import { fetchCommentedStoriesByUserId, fetchStoriesByUserId } from '@/lib/data';
+import { fetchCommentedStoriesByUserId, fetchStoriesByUserId } from '@/features/stories/data/data';
 import { Profile } from '@/lib/types';
 
-import { StoryList } from '../stories/story-list';
+import { StoryList } from '@/features/stories/ui/story-list';
 
 type Props = {
   profile: Profile;

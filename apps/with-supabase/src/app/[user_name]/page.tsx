@@ -1,15 +1,18 @@
-import { Logo } from '@quitmate/ui';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import { Logo } from "@quitmate/ui";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import { Header } from '@/components/layout/header';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Header } from "@/components/layout/header";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-import { fetchProfileByUsername, fetchProfilePageStaticParams } from '@/lib/data';
+import {
+  fetchProfileByUsername,
+  fetchProfilePageStaticParams,
+} from "@/features/profiles/data/data";
 
-import { ProfileHeader } from '@/features/profiles/profile-header';
-import { ProfileTabs } from '@/features/profiles/profile-tabs';
+import { ProfileHeader } from "@/features/profiles/ui/profile-header";
+import { ProfileTabs } from "@/features/profiles/ui/profile-tabs";
 
 type Props = {
   params: Promise<{ user_name: string }>;
@@ -22,12 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!profile) {
     return {
-      title: 'User not found',
+      title: "User not found",
     };
   }
 
   const description = profile.bio ?? `${profile.display_name}'s profile page.`;
-  const profileImage = profile.avatar_url ?? '/images/ogp.png';
+  const profileImage = profile.avatar_url ?? "/images/ogp.png";
 
   return {
     title: profile.display_name,
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: profile.display_name,
       description: description,
-      type: 'website',
+      type: "website",
       images: [
         {
           url: profileImage,
@@ -46,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ],
     },
     twitter: {
-      card: 'summary',
+      card: "summary",
       title: profile.display_name,
       description: description,
       images: [profileImage],
@@ -69,7 +72,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page(props: { params: Promise<{ user_name: string }> }) {
+export default async function Page(props: {
+  params: Promise<{ user_name: string }>;
+}) {
   const params = await props.params;
   const user_name = params.user_name;
   // 後で子コンポーネントに移動し、suspenseで読み込む
@@ -91,4 +96,3 @@ export default async function Page(props: { params: Promise<{ user_name: string 
     </>
   );
 }
-

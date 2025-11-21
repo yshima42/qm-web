@@ -15,10 +15,10 @@ import Link from 'next/link';
 import { MarkdownRenderer } from '@/lib/markdown-render';
 import type { ArticleTileDto, ArticleCommentTileDto } from '@/lib/types';
 
-import { ArticleCommentTile } from '@/features/articles/article-comment-tile';
-import { UserAvatar } from '@/features/profiles/user-avatar';
+import { ArticleCommentTile } from '@/features/articles/ui/article-comment-tile';
+import { UserAvatar } from '@/features/profiles/ui/user-avatar';
 
-import { CategoryTag } from '../common/category-tag';
+import { CategoryTag } from '@/features/common/ui/category-tag';
 
 type ArticleContentProps = {
   article: ArticleTileDto;

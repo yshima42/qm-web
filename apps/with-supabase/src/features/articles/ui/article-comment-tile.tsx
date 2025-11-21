@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { ArticleCommentTileDto } from '@/lib/types';
 
-import { UserAvatar } from '../profiles/user-avatar';
+import { UserAvatar } from '@/features/profiles/ui/user-avatar';
 
 type Props = {
   comment: ArticleCommentTileDto;

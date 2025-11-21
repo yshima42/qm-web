@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 
 import { ArticleTileDto } from '@/lib/types';
 
-import { CategoryTag } from '../common/category-tag';
+import { CategoryTag } from '@/features/common/ui/category-tag';
 
 type Props = {
   article: ArticleTileDto;

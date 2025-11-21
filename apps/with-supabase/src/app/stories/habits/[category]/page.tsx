@@ -6,10 +6,10 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
-import { fetchStoriesByHabitCategoryName } from '@/lib/data';
+import { fetchStoriesByHabitCategoryName } from '@/features/stories/data/data';
 import { HabitCategoryName } from '@/lib/types';
 
-import { StoryList } from '@/features/stories/story-list';
+import { StoryList } from '@/features/stories/ui/story-list';
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 // The client you created from the Server-Side Auth instructions
 import { createClient } from "@/lib/supabase/server";
-import { createProfileIfNotExists } from "@/lib/features/profiles/profiles";
+import { createProfileIfNotExists } from "@/features/profiles/data/data";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);

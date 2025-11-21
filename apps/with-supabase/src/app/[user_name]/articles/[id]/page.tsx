@@ -11,9 +11,9 @@ import {
   fetchArticleById,
   fetchArticlePageStaticParams,
   fetchCommentsByArticleId,
-} from '@/lib/data';
+} from '@/features/articles/data/data';
 
-import { ArticleContent } from '@/features/articles/article-content';
+import { ArticleContent } from '@/features/articles/ui/article-content';
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -9,8 +9,8 @@ import { useRouter } from 'next/navigation';
 
 import { StoryTileDto } from '@/lib/types';
 
-import { CategoryTag } from '../common/category-tag';
-import { UserAvatar } from '../profiles/user-avatar';
+import { CategoryTag } from '@/features/common/ui/category-tag';
+import { UserAvatar } from '@/features/profiles/ui/user-avatar';
 
 type Props = {
   story: StoryTileDto;
