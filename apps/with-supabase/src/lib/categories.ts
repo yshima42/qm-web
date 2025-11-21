@@ -54,22 +54,22 @@ export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
   Official: BadgeCheck,
 };
 
-// カテゴリーの日本語表示名（必要に応じて）
+// Category display names in English
 export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
-  Game: 'ゲーム',
-  Tobacco: 'たばこ',
-  Shopping: '買い物',
-  Drugs: '薬物',
-  Overeating: '過食',
-  Porno: 'ポルノ',
+  Game: 'Game',
+  Tobacco: 'Tobacco',
+  Shopping: 'Shopping',
+  Drugs: 'Drugs',
+  Overeating: 'Overeating',
+  Porno: 'Porno',
   SNS: 'SNS',
-  Gambling: 'ギャンブル',
-  Caffeine: 'カフェイン',
-  'Cosmetic Surgery': '美容整形',
-  Custom: 'カスタム',
-  Alcohol: 'アルコール',
-  Codependency: '共依存',
-  Official: '運営',
+  Gambling: 'Gambling',
+  Caffeine: 'Caffeine',
+  'Cosmetic Surgery': 'Cosmetic Surgery',
+  Custom: 'Custom',
+  Alcohol: 'Alcohol',
+  Codependency: 'Codependency',
+  Official: 'Official',
 };
 
 // カテゴリーのURL生成関数
@@ -78,19 +78,19 @@ export function getCategoryUrl(category: HabitCategoryName): string {
 }
 
 /**
- * 習慣カテゴリー名を表示用の名前に変換する
- * カスタムカテゴリーの場合はカスタム習慣名を返す
+ * Convert habit category name to display name
+ * Returns custom habit name if it's a custom category
  */
 export function getCategoryDisplayName(
   categoryName: string,
   customHabitName?: string | null,
 ): string {
-  // カスタムカテゴリーでカスタム習慣名がある場合はカスタム習慣名を返す
+  // Return custom habit name if it's a custom category
   if (categoryName.toLowerCase() === 'custom' && customHabitName) {
     return customHabitName;
   }
 
-  // それ以外の場合は定義済みの日本語名または元のカテゴリー名を返す
+  // Otherwise return the defined English name or the original category name
   return CATEGORY_DISPLAY_NAMES[categoryName as HabitCategoryName] || categoryName;
 }
 
