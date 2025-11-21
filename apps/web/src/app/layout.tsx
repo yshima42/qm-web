@@ -2,11 +2,12 @@ import { GoogleAnalytics } from '@quitmate/analytics';
 import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale } from 'next-intl/server';
 import { ThemeProvider } from 'next-themes';
 
 import { Footer } from '@/components/layout/footer';
 import { SmartBanner } from '@/components/ui/smart-banner';
+
+import { getLocale } from 'next-intl/server';
 
 import './globals.css';
 

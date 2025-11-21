@@ -106,7 +106,7 @@ export async function fetchStoriesXml({ limit }: FetchXmlParams = {}) {
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order('created_at', { ascending: false });
 
-    if (!result.data || result.data.length === 0) break;
+    if (!result.data || !Array.isArray(result.data) || result.data.length === 0) break;
 
     allStories = [...allStories, ...(result.data as unknown as StoryXmlDto[])];
 
