@@ -11,7 +11,7 @@ import {
   SidebarIcon,
   StoreBadges,
 } from "@quitmate/ui";
-import { Home, BookOpen, Menu } from "lucide-react";
+import { Home, BookOpen, Menu, Target } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -67,6 +67,14 @@ export function SidebarContent({
           label="Home"
           href="/"
           active={pathname === "/"}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
+        <SidebarIcon
+          icon={Target}
+          label="Habits"
+          href="/habits"
+          active={pathname === "/habits"}
           showLabel={!compact}
           onClick={handleLinkClick}
         />
