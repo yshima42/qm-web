@@ -11,6 +11,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ["*.ts", "*.tsx"], // 読み込むファイル
+  },
+  {
+    ignores: ["**/.next/**/*", "*.config.mjs", ".pnp.*"], // 無視するファイル
+  },
 ];
 
 export default eslintConfig;
