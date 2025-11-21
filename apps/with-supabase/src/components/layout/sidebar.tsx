@@ -1,26 +1,25 @@
-'use client';
+"use client";
 
 import {
   Button,
   Sheet,
   SheetContent,
   SheetHeader,
-  SheetTrigger,
   SheetTitle,
   ThemeSwitcher,
   CategoryIcon,
   SidebarIcon,
   StoreBadges,
-} from '@quitmate/ui';
-import { Home, BookOpen, Menu } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+} from "@quitmate/ui";
+import { Home, BookOpen, Menu } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
-import { CATEGORY_ICONS, HABIT_CATEGORIES } from '@/lib/categories';
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
-import { HabitCategoryName } from '@/lib/types';
+import { CATEGORY_ICONS, HABIT_CATEGORIES } from "@/lib/categories";
+import { CATEGORY_DISPLAY_NAMES } from "@/lib/categories";
+import { HabitCategoryName } from "@/lib/types";
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
@@ -45,7 +44,11 @@ export function SidebarContent({
     <div className="flex h-full flex-col">
       {!compact && !skipLogo && (
         <div className="mb-6 px-4 py-3">
-          <Link href="/" className="flex items-end gap-1" onClick={handleLinkClick}>
+          <Link
+            href="/"
+            className="flex items-end gap-1"
+            onClick={handleLinkClick}
+          >
             <Image
               src="/images/icon-web.png"
               alt="QuitMate Logo"
@@ -63,7 +66,7 @@ export function SidebarContent({
           icon={Home}
           label="Home"
           href="/"
-          active={pathname === '/'}
+          active={pathname === "/"}
           showLabel={!compact}
           onClick={handleLinkClick}
         />
@@ -71,7 +74,7 @@ export function SidebarContent({
           icon={BookOpen}
           label="Articles"
           href="/articles"
-          active={pathname === '/articles'}
+          active={pathname === "/articles"}
           showLabel={!compact}
           onClick={handleLinkClick}
         />
@@ -86,7 +89,7 @@ export function SidebarContent({
           </h3>
         )}
         {habitCategories.map((category) => {
-          const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, '-')}`;
+          const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
           const Icon = CATEGORY_ICONS[category];
           const displayName = CATEGORY_DISPLAY_NAMES[category];
 
@@ -107,7 +110,9 @@ export function SidebarContent({
       <div className="mt-auto space-y-4 px-4 py-3">
         {!compact && (
           <div className="hidden rounded-lg border border-border bg-card p-3 shadow-sm lg:block">
-            <h4 className="mb-2 text-center text-sm font-medium">Download App</h4>
+            <h4 className="mb-2 text-center text-sm font-medium">
+              Download App
+            </h4>
             <div className="mb-3 flex justify-center">
               <div className="rounded bg-white p-0">
                 <Image
@@ -130,6 +135,11 @@ export function SidebarContent({
 
 export function Sidebar() {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <>
@@ -142,50 +152,62 @@ export function Sidebar() {
       </aside>
 
       <div className="fixed left-4 top-[7px] z-50 md:hidden">
-        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetTrigger asChild>
+        {isMounted ? (
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <Button
               size="icon"
               variant="outline"
               className="rounded-full shadow-md"
               aria-label="Open menu"
+              onClick={() => setSheetOpen(true)}
             >
               <Menu className="size-5" />
             </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-64 sm:max-w-xs">
-            <SheetHeader className="pb-2">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <Link
-                href="/"
-                className="flex items-end gap-1"
-                onClick={() => {
-                  setSheetOpen(false);
-                }}
-              >
-                <Image
-                  src="/images/icon-web.png"
-                  alt="QuitMate Logo"
-                  width={24}
-                  height={24}
-                  className="h-8 w-auto"
+            <SheetContent side="left" className="w-64 sm:max-w-xs">
+              <SheetHeader className="pb-2">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <Link
+                  href="/"
+                  className="flex items-end gap-1"
+                  onClick={() => {
+                    setSheetOpen(false);
+                  }}
+                >
+                  <Image
+                    src="/images/icon-web.png"
+                    alt="QuitMate Logo"
+                    width={24}
+                    height={24}
+                    className="h-8 w-auto"
+                  />
+                  <span className="text-2xl font-medium leading-tight">
+                    QuitMate
+                  </span>
+                </Link>
+              </SheetHeader>
+              <div className="pt-4">
+                <SidebarContent
+                  habitCategories={HABIT_CATEGORIES}
+                  onLinkClick={() => {
+                    setSheetOpen(false);
+                  }}
+                  skipLogo
                 />
-                <span className="text-2xl font-medium leading-tight">QuitMate</span>
-              </Link>
-            </SheetHeader>
-            <div className="pt-4">
-              <SidebarContent
-                habitCategories={HABIT_CATEGORIES}
-                onLinkClick={() => {
-                  setSheetOpen(false);
-                }}
-                skipLogo
-              />
-            </div>
-          </SheetContent>
-        </Sheet>
+              </div>
+            </SheetContent>
+          </Sheet>
+        ) : (
+          <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full shadow-md"
+            aria-label="Open menu"
+            disabled
+          >
+            <Menu className="size-5" />
+          </Button>
+        )}
       </div>
     </>
   );
 }
-
