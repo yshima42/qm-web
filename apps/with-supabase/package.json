@@ -7,8 +7,17 @@
     "dev:dev": "env-cmd -f .env.dev next dev",
     "dev:prod": "env-cmd -f .env.prod next dev",
     "build": "next build",
+    "build:prod-on-local": "env-cmd -f .env.prod next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\"",
+    "lint:fix": "eslint --ext .ts,.js,.tsx . --fix && prettier --write \"./**/*.{ts,js,tsx}\"",
+    "lint:type": "tsc --noEmit",
+    "format": "prettier --write './**/*.{js,ts,tsx,scss}'"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,scss}": [
+      "yarn lint"
+    ]
   },
   "dependencies": {
     "@quitmate/ui": "*",
