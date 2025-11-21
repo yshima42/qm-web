@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useTranslations } from "next-intl";
 
 type StoreBadgeProps = {
   store: "apple" | "google";
   className?: string;
   size?: "small" | "medium" | "large" | "xl";
+  languageCode?: string;
 };
 
 // ストアごとのURL
@@ -47,8 +47,8 @@ export function StoreBadge({
   store,
   className = "",
   size = "medium",
+  languageCode = "en",
 }: StoreBadgeProps) {
-  const t = useTranslations('config');
   const { height } = sizeMapping[size];
   const width = sizeMapping[size].width[store];
   const imageAltText = store === "apple" ? "App Store" : "Google Play";
@@ -60,7 +60,7 @@ export function StoreBadge({
     <Link href={storeUrls[store]} target="_blank">
       <div className={`flex items-center ${className}`} style={heightStyle}>
         <Image
-          src={`/images/${t('language-code')}/${store}-badge.png`}
+          src={`/images/${languageCode}/${store}-badge.png`}
           alt={imageAltText}
           width={width}
           height={height}
@@ -76,20 +76,22 @@ type StoreBadgesProps = {
   direction?: "row" | "column";
   size?: "small" | "medium" | "large" | "xl";
   className?: string;
+  languageCode?: string;
 };
 
 export function StoreBadges({
   direction = "row",
   size = "medium",
   className = "",
+  languageCode = "en",
 }: StoreBadgesProps) {
   return (
     <div
       className={`flex items-center justify-center gap-3 md:gap-4 
       ${direction === "column" ? "flex-col" : "flex-row"} ${className}`}
     >
-      <StoreBadge store="apple" size={size} />
-      <StoreBadge store="google" size={size} />
+      <StoreBadge store="apple" size={size} languageCode={languageCode} />
+      <StoreBadge store="google" size={size} languageCode={languageCode} />
     </div>
   );
 }

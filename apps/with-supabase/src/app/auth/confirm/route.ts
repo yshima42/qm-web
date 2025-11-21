@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       // typeに応じてリダイレクト先を決定（セキュリティのため固定パス）
-      redirect("/protected");
+      redirect("/stories/habits/alcohol");
     } else {
       redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
     }
@@ -32,21 +32,21 @@ export async function GET(request: NextRequest) {
 
     if (!error) {
       // typeに応じて安全なリダイレクト先を決定（オープンリダイレクトを防ぐため固定パス）
-      let redirectPath = "/";
+      let redirectPath = "/stories/habits/alcohol";
 
       switch (type) {
         case "signup":
-          redirectPath = "/protected";
+          redirectPath = "/stories/habits/alcohol";
           break;
         case "recovery":
           redirectPath = "/auth/update-password";
           break;
         case "email_change":
         case "email":
-          redirectPath = "/protected";
+          redirectPath = "/stories/habits/alcohol";
           break;
         default:
-          redirectPath = "/";
+          redirectPath = "/stories/habits/alcohol";
       }
 
       redirect(redirectPath);

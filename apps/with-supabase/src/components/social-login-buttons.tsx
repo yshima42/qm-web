@@ -37,7 +37,7 @@ export function SocialLoginButtons({
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth/oauth?next=/protected`,
+          redirectTo: `${window.location.origin}/auth/oauth?next=/stories/habits/alcohol`,
         },
       });
 
