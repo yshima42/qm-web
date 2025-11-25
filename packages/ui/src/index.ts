@@ -4,6 +4,7 @@ export * from './components/ui/tabs';
 export * from './components/ui/not-found-base';
 export * from './components/ui/sheet';
 export * from './components/ui/card';
+export * from './components/ui/dialog';
 export * from './components/custom/category-icon';
 export * from './components/custom/sidebar-icon';
 export * from './components/custom/theme-switcher';

@@ -1,0 +1,7 @@
+export const SITEMAP_LIMITS = {
+  // GENERAL: 50000,
+  PROFILES: 10000,
+  STORIES: 5000,
+  ARTICLES: 10000,
+};
+

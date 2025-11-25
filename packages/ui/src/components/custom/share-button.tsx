@@ -1,66 +1,64 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '../ui/dialog';
-import { 
-  Share,
-  Link2,
-} from 'lucide-react';
-import { XLogo } from './icon';
-import { useTranslations } from 'next-intl';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Share, Link2 } from "lucide-react";
+import { XLogo } from "./icon";
 type ShareButtonProps = {
-  // シェアするURL（指定しない場合は現在のURLが使用される）
+  // URL to share (if not specified, current URL will be used)
   url?: string;
-  // シェアするコンテンツのタイトル
+  // Title of the content to share
   title?: string;
-  // シェア時のテキスト
+  // Text for sharing
   text?: string;
-  // ダイアログのタイトル
+  // Dialog title
   dialogTitle?: string;
-  // 追加のCSSクラス
+  // Additional CSS classes
   className?: string;
 };
 
-export function ShareButton({ 
-  url, 
+export function ShareButton({
+  url,
   title,
-  text, 
-  dialogTitle = "Share", 
-  className = ""
+  text,
+  dialogTitle = "Share",
+  className = "",
 }: ShareButtonProps) {
-  const t = useTranslations('share-button');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // 共有URLの生成（クライアントサイドで現在のURLをデフォルトにする）
-  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
-  const shareText = text || title || '';
+  // Generate share URL (use current URL as default on client side)
+  const shareUrl =
+    url || (typeof window !== "undefined" ? window.location.href : "");
+  const shareText = text || title || "";
 
-  // リンクのコピー処理
+  // Copy link handler
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error(`${t('copyLinkError')}:`, err);
+      console.error("Failed to copy link:", err);
     }
   };
 
-  // 各SNSへのシェアURL
+  // Share URLs for each SNS
   const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
   const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className={`rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 ${className}`}>
+        <button
+          className={`rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 ${className}`}
+        >
           <Share className="size-[18px]" />
         </button>
       </DialogTrigger>
@@ -75,10 +73,10 @@ export function ShareButton({
               className="flex items-center gap-2 rounded-md border border-gray-200 px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               <Link2 className="size-5" />
-              <span>{copied ? t('copied') : t('copyLink')}</span>
+              <span>{copied ? "Copied" : "Copy Link"}</span>
             </button>
           </div>
-          
+
           <div className="flex flex-wrap gap-4">
             <a
               href={twitterShareUrl}
@@ -89,7 +87,7 @@ export function ShareButton({
               <XLogo className="size-5" />
               <span>X（Twitter）</span>
             </a>
-            
+
             <a
               href={lineShareUrl}
               target="_blank"

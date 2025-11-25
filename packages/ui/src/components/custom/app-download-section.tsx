@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { StoreBadges } from '@quitmate/ui';
 import React from 'react';
-import { useTranslations } from 'next-intl';
 type AppDownloadSectionProps = {
   message?: string;
 };
@@ -9,8 +8,6 @@ type AppDownloadSectionProps = {
 export function AppDownloadSection({ 
   message  
 }: AppDownloadSectionProps) {
-  const t = useTranslations('app-download-section');
-
   return (
     <div className="mb-6 mt-8 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">
       <div className="mb-4">
@@ -22,10 +19,10 @@ export function AppDownloadSection({
           className="mx-auto mb-2"
           priority
         />
-        <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{t('title')}</h3>
+        <h3 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">Addiction Recovery SNS QuitMate</h3>
       </div>
       <p className="mb-6 font-bold text-gray-900 dark:text-white whitespace-pre-line">
-        {message ?? t('message')}
+        {message ?? 'To read more stories, download the app'}
       </p>
       <StoreBadges size="medium" />
     </div>

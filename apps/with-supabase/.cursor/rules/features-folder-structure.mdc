@@ -1,0 +1,100 @@
+---
+description: featuresフォルダの構成とアーキテクチャルール
+alwaysApply: true
+---
+
+# Featuresフォルダ構成ルール
+
+このプロジェクトでは、ドメイン駆動設計（DDD）の原則に基づいて、`src/features/`配下に機能を整理しています。
+
+## フォルダ構造
+
+各featureは以下の構造に従います：
+
+```
+features/
+├── {domain}/          # ドメイン名（articles, stories, profiles, sitemap, commonなど）
+│   ├── ui/           # UIコンポーネント
+│   │   └── *.tsx     # Reactコンポーネント
+│   └── data/         # データ取得・操作関数
+│       └── data.ts    # Supabaseクエリ関数
+```
+
+## ルール
+
+### 1. ドメインごとの分離
+
+- 各ドメイン（articles, stories, profiles, sitemap, common）は独立したフォルダとして管理
+- ドメイン間の依存は最小限に保つ
+- 共通機能は`common/`に配置
+
+### 2. UIコンポーネント
+
+- すべてのUIコンポーネントは`{domain}/ui/`ディレクトリに配置
+- コンポーネント名は明確で、ドメインを反映する（例: `article-tile.tsx`, `story-list.tsx`）
+- 他のドメインのUIコンポーネントをインポートする場合は、絶対パスを使用: `@/features/{domain}/ui/{component}`
+
+### 3. データ取得関数
+
+- すべてのデータ取得関数は`{domain}/data/data.ts`に配置
+- ファイル名は必ず`data.ts`（`index.ts`ではない）
+- インポートパス: `@/features/{domain}/data/data`
+- 型定義は`lib/types.ts`に集約（各featureに分散させない）
+
+### 4. 定数とユーティリティ
+
+- ドメイン固有の定数は`{domain}/constants.ts`に配置可能（例: `sitemap/constants.ts`）
+- 共通の定数は`utils/constants.ts`に配置
+
+### 5. インポートパスの規則
+
+- UIコンポーネント: `@/features/{domain}/ui/{component}`
+- データ取得関数: `@/features/{domain}/data/data`
+- 型定義: `@/lib/types`
+- 共通コンポーネント: `@/features/common/ui/{component}`
+
+## 例
+
+### Articlesドメイン
+
+```typescript
+// データ取得
+import { fetchArticles, fetchArticleById } from "@/features/articles/data/data";
+
+// UIコンポーネント
+import { ArticleList } from "@/features/articles/ui/article-list";
+import { ArticleTile } from "@/features/articles/ui/article-tile";
+```
+
+### Storiesドメイン
+
+```typescript
+// データ取得
+import { fetchStories, fetchStoryById } from "@/features/stories/data/data";
+
+// UIコンポーネント
+import { StoryList } from "@/features/stories/ui/story-list";
+```
+
+### 共通コンポーネントの使用
+
+```typescript
+import { CategoryTag } from "@/features/common/ui/category-tag";
+import { UserAvatar } from "@/features/profiles/ui/user-avatar";
+```
+
+## 新規feature追加時の手順
+
+1. `src/features/{domain}/`ディレクトリを作成
+2. `ui/`と`data/`ディレクトリを作成
+3. `data/data.ts`にデータ取得関数を実装
+4. `ui/`にUIコンポーネントを実装
+5. 型定義が必要な場合は`lib/types.ts`に追加（feature内に型定義ファイルを作らない）
+
+## 注意事項
+
+- `data.ts`は`index.ts`にしない（明示的に`data.ts`を使用）
+- 型定義は`lib/types.ts`に集約し、これはsupabaseの機能で一括で出したものを使ってるため。
+  本当はここに書きたいし、DBのモデル以外は積極的にdomain下に定義すること
+- ドメイン間の依存は最小限に保つ
+- 共通機能は`common/`に配置

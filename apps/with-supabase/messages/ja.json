@@ -1,0 +1,28 @@
+{
+  "config": {
+    "language-code": "ja"
+  },
+  "app-download-section": {
+    "title": "依存克服SNS QuitMate",
+    "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
+  },
+  "categories": {
+    "Game": "ゲーム",
+    "Tobacco": "たばこ",
+    "Shopping": "買い物",
+    "Drugs": "薬物",
+    "Overeating": "過食",
+    "Porno": "ポルノ",
+    "SNS": "SNS",
+    "Gambling": "ギャンブル",
+    "Caffeine": "カフェイン",
+    "Cosmetic Surgery": "美容整形",
+    "Custom": "カスタム",
+    "Alcohol": "アルコール",
+    "Codependency": "共依存",
+    "Official": "運営"
+  },
+  "category-tag": {
+    "days": "日"
+  }
+}

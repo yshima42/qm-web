@@ -1,0 +1,119 @@
+import { createAnonServerClient, createClient } from '@/lib/supabase/server';
+
+import {
+  CommentTileDto,
+  HabitCategoryName,
+  StoryTileDto,
+} from '@/lib/types';
+
+const STORY_SELECT_QUERY = `*, 
+  habit_categories!inner(habit_category_name), 
+  profiles!stories_user_id_fkey(user_name, display_name, avatar_url), 
+  likes(count), 
+  comments(count)`;
+
+const FETCH_LIMIT = 100;
+
+export async function fetchStories() {
+  const supabase = createAnonServerClient();
+  const { data } = await supabase
+    .from('stories')
+    .select(STORY_SELECT_QUERY)
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+
+  return data as StoryTileDto[];
+}
+
+export async function fetchStoryById(id: string) {
+  const supabase = createAnonServerClient();
+  const result = await supabase
+    .from('stories')
+    .select(STORY_SELECT_QUERY)
+    .eq('id', id)
+    .maybeSingle();
+  return result.data as StoryTileDto | null;
+}
+
+export async function fetchStoriesByUserId(userId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('stories')
+    .select(STORY_SELECT_QUERY)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+  return data as StoryTileDto[];
+}
+
+export async function fetchCommentedStoriesByUserId(userId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('distinct_user_story_comments')
+    .select(`*, stories(${STORY_SELECT_QUERY})`)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+  const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
+  return stories;
+}
+
+export async function fetchCommentsByStoryId(storyId: string) {
+  const supabase = createAnonServerClient();
+  const { data } = await supabase
+    .from('comments')
+    .select(
+      '*, profiles!comments_user_id_fkey(user_name, display_name, avatar_url), comment_likes(count)',
+    )
+    .eq('story_id', storyId);
+  return data as CommentTileDto[] | null;
+}
+
+export async function fetchStoryDetailPageStaticParams(limit?: number) {
+  const supabase = createAnonServerClient();
+  const now = new Date().toISOString();
+  let allStories: { id: string; profiles: { user_name: string } }[] = [];
+  let page = 0;
+  const pageSize = 1000;
+
+  while (page < Number.MAX_SAFE_INTEGER) {
+    const result = await supabase
+      .from('stories')
+      .select(STORY_SELECT_QUERY)
+      .lte('created_at', now)
+      .range(page * pageSize, (page + 1) * pageSize - 1)
+      .order('created_at', { ascending: false });
+
+    if (!result.data || result.data.length === 0) break;
+
+    allStories = [
+      ...allStories,
+      ...(result.data as unknown as { id: string; profiles: { user_name: string } }[]),
+    ];
+
+    // Exit loop if specified limit is reached
+    if (limit && allStories.length >= limit) {
+      allStories = allStories.slice(0, limit);
+      break;
+    }
+
+    if (result.data.length < pageSize) break;
+
+    page++;
+  }
+
+  return allStories;
+}
+
+export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('stories')
+    .select(STORY_SELECT_QUERY)
+    .eq('habit_categories.habit_category_name', name)
+    .order('created_at', { ascending: false })
+    .limit(FETCH_LIMIT);
+
+  return data as StoryTileDto[];
+}
+
