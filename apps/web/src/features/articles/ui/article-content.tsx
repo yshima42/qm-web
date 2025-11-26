@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  CommentIcon,
-  ArticleLikeIcon,
-  ShareButton,
-  AppDownloadSection,
-} from '@quitmate/ui';
+import { CommentIcon, ArticleLikeIcon, ShareButton, AppDownloadSection } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -17,6 +12,7 @@ import type { ArticleTileDto, ArticleCommentTileDto } from '@/lib/types';
 
 import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 
+import { ArticleCommentForm } from '@/features/articles/ui/article-comment-form';
 import { ArticleCommentTile } from '@/features/articles/ui/article-comment-tile';
 import { toggleArticleLike } from '@/features/articles/data/actions';
 import { UserAvatar } from '@/features/profiles/ui/user-avatar';
@@ -63,7 +59,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
       <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
         {/* Article header */}
         <div className="mb-8">
-          <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white sm:hidden">
+          <h1 className="mb-6 text-2xl font-bold text-gray-900 sm:hidden dark:text-white">
             {article.title}
           </h1>
           <div className="mb-4 flex items-center justify-between">
@@ -84,9 +80,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                 >
                   <ArticleLikeIcon
                     className={`size-5 transition-colors ${
-                      isLiked
-                        ? 'fill-green-600 text-green-600'
-                        : 'text-gray-500 dark:text-gray-400'
+                      isLiked ? 'fill-green-600 text-green-600' : 'text-gray-500 dark:text-gray-400'
                     }`}
                   />
                   <span
@@ -134,7 +128,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
           </div>
         </div>
 
-        <article className="prose max-w-none dark:prose-invert lg:prose-lg">
+        <article className="prose dark:prose-invert lg:prose-lg max-w-none">
           <MarkdownRenderer content={article.content} />
         </article>
 
@@ -149,9 +143,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                 >
                   <ArticleLikeIcon
                     className={`size-5 transition-colors ${
-                      isLiked
-                        ? 'fill-green-600 text-green-600'
-                        : 'text-gray-500 dark:text-gray-400'
+                      isLiked ? 'fill-green-600 text-green-600' : 'text-gray-500 dark:text-gray-400'
                     }`}
                   />
                   <span className={isLiked ? 'text-green-600' : 'text-gray-700 dark:text-gray-300'}>
@@ -187,6 +179,10 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
           <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
             Comments ({article.article_comments[0]?.count ?? 0})
           </h2>
+
+          {/* コメントフォーム（ログイン時のみ表示） */}
+          {isLoggedIn && <ArticleCommentForm articleId={article.id} />}
+
           <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
             {comments && comments.length > 0 ? (
               comments.map((comment) => <ArticleCommentTile key={comment.id} comment={comment} />)
@@ -196,11 +192,8 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
           </div>
         </div>
 
-        <AppDownloadSection
-          message={`Follow ${article.profiles.display_name} on the app`}
-        />
+        <AppDownloadSection message={`Follow ${article.profiles.display_name} on the app`} />
       </div>
     </main>
   );
 }
-

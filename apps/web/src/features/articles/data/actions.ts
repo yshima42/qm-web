@@ -39,3 +39,41 @@ export async function toggleArticleLike(articleId: string, shouldLike: boolean) 
   return { success: true };
 }
 
+export async function createArticleComment(articleId: string, content: string) {
+  // バリデーション
+  if (!content || content.trim() === '') {
+    return { success: false, error: 'Content is required' };
+  }
+
+  const trimmedContent = content.trim();
+
+  // 文字数制限（最大500文字）
+  if (trimmedContent.length > 500) {
+    return { success: false, error: 'Content is too long' };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  // コメントをDBに挿入
+  const { error } = await supabase.from('article_comments').insert({
+    article_id: articleId,
+    user_id: user.id,
+    content: trimmedContent,
+  });
+
+  if (error) {
+    console.error('Error creating article comment:', error);
+    return { success: false, error: 'Failed to create comment' };
+  }
+
+  // ページを再検証
+  revalidatePath('/');
+  return { success: true };
+}
