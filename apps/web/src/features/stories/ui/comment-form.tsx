@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { Loader2, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import { Loader2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
-import { createComment } from '@/features/stories/data/actions';
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { createComment } from "@/features/stories/data/actions";
 
-import { ParentCommentInfo } from '@/lib/types';
+import { ParentCommentInfo } from "@/lib/types";
 
 type Props = {
   storyId: string;
@@ -32,8 +32,8 @@ function countCharacters(text: string): number {
 }
 
 export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
-  const t = useTranslations('comment-form');
-  const [content, setContent] = useState('');
+  const t = useTranslations("comment-form");
+  const [content, setContent] = useState("");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -59,12 +59,12 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
     setError(null);
 
     if (!content.trim()) {
-      setError(t('contentRequired'));
+      setError(t("contentRequired"));
       return;
     }
 
     if (isOverLimit) {
-      setError(t('contentTooLong'));
+      setError(t("contentTooLong"));
       return;
     }
 
@@ -72,11 +72,11 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
       const result = await createComment(storyId, content, replyTarget?.id);
 
       if (result.success) {
-        setContent('');
+        setContent("");
         setError(null);
         onCancelReply?.(); // 返信モードをリセット
       } else {
-        setError(t('postFailed'));
+        setError(t("postFailed"));
       }
     });
   };
@@ -88,7 +88,7 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
         {replyTarget && (
           <div className="text-muted-foreground ml-13 flex items-center gap-2 text-sm">
             <span>
-              {t('replyingTo')}{' '}
+              {t("replyingTo")}{" "}
               <span className="text-foreground font-semibold">
                 {replyTarget.profiles.display_name}
               </span>
@@ -111,7 +111,7 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
               ref={textareaRef}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder={replyTarget ? t('replyPlaceholder') : t('placeholder')}
+              placeholder={replyTarget ? t("replyPlaceholder") : t("placeholder")}
               disabled={isPending}
               rows={2}
               className="placeholder:text-muted-foreground w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base focus-visible:outline-none"
@@ -150,10 +150,10 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
                 strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
                 className={
                   isOverLimit
-                    ? 'text-red-500'
+                    ? "text-red-500"
                     : remaining <= 20
-                      ? 'text-yellow-500'
-                      : 'text-primary'
+                      ? "text-yellow-500"
+                      : "text-primary"
                 }
                 strokeLinecap="round"
               />
@@ -162,7 +162,7 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
             {showCount && (
               <span
                 className={`absolute text-xs font-medium ${
-                  isOverLimit ? 'text-red-500' : 'text-muted-foreground'
+                  isOverLimit ? "text-red-500" : "text-muted-foreground"
                 }`}
               >
                 {remaining}
@@ -177,7 +177,7 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
             className="rounded-full"
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {t('submitButton')}
+            {t("submitButton")}
           </Button>
         </div>
       </form>

@@ -38,9 +38,7 @@ export const Features = () => {
               <div className="p-2 text-[#2E6C28]">
                 <Icon size={48} strokeWidth={1.5} />
               </div>
-              <CardTitle className="text-lg font-bold text-gray-800 md:text-xl">
-                {title}
-              </CardTitle>
+              <CardTitle className="text-lg font-bold text-gray-800 md:text-xl">{title}</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
               <p className="text-gray-600">{description}</p>

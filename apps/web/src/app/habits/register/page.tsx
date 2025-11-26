@@ -1,9 +1,9 @@
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 
-import { Header } from '@/components/layout/header';
-import { createClient } from '@/lib/supabase/server';
-import { fetchHabits } from '@/features/habits/data/data';
-import { HabitRegisterForm } from '@/features/habits/ui/habit-register-form';
+import { Header } from "@/components/layout/header";
+import { createClient } from "@/lib/supabase/server";
+import { fetchHabits } from "@/features/habits/data/data";
+import { HabitRegisterForm } from "@/features/habits/ui/habit-register-form";
 
 export default async function HabitRegisterPage() {
   const supabase = await createClient();
@@ -12,13 +12,13 @@ export default async function HabitRegisterPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/auth/login');
+    redirect("/auth/login");
   }
 
   const habits = await fetchHabits(user.id);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <Header title="習慣を登録" />
       <main className="container mx-auto px-4 py-6">
         <HabitRegisterForm existingHabits={habits} />
@@ -26,4 +26,3 @@ export default async function HabitRegisterPage() {
     </div>
   );
 }
-

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useMemo, useState, useTransition } from 'react';
+import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState, useTransition } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
-import { createArticleComment } from '@/features/articles/data/actions';
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { createArticleComment } from "@/features/articles/data/actions";
 
 type Props = {
   articleId: string;
@@ -28,8 +28,8 @@ function countCharacters(text: string): number {
 }
 
 export function ArticleCommentForm({ articleId }: Props) {
-  const t = useTranslations('comment-form');
-  const [content, setContent] = useState('');
+  const t = useTranslations("comment-form");
+  const [content, setContent] = useState("");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -47,12 +47,12 @@ export function ArticleCommentForm({ articleId }: Props) {
     setError(null);
 
     if (!content.trim()) {
-      setError(t('contentRequired'));
+      setError(t("contentRequired"));
       return;
     }
 
     if (isOverLimit) {
-      setError(t('contentTooLong'));
+      setError(t("contentTooLong"));
       return;
     }
 
@@ -60,10 +60,10 @@ export function ArticleCommentForm({ articleId }: Props) {
       const result = await createArticleComment(articleId, content);
 
       if (result.success) {
-        setContent('');
+        setContent("");
         setError(null);
       } else {
-        setError(t('postFailed'));
+        setError(t("postFailed"));
       }
     });
   };
@@ -82,7 +82,7 @@ export function ArticleCommentForm({ articleId }: Props) {
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder={t('placeholder')}
+              placeholder={t("placeholder")}
               disabled={isPending}
               rows={2}
               className="w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base placeholder:text-gray-400 focus-visible:outline-none dark:placeholder:text-gray-500"
@@ -121,10 +121,10 @@ export function ArticleCommentForm({ articleId }: Props) {
                 strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
                 className={
                   isOverLimit
-                    ? 'text-red-500'
+                    ? "text-red-500"
                     : remaining <= 20
-                      ? 'text-yellow-500'
-                      : 'text-primary'
+                      ? "text-yellow-500"
+                      : "text-primary"
                 }
                 strokeLinecap="round"
               />
@@ -133,7 +133,7 @@ export function ArticleCommentForm({ articleId }: Props) {
             {showCount && (
               <span
                 className={`absolute text-xs font-medium ${
-                  isOverLimit ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'
+                  isOverLimit ? "text-red-500" : "text-gray-500 dark:text-gray-400"
                 }`}
               >
                 {remaining}
@@ -148,7 +148,7 @@ export function ArticleCommentForm({ articleId }: Props) {
             className="rounded-full"
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {t('submitButton')}
+            {t("submitButton")}
           </Button>
         </div>
       </form>

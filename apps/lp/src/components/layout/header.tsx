@@ -26,28 +26,16 @@ export const Header = () => {
         {/* デスクトップ用ナビゲーション */}
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
-            <Link
-              href="/blog"
-              className="transition-colors hover:text-primary-light"
-            >
+            <Link href="/blog" className="hover:text-primary-light transition-colors">
               {t("links.blog")}
             </Link>
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-primary-light"
-            >
+            <Link href="/terms" className="hover:text-primary-light transition-colors">
               {t("links.terms")}
             </Link>
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-primary-light"
-            >
+            <Link href="/privacy" className="hover:text-primary-light transition-colors">
               {t("links.privacy")}
             </Link>
-            <Link
-              href="/contact"
-              className="transition-colors hover:text-primary-light"
-            >
+            <Link href="/contact" className="hover:text-primary-light transition-colors">
               {t("links.contact")}
             </Link>
           </nav>
@@ -57,11 +45,7 @@ export const Header = () => {
         {/* モバイル用ハンバーガーメニュー */}
         <div className="flex items-center gap-4 md:hidden">
           <LanguageSetting />
-          <button
-            className="p-2 text-gray-600"
-            onClick={toggleMenu}
-            aria-label={t("label.menu")}
-          >
+          <button className="p-2 text-gray-600" onClick={toggleMenu} aria-label={t("label.menu")}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -73,7 +57,7 @@ export const Header = () => {
           <nav className="flex flex-col space-y-4">
             <Link
               href="/blog"
-              className="text-gray-600 transition-colors hover:text-primary-light"
+              className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
               }}
@@ -82,7 +66,7 @@ export const Header = () => {
             </Link>
             <Link
               href="/terms"
-              className="text-gray-600 transition-colors hover:text-primary-light"
+              className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
               }}
@@ -91,7 +75,7 @@ export const Header = () => {
             </Link>
             <Link
               href="/privacy"
-              className="text-gray-600 transition-colors hover:text-primary-light"
+              className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
               }}
@@ -100,7 +84,7 @@ export const Header = () => {
             </Link>
             <Link
               href="/contact"
-              className="text-gray-600 transition-colors hover:text-primary-light"
+              className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
               }}

@@ -51,16 +51,10 @@ export async function GET(request: NextRequest) {
 
       redirect(redirectPath);
     } else {
-      redirect(
-        `/auth/error?error=${encodeURIComponent(
-          error?.message || "Unknown error"
-        )}`
-      );
+      redirect(`/auth/error?error=${encodeURIComponent(error?.message || "Unknown error")}`);
     }
   }
 
   // どちらもない場合はエラー
-  redirect(
-    `/auth/error?error=${encodeURIComponent("No token hash, type, or code")}`
-  );
+  redirect(`/auth/error?error=${encodeURIComponent("No token hash, type, or code")}`);
 }

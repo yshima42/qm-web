@@ -1,12 +1,12 @@
-import { AppDownloadSection } from '@quitmate/ui';
+import { AppDownloadSection } from "@quitmate/ui";
 
-import { StoryTileDto, HabitTileDto } from '@/lib/types';
-import { createClient } from '@/lib/supabase/server';
+import { StoryTileDto, HabitTileDto } from "@/lib/types";
+import { createClient } from "@/lib/supabase/server";
 
-import { enrichStoriesWithLikeStatus } from '@/features/stories/data/data';
+import { enrichStoriesWithLikeStatus } from "@/features/stories/data/data";
 
-import { StoryTile } from './story-tile';
-import { StoryInlineForm } from './story-inline-form';
+import { StoryTile } from "./story-tile";
+import { StoryInlineForm } from "./story-inline-form";
 
 type StoryListProps = {
   fetchStoriesFunc: () => Promise<StoryTileDto[]>;
@@ -40,4 +40,3 @@ export async function StoryList({ fetchStoriesFunc, habits }: StoryListProps) {
     </div>
   );
 }
-

@@ -1,7 +1,7 @@
-import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from '@quitmate/ui';
-import Image from 'next/image';
+import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from "@quitmate/ui";
+import Image from "next/image";
 
-import { ProfileTileDto } from '@/lib/types';
+import { ProfileTileDto } from "@/lib/types";
 
 type Props = {
   profile: ProfileTileDto;
@@ -9,7 +9,7 @@ type Props = {
 
 export function ProfileHeader({ profile }: Props) {
   return (
-    <div className="relative mb-6 rounded-lg border border-border bg-card p-6 shadow-sm">
+    <div className="border-border bg-card relative mb-6 rounded-lg border p-6 shadow-sm">
       <ShareButton
         title={`${profile.display_name}'s Profile`}
         text={`${profile.display_name}'s Profile`}
@@ -20,7 +20,7 @@ export function ProfileHeader({ profile }: Props) {
         {/* Avatar image */}
         <div className="mb-4 sm:mb-0 sm:mr-6">
           {profile.avatar_url ? (
-            <div className="size-24 overflow-hidden rounded-full border-2 border-background">
+            <div className="border-background size-24 overflow-hidden rounded-full border-2">
               <Image
                 src={profile.avatar_url}
                 alt={profile.display_name}
@@ -30,33 +30,33 @@ export function ProfileHeader({ profile }: Props) {
               />
             </div>
           ) : (
-            <DefaultAvatar size="lg" className="border-2 border-background" />
+            <DefaultAvatar size="lg" className="border-background border-2" />
           )}
         </div>
 
         {/* User information */}
         <div className="flex-1">
           <div className="mb-2">
-            <h1 className="text-2xl font-bold text-foreground">{profile.display_name}</h1>
-            <p className="text-sm text-muted-foreground">@{profile.user_name}</p>
+            <h1 className="text-foreground text-2xl font-bold">{profile.display_name}</h1>
+            <p className="text-muted-foreground text-sm">@{profile.user_name}</p>
           </div>
 
           {/* bio */}
           {profile.bio && (
-            <p className="mb-4 text-sm text-foreground sm:text-base">
+            <p className="text-foreground mb-4 text-sm sm:text-base">
               <AutoLinkText text={profile.bio} />
             </p>
           )}
 
           {/* Follow information */}
           <AppDownloadDialogTrigger className="cursor-pointer">
-            <div className="flex gap-4 text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex gap-4 text-sm">
               <div className="flex items-center gap-1">
-                <span className="font-semibold text-foreground">{profile.following}</span>
+                <span className="text-foreground font-semibold">{profile.following}</span>
                 <span>Following</span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="font-semibold text-foreground">{profile.followers}</span>
+                <span className="text-foreground font-semibold">{profile.followers}</span>
                 <span>Followers</span>
               </div>
             </div>
@@ -66,4 +66,3 @@ export function ProfileHeader({ profile }: Props) {
     </div>
   );
 }
-

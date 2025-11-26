@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { CommentIcon, ArticleLikeIcon, ShareButton, AppDownloadSection } from '@quitmate/ui';
-import { format } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import { toZonedTime } from 'date-fns-tz';
-import Link from 'next/link';
-import { useState, useTransition } from 'react';
+import { CommentIcon, ArticleLikeIcon, ShareButton, AppDownloadSection } from "@quitmate/ui";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { toZonedTime } from "date-fns-tz";
+import Link from "next/link";
+import { useState, useTransition } from "react";
 
-import { MarkdownRenderer } from '@/lib/markdown-render';
-import type { ArticleTileDto, ArticleCommentTileDto } from '@/lib/types';
+import { MarkdownRenderer } from "@/lib/markdown-render";
+import type { ArticleTileDto, ArticleCommentTileDto } from "@/lib/types";
 
-import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
+import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
 
-import { ArticleCommentForm } from '@/features/articles/ui/article-comment-form';
-import { ArticleCommentTile } from '@/features/articles/ui/article-comment-tile';
-import { toggleArticleLike } from '@/features/articles/data/actions';
-import { UserAvatar } from '@/features/profiles/ui/user-avatar';
+import { ArticleCommentForm } from "@/features/articles/ui/article-comment-form";
+import { ArticleCommentTile } from "@/features/articles/ui/article-comment-tile";
+import { toggleArticleLike } from "@/features/articles/data/actions";
+import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 
-import { CategoryTag } from '@/features/common/ui/category-tag';
+import { CategoryTag } from "@/features/common/ui/category-tag";
 
 type ArticleContentProps = {
   article: ArticleTileDto;
@@ -48,10 +48,10 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
       }
     });
   };
-  const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
+  const articleDate = toZonedTime(new Date(article.created_at), "Asia/Tokyo");
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
-  const dateFormat = articleYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const dateFormat = articleYear === currentYear ? "M/d H:mm" : "yyyy/M/d H:mm";
   const createdAt = format(articleDate, dateFormat, { locale: enUS });
 
   return (
@@ -65,7 +65,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <CategoryTag
-                category={article.habit_categories?.habit_category_name ?? 'General'}
+                category={article.habit_categories?.habit_category_name ?? "General"}
                 customHabitName={article.custom_habit_name}
               />
               <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
@@ -80,11 +80,11 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                 >
                   <ArticleLikeIcon
                     className={`size-5 transition-colors ${
-                      isLiked ? 'fill-green-600 text-green-600' : 'text-gray-500 dark:text-gray-400'
+                      isLiked ? "fill-green-600 text-green-600" : "text-gray-500 dark:text-gray-400"
                     }`}
                   />
                   <span
-                    className={`text-sm ${isLiked ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}
+                    className={`text-sm ${isLiked ? "text-green-600" : "text-gray-500 dark:text-gray-400"}`}
                   >
                     {likesCount}
                   </span>
@@ -99,7 +99,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
               )}
 
               <ShareButton
-                url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+                url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
                 title={article.title}
                 text={`${article.title} | ${article.profiles.display_name}`}
                 dialogTitle="Share Article"
@@ -143,10 +143,10 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                 >
                   <ArticleLikeIcon
                     className={`size-5 transition-colors ${
-                      isLiked ? 'fill-green-600 text-green-600' : 'text-gray-500 dark:text-gray-400'
+                      isLiked ? "fill-green-600 text-green-600" : "text-gray-500 dark:text-gray-400"
                     }`}
                   />
-                  <span className={isLiked ? 'text-green-600' : 'text-gray-700 dark:text-gray-300'}>
+                  <span className={isLiked ? "text-green-600" : "text-gray-700 dark:text-gray-300"}>
                     {likesCount}
                   </span>
                 </button>
@@ -167,7 +167,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
             </div>
 
             <ShareButton
-              url={`${process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.quitmate.app'}/${article.profiles.user_name}/articles/${article.id}`}
+              url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
               title={article.title}
               text={`${article.title} | ${article.profiles.display_name}`}
               dialogTitle="Share Article"

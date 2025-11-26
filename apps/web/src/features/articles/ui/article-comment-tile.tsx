@@ -1,11 +1,11 @@
-import { ArticleLikeIcon, AppDownloadDialogTrigger } from '@quitmate/ui';
-import { format } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import Link from 'next/link';
+import { ArticleLikeIcon, AppDownloadDialogTrigger } from "@quitmate/ui";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+import Link from "next/link";
 
-import { ArticleCommentTileDto } from '@/lib/types';
+import { ArticleCommentTileDto } from "@/lib/types";
 
-import { UserAvatar } from '@/features/profiles/ui/user-avatar';
+import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 
 type Props = {
   comment: ArticleCommentTileDto;
@@ -17,13 +17,13 @@ export function ArticleCommentTile({ comment }: Props) {
   const commentYear = commentDate.getFullYear();
 
   // If current year, don't display year; otherwise include year
-  const dateFormat = commentYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const dateFormat = commentYear === currentYear ? "M/d H:mm" : "yyyy/M/d H:mm";
   const createdAt = format(commentDate, dateFormat, {
     locale: enUS,
   });
 
   return (
-    <div className="flex border-b border-border p-3">
+    <div className="border-border flex border-b p-3">
       {/* Avatar */}
       <div className="mr-2">
         <UserAvatar
@@ -38,20 +38,20 @@ export function ArticleCommentTile({ comment }: Props) {
       <div className="flex-1">
         <div className="mb-0.5 flex items-center gap-1.5">
           <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-sm font-bold text-foreground">
+            <span className="text-foreground text-sm font-bold">
               {comment.profiles.display_name}
             </span>
           </Link>
           <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-xs text-muted-foreground">@{comment.profiles.user_name}</span>
+            <span className="text-muted-foreground text-xs">@{comment.profiles.user_name}</span>
           </Link>
-          <span className="text-xs text-muted-foreground"> </span>
-          <span className="text-xs text-muted-foreground">{createdAt}</span>
+          <span className="text-muted-foreground text-xs"> </span>
+          <span className="text-muted-foreground text-xs">{createdAt}</span>
         </div>
-        <p className="whitespace-pre-wrap text-sm text-foreground">{comment.content}</p>
+        <p className="text-foreground whitespace-pre-wrap text-sm">{comment.content}</p>
 
         {/* Like button */}
-        <div className="mt-1 flex items-center gap-1 text-muted-foreground">
+        <div className="text-muted-foreground mt-1 flex items-center gap-1">
           <AppDownloadDialogTrigger className="cursor-pointer">
             <div className="flex items-center gap-1">
               <ArticleLikeIcon className="size-4" />
@@ -63,4 +63,3 @@ export function ArticleCommentTile({ comment }: Props) {
     </div>
   );
 }
-

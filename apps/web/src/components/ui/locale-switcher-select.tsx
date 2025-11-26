@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@quitmate/ui';
-import { GlobeIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@quitmate/ui";
+import { GlobeIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
-import { Locale } from '@/i18n/config';
-import { setUserLocale } from '@/services/locale';
+import { Locale } from "@/i18n/config";
+import { setUserLocale } from "@/services/locale";
 
 type Props = {
   defaultValue: string;
@@ -32,7 +32,7 @@ export default function LocaleSwitcherSelect({ defaultValue, items, label }: Pro
         <SelectTrigger
           aria-label={label}
           className={`rounded-sm p-2 transition-colors hover:bg-slate-200 dark:hover:bg-slate-800 ${
-            isPending ? 'pointer-events-none opacity-60' : ''
+            isPending ? "pointer-events-none opacity-60" : ""
           }`}
         >
           <GlobeIcon className="mr-1.5 size-5 text-slate-600 transition-colors group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100" />
@@ -49,4 +49,3 @@ export default function LocaleSwitcherSelect({ defaultValue, items, label }: Pro
     </div>
   );
 }
-

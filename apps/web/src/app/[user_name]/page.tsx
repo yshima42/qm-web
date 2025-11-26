@@ -72,9 +72,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page(props: {
-  params: Promise<{ user_name: string }>;
-}) {
+export default async function Page(props: { params: Promise<{ user_name: string }> }) {
   const params = await props.params;
   const user_name = params.user_name;
   // 後で子コンポーネントに移動し、suspenseで読み込む

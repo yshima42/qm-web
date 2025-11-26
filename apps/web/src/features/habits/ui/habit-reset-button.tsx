@@ -15,11 +15,7 @@ export function HabitResetButton({ habitId, trialId, habitName }: Props) {
   const router = useRouter();
 
   const handleReset = async () => {
-    if (
-      !confirm(
-        `「${habitName}」の継続時間をリセットしますか？この操作は取り消せません。`
-      )
-    ) {
+    if (!confirm(`「${habitName}」の継続時間をリセットしますか？この操作は取り消せません。`)) {
       return;
     }
 

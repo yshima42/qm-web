@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { CommentTileDto, ParentCommentInfo } from '@/lib/types';
+import { CommentTileDto, ParentCommentInfo } from "@/lib/types";
 
-import { CommentForm } from './comment-form';
-import { CommentTile } from './comment-tile';
+import { CommentForm } from "./comment-form";
+import { CommentTile } from "./comment-tile";
 
 type Props = {
   storyId: string;
@@ -32,7 +32,11 @@ export function CommentsSection({ storyId, comments, isLoggedIn, canComment }: P
     <>
       {/* コメントフォーム */}
       {isLoggedIn && canComment && (
-        <CommentForm storyId={storyId} replyTarget={replyTarget} onCancelReply={handleCancelReply} />
+        <CommentForm
+          storyId={storyId}
+          replyTarget={replyTarget}
+          onCancelReply={handleCancelReply}
+        />
       )}
 
       {/* コメント一覧 */}
@@ -52,4 +56,3 @@ export function CommentsSection({ storyId, comments, isLoggedIn, canComment }: P
     </>
   );
 }
-

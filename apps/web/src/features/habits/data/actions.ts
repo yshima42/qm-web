@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from "@/lib/supabase/client";
 
 export type HabitRegisterDTO = {
   habitCategoryName: string;
@@ -18,10 +18,10 @@ export async function createHabit(dto: HabitRegisterDTO): Promise<{ error: Error
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: new Error('User not authenticated') };
+    return { error: new Error("User not authenticated") };
   }
 
-  const { error } = await supabase.rpc('habit_create_transaction', {
+  const { error } = await supabase.rpc("habit_create_transaction", {
     p_user_id: user.id,
     p_habit_category_name: dto.habitCategoryName,
     p_custom_habit_name: dto.customHabitName || null,
@@ -32,7 +32,7 @@ export async function createHabit(dto: HabitRegisterDTO): Promise<{ error: Error
   });
 
   if (error) {
-    console.error('Error creating habit:', error);
+    console.error("Error creating habit:", error);
     return { error: new Error(error.message) };
   }
 
@@ -41,10 +41,10 @@ export async function createHabit(dto: HabitRegisterDTO): Promise<{ error: Error
 
 export async function deleteHabit(habitId: string): Promise<{ error: Error | null }> {
   const supabase = createClient();
-  const { error } = await supabase.from('habits').delete().eq('id', habitId);
+  const { error } = await supabase.from("habits").delete().eq("id", habitId);
 
   if (error) {
-    console.error('Error deleting habit:', error);
+    console.error("Error deleting habit:", error);
     return { error: new Error(error.message) };
   }
 
@@ -55,27 +55,26 @@ export async function resetTrial(
   habitId: string,
   trialId: string,
 ): Promise<{ error: Error | null }> {
-  console.log('resetTrial called', { habitId, trialId });
+  console.log("resetTrial called", { habitId, trialId });
   const supabase = createClient();
-  
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log('User:', user?.id);
+  console.log("User:", user?.id);
 
-  const { error, data } = await supabase.rpc('habit_restart_trial', {
+  const { error, data } = await supabase.rpc("habit_restart_trial", {
     p_habit_id: habitId,
     p_trial_id: trialId,
   });
 
-  console.log('RPC result:', { error, data });
+  console.log("RPC result:", { error, data });
 
   if (error) {
-    console.error('Error resetting trial:', error);
+    console.error("Error resetting trial:", error);
     return { error: new Error(error.message) };
   }
 
-  console.log('Trial reset successfully');
+  console.log("Trial reset successfully");
   return { error: null };
 }
-

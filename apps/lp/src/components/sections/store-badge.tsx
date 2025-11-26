@@ -38,11 +38,7 @@ const sizeMapping = {
   },
 };
 
-export function StoreBadge({
-  store,
-  className = "",
-  size = "medium",
-}: StoreBadgeProps) {
+export function StoreBadge({ store, className = "", size = "medium" }: StoreBadgeProps) {
   const t = useTranslations("config");
 
   // ストアごとの画像パス
@@ -87,8 +83,7 @@ export function StoreBadges({
 }: StoreBadgesProps) {
   return (
     <div
-      className={`flex items-center justify-center gap-3 md:gap-4 
-      ${direction === "column" ? "flex-col" : "flex-row"} ${className}`}
+      className={`flex items-center justify-center gap-3 md:gap-4 ${direction === "column" ? "flex-col" : "flex-row"} ${className}`}
     >
       <StoreBadge store="apple" size={size} />
       <StoreBadge store="google" size={size} />

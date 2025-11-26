@@ -17,10 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SocialLoginButtons } from "@/components/social-login-buttons";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -83,9 +80,7 @@ export function LoginForm({
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  または
-                </span>
+                <span className="bg-background text-muted-foreground px-2">または</span>
               </div>
             </div>
 
@@ -127,19 +122,12 @@ export function LoginForm({
 
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading
-                    ? "Logging in..."
-                    : showPassword
-                    ? "Login"
-                    : "Next"}
+                  {isLoading ? "Logging in..." : showPassword ? "Login" : "Next"}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link
-                  href="/auth/sign-up"
-                  className="underline underline-offset-4"
-                >
+                <Link href="/auth/sign-up" className="underline underline-offset-4">
                   Sign up
                 </Link>
               </div>

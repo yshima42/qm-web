@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from "next-intl";
 
-import LocaleSwitcherSelect from './locale-switcher-select';
+import LocaleSwitcherSelect from "./locale-switcher-select";
 
 export default function LocaleSwitcher() {
-  const t = useTranslations('locale-switcher');
+  const t = useTranslations("locale-switcher");
   const locale = useLocale();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -16,7 +16,7 @@ export default function LocaleSwitcher() {
   }, []);
 
   if (!isMounted) {
-    return <div className="h-9 w-20 rounded-full bg-muted" />;
+    return <div className="bg-muted h-9 w-20 rounded-full" />;
   }
 
   return (
@@ -24,16 +24,15 @@ export default function LocaleSwitcher() {
       defaultValue={locale}
       items={[
         {
-          value: 'en',
-          label: t('en'),
+          value: "en",
+          label: t("en"),
         },
         {
-          value: 'ja',
-          label: t('ja'),
+          value: "ja",
+          label: t("ja"),
         },
       ]}
-      label={t('label')}
+      label={t("label")}
     />
   );
 }
-

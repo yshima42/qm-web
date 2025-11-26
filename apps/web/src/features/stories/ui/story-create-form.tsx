@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useTransition, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { createStory } from '../data/actions';
-import { Loader2 } from 'lucide-react';
-import { HabitTileDto } from '@/lib/types';
+import { useState, useTransition, useMemo } from "react";
+import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { createStory } from "../data/actions";
+import { Loader2 } from "lucide-react";
+import { HabitTileDto } from "@/lib/types";
 
 type StoryCreateFormProps = {
   habits: HabitTileDto[];
@@ -21,7 +21,7 @@ function countCharacters(text: string): number {
   for (const char of text) {
     // Check if character is multibyte (e.g., Japanese, emoji, etc.)
     const code = char.charCodeAt(0);
-    if (code > 0x7F) {
+    if (code > 0x7f) {
       count += 2; // Multibyte character counts as 2
     } else {
       count += 1; // ASCII character counts as 1
@@ -31,16 +31,14 @@ function countCharacters(text: string): number {
 }
 
 export function StoryCreateForm({ habits }: StoryCreateFormProps) {
-  const t = useTranslations('story-post');
-  const tCategory = useTranslations('categories');
+  const t = useTranslations("story-post");
+  const tCategory = useTranslations("categories");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
   // Filter for active habits (has at least one trial with no ended_at)
-  const activeHabits = habits.filter((habit) =>
-    habit.trials?.some((trial) => !trial.ended_at)
-  );
+  const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
 
   const hasActiveHabit = activeHabits.length > 0;
   const showHabitSelect = activeHabits.length > 1;
@@ -58,7 +56,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
     setError(null);
 
     if (isOverLimit) {
-      setError(t('contentTooLong'));
+      setError(t("contentTooLong"));
       return;
     }
 
@@ -67,20 +65,18 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
         await createStory(formData);
       } catch (e) {
         // Ignore NEXT_REDIRECT errors as they are not actual errors
-        if (e instanceof Error && e.message.includes('NEXT_REDIRECT')) {
+        if (e instanceof Error && e.message.includes("NEXT_REDIRECT")) {
           return;
         }
-        setError(e instanceof Error ? e.message : t('createFailed'));
+        setError(e instanceof Error ? e.message : t("createFailed"));
       }
     });
   };
 
   if (!hasActiveHabit) {
     return (
-      <div className="text-center p-4 border rounded-md bg-muted/50">
-        <p className="text-muted-foreground">
-          {t('noActiveHabit')}
-        </p>
+      <div className="bg-muted/50 rounded-md border p-4 text-center">
+        <p className="text-muted-foreground">{t("noActiveHabit")}</p>
       </div>
     );
   }
@@ -89,12 +85,12 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
     <form action={handleSubmit} className="space-y-4">
       {showHabitSelect ? (
         <div className="space-y-2">
-          <Label htmlFor="habit_id">{t('selectHabit')}</Label>
+          <Label htmlFor="habit_id">{t("selectHabit")}</Label>
           <select
             id="habit_id"
             name="habit_id"
             required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+            className="border-input file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           >
             {activeHabits.map((habit) => (
               <option key={habit.id} value={habit.id}>
@@ -108,8 +104,8 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
         </div>
       ) : (
         <div className="space-y-2">
-          <Label>{t('habit')}</Label>
-          <div className="text-sm font-medium p-2 border rounded-md bg-muted/20">
+          <Label>{t("habit")}</Label>
+          <div className="bg-muted/20 rounded-md border p-2 text-sm font-medium">
             {activeHabits[0].custom_habit_name ||
               (activeHabits[0].habit_categories?.habit_category_name
                 ? tCategory(activeHabits[0].habit_categories.habit_category_name)
@@ -120,7 +116,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="content">{t('yourStory')}</Label>
+        <Label htmlFor="content">{t("yourStory")}</Label>
         <textarea
           id="content"
           name="content"
@@ -128,17 +124,17 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
           onChange={(e) => setContent(e.target.value)}
           required
           rows={5}
-          className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-          placeholder={t('sharePlaceholder')}
+          className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-sm focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          placeholder={t("sharePlaceholder")}
         />
       </div>
       {error && <p className="text-sm text-red-500">{error}</p>}
-      
+
       <div className="flex items-center justify-end gap-3">
         {/* Character count indicator */}
         <div className="relative flex items-center justify-center">
           {/* Background circle */}
-          <svg className="w-8 h-8 -rotate-90">
+          <svg className="h-8 w-8 -rotate-90">
             <circle
               cx="16"
               cy="16"
@@ -160,11 +156,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
               strokeDasharray={`${2 * Math.PI * 14}`}
               strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
               className={
-                isOverLimit
-                  ? 'text-red-500'
-                  : remaining <= 20
-                    ? 'text-yellow-500'
-                    : 'text-primary'
+                isOverLimit ? "text-red-500" : remaining <= 20 ? "text-yellow-500" : "text-primary"
               }
               strokeLinecap="round"
             />
@@ -173,7 +165,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
           {showCount && (
             <span
               className={`absolute text-xs font-medium ${
-                isOverLimit ? 'text-red-500' : 'text-muted-foreground'
+                isOverLimit ? "text-red-500" : "text-muted-foreground"
               }`}
             >
               {remaining}
@@ -183,7 +175,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
 
         <Button type="submit" disabled={isPending || isOverLimit}>
           {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {t('postStoryButton')}
+          {t("postStoryButton")}
         </Button>
       </div>
     </form>

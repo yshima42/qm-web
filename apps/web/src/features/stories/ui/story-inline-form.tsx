@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { Globe, Lock, Loader2 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useMemo, useState, useTransition } from 'react';
+import { Globe, Lock, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState, useTransition } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { HabitTileDto } from '@/lib/types';
+import { HabitTileDto } from "@/lib/types";
 
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
-import { createStory } from '@/features/stories/data/actions';
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { createStory } from "@/features/stories/data/actions";
 
-type CommentSetting = 'enabled' | 'disabled';
+type CommentSetting = "enabled" | "disabled";
 
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
@@ -39,13 +39,13 @@ function countCharacters(text: string): number {
 }
 
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
-  const t = useTranslations('story-post');
-  const tCategory = useTranslations('categories');
-  const tCommentSetting = useTranslations('comment-setting');
+  const t = useTranslations("story-post");
+  const tCategory = useTranslations("categories");
+  const tCommentSetting = useTranslations("comment-setting");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const [content, setContent] = useState('');
-  const [commentSetting, setCommentSetting] = useState<CommentSetting>('enabled');
+  const [content, setContent] = useState("");
+  const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
 
   // Filter for active habits (has at least one trial with no ended_at)
   const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
@@ -67,7 +67,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
     setError(null);
 
     if (isOverLimit) {
-      setError(t('contentTooLong'));
+      setError(t("contentTooLong"));
       return;
     }
 
@@ -76,13 +76,13 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
     startTransition(async () => {
       try {
         await createStory(formData);
-        setContent(''); // Clear the form on success
+        setContent(""); // Clear the form on success
       } catch (err) {
         // Ignore NEXT_REDIRECT errors as they are not actual errors
-        if (err instanceof Error && err.message.includes('NEXT_REDIRECT')) {
+        if (err instanceof Error && err.message.includes("NEXT_REDIRECT")) {
           return;
         }
-        setError(err instanceof Error ? err.message : t('createFailed'));
+        setError(err instanceof Error ? err.message : t("createFailed"));
       }
     });
   };
@@ -124,7 +124,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
               required
               rows={3}
               className="placeholder:text-muted-foreground w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base focus-visible:outline-none"
-              placeholder={t('placeholder')}
+              placeholder={t("placeholder")}
             />
 
             {/* コメント設定（Xライク） */}
@@ -135,7 +135,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
                   type="button"
                   className="text-primary hover:bg-primary/10 flex items-center gap-1 rounded-full px-2 py-1 text-sm transition-colors"
                 >
-                  {commentSetting === 'enabled' ? (
+                  {commentSetting === "enabled" ? (
                     <Globe className="h-4 w-4" />
                   ) : (
                     <Lock className="h-4 w-4" />
@@ -145,20 +145,20 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem
-                  onClick={() => setCommentSetting('enabled')}
+                  onClick={() => setCommentSetting("enabled")}
                   className="flex items-center gap-2"
                 >
                   <Globe className="h-4 w-4" />
-                  <span>{tCommentSetting('enabled')}</span>
-                  {commentSetting === 'enabled' && <span className="text-primary ml-auto">✓</span>}
+                  <span>{tCommentSetting("enabled")}</span>
+                  {commentSetting === "enabled" && <span className="text-primary ml-auto">✓</span>}
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => setCommentSetting('disabled')}
+                  onClick={() => setCommentSetting("disabled")}
                   className="flex items-center gap-2"
                 >
                   <Lock className="h-4 w-4" />
-                  <span>{tCommentSetting('disabled')}</span>
-                  {commentSetting === 'disabled' && <span className="text-primary ml-auto">✓</span>}
+                  <span>{tCommentSetting("disabled")}</span>
+                  {commentSetting === "disabled" && <span className="text-primary ml-auto">✓</span>}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -194,10 +194,10 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
                 strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
                 className={
                   isOverLimit
-                    ? 'text-red-500'
+                    ? "text-red-500"
                     : remaining <= 20
-                      ? 'text-yellow-500'
-                      : 'text-primary'
+                      ? "text-yellow-500"
+                      : "text-primary"
                 }
                 strokeLinecap="round"
               />
@@ -206,7 +206,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
             {showCount && (
               <span
                 className={`absolute text-xs font-medium ${
-                  isOverLimit ? 'text-red-500' : 'text-muted-foreground'
+                  isOverLimit ? "text-red-500" : "text-muted-foreground"
                 }`}
               >
                 {remaining}
@@ -221,7 +221,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
             className="rounded-full"
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {t('postButton')}
+            {t("postButton")}
           </Button>
         </div>
       </form>

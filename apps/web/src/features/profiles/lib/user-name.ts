@@ -13,4 +13,3 @@ export function normalizeUserNameInput(userName?: string | null) {
 export function isValidUserName(userName: string) {
   return USER_NAME_REGEX.test(userName);
 }
-
