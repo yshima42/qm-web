@@ -61,6 +61,16 @@ export function SidebarContent({
         </div>
       )}
 
+      {!compact && (
+        <div className="px-4 pb-4">
+          <Link href="/stories/create" onClick={handleLinkClick}>
+            <Button className="w-full rounded-full font-semibold" size="lg">
+              Post Story
+            </Button>
+          </Link>
+        </div>
+      )}
+
       <div className="mb-6 space-y-1 pr-2">
         <SidebarIcon
           icon={Home}

@@ -59,6 +59,17 @@ async function CategoryPageContent({ params }: { params: Promise<{ category: str
   // カテゴリーアイコンを取得
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
+  // Fetch user and habits for inline posting
+  const { createClient } = await import('@/lib/supabase/server');
+  const { fetchHabits } = await import('@/features/habits/data/data');
+  
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const habits = user ? await fetchHabits(user.id) : [];
+
   return (
     <>
       <Header
@@ -69,7 +80,10 @@ async function CategoryPageContent({ params }: { params: Promise<{ category: str
       />
       <main className="p-3 sm:p-5">
         <Suspense fallback={<LoadingSpinner />}>
-          <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+          <StoryList 
+            fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} 
+            habits={habits}
+          />
         </Suspense>
       </main>
     </>

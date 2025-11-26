@@ -75,6 +75,12 @@ export async function createStory(formData: FormData) {
     throw new Error('Failed to create story');
   }
 
-  revalidatePath('/stories');
-  redirect('/stories');
+  // Get the habit category name for redirect
+  const categoryName = activeHabit.habit_categories?.habit_category_name;
+  const categoryPath = categoryName
+    ? `/stories/habits/${categoryName.toLowerCase().replace(/\s+/g, '-')}`
+    : '/stories';
+
+  revalidatePath(categoryPath);
+  redirect(categoryPath);
 }
