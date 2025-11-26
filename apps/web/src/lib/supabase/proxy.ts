@@ -11,14 +11,6 @@ type PendingCookie = {
   options?: Parameters<NextResponse["cookies"]["set"]>[2];
 };
 
-function shouldSkipAuth(pathname: string) {
-  return (
-    pathname === "/" ||
-    pathname.startsWith("/auth") ||
-    pathname.startsWith("/login")
-  );
-}
-
 function applyPendingCookies(
   response: NextResponse,
   pendingCookies: PendingCookie[]
@@ -66,17 +58,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    if (shouldSkipAuth(pathname)) {
-      return applyPendingCookies(NextResponse.next({ request }), pendingCookies);
-    }
-
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/auth/login";
-
-    return applyPendingCookies(
-      NextResponse.redirect(loginUrl),
-      pendingCookies
-    );
+    return applyPendingCookies(NextResponse.next({ request }), pendingCookies);
   }
 
   const { data: profile } = await supabase
