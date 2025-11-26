@@ -1,11 +1,12 @@
-import { getRequestConfig } from "next-intl/server";
+import { getUserLocale } from '@/services/locale';
+import { getRequestConfig } from 'next-intl/server';
 
 export default getRequestConfig(async () => {
-  // デフォルトで日本語を使用
-  const locale = "ja";
+  const locale = await getUserLocale();
 
   return {
     locale,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

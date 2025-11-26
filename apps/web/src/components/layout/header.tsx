@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 
 import { AuthButton } from '@/components/auth-button';
+import LocaleSwitcher from '@/components/ui/locale-switcher';
 
 type HeaderProps = {
   title?: string;
@@ -65,6 +66,7 @@ export function Header({
         <div className="flex w-24 items-center justify-end gap-2">
           {rightElement}
           <AuthButton />
+          <LocaleSwitcher />
         </div>
       </div>
     </header>

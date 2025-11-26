@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import { Header } from '@/components/layout/header';
 import { Sidebar } from '@/components/layout/sidebar';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
-import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
+import { CATEGORY_ICONS } from '@/lib/categories';
 import { fetchStoriesByHabitCategoryName } from '@/features/stories/data/data';
 import { HabitCategoryName, HabitTileDto } from '@/lib/types';
 
@@ -73,8 +74,11 @@ async function CategoryPageContent({
 
   const habitCategory = capitalizeCategory(category);
 
-  // 日本語カテゴリー名を取得
-  const categoryDisplayName = CATEGORY_DISPLAY_NAMES[habitCategory];
+  // 翻訳を取得
+  const tCategory = await getTranslations('categories');
+
+  // カテゴリー名を翻訳から取得
+  const categoryDisplayName = tCategory(habitCategory);
 
   // カテゴリーアイコンを取得
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
