@@ -1,21 +1,21 @@
-import { DefaultAvatar } from '@quitmate/ui';
-import Image from 'next/image';
-import Link from 'next/link';
+import { DefaultAvatar } from "@quitmate/ui";
+import Image from "next/image";
+import Link from "next/link";
 
 type UserAvatarProps = {
   username?: string;
   displayName?: string;
   avatarUrl?: string | null;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showUsername?: boolean;
   linkable?: boolean;
 };
 
 export function UserAvatar({
-  username = 'unknown',
+  username = "unknown",
   displayName,
   avatarUrl,
-  size = 'md',
+  size = "md",
   showUsername = false,
   linkable = true,
 }: UserAvatarProps) {
@@ -40,7 +40,7 @@ export function UserAvatar({
           className="object-cover"
         />
       ) : (
-        <DefaultAvatar size={size} className="size-full bg-muted" />
+        <DefaultAvatar size={size} className="bg-muted size-full" />
       )}
     </div>
   );
@@ -48,13 +48,13 @@ export function UserAvatar({
   // ユーザー名とディスプレイ名の表示要素
   const userInfoElement = showUsername && (
     <div className="flex flex-col">
-      {displayName && <span className="font-bold text-foreground">{displayName}</span>}
-      <span className="text-sm text-muted-foreground">@{username}</span>
+      {displayName && <span className="text-foreground font-bold">{displayName}</span>}
+      <span className="text-muted-foreground text-sm">@{username}</span>
     </div>
   );
 
   // リンク付きかどうかで要素を分ける
-  if (linkable && username !== 'unknown') {
+  if (linkable && username !== "unknown") {
     return (
       <Link href={`/${username}`} className="flex items-center gap-2">
         {avatarElement}
@@ -71,4 +71,3 @@ export function UserAvatar({
     </div>
   );
 }
-

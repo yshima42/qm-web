@@ -1,9 +1,6 @@
-import { createAnonServerClient, createClient } from '@/lib/supabase/server';
+import { createAnonServerClient, createClient } from "@/lib/supabase/server";
 
-import {
-  ArticleCommentTileDto,
-  ArticleTileDto,
-} from '@/lib/types';
+import { ArticleCommentTileDto, ArticleTileDto } from "@/lib/types";
 
 const ARTICLE_SELECT_QUERY = `*, 
   habit_categories!inner(habit_category_name), 
@@ -16,13 +13,13 @@ const FETCH_LIMIT = 100;
 export async function fetchArticles() {
   const supabase = createAnonServerClient();
   const { data, error } = await supabase
-    .from('articles')
+    .from("articles")
     .select(ARTICLE_SELECT_QUERY)
-    .order('created_at', { ascending: false })
+    .order("created_at", { ascending: false })
     .limit(FETCH_LIMIT);
 
   if (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
     return [];
   }
 
@@ -32,9 +29,9 @@ export async function fetchArticles() {
 export async function fetchArticleById(id: string) {
   const supabase = createAnonServerClient();
   const result = await supabase
-    .from('articles')
+    .from("articles")
     .select(ARTICLE_SELECT_QUERY)
-    .eq('id', id)
+    .eq("id", id)
     .maybeSingle();
   return result.data as ArticleTileDto | null;
 }
@@ -42,11 +39,11 @@ export async function fetchArticleById(id: string) {
 export async function fetchCommentsByArticleId(articleId: string) {
   const supabase = createAnonServerClient();
   const { data } = await supabase
-    .from('article_comments')
+    .from("article_comments")
     .select(
-      '*, profiles!article_comments_user_id_fkey(user_name, display_name, avatar_url), article_comment_likes(count)',
+      "*, profiles!article_comments_user_id_fkey(user_name, display_name, avatar_url), article_comment_likes(count)",
     )
-    .eq('article_id', articleId);
+    .eq("article_id", articleId);
   return data as ArticleCommentTileDto[] | null;
 }
 
@@ -59,11 +56,11 @@ export async function fetchArticlePageStaticParams(limit?: number) {
 
   while (page < Number.MAX_SAFE_INTEGER) {
     const result = await supabase
-      .from('articles')
+      .from("articles")
       .select(ARTICLE_SELECT_QUERY)
-      .lte('created_at', now)
+      .lte("created_at", now)
       .range(page * pageSize, (page + 1) * pageSize - 1)
-      .order('created_at', { ascending: false });
+      .order("created_at", { ascending: false });
 
     if (!result.data || result.data.length === 0) break;
 
@@ -88,7 +85,7 @@ export async function fetchArticlePageStaticParams(limit?: number) {
 
 // RPC関数を使って複数記事のいいね状態を一括取得（Flutterと同じ方式）
 export async function fetchHasLikedByArticleIds(
-  articleIds: string[]
+  articleIds: string[],
 ): Promise<Map<string, boolean>> {
   if (articleIds.length === 0) return new Map();
 
@@ -99,7 +96,7 @@ export async function fetchHasLikedByArticleIds(
 
   if (!user) return new Map();
 
-  const { data, error } = await supabase.rpc('article_get_published_tile_data', {
+  const { data, error } = await supabase.rpc("article_get_published_tile_data", {
     article_ids: articleIds,
     current_user_id: user.id,
   });
@@ -115,7 +112,7 @@ export async function fetchHasLikedByArticleIds(
 
 // 記事リストにいいね状態を付与
 export async function enrichArticlesWithLikeStatus(
-  articles: ArticleTileDto[]
+  articles: ArticleTileDto[],
 ): Promise<ArticleTileDto[]> {
   const articleIds = articles.map((a) => a.id);
   const hasLikedMap = await fetchHasLikedByArticleIds(articleIds);
@@ -131,4 +128,3 @@ export async function checkArticleIsLikedByMe(articleId: string): Promise<boolea
   const hasLikedMap = await fetchHasLikedByArticleIds([articleId]);
   return hasLikedMap.get(articleId) ?? false;
 }
-

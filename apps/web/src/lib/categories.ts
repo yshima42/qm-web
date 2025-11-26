@@ -14,26 +14,26 @@ import {
   Wrench,
   Ban,
   LucideIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { HabitCategoryName } from '@/lib/types';
+import { HabitCategoryName } from "@/lib/types";
 
 // 習慣カテゴリーの一覧
 export const HABIT_CATEGORIES: HabitCategoryName[] = [
-  'Alcohol',
-  'Gambling',
-  'Tobacco',
-  'Game',
-  'SNS',
-  'Overeating',
-  'Shopping',
-  'Caffeine',
-  'Drugs',
-  'Porno',
-  'Cosmetic Surgery',
-  'Codependency',
-  'Custom',
-  'Official',
+  "Alcohol",
+  "Gambling",
+  "Tobacco",
+  "Game",
+  "SNS",
+  "Overeating",
+  "Shopping",
+  "Caffeine",
+  "Drugs",
+  "Porno",
+  "Cosmetic Surgery",
+  "Codependency",
+  "Custom",
+  "Official",
 ];
 
 // カテゴリーごとのアイコンをマッピング
@@ -47,7 +47,7 @@ export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
   SNS: MessageSquare,
   Gambling: Dice5,
   Caffeine: Zap,
-  'Cosmetic Surgery': UserRound,
+  "Cosmetic Surgery": UserRound,
   Custom: Wrench,
   Alcohol: Wine,
   Codependency: Users,
@@ -56,25 +56,25 @@ export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
 
 // Category display names in English
 export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
-  Game: 'Game',
-  Tobacco: 'Tobacco',
-  Shopping: 'Shopping',
-  Drugs: 'Drugs',
-  Overeating: 'Overeating',
-  Porno: 'Porno',
-  SNS: 'SNS',
-  Gambling: 'Gambling',
-  Caffeine: 'Caffeine',
-  'Cosmetic Surgery': 'Cosmetic Surgery',
-  Custom: 'Custom',
-  Alcohol: 'Alcohol',
-  Codependency: 'Codependency',
-  Official: 'Official',
+  Game: "Game",
+  Tobacco: "Tobacco",
+  Shopping: "Shopping",
+  Drugs: "Drugs",
+  Overeating: "Overeating",
+  Porno: "Porno",
+  SNS: "SNS",
+  Gambling: "Gambling",
+  Caffeine: "Caffeine",
+  "Cosmetic Surgery": "Cosmetic Surgery",
+  Custom: "Custom",
+  Alcohol: "Alcohol",
+  Codependency: "Codependency",
+  Official: "Official",
 };
 
 // カテゴリーのURL生成関数
 export function getCategoryUrl(category: HabitCategoryName): string {
-  return `/stories/habits/${category.toLowerCase().replace(/\s+/g, '-')}`;
+  return `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
 }
 
 /**
@@ -86,11 +86,10 @@ export function getCategoryDisplayName(
   customHabitName?: string | null,
 ): string {
   // Return custom habit name if it's a custom category
-  if (categoryName.toLowerCase() === 'custom' && customHabitName) {
+  if (categoryName.toLowerCase() === "custom" && customHabitName) {
     return customHabitName;
   }
 
   // Otherwise return the defined English name or the original category name
   return CATEGORY_DISPLAY_NAMES[categoryName as HabitCategoryName] || categoryName;
 }
-

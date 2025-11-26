@@ -1,21 +1,21 @@
-import { Logo } from '@quitmate/ui';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import { Logo } from "@quitmate/ui";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import { Header } from '@/components/layout/header';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Header } from "@/components/layout/header";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-import { getCategoryDisplayName } from '@/lib/categories';
-import { createClient } from '@/lib/supabase/server';
+import { getCategoryDisplayName } from "@/lib/categories";
+import { createClient } from "@/lib/supabase/server";
 import {
   fetchArticleById,
   fetchArticlePageStaticParams,
   fetchCommentsByArticleId,
   checkArticleIsLikedByMe,
-} from '@/features/articles/data/data';
+} from "@/features/articles/data/data";
 
-import { ArticleContent } from '@/features/articles/ui/article-content';
+import { ArticleContent } from "@/features/articles/ui/article-content";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -28,16 +28,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) {
     return {
-      title: 'Article not found',
+      title: "Article not found",
     };
   }
 
   const categoryDisplayName = getCategoryDisplayName(
-    article.habit_categories?.habit_category_name ?? 'General',
+    article.habit_categories?.habit_category_name ?? "General",
     article.custom_habit_name,
   );
 
-  const description = article.content.substring(0, 300) || 'Article detail page';
+  const description = article.content.substring(0, 300) || "Article detail page";
 
   return {
     title: `${article.title} | ${categoryDisplayName}`,
@@ -45,12 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
-      type: 'article',
+      type: "article",
       publishedTime: article.created_at,
       authors: [article.profiles.display_name],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: `${article.title} | ${article.profiles.display_name}`,
       description: description,
       creator: `@${article.profiles.user_name}`,
@@ -66,7 +66,7 @@ export async function generateStaticParams() {
     const articles = await fetchArticlePageStaticParams(10);
 
     if (!Array.isArray(articles) || articles.length === 0) {
-      console.log('No articles found or invalid data returned');
+      console.log("No articles found or invalid data returned");
       return [];
     }
 
@@ -75,7 +75,7 @@ export async function generateStaticParams() {
       user_name: article.profiles.user_name,
     }));
   } catch (error) {
-    console.error('Error in generateStaticParams:', error);
+    console.error("Error in generateStaticParams:", error);
     return [];
   }
 }
@@ -116,4 +116,3 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     </>
   );
 }
-

@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { ArticleLikeIcon, CommentIcon, DefaultAvatar } from '@quitmate/ui';
-import { format } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import { toZonedTime } from 'date-fns-tz';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useTransition } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { ArticleLikeIcon, CommentIcon, DefaultAvatar } from "@quitmate/ui";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { toZonedTime } from "date-fns-tz";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-import { ArticleTileDto } from '@/lib/types';
+import { ArticleTileDto } from "@/lib/types";
 
-import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
-import { CategoryTag } from '@/features/common/ui/category-tag';
-import { toggleArticleLike } from '@/features/articles/data/actions';
+import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
+import { CategoryTag } from "@/features/common/ui/category-tag";
+import { toggleArticleLike } from "@/features/articles/data/actions";
 
 type Props = {
   article: ArticleTileDto;
@@ -48,12 +48,12 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
     });
   };
   // Convert article date to Tokyo time
-  const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
+  const articleDate = toZonedTime(new Date(article.created_at), "Asia/Tokyo");
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
 
   // If current year, don't display year; otherwise include year
-  const dateFormat = articleYear === currentYear ? 'M/d H:mm' : 'yyyy/M/d H:mm';
+  const dateFormat = articleYear === currentYear ? "M/d H:mm" : "yyyy/M/d H:mm";
   const createdAt = format(articleDate, dateFormat, {
     locale: enUS,
   });
@@ -72,7 +72,7 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
           {/* Category tag and date */}
           <div className="mb-1 flex items-center justify-between">
             <CategoryTag
-              category={article.habit_categories?.habit_category_name ?? 'General'}
+              category={article.habit_categories?.habit_category_name ?? "General"}
               customHabitName={article.custom_habit_name}
             />
             <span className="text-xs text-gray-500 dark:text-gray-400">{createdAt}</span>
@@ -80,7 +80,7 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
         </Link>
 
         {/* Article description (Markdown) */}
-        <div className="prose-sm mb-4 line-clamp-3 text-gray-700 dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 dark:text-gray-300">
+        <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-4 line-clamp-3 text-gray-700 dark:text-gray-300">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -116,9 +116,9 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
                 className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
               >
                 <ArticleLikeIcon
-                  className={`size-4 transition-colors ${isLiked ? 'fill-green-600 text-green-600' : ''}`}
+                  className={`size-4 transition-colors ${isLiked ? "fill-green-600 text-green-600" : ""}`}
                 />
-                <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
+                <span className={`text-sm ${isLiked ? "text-green-600" : ""}`}>{likesCount}</span>
               </button>
             ) : (
               <LoginPromptDialog className="cursor-pointer" type="article">
@@ -156,4 +156,3 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
     </div>
   );
 }
-

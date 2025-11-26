@@ -9,9 +9,7 @@ type OnboardingPageProps = {
   searchParams?: Promise<{ next?: string }>;
 };
 
-export default async function OnboardingPage({
-  searchParams,
-}: OnboardingPageProps) {
+export default async function OnboardingPage({ searchParams }: OnboardingPageProps) {
   const supabase = await createClient();
   const t = await getTranslations("onboarding");
   const {
@@ -24,10 +22,7 @@ export default async function OnboardingPage({
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const nextParam = resolvedSearchParams?.next;
-  const nextPath =
-    nextParam && nextParam.startsWith("/")
-      ? nextParam
-      : "/stories/habits/alcohol";
+  const nextPath = nextParam && nextParam.startsWith("/") ? nextParam : "/stories/habits/alcohol";
 
   const { data: profile } = await supabase
     .from("profiles")
@@ -40,28 +35,22 @@ export default async function OnboardingPage({
   }
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-muted/30 px-4 py-10">
+    <div className="bg-muted/30 flex min-h-svh items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         <div className="flex justify-end pb-4">
           <LocaleSwitcher />
         </div>
-        <div className="rounded-2xl border border-border bg-background/90 p-6 shadow-2xl">
+        <div className="border-border bg-background/90 rounded-2xl border p-6 shadow-2xl">
           <div className="mb-8 space-y-3 text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+            <span className="text-primary text-xs font-semibold uppercase tracking-[0.3em]">
               {t("hero.badge")}
             </span>
-            <h1 className="text-2xl font-semibold text-foreground">
-              {t("hero.title")}
-            </h1>
-            <p className="text-sm text-muted-foreground">{t("hero.subtitle")}</p>
+            <h1 className="text-foreground text-2xl font-semibold">{t("hero.title")}</h1>
+            <p className="text-muted-foreground text-sm">{t("hero.subtitle")}</p>
           </div>
-          <ProfileOnboardingForm
-            next={nextPath}
-            defaultUserName={generateUserName(user.id)}
-          />
+          <ProfileOnboardingForm next={nextPath} defaultUserName={generateUserName(user.id)} />
         </div>
       </div>
     </div>
   );
 }
-

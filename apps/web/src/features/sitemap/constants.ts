@@ -4,4 +4,3 @@ export const SITEMAP_LIMITS = {
   STORIES: 5000,
   ARTICLES: 10000,
 };
-

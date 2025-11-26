@@ -23,10 +23,7 @@ import {
   completeProfileOnboarding,
   type OnboardingErrorCode,
 } from "@/features/profiles/data/actions";
-import {
-  isValidUserName,
-  normalizeUserNameInput,
-} from "@/features/profiles/lib/user-name";
+import { isValidUserName, normalizeUserNameInput } from "@/features/profiles/lib/user-name";
 import { createClient } from "@/lib/supabase/client";
 
 type ProfileOnboardingFormProps = {
@@ -42,10 +39,7 @@ const steps = [
 
 type StepKey = (typeof steps)[number]["key"];
 
-export function ProfileOnboardingForm({
-  next,
-  defaultUserName,
-}: ProfileOnboardingFormProps) {
+export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardingFormProps) {
   const router = useRouter();
   const t = useTranslations("onboarding");
   const totalSteps = steps.length;
@@ -74,7 +68,7 @@ export function ProfileOnboardingForm({
 
   const activeStep = useMemo(
     () => steps.find((step) => step.id === currentStep) ?? steps[0],
-    [currentStep]
+    [currentStep],
   );
 
   const progress = useMemo(() => {
@@ -107,7 +101,7 @@ export function ProfileOnboardingForm({
       }
       return { value: trimmed, error: null };
     },
-    [t]
+    [t],
   );
 
   const validateUserNameInput = useCallback(
@@ -121,7 +115,7 @@ export function ProfileOnboardingForm({
       }
       return { value: normalized, error: null };
     },
-    [t]
+    [t],
   );
 
   const handleAvatarPreview = (event: ChangeEvent<HTMLInputElement>) => {
@@ -182,16 +176,14 @@ export function ProfileOnboardingForm({
     event.preventDefault();
     if (!isFinalStep || isSubmitting) return;
 
-    const { value: safeDisplayName, error: displayError } =
-      validateDisplayName(displayName);
+    const { value: safeDisplayName, error: displayError } = validateDisplayName(displayName);
     if (displayError || !safeDisplayName) {
       setCurrentStep(1);
       setDisplayNameError(displayError);
       return;
     }
 
-    const { value: safeUserName, error: userNameValidationError } =
-      validateUserNameInput(userName);
+    const { value: safeUserName, error: userNameValidationError } = validateUserNameInput(userName);
 
     if (userNameValidationError || !safeUserName) {
       setCurrentStep(2);
@@ -232,21 +224,21 @@ export function ProfileOnboardingForm({
 
   return (
     <form
-      className="space-y-8 rounded-2xl border border-border bg-card/90 p-6 shadow-lg"
+      className="border-border bg-card/90 space-y-8 rounded-2xl border p-6 shadow-lg"
       encType="multipart/form-data"
       onSubmit={handleSubmit}
     >
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+        <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.3em]">
           {progressLabel}
         </p>
-        <div className="h-1.5 rounded-full bg-muted/60">
+        <div className="bg-muted/60 h-1.5 rounded-full">
           <div
             className="h-full rounded-full bg-gradient-to-r from-[#0C4F44] via-[#0E6B4A] to-[#12A150] transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-sm text-muted-foreground">{stepDescription}</p>
+        <p className="text-muted-foreground text-sm">{stepDescription}</p>
       </div>
 
       {currentStep === 1 && (
@@ -266,24 +258,16 @@ export function ProfileOnboardingForm({
             disabled={isSubmitting}
             required
           />
-          <p className="text-xs text-muted-foreground">
-            {t("steps.nickname.helper")}
-          </p>
-          {displayNameError && (
-            <p className="text-sm text-destructive">{displayNameError}</p>
-          )}
+          <p className="text-muted-foreground text-xs">{t("steps.nickname.helper")}</p>
+          {displayNameError && <p className="text-destructive text-sm">{displayNameError}</p>}
           <div className="space-y-3 pt-2">
-            <Button
-              type="button"
-              className="w-full"
-              onClick={handleDisplayNameNext}
-            >
+            <Button type="button" className="w-full" onClick={handleDisplayNameNext}>
               {t("buttons.next")}
             </Button>
             <button
               type="button"
               onClick={handleBackToTop}
-              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              className="text-muted-foreground hover:text-foreground mx-auto block text-xs font-medium underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isLoggingOut}
             >
               {t("buttons.backToTop")}
@@ -309,12 +293,8 @@ export function ProfileOnboardingForm({
               disabled={isSubmitting || isCheckingUserName}
               required
             />
-            <p className="text-xs text-muted-foreground">
-              {t("steps.username.helper")}
-            </p>
-            {userNameError && (
-              <p className="text-sm text-destructive">{userNameError}</p>
-            )}
+            <p className="text-muted-foreground text-xs">{t("steps.username.helper")}</p>
+            {userNameError && <p className="text-destructive text-sm">{userNameError}</p>}
           </div>
           <div className="space-y-3 pt-2">
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -346,7 +326,7 @@ export function ProfileOnboardingForm({
             <button
               type="button"
               onClick={handleBackToTop}
-              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              className="text-muted-foreground hover:text-foreground mx-auto block text-xs font-medium underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isLoggingOut}
             >
               {t("buttons.backToTop")}
@@ -361,7 +341,7 @@ export function ProfileOnboardingForm({
             <button
               type="button"
               onClick={triggerAvatarSelect}
-              className="group relative flex size-36 items-center justify-center rounded-full border border-dashed border-muted-foreground/40 bg-muted/40 transition hover:border-primary hover:bg-primary/5"
+              className="border-muted-foreground/40 bg-muted/40 hover:border-primary hover:bg-primary/5 group relative flex size-36 items-center justify-center rounded-full border border-dashed transition"
             >
               {previewUrl ? (
                 <Image
@@ -372,15 +352,13 @@ export function ProfileOnboardingForm({
                   className="size-36 rounded-full object-cover"
                 />
               ) : (
-                <div className="flex flex-col items-center text-muted-foreground">
+                <div className="text-muted-foreground flex flex-col items-center">
                   <Camera className="mb-1 size-8" />
-                  <span className="text-xs font-medium">
-                    {t("steps.avatar.button")}
-                  </span>
+                  <span className="text-xs font-medium">{t("steps.avatar.button")}</span>
                 </div>
               )}
               {previewUrl && (
-                <span className="absolute -bottom-2 right-1 flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow">
+                <span className="bg-primary text-primary-foreground absolute -bottom-2 right-1 flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow">
                   <Check className="size-3" />
                   {t("steps.avatar.selectedBadge")}
                 </span>
@@ -388,11 +366,9 @@ export function ProfileOnboardingForm({
             </button>
             <div className="text-center">
               <p className="text-sm font-medium">{t("steps.avatar.label")}</p>
-              <p className="text-xs text-muted-foreground">
-                {t("steps.avatar.helper")}
-              </p>
+              <p className="text-muted-foreground text-xs">{t("steps.avatar.helper")}</p>
               {selectedFileName && (
-                <p className="mt-1 text-xs text-foreground">{selectedFileName}</p>
+                <p className="text-foreground mt-1 text-xs">{selectedFileName}</p>
               )}
             </div>
             <Input
@@ -417,11 +393,7 @@ export function ProfileOnboardingForm({
               >
                 {t("buttons.back")}
               </Button>
-              <Button
-                type="submit"
-                className="w-full sm:flex-[1.5]"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="w-full sm:flex-[1.5]" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader2 className="size-4 animate-spin" />
@@ -435,7 +407,7 @@ export function ProfileOnboardingForm({
             <button
               type="button"
               onClick={handleBackToTop}
-              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              className="text-muted-foreground hover:text-foreground mx-auto block text-xs font-medium underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isLoggingOut}
             >
               {t("buttons.backToTop")}
@@ -444,10 +416,7 @@ export function ProfileOnboardingForm({
         </>
       )}
 
-      {generalError && (
-        <p className="text-sm text-destructive">{generalError}</p>
-      )}
+      {generalError && <p className="text-destructive text-sm">{generalError}</p>}
     </form>
   );
 }
-

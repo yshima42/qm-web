@@ -1,23 +1,23 @@
-import { AppDownloadSection, Logo } from '@quitmate/ui';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import { AppDownloadSection, Logo } from "@quitmate/ui";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import { Header } from '@/components/layout/header';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Header } from "@/components/layout/header";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
 import {
   fetchStoryById,
   fetchCommentsByStoryId,
   fetchStoryDetailPageStaticParams,
   checkIsLikedByMe,
-} from '@/features/stories/data/data';
+} from "@/features/stories/data/data";
 
-import { CommentsSection } from '@/features/stories/ui/comments-section';
-import { DisabledCommentNotice } from '@/features/stories/ui/disabled-comment-notice';
-import { StoryTile } from '@/features/stories/ui/story-tile';
+import { CommentsSection } from "@/features/stories/ui/comments-section";
+import { DisabledCommentNotice } from "@/features/stories/ui/disabled-comment-notice";
+import { StoryTile } from "@/features/stories/ui/story-tile";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!story) {
     return {
-      title: 'Story not found',
+      title: "Story not found",
     };
   }
 
   // ストーリー内容から短い抜粋を作成
-  const description = story.content.substring(0, 300) || 'Story detail page';
+  const description = story.content.substring(0, 300) || "Story detail page";
 
   // プロフィール画像URLを取得（存在する場合）
   const profileImageUrl = story.profiles.avatar_url ?? null;
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: story.profiles.display_name,
       description: description,
-      type: 'article',
+      type: "article",
       // プロフィール画像があれば小さいサイズで表示
       ...(profileImageUrl && {
         images: [
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [story.profiles.display_name],
     },
     twitter: {
-      card: 'summary', // summaryにすることで小さめに表示
+      card: "summary", // summaryにすることで小さめに表示
       title: story.profiles.display_name,
       description: description,
       ...(profileImageUrl && { images: [profileImageUrl] }),
@@ -85,7 +85,7 @@ export async function generateStaticParams() {
 
     // storiesがnullまたは空配列の場合は空配列を返す
     if (!Array.isArray(stories) || stories.length === 0) {
-      console.log('No stories found or invalid data returned');
+      console.log("No stories found or invalid data returned");
       return [];
     }
 
@@ -95,7 +95,7 @@ export async function generateStaticParams() {
       user_name: story.profiles.user_name,
     }));
   } catch (error) {
-    console.error('Error in generateStaticParams:', error);
+    console.error("Error in generateStaticParams:", error);
     return [];
   }
 }
@@ -131,7 +131,7 @@ export default async function Page({
 
   // コメント可否判定（自分の投稿またはコメント有効の場合）
   const isMyStory = user?.id === story.user_id;
-  const canComment = story.comment_setting === 'enabled' || isMyStory;
+  const canComment = story.comment_setting === "enabled" || isMyStory;
 
   return (
     <>
@@ -146,7 +146,7 @@ export default async function Page({
           />
 
           {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
-          {story.comment_setting === 'disabled' && !isMyStory && <DisabledCommentNotice />}
+          {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
 
           {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
           <CommentsSection

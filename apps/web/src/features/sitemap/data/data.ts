@@ -32,10 +32,7 @@ export async function fetchArticlesXml({ limit }: FetchXmlParams = {}) {
 
     if (!result.data || result.data.length === 0) break;
 
-    allArticles = [
-      ...allArticles,
-      ...(result.data as unknown as ArticleXmlDto[]),
-    ];
+    allArticles = [...allArticles, ...(result.data as unknown as ArticleXmlDto[])];
 
     if (limit && allArticles.length >= limit) {
       allArticles = allArticles.slice(0, limit);
@@ -66,8 +63,7 @@ export async function fetchStoriesXml({ limit }: FetchXmlParams = {}) {
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order("created_at", { ascending: false });
 
-    if (!result.data || !Array.isArray(result.data) || result.data.length === 0)
-      break;
+    if (!result.data || !Array.isArray(result.data) || result.data.length === 0) break;
 
     allStories = [...allStories, ...(result.data as unknown as StoryXmlDto[])];
 
@@ -101,10 +97,7 @@ export async function fetchProfilesXml({ limit }: FetchXmlParams = {}) {
 
     if (!result.data || result.data.length === 0) break;
 
-    allProfiles = [
-      ...allProfiles,
-      ...(result.data as unknown as ProfileXmlDto[]),
-    ];
+    allProfiles = [...allProfiles, ...(result.data as unknown as ProfileXmlDto[])];
 
     // Exit loop if specified limit is reached
     if (limit && allProfiles.length >= limit) {

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { StoryPostModal } from '@/features/stories/ui/story-post-modal';
-import { HabitTileDto } from '@/lib/types';
+import { useEffect, useState } from "react";
+import { StoryPostModal } from "@/features/stories/ui/story-post-modal";
+import { HabitTileDto } from "@/lib/types";
 
 type StoryModalProviderProps = {
   habits: HabitTileDto[];
@@ -17,21 +17,17 @@ export function StoryModalProvider({ habits, children }: StoryModalProviderProps
       setIsModalOpen(true);
     };
 
-    window.addEventListener('openStoryModal', handleOpenModal);
+    window.addEventListener("openStoryModal", handleOpenModal);
 
     return () => {
-      window.removeEventListener('openStoryModal', handleOpenModal);
+      window.removeEventListener("openStoryModal", handleOpenModal);
     };
   }, []);
 
   return (
     <>
       {children}
-      <StoryPostModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
-        habits={habits} 
-      />
+      <StoryPostModal open={isModalOpen} onOpenChange={setIsModalOpen} habits={habits} />
     </>
   );
 }

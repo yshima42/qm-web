@@ -1,7 +1,7 @@
-import clsx from 'clsx';
+import clsx from "clsx";
 
-import { AuthButton } from '@/components/auth-button';
-import LocaleSwitcher from '@/components/ui/locale-switcher';
+import { AuthButton } from "@/components/auth-button";
+import LocaleSwitcher from "@/components/ui/locale-switcher";
 
 type HeaderProps = {
   title?: string;
@@ -16,15 +16,9 @@ type HeaderProps = {
   icon?: React.ReactNode;
 };
 
-export function Header({
-  title,
-  titleElement,
-  rightElement,
-  hideTitle,
-  icon,
-}: HeaderProps) {
+export function Header({ title, titleElement, rightElement, hideTitle, icon }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
+    <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm">
       <div className="relative flex h-14 items-center justify-between px-4">
         <div className="w-24" />
 
@@ -33,8 +27,8 @@ export function Header({
             <>
               <div
                 className={clsx(
-                  hideTitle?.mobile ? 'hidden' : '',
-                  hideTitle?.desktop ? 'md:hidden' : 'md:block',
+                  hideTitle?.mobile ? "hidden" : "",
+                  hideTitle?.desktop ? "md:hidden" : "md:block",
                 )}
               >
                 {titleElement}
@@ -42,9 +36,9 @@ export function Header({
               {!titleElement && (
                 <h1
                   className={clsx(
-                    'whitespace-nowrap text-base font-medium',
-                    'md:hidden',
-                    hideTitle?.desktop ? 'hidden' : 'block',
+                    "whitespace-nowrap text-base font-medium",
+                    "md:hidden",
+                    hideTitle?.desktop ? "hidden" : "block",
                   )}
                 >
                   {title}
@@ -55,7 +49,7 @@ export function Header({
             <div className="flex items-center justify-center gap-2">
               {icon && <div className="text-foreground">{icon}</div>}
               <h1
-                className={`whitespace-nowrap text-base font-medium ${hideTitle?.mobile ? 'hidden md:block' : ''} ${hideTitle?.desktop ? 'md:hidden' : ''}`}
+                className={`whitespace-nowrap text-base font-medium ${hideTitle?.mobile ? "hidden md:block" : ""} ${hideTitle?.desktop ? "md:hidden" : ""}`}
               >
                 {title}
               </h1>
@@ -72,4 +66,3 @@ export function Header({
     </header>
   );
 }
-

@@ -1,9 +1,9 @@
-import { ArticleTileDto } from '@/lib/types';
-import { createClient } from '@/lib/supabase/server';
+import { ArticleTileDto } from "@/lib/types";
+import { createClient } from "@/lib/supabase/server";
 
-import { enrichArticlesWithLikeStatus } from '@/features/articles/data/data';
+import { enrichArticlesWithLikeStatus } from "@/features/articles/data/data";
 
-import { ArticleTile } from './article-tile';
+import { ArticleTile } from "./article-tile";
 
 type ArticleListProps = {
   fetchArticlesFunc: () => Promise<ArticleTileDto[]>;
@@ -31,4 +31,3 @@ export async function ArticleList({ fetchArticlesFunc }: ArticleListProps) {
     </div>
   );
 }
-

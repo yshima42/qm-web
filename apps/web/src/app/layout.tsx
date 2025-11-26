@@ -1,76 +1,76 @@
-import { GoogleAnalytics } from '@quitmate/analytics';
-import { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import { NextIntlClientProvider } from 'next-intl';
-import { ThemeProvider } from 'next-themes';
+import { GoogleAnalytics } from "@quitmate/analytics";
+import { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { ThemeProvider } from "next-themes";
 
-import { Footer } from '@/components/layout/footer';
-import { SmartBanner } from '@/components/ui/smart-banner';
+import { Footer } from "@/components/layout/footer";
+import { SmartBanner } from "@/components/ui/smart-banner";
 
-import { getLocale } from 'next-intl/server';
+import { getLocale } from "next-intl/server";
 
-import './globals.css';
+import "./globals.css";
 
 const geistSans = Geist({
-  display: 'swap',
-  subsets: ['latin'],
+  display: "swap",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'QuitMate（クイットメイト） | 依存症克服SNS',
-    template: '%s | QuitMate',
+    default: "QuitMate（クイットメイト） | 依存症克服SNS",
+    template: "%s | QuitMate",
   },
   description:
-    '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
-  keywords: ['依存症', '禁酒', '禁ギャンブル', '禁煙', '禁欲'],
-  applicationName: 'QuitMate（クイットメイト）',
-  creator: 'QuitMate（クイットメイト）',
-  publisher: 'QuitMate（クイットメイト）',
+    "依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。",
+  keywords: ["依存症", "禁酒", "禁ギャンブル", "禁煙", "禁欲"],
+  applicationName: "QuitMate（クイットメイト）",
+  creator: "QuitMate（クイットメイト）",
+  publisher: "QuitMate（クイットメイト）",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://quitmate.app'),
+  metadataBase: new URL("https://quitmate.app"),
   alternates: {
-    canonical: '/',
+    canonical: "/",
     languages: {
-      'ja-JP': '/ja',
+      "ja-JP": "/ja",
     },
   },
   openGraph: {
     title: {
-      default: 'QuitMate（クイットメイト） | 依存症克服SNS',
-      template: '%s | QuitMate',
+      default: "QuitMate（クイットメイト） | 依存症克服SNS",
+      template: "%s | QuitMate",
     },
     description:
-      '依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。',
-    url: 'https://quitmate.app',
-    siteName: 'QuitMate（クイットメイト）',
+      "依存症克服のための、禁酒、禁ギャンブル、禁煙、禁欲などをサポートするSNSアプリです。",
+    url: "https://quitmate.app",
+    siteName: "QuitMate（クイットメイト）",
     images: [
       {
-        url: '/images/ogp.png',
+        url: "/images/ogp.png",
         width: 1200,
         height: 630,
-        alt: 'QuitMate OGP Image',
+        alt: "QuitMate OGP Image",
       },
     ],
-    locale: 'ja_JP',
-    type: 'website',
+    locale: "ja_JP",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: {
-      default: 'QuitMate（クイットメイト）',
-      template: '%s | QuitMate',
+      default: "QuitMate（クイットメイト）",
+      template: "%s | QuitMate",
     },
-    description: '依存症克服SNS',
-    images: ['/images/ogp.png'],
-    creator: '@QuitMate_JP',
+    description: "依存症克服SNS",
+    images: ["/images/ogp.png"],
+    creator: "@QuitMate_JP",
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
 };
 
@@ -79,7 +79,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
 
   const locale = await getLocale();
 

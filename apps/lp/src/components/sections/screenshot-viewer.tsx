@@ -13,10 +13,7 @@ type ScreenshotViewerProps = {
   className?: string;
 };
 
-export const ScreenshotViewer = ({
-  screenshots,
-  className = "",
-}: ScreenshotViewerProps) => {
+export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotViewerProps) => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
@@ -50,9 +47,7 @@ export const ScreenshotViewer = ({
   const prevScreenshot = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentScreenshot(
-      (prev) => (prev - 1 + screenshots.length) % screenshots.length,
-    );
+    setCurrentScreenshot((prev) => (prev - 1 + screenshots.length) % screenshots.length);
     setTimeout(() => {
       setIsAnimating(false);
     }, 300);

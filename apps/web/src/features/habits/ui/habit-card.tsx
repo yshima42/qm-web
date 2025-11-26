@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from '@quitmate/ui';
-import Link from 'next/link';
-import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@quitmate/ui";
+import Link from "next/link";
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 
-import { CATEGORY_ICONS, getCategoryDisplayName } from '@/lib/categories';
-import { HabitTileDto } from '@/lib/types';
-import { deleteHabit } from '@/features/habits/data/actions';
+import { CATEGORY_ICONS, getCategoryDisplayName } from "@/lib/categories";
+import { HabitTileDto } from "@/lib/types";
+import { deleteHabit } from "@/features/habits/data/actions";
 
-import { HabitResetButton } from './habit-reset-button';
+import { HabitResetButton } from "./habit-reset-button";
 
 type Props = {
   habit: HabitTileDto;
@@ -62,7 +62,7 @@ export function HabitCard({ habit }: Props) {
   const currentTrial = useMemo(() => getCurrentTrial(habit), [habit]);
   const elapsedTime = useMemo(() => {
     if (!currentTrial) {
-      return '継続中なし';
+      return "継続中なし";
     }
     return formatElapsedTime(currentTrial.started_at);
   }, [currentTrial]);
@@ -95,12 +95,12 @@ export function HabitCard({ habit }: Props) {
       <CardContent>
         <div className="space-y-2">
           <div>
-            <span className="text-sm text-muted-foreground">継続時間: </span>
+            <span className="text-muted-foreground text-sm">継続時間: </span>
             <span className="text-lg font-semibold">{elapsedTime}</span>
           </div>
           {currentTrial && (
-            <div className="text-xs text-muted-foreground">
-              開始日時: {new Date(currentTrial.started_at).toLocaleString('ja-JP')}
+            <div className="text-muted-foreground text-xs">
+              開始日時: {new Date(currentTrial.started_at).toLocaleString("ja-JP")}
             </div>
           )}
         </div>
@@ -127,4 +127,3 @@ export function HabitCard({ habit }: Props) {
     </Card>
   );
 }
-

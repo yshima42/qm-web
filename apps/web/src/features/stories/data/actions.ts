@@ -1,25 +1,25 @@
-'use server';
+"use server";
 
-import { differenceInDays } from 'date-fns';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { differenceInDays } from "date-fns";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
-import { MAX_CHARACTERS } from '@/features/common/constants';
-import { fetchHabits } from '@/features/habits/data/data';
+import { MAX_CHARACTERS } from "@/features/common/constants";
+import { fetchHabits } from "@/features/habits/data/data";
 
 export async function createStory(formData: FormData) {
-  const content = formData.get('content') as string;
-  const commentSetting = (formData.get('comment_setting') as string) || 'enabled';
+  const content = formData.get("content") as string;
+  const commentSetting = (formData.get("comment_setting") as string) || "enabled";
 
-  if (!content || content.trim() === '') {
-    throw new Error('Content is required');
+  if (!content || content.trim() === "") {
+    throw new Error("Content is required");
   }
 
   // comment_settingのバリデーション
-  if (commentSetting !== 'enabled' && commentSetting !== 'disabled') {
-    throw new Error('Invalid comment setting');
+  if (commentSetting !== "enabled" && commentSetting !== "disabled") {
+    throw new Error("Invalid comment setting");
   }
 
   const supabase = await createClient();
@@ -28,10 +28,10 @@ export async function createStory(formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    throw new Error('Unauthorized');
+    throw new Error("Unauthorized");
   }
 
-  const habitId = formData.get('habit_id') as string;
+  const habitId = formData.get("habit_id") as string;
 
   // Fetch user's habits to find the active one
   const habits = await fetchHabits(user.id);
@@ -62,14 +62,14 @@ export async function createStory(formData: FormData) {
     // The DB requires habit_category_id and trial_started_at.
     // We could try to find ANY habit and use its latest trial (even if ended), or throw error.
     // Let's throw an error for now as this is a "QuitMate" app.
-    throw new Error('No active habit found. Please start a habit first.');
+    throw new Error("No active habit found. Please start a habit first.");
   }
 
   const trialStartedAt = new Date(activeTrial.started_at);
   const now = new Date();
   const trialElapsedDays = differenceInDays(now, trialStartedAt);
 
-  const { error } = await supabase.from('stories').insert({
+  const { error } = await supabase.from("stories").insert({
     content: content.trim(),
     user_id: user.id,
     habit_category_id: activeHabit.habit_category_id,
@@ -81,15 +81,15 @@ export async function createStory(formData: FormData) {
   });
 
   if (error) {
-    console.error('Error creating story:', error);
-    throw new Error('Failed to create story');
+    console.error("Error creating story:", error);
+    throw new Error("Failed to create story");
   }
 
   // Get the habit category name for redirect
   const categoryName = activeHabit.habit_categories?.habit_category_name;
   const categoryPath = categoryName
-    ? `/stories/habits/${categoryName.toLowerCase().replace(/\s+/g, '-')}`
-    : '/stories';
+    ? `/stories/habits/${categoryName.toLowerCase().replace(/\s+/g, "-")}`
+    : "/stories";
 
   revalidatePath(categoryPath);
   redirect(categoryPath);
@@ -102,12 +102,12 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { success: false, error: 'Unauthorized' };
+    return { success: false, error: "Unauthorized" };
   }
 
   if (shouldLike) {
     // いいねを追加
-    const { error } = await supabase.from('likes').insert({ story_id: storyId, user_id: user.id });
+    const { error } = await supabase.from("likes").insert({ story_id: storyId, user_id: user.id });
 
     if (error) {
       return { success: false, error: error.message };
@@ -115,7 +115,7 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
   } else {
     // いいねを削除
     const { error } = await supabase
-      .from('likes')
+      .from("likes")
       .delete()
       .match({ story_id: storyId, user_id: user.id });
 
@@ -124,21 +124,21 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
     }
   }
 
-  revalidatePath('/');
+  revalidatePath("/");
   return { success: true };
 }
 
 export async function createComment(storyId: string, content: string, parentCommentId?: string) {
   // バリデーション
-  if (!content || content.trim() === '') {
-    return { success: false, error: 'Content is required' };
+  if (!content || content.trim() === "") {
+    return { success: false, error: "Content is required" };
   }
 
   const trimmedContent = content.trim();
 
   // 文字数制限
   if (trimmedContent.length > MAX_CHARACTERS) {
-    return { success: false, error: 'Content is too long' };
+    return { success: false, error: "Content is too long" };
   }
 
   const supabase = await createClient();
@@ -147,11 +147,11 @@ export async function createComment(storyId: string, content: string, parentComm
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { success: false, error: 'Unauthorized' };
+    return { success: false, error: "Unauthorized" };
   }
 
   // コメントをDBに挿入
-  const { error } = await supabase.from('comments').insert({
+  const { error } = await supabase.from("comments").insert({
     story_id: storyId,
     user_id: user.id,
     content: trimmedContent,
@@ -159,11 +159,11 @@ export async function createComment(storyId: string, content: string, parentComm
   });
 
   if (error) {
-    console.error('Error creating comment:', error);
-    return { success: false, error: 'Failed to create comment' };
+    console.error("Error creating comment:", error);
+    return { success: false, error: "Failed to create comment" };
   }
 
   // ストーリー詳細ページを再検証
-  revalidatePath('/');
+  revalidatePath("/");
   return { success: true };
 }

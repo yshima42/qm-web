@@ -1,12 +1,12 @@
-import { Logo } from '@quitmate/ui';
-import { Suspense } from 'react';
+import { Logo } from "@quitmate/ui";
+import { Suspense } from "react";
 
-import { Header } from '@/components/layout/header';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Header } from "@/components/layout/header";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-import { fetchArticles } from '@/features/articles/data/data';
+import { fetchArticles } from "@/features/articles/data/data";
 
-import { ArticleList } from '@/features/articles/ui/article-list';
+import { ArticleList } from "@/features/articles/ui/article-list";
 
 export default function Page() {
   return (
@@ -27,4 +27,3 @@ export default function Page() {
     </>
   );
 }
-

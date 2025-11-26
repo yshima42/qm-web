@@ -1,10 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import {
-  fetchArticlesXml,
-  fetchProfilesXml,
-  fetchStoriesXml,
-} from "@/features/sitemap/data/data";
+import { fetchArticlesXml, fetchProfilesXml, fetchStoriesXml } from "@/features/sitemap/data/data";
 import { HabitCategoryName } from "@/lib/types";
 
 import { SITEMAP_LIMITS } from "@/features/sitemap/constants";

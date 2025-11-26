@@ -1,15 +1,15 @@
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from "next/og";
 
-import { fetchArticleById } from '@/features/articles/data/data';
+import { fetchArticleById } from "@/features/articles/data/data";
 
 // Image metadata
-export const alt = 'About Acme';
+export const alt = "About Acme";
 export const size = {
   width: 1200,
   height: 630,
 };
 
-export const contentType = 'image/png';
+export const contentType = "image/png";
 
 // Image generation
 export default async function Image({ params }: { params: { id: string } }) {
@@ -22,36 +22,36 @@ export default async function Image({ params }: { params: { id: string } }) {
       // ImageResponse JSX element
       <div
         style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(to right, #90D982, #2E6C28)', // より明るい緑から暗い緑へ
-          padding: '48px', // 枠線をより太く
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(to right, #90D982, #2E6C28)", // より明るい緑から暗い緑へ
+          padding: "48px", // 枠線をより太く
         }}
       >
         <div
           style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            background: 'white', // 背景を白に変更
-            padding: '48px 60px',
-            borderRadius: '24px', // 内側の角も丸く
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            background: "white", // 背景を白に変更
+            padding: "48px 60px",
+            borderRadius: "24px", // 内側の角も丸く
           }}
         >
           {/* タイトル部分 - 左上に配置 */}
           <div
             style={{
-              fontSize: '64px',
-              fontWeight: 'bolder',
-              color: '#111827', // テキストを濃い色に
+              fontSize: "64px",
+              fontWeight: "bolder",
+              color: "#111827", // テキストを濃い色に
               lineHeight: 1.2,
-              maxWidth: '80%',
+              maxWidth: "80%",
             }}
           >
             {article?.title}
@@ -60,32 +60,32 @@ export default async function Image({ params }: { params: { id: string } }) {
           {/* 下部の情報エリア - 名前とQuitMate */}
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-              width: '100%',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              width: "100%",
             }}
           >
             {/* 左下に名前 */}
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
               }}
             >
               {userAvatar && (
                 <img
                   src={userAvatar}
                   alt="User Avatar"
-                  style={{ width: '56px', height: '56px', borderRadius: '50%' }}
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
                 />
               )}
               <div
                 style={{
-                  fontSize: '46px',
-                  fontWeight: 'bold',
-                  color: '#374151', // ダークグレイ
+                  fontSize: "46px",
+                  fontWeight: "bold",
+                  color: "#374151", // ダークグレイ
                 }}
               >
                 {displayName}
@@ -96,7 +96,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             <img
               src="https://www.quitmate.app/images/text-logo.png"
               alt="QuitMate"
-              style={{ height: '56px' }}
+              style={{ height: "56px" }}
             />
             {/* <div
               style={{
@@ -119,4 +119,3 @@ export default async function Image({ params }: { params: { id: string } }) {
     },
   );
 }
-

@@ -11,10 +11,7 @@ import {
 import Link from "next/link";
 import { SocialLoginButtons } from "@/components/social-login-buttons";
 
-export function SignUpForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>

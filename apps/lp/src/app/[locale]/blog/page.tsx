@@ -19,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL(
-      `https://about.quitmate.app/${tConfig("language-code")}`,
-    ),
+    metadataBase: new URL(`https://about.quitmate.app/${tConfig("language-code")}`),
   };
 }
 
@@ -67,9 +65,7 @@ export default function BlogPage() {
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            <h3 className="mt-2 text-lg font-medium text-gray-900">
-              {t("no-posts")}
-            </h3>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">{t("no-posts")}</h3>
             <p className="mt-1 text-gray-500">{t("content-preparing")}</p>
           </div>
         ) : (
@@ -112,11 +108,7 @@ export default function BlogPage() {
                     <div className="order-last flex flex-col justify-between p-6 sm:p-8 lg:w-1/2 lg:p-12">
                       <div>
                         <div className="mb-4 flex items-center text-sm font-medium text-green-700">
-                          <svg
-                            className="mr-1.5 size-4"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
+                          <svg className="mr-1.5 size-4" fill="currentColor" viewBox="0 0 20 20">
                             <path
                               fillRule="evenodd"
                               d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
@@ -124,9 +116,7 @@ export default function BlogPage() {
                             />
                           </svg>
                           {new Date(posts[0].date).toLocaleDateString(
-                            tConfig("language-code") === "ja"
-                              ? "ja-JP"
-                              : "en-US",
+                            tConfig("language-code") === "ja" ? "ja-JP" : "en-US",
                             {
                               year: "numeric",
                               month: "long",
@@ -144,11 +134,7 @@ export default function BlogPage() {
                       <div className="mt-8">
                         <span className="inline-flex items-center font-semibold text-green-700 transition-all duration-200 group-hover:text-green-800">
                           {t("read-more")}
-                          <svg
-                            className="ml-2 size-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
+                          <svg className="ml-2 size-5" viewBox="0 0 20 20" fill="currentColor">
                             <path
                               fillRule="evenodd"
                               d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
@@ -165,19 +151,14 @@ export default function BlogPage() {
 
             {/* 記事一覧 */}
             <div>
-              <h2 className="mb-8 text-2xl font-bold text-gray-900">
-                {t("latest-articles")}
-              </h2>
+              <h2 className="mb-8 text-2xl font-bold text-gray-900">{t("latest-articles")}</h2>
               <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {posts.slice(posts.length > 0 ? 1 : 0).map((post) => (
                   <div
                     key={post.slug}
                     className="flex flex-col overflow-hidden rounded-xl bg-white transition-all duration-300 hover:shadow-lg"
                   >
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="flex h-full flex-col"
-                    >
+                    <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
                       <div className="p-1">
                         <div className="h-40 overflow-hidden rounded-lg">
                           {post.coverImage ? (
@@ -209,11 +190,7 @@ export default function BlogPage() {
                       </div>
                       <div className="flex-1 p-6">
                         <div className="mb-2 flex items-center text-sm font-medium text-green-700">
-                          <svg
-                            className="mr-1.5 size-3.5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
+                          <svg className="mr-1.5 size-3.5" fill="currentColor" viewBox="0 0 20 20">
                             <path
                               fillRule="evenodd"
                               d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
@@ -221,9 +198,7 @@ export default function BlogPage() {
                             />
                           </svg>
                           {new Date(post.date).toLocaleDateString(
-                            tConfig("language-code") === "ja"
-                              ? "ja-JP"
-                              : "en-US",
+                            tConfig("language-code") === "ja" ? "ja-JP" : "en-US",
                             {
                               year: "numeric",
                               month: "long",
@@ -234,9 +209,7 @@ export default function BlogPage() {
                         <h3 className="mb-2 text-xl font-semibold text-gray-900 transition duration-300 group-hover:text-green-700">
                           {post.title}
                         </h3>
-                        <p className="mb-4 line-clamp-2 text-gray-600">
-                          {post.excerpt}
-                        </p>
+                        <p className="mb-4 line-clamp-2 text-gray-600">{post.excerpt}</p>
                         <div className="mt-auto flex items-center pt-4 font-medium text-green-700">
                           <span className="text-sm">{t("read-article")}</span>
                           <svg

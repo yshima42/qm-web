@@ -43,8 +43,7 @@ export function SocialLoginButtons({
 
       if (error) throw error;
     } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : "An error occurred";
+      const errorMessage = error instanceof Error ? error.message : "An error occurred";
       setError(errorMessage);
       setIsLoading(false);
       setLoadingProvider(null);
@@ -56,7 +55,7 @@ export function SocialLoginButtons({
 
   return (
     <>
-      {error && <p className="text-sm text-destructive-500">{error}</p>}
+      {error && <p className="text-destructive-500 text-sm">{error}</p>}
       <Button
         type="button"
         className="w-full"
@@ -80,4 +79,3 @@ export function SocialLoginButtons({
     </>
   );
 }
-

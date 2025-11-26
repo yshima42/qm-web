@@ -19,7 +19,7 @@ export default async function HabitsPage() {
   const habits = await fetchHabits(user.id);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <Header title="習慣" />
       <main className="container mx-auto px-4 py-6">
         <HabitsPageClient habits={habits} />
