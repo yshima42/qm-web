@@ -44,7 +44,8 @@
       "next": "Next",
       "checking": "Checking...",
       "saving": "Saving...",
-      "start": "Create profile"
+      "start": "Create profile",
+      "backToTop": "Back to top"
     },
     "errors": {
       "displayNameRequired": "Please enter a nickname.",

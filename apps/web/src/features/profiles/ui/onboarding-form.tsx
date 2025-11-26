@@ -27,6 +27,7 @@ import {
   isValidUserName,
   normalizeUserNameInput,
 } from "@/features/profiles/lib/user-name";
+import { createClient } from "@/lib/supabase/client";
 
 type ProfileOnboardingFormProps = {
   next?: string;
@@ -60,6 +61,7 @@ export function ProfileOnboardingForm({
 
   const [isSubmitting, startSubmitTransition] = useTransition();
   const [isCheckingUserName, startCheckUserNameTransition] = useTransition();
+  const [isLoggingOut, startLogoutTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -216,6 +218,18 @@ export function ProfileOnboardingForm({
     });
   };
 
+  const handleBackToTop = () => {
+    if (isLoggingOut) return;
+    startLogoutTransition(async () => {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("[onboarding] failed to sign out", error);
+      }
+      router.replace("/");
+    });
+  };
+
   return (
     <form
       className="space-y-8 rounded-2xl border border-border bg-card/90 p-6 shadow-lg"
@@ -258,13 +272,23 @@ export function ProfileOnboardingForm({
           {displayNameError && (
             <p className="text-sm text-destructive">{displayNameError}</p>
           )}
-          <Button
-            type="button"
-            className="mt-2 w-full"
-            onClick={handleDisplayNameNext}
-          >
-            {t("buttons.next")}
-          </Button>
+          <div className="space-y-3 pt-2">
+            <Button
+              type="button"
+              className="w-full"
+              onClick={handleDisplayNameNext}
+            >
+              {t("buttons.next")}
+            </Button>
+            <button
+              type="button"
+              onClick={handleBackToTop}
+              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isLoggingOut}
+            >
+              {t("buttons.backToTop")}
+            </button>
+          </div>
         </div>
       )}
 
@@ -292,31 +316,41 @@ export function ProfileOnboardingForm({
               <p className="text-sm text-destructive">{userNameError}</p>
             )}
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
+          <div className="space-y-3 pt-2">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full sm:flex-1"
+                onClick={() => setCurrentStep(1)}
+                disabled={isSubmitting || isCheckingUserName}
+              >
+                {t("buttons.back")}
+              </Button>
+              <Button
+                type="button"
+                className="w-full sm:flex-1"
+                onClick={handleUserNameNext}
+                disabled={isCheckingUserName}
+              >
+                {isCheckingUserName ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    {t("buttons.checking")}
+                  </>
+                ) : (
+                  t("buttons.next")
+                )}
+              </Button>
+            </div>
+            <button
               type="button"
-              variant="outline"
-              className="w-full sm:flex-1"
-              onClick={() => setCurrentStep(1)}
-              disabled={isSubmitting || isCheckingUserName}
+              onClick={handleBackToTop}
+              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isLoggingOut}
             >
-              {t("buttons.back")}
-            </Button>
-            <Button
-              type="button"
-              className="w-full sm:flex-1"
-              onClick={handleUserNameNext}
-              disabled={isCheckingUserName}
-            >
-              {isCheckingUserName ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  {t("buttons.checking")}
-                </>
-              ) : (
-                t("buttons.next")
-              )}
-            </Button>
+              {t("buttons.backToTop")}
+            </button>
           </div>
         </div>
       )}
@@ -372,30 +406,40 @@ export function ProfileOnboardingForm({
             />
           </div>
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-            <Button
+          <div className="mt-4 space-y-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full sm:flex-1"
+                onClick={() => setCurrentStep(2)}
+                disabled={isSubmitting}
+              >
+                {t("buttons.back")}
+              </Button>
+              <Button
+                type="submit"
+                className="w-full sm:flex-[1.5]"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    {t("buttons.saving")}
+                  </>
+                ) : (
+                  t("buttons.start")
+                )}
+              </Button>
+            </div>
+            <button
               type="button"
-              variant="outline"
-              className="w-full sm:flex-1"
-              onClick={() => setCurrentStep(2)}
-              disabled={isSubmitting}
+              onClick={handleBackToTop}
+              className="mx-auto block text-xs font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isLoggingOut}
             >
-              {t("buttons.back")}
-            </Button>
-            <Button
-              type="submit"
-              className="w-full sm:flex-[1.5]"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  {t("buttons.saving")}
-                </>
-              ) : (
-                t("buttons.start")
-              )}
-            </Button>
+              {t("buttons.backToTop")}
+            </button>
           </div>
         </>
       )}

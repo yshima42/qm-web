@@ -44,7 +44,8 @@
       "next": "次へ",
       "checking": "確認中...",
       "saving": "保存中...",
-      "start": "はじめる"
+      "start": "はじめる",
+      "backToTop": "トップへ戻る"
     },
     "errors": {
       "displayNameRequired": "ニックネームを入力してください。",
