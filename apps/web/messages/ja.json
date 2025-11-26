@@ -2,6 +2,11 @@
   "config": {
     "language-code": "ja"
   },
+  "locale-switcher": {
+    "label": "言語",
+    "en": "英語",
+    "ja": "日本語"
+  },
   "app-download-section": {
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
@@ -20,9 +25,26 @@
     "Custom": "カスタム",
     "Alcohol": "アルコール",
     "Codependency": "共依存",
-    "Official": "運営"
+    "Official": "運営",
+    "General": "一般"
   },
   "category-tag": {
     "days": "日"
+  },
+  "sidebar": {
+    "home": "ホーム",
+    "articles": "記事",
+    "habitCategories": "習慣カテゴリー",
+    "downloadTitle": "QuitMateをダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード",
+    "openMenu": "メニューを開く",
+    "navigationMenu": "ナビゲーションメニュー"
+  },
+  "footer": {
+    "title": "共になら、やめられる",
+    "about": "QuitMateについて",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "contact": "お問い合わせ"
   }
 }

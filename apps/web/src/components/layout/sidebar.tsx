@@ -15,10 +15,10 @@ import { Home, BookOpen, Menu, Target } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES } from "@/lib/categories";
-import { CATEGORY_DISPLAY_NAMES } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 
 type SidebarContentProps = {
@@ -35,6 +35,8 @@ export function SidebarContent({
   skipLogo = false,
 }: SidebarContentProps) {
   const pathname = usePathname();
+  const t = useTranslations('sidebar');
+  const tCategory = useTranslations('categories');
 
   const handleLinkClick = () => {
     if (onLinkClick) onLinkClick();
@@ -64,7 +66,7 @@ export function SidebarContent({
       <div className="mb-6 space-y-1 pr-2">
         <SidebarIcon
           icon={Home}
-          label="Home"
+          label={t('home')}
           href="/"
           active={pathname === "/"}
           showLabel={!compact}
@@ -80,7 +82,7 @@ export function SidebarContent({
         />
         <SidebarIcon
           icon={BookOpen}
-          label="Articles"
+          label={t('articles')}
           href="/articles"
           active={pathname === "/articles"}
           showLabel={!compact}
@@ -93,13 +95,13 @@ export function SidebarContent({
       <div className="space-y-1 overflow-y-auto pr-2">
         {!compact && (
           <h3 className="mb-2 px-4 text-sm font-medium text-muted-foreground">
-            Habit Categories
+            {t('habitCategories')}
           </h3>
         )}
         {habitCategories.map((category) => {
           const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
           const Icon = CATEGORY_ICONS[category];
-          const displayName = CATEGORY_DISPLAY_NAMES[category];
+          const displayName = tCategory(category);
 
           return (
             <CategoryIcon
@@ -119,20 +121,20 @@ export function SidebarContent({
         {!compact && (
           <div className="hidden rounded-lg border border-border bg-card p-3 shadow-sm lg:block">
             <h4 className="mb-2 text-center text-sm font-medium">
-              Download App
+              {t('downloadTitle')}
             </h4>
             <div className="mb-3 flex justify-center">
               <div className="rounded bg-white p-0">
                 <Image
                   src="/images/qr-code.svg"
-                  alt="QR Code"
+                  alt={t('qrCodeAlt')}
                   width={100}
                   height={100}
                   className="rounded-none"
                 />
               </div>
             </div>
-            <StoreBadges size="small" languageCode="en" />
+            <StoreBadges size="small" />
           </div>
         )}
         <ThemeSwitcher />
@@ -144,6 +146,7 @@ export function SidebarContent({
 export function Sidebar() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const t = useTranslations('sidebar');
 
   useEffect(() => {
     setIsMounted(true);
@@ -166,14 +169,14 @@ export function Sidebar() {
               size="icon"
               variant="outline"
               className="rounded-full shadow-md"
-              aria-label="Open menu"
+              aria-label={t('openMenu')}
               onClick={() => setSheetOpen(true)}
             >
               <Menu className="size-5" />
             </Button>
             <SheetContent side="left" className="w-64 sm:max-w-xs">
               <SheetHeader className="pb-2">
-                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <SheetTitle className="sr-only">{t('navigationMenu')}</SheetTitle>
                 <Link
                   href="/"
                   className="flex items-end gap-1"
@@ -209,7 +212,7 @@ export function Sidebar() {
             size="icon"
             variant="outline"
             className="rounded-full shadow-md"
-            aria-label="Open menu"
+            aria-label={t('openMenu')}
             disabled
           >
             <Menu className="size-5" />

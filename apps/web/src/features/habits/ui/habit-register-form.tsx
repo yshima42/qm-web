@@ -3,8 +3,9 @@
 import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@quitmate/ui';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { HABIT_CATEGORIES, CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { HABIT_CATEGORIES } from '@/lib/categories';
 import { HabitCategoryName, HabitTileDto } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -26,6 +27,7 @@ function getRegisterableCategories(existingHabits: HabitTileDto[]): HabitCategor
 
 export function HabitRegisterForm({ existingHabits }: Props) {
   const router = useRouter();
+  const tCategory = useTranslations('categories');
   const [category, setCategory] = useState<HabitCategoryName | ''>('');
   const [customHabitName, setCustomHabitName] = useState('');
   const [startedAt, setStartedAt] = useState(
@@ -106,7 +108,7 @@ export function HabitRegisterForm({ existingHabits }: Props) {
                 <SelectContent>
                   {registerableCategories.map((cat) => (
                     <SelectItem key={cat} value={cat}>
-                      {CATEGORY_DISPLAY_NAMES[cat]}
+                      {tCategory(cat)}
                     </SelectItem>
                   ))}
                 </SelectContent>
