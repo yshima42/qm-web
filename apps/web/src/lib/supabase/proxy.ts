@@ -61,10 +61,11 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const isAuthenticated = Boolean(claimsData?.claims);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!isAuthenticated) {
+  if (!user) {
     if (shouldSkipAuth(pathname)) {
       return applyPendingCookies(NextResponse.next({ request }), pendingCookies);
     }
@@ -76,14 +77,6 @@ export async function updateSession(request: NextRequest) {
       NextResponse.redirect(loginUrl),
       pendingCookies
     );
-  }
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return applyPendingCookies(NextResponse.next({ request }), pendingCookies);
   }
 
   const { data: profile } = await supabase

@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 type OnboardingPageProps = {
-  searchParams?: { next?: string };
+  searchParams?: Promise<{ next?: string }>;
 };
 
 export default async function OnboardingPage({
@@ -22,7 +22,8 @@ export default async function OnboardingPage({
     redirect("/auth/login");
   }
 
-  const nextParam = searchParams?.next;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const nextParam = resolvedSearchParams?.next;
   const nextPath =
     nextParam && nextParam.startsWith("/")
       ? nextParam
