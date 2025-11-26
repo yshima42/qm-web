@@ -88,5 +88,13 @@
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
       "contact": "Contact"
+    },
+    "login-prompt": {
+      "story-title": "Support posts you relate to or want to cheer on.",
+      "story-description": "Create an account to support posts.",
+      "article-title": "Support articles you relate to or want to cheer on.",
+      "article-description": "Create an account to support articles.",
+      "login": "Log in",
+      "sign-up": "Create account"
     }
   }

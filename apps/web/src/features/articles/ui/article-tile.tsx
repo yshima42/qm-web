@@ -12,6 +12,7 @@ import remarkGfm from 'remark-gfm';
 
 import { ArticleTileDto } from '@/lib/types';
 
+import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 import { CategoryTag } from '@/features/common/ui/category-tag';
 import { toggleArticleLike } from '@/features/articles/data/actions';
 
@@ -120,10 +121,12 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
                 <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
               </button>
             ) : (
-              <div className="flex items-center gap-1">
-                <ArticleLikeIcon className="size-4" />
-                <span className="text-sm">{likesCount}</span>
-              </div>
+              <LoginPromptDialog className="cursor-pointer" type="article">
+                <div className="flex items-center gap-1">
+                  <ArticleLikeIcon className="size-4" />
+                  <span className="text-sm">{likesCount}</span>
+                </div>
+              </LoginPromptDialog>
             )}
           </div>
 

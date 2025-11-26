@@ -1,6 +1,6 @@
 'use client';
 
-import { AutoLinkText, CommentIcon, StoryLikeIcon, AppDownloadDialogTrigger } from '@quitmate/ui';
+import { AutoLinkText, CommentIcon, StoryLikeIcon } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
@@ -10,6 +10,7 @@ import { useState, useTransition } from 'react';
 
 import { StoryTileDto } from '@/lib/types';
 
+import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 import { CategoryTag } from '@/features/common/ui/category-tag';
 import { UserAvatar } from '@/features/profiles/ui/user-avatar';
 import { toggleStoryLike } from '@/features/stories/data/actions';
@@ -101,7 +102,7 @@ export function StoryTile({
 
   return (
     <div
-      className="hover:bg-accent/5 block cursor-pointer border-b border-gray-300 transition-colors dark:border-gray-700"
+      className="block cursor-pointer border-b border-gray-300 transition-colors hover:bg-accent/5 dark:border-gray-700"
       onClick={handleClick}
     >
       <div className="flex px-0 py-4">
@@ -132,13 +133,13 @@ export function StoryTile({
             }}
           >
             <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="text-foreground font-bold">{story.profiles.display_name}</span>
+              <span className="font-bold text-foreground">{story.profiles.display_name}</span>
             </Link>
             <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="text-muted-foreground text-sm">@{story.profiles.user_name}</span>
+              <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
             </Link>
-            <span className="text-muted-foreground text-sm"> </span>
-            <span className="text-muted-foreground text-sm">{createdAt}</span>
+            <span className="text-sm text-muted-foreground"> </span>
+            <span className="text-sm text-muted-foreground">{createdAt}</span>
           </div>
 
           {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
@@ -153,7 +154,7 @@ export function StoryTile({
             </div>
 
             {/* 本文 - AutoLinkTextを使用 */}
-            <div className="text-foreground mb-3 whitespace-pre-wrap" onClick={handleContentClick}>
+            <div className="mb-3 whitespace-pre-wrap text-foreground" onClick={handleContentClick}>
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
                 <span className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500">
@@ -164,19 +165,17 @@ export function StoryTile({
           </div>
 
           {/* アクション */}
-          <div className="text-muted-foreground flex gap-6">
+          <div className="flex gap-6 text-muted-foreground">
             <div
               onClick={(e) => {
                 e.stopPropagation();
               }}
               className="inline-flex"
             >
-              <AppDownloadDialogTrigger className="cursor-pointer">
-                <div className="flex items-center gap-1">
-                  <CommentIcon className="size-5" />
-                  <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-                </div>
-              </AppDownloadDialogTrigger>
+              <div className="flex items-center gap-1">
+                <CommentIcon className="size-5" />
+                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+              </div>
             </div>
 
             <div onClick={(e) => e.stopPropagation()} className="inline-flex">
@@ -194,12 +193,12 @@ export function StoryTile({
                   <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
                 </button>
               ) : (
-                <AppDownloadDialogTrigger className="cursor-pointer">
+                <LoginPromptDialog className="cursor-pointer">
                   <div className="flex items-center gap-1">
                     <StoryLikeIcon className="size-5" />
                     <span className="text-sm">{likesCount}</span>
                   </div>
-                </AppDownloadDialogTrigger>
+                </LoginPromptDialog>
               )}
             </div>
           </div>
@@ -208,3 +207,4 @@ export function StoryTile({
     </div>
   );
 }
+

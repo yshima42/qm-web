@@ -3,7 +3,6 @@
 import {
   CommentIcon,
   ArticleLikeIcon,
-  AppDownloadDialogTrigger,
   ShareButton,
   AppDownloadSection,
 } from '@quitmate/ui';
@@ -15,6 +14,8 @@ import { useState, useTransition } from 'react';
 
 import { MarkdownRenderer } from '@/lib/markdown-render';
 import type { ArticleTileDto, ArticleCommentTileDto } from '@/lib/types';
+
+import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 
 import { ArticleCommentTile } from '@/features/articles/ui/article-comment-tile';
 import { toggleArticleLike } from '@/features/articles/data/actions';
@@ -95,12 +96,12 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                   </span>
                 </button>
               ) : (
-                <AppDownloadDialogTrigger className="cursor-pointer">
+                <LoginPromptDialog className="cursor-pointer" type="article">
                   <div className="flex items-center gap-1">
                     <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
                     <span className="text-sm text-gray-500 dark:text-gray-400">{likesCount}</span>
                   </div>
-                </AppDownloadDialogTrigger>
+                </LoginPromptDialog>
               )}
 
               <ShareButton
@@ -158,21 +159,19 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                   </span>
                 </button>
               ) : (
-                <AppDownloadDialogTrigger className="cursor-pointer">
+                <LoginPromptDialog className="cursor-pointer" type="article">
                   <div className="flex items-center gap-2">
                     <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
                     <span className="text-gray-700 dark:text-gray-300">{likesCount}</span>
                   </div>
-                </AppDownloadDialogTrigger>
+                </LoginPromptDialog>
               )}
-              <AppDownloadDialogTrigger className="cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {article.article_comments[0]?.count ?? 0}
-                  </span>
-                </div>
-              </AppDownloadDialogTrigger>
+              <div className="flex items-center gap-2">
+                <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                <span className="text-gray-700 dark:text-gray-300">
+                  {article.article_comments[0]?.count ?? 0}
+                </span>
+              </div>
             </div>
 
             <ShareButton

@@ -62,5 +62,13 @@
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "contact": "お問い合わせ"
+  },
+  "login-prompt": {
+    "story-title": "共感した投稿、応援したい投稿に「応援」しましょう。",
+    "story-description": "アカウントを作成すると、投稿を「応援」できます。",
+    "article-title": "共感した記事、応援したい記事に「応援」しましょう。",
+    "article-description": "アカウントを作成すると、記事を「応援」できます。",
+    "login": "ログイン",
+    "sign-up": "アカウント作成"
   }
 }
