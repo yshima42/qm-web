@@ -6,14 +6,12 @@ import { useMemo, useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
 
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
 import { createArticleComment } from '@/features/articles/data/actions';
 
 type Props = {
   articleId: string;
 };
-
-const MAX_CHARACTERS = 500;
-const SHOW_COUNT_THRESHOLD = 20;
 
 // Count characters, treating multibyte characters as 2
 function countCharacters(text: string): number {
@@ -157,4 +155,3 @@ export function ArticleCommentForm({ articleId }: Props) {
     </div>
   );
 }
-

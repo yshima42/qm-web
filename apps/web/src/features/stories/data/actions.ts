@@ -1,10 +1,13 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
-import { fetchHabits } from '@/features/habits/data/data';
 import { differenceInDays } from 'date-fns';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+
+import { createClient } from '@/lib/supabase/server';
+
+import { MAX_CHARACTERS } from '@/features/common/constants';
+import { fetchHabits } from '@/features/habits/data/data';
 
 export async function createStory(formData: FormData) {
   const content = formData.get('content') as string;
@@ -98,9 +101,7 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
 
   if (shouldLike) {
     // いいねを追加
-    const { error } = await supabase
-      .from('likes')
-      .insert({ story_id: storyId, user_id: user.id });
+    const { error } = await supabase.from('likes').insert({ story_id: storyId, user_id: user.id });
 
     if (error) {
       return { success: false, error: error.message };
@@ -128,9 +129,9 @@ export async function createComment(storyId: string, content: string) {
   }
 
   const trimmedContent = content.trim();
-  
-  // 文字数制限（最大500文字）
-  if (trimmedContent.length > 500) {
+
+  // 文字数制限
+  if (trimmedContent.length > MAX_CHARACTERS) {
     return { success: false, error: 'Content is too long' };
   }
 

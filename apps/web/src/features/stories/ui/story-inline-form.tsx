@@ -1,18 +1,19 @@
 'use client';
 
-import { useState, useTransition, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
-import { createStory } from '../data/actions';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useMemo, useState, useTransition } from 'react';
+
+import { Button } from '@/components/ui/button';
+
 import { HabitTileDto } from '@/lib/types';
+
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
+import { createStory } from '@/features/stories/data/actions';
 
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
 };
-
-const MAX_CHARACTERS = 300;
-const SHOW_COUNT_THRESHOLD = 20;
 
 // Count characters, treating multibyte characters as 2
 function countCharacters(text: string): number {
@@ -20,7 +21,7 @@ function countCharacters(text: string): number {
   for (const char of text) {
     // Check if character is multibyte (e.g., Japanese, emoji, etc.)
     const code = char.charCodeAt(0);
-    if (code > 0x7F) {
+    if (code > 0x7f) {
       count += 2; // Multibyte character counts as 2
     } else {
       count += 1; // ASCII character counts as 1
@@ -37,9 +38,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const [content, setContent] = useState('');
 
   // Filter for active habits (has at least one trial with no ended_at)
-  const activeHabits = habits.filter((habit) =>
-    habit.trials?.some((trial) => !trial.ended_at)
-  );
+  const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
 
   const hasActiveHabit = activeHabits.length > 0;
   const showHabitSelect = activeHabits.length > 1;
@@ -83,19 +82,18 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   }
 
   return (
-    <div className="border-b border-border bg-card">
-      <form onSubmit={handleSubmit} className="p-4 space-y-3">
+    <div className="border-border bg-card border-b">
+      <form onSubmit={handleSubmit} className="space-y-3 p-4">
         <div className="flex gap-3">
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium">
-            {/* User avatar placeholder */}
-            U
+          <div className="bg-muted flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-medium">
+            {/* User avatar placeholder */}U
           </div>
           <div className="flex-1 space-y-3">
             {showHabitSelect && (
               <select
                 name="habit_id"
                 required
-                className="w-full rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="border-input focus-visible:ring-ring w-full rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1"
               >
                 {activeHabits.map((habit) => (
                   <option key={habit.id} value={habit.id}>
@@ -107,31 +105,27 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
                 ))}
               </select>
             )}
-            {!showHabitSelect && (
-              <input type="hidden" name="habit_id" value={activeHabits[0].id} />
-            )}
-            
+            {!showHabitSelect && <input type="hidden" name="habit_id" value={activeHabits[0].id} />}
+
             <textarea
               name="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
               rows={3}
-              className="w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none"
+              className="placeholder:text-muted-foreground w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base focus-visible:outline-none"
               placeholder={t('placeholder')}
             />
           </div>
         </div>
 
-        {error && (
-          <div className="ml-13 text-sm text-red-500">{error}</div>
-        )}
+        {error && <div className="ml-13 text-sm text-red-500">{error}</div>}
 
-        <div className="flex items-center justify-end gap-3 ml-13">
+        <div className="ml-13 flex items-center justify-end gap-3">
           {/* Character count indicator */}
           <div className="relative flex items-center justify-center">
             {/* Background circle */}
-            <svg className="w-8 h-8 -rotate-90">
+            <svg className="h-8 w-8 -rotate-90">
               <circle
                 cx="16"
                 cy="16"
@@ -174,8 +168,8 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
             )}
           </div>
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isPending || !content.trim() || isOverLimit}
             size="sm"
             className="rounded-full"
