@@ -17,6 +17,7 @@ import {
 
 import { CommentForm } from '@/features/stories/ui/comment-form';
 import { CommentTile } from '@/features/stories/ui/comment-tile';
+import { DisabledCommentNotice } from '@/features/stories/ui/disabled-comment-notice';
 import { StoryTile } from '@/features/stories/ui/story-tile';
 
 type Props = {
@@ -129,6 +130,10 @@ export default async function Page({
   // storyにisLikedByMeを付与
   const storyWithLikeStatus = { ...story, isLikedByMe };
 
+  // コメント可否判定（自分の投稿またはコメント有効の場合）
+  const isMyStory = user?.id === story.user_id;
+  const canComment = story.comment_setting === 'enabled' || isMyStory;
+
   return (
     <>
       <Header titleElement={<Logo />} />
@@ -141,8 +146,11 @@ export default async function Page({
             isLoggedIn={isLoggedIn}
           />
 
-          {/* コメントフォーム（ログイン時のみ表示） */}
-          {isLoggedIn && <CommentForm storyId={id} />}
+          {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
+          {story.comment_setting === 'disabled' && !isMyStory && <DisabledCommentNotice />}
+
+          {/* コメントフォーム（ログイン時かつコメント可能な場合のみ表示） */}
+          {isLoggedIn && canComment && <CommentForm storyId={id} />}
 
           {/* コメント一覧 */}
           {comments && comments.length > 0 && (

@@ -1,15 +1,23 @@
 'use client';
 
-import { Loader2 } from 'lucide-react';
+import { Globe, Lock, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 import { HabitTileDto } from '@/lib/types';
 
 import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from '@/features/common/constants';
 import { createStory } from '@/features/stories/data/actions';
+
+type CommentSetting = 'enabled' | 'disabled';
 
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
@@ -33,9 +41,11 @@ function countCharacters(text: string): number {
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const t = useTranslations('story-post');
   const tCategory = useTranslations('categories');
+  const tCommentSetting = useTranslations('comment-setting');
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState('');
+  const [commentSetting, setCommentSetting] = useState<CommentSetting>('enabled');
 
   // Filter for active habits (has at least one trial with no ended_at)
   const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
@@ -116,6 +126,42 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
               className="placeholder:text-muted-foreground w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base focus-visible:outline-none"
               placeholder={t('placeholder')}
             />
+
+            {/* コメント設定（Xライク） */}
+            <input type="hidden" name="comment_setting" value={commentSetting} />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="text-primary hover:bg-primary/10 flex items-center gap-1 rounded-full px-2 py-1 text-sm transition-colors"
+                >
+                  {commentSetting === 'enabled' ? (
+                    <Globe className="h-4 w-4" />
+                  ) : (
+                    <Lock className="h-4 w-4" />
+                  )}
+                  <span>{tCommentSetting(commentSetting)}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem
+                  onClick={() => setCommentSetting('enabled')}
+                  className="flex items-center gap-2"
+                >
+                  <Globe className="h-4 w-4" />
+                  <span>{tCommentSetting('enabled')}</span>
+                  {commentSetting === 'enabled' && <span className="text-primary ml-auto">✓</span>}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setCommentSetting('disabled')}
+                  className="flex items-center gap-2"
+                >
+                  <Lock className="h-4 w-4" />
+                  <span>{tCommentSetting('disabled')}</span>
+                  {commentSetting === 'disabled' && <span className="text-primary ml-auto">✓</span>}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 

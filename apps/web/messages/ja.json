@@ -79,5 +79,14 @@
     "contentTooLong": "コメントが長すぎます",
     "postFailed": "コメントの投稿に失敗しました",
     "posting": "投稿中..."
+  },
+  "comment-setting": {
+    "enabled": "全員がコメント可能",
+    "disabled": "コメントを無効にする",
+    "label": "コメント設定"
+  },
+  "disabled-comment": {
+    "title": "コメントが無効です",
+    "message": "投稿者がこの投稿へのコメントを無効にしています"
   }
 }

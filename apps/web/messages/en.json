@@ -1,109 +1,118 @@
 {
-    "config": {
-        "language-code": "en"
-    },
-    "locale-switcher": {
-      "label": "Language",
-      "en": "English",
-      "ja": "Japanese"
-    },
-    "articles-page": {
-      "title": "Articles",
-      "shareDialogTitle": "Share Article",
-      "preFollowMessage": "Follow ",
-      "postFollowMessage": " on the app",
-      "noComments": "No comments yet",
-      "comments": "Comments",
-      "notFound": "The specified article does not exist.",
-      "linkText": "Back to articles"
-    },
-    "categories": {
-      "Game": "Game",
-      "Tobacco": "Tobacco",
-      "Shopping": "Shopping",
-      "Drugs": "Drugs",
-      "Overeating": "Overeating",
-      "Porno": "Porno",
-      "SNS": "SNS",
-      "Gambling": "Gambling",
-      "Caffeine": "Caffeine",
-      "Cosmetic Surgery": "Cosmetic Surgery",
-      "Custom": "Custom",
-      "Alcohol": "Alcohol",
-      "Codependency": "Codependency",
-      "Official": "Official",
-      "General": "General"
-    },
-    "share-button": {
-      "copyLinkError": "Failed to copy link",
-      "copied": "Copied",
-      "copyLink": "Copy Link"
-    },
-    "profile-header": {
-      "shareDialogTitle": "Share Profile",
-      "shareTitleSuffix": "'s Profile",
-      "shareTextSuffix": "'s Profile",
-      "following": "Following",
-      "followers": "Followers"
-    },
-    "profile-page": {
-      "posts": "Posts",
-      "comments": "Comments"
-    },
-    "app-download-section": {
-      "title": "Addiction Recovery SNS QuitMate",
-      "message": "To read more stories, download the app"
-    },
-    "category-tag": {
-      "days": " days"
-    },
-    "sidebar": {
-      "home": "Home",
-      "articles": "Articles",
-      "habitCategories": "Habit Categories",
-      "downloadTitle": "Download QuitMate",
-      "qrCodeAlt": "App download QR code",
-      "openMenu": "Open menu",
-      "navigationMenu": "Navigation menu",
-      "postStory": "Post"
-    },
-    "story-post": {
-      "modalTitle": "Create New Story",
-      "selectHabit": "Select Habit",
-      "habit": "Habit",
-      "yourStory": "Your Story",
-      "placeholder": "What's happening?",
-      "sharePlaceholder": "Share your journey...",
-      "postButton": "Post",
-      "postStoryButton": "Post",
-      "noActiveHabit": "You need an active habit to post a story. Please start a habit first.",
-      "contentRequired": "Content is required",
-      "contentTooLong": "Content exceeds maximum length",
-      "createFailed": "Failed to create story",
-      "noActiveHabitFound": "No active habit found. Please start a habit first."
-    },
-    "footer": {
-      "title": "You don't have to quit alone",
-      "about": "About QuitMate",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "contact": "Contact"
-    },
-    "login-prompt": {
-      "story-title": "Support posts you relate to or want to cheer on.",
-      "story-description": "Create an account to support posts.",
-      "article-title": "Support articles you relate to or want to cheer on.",
-      "article-description": "Create an account to support articles.",
-      "login": "Log in",
-      "sign-up": "Create account"
-    },
-    "comment-form": {
-      "placeholder": "Add a comment...",
-      "submitButton": "Reply",
-      "loginPrompt": "Log in to comment",
-      "contentRequired": "Comment content is required",
-      "contentTooLong": "Comment is too long",
-      "postFailed": "Failed to post comment",
-      "posting": "Posting..."
-    }
+  "config": {
+    "language-code": "en"
+  },
+  "locale-switcher": {
+    "label": "Language",
+    "en": "English",
+    "ja": "Japanese"
+  },
+  "articles-page": {
+    "title": "Articles",
+    "shareDialogTitle": "Share Article",
+    "preFollowMessage": "Follow ",
+    "postFollowMessage": " on the app",
+    "noComments": "No comments yet",
+    "comments": "Comments",
+    "notFound": "The specified article does not exist.",
+    "linkText": "Back to articles"
+  },
+  "categories": {
+    "Game": "Game",
+    "Tobacco": "Tobacco",
+    "Shopping": "Shopping",
+    "Drugs": "Drugs",
+    "Overeating": "Overeating",
+    "Porno": "Porno",
+    "SNS": "SNS",
+    "Gambling": "Gambling",
+    "Caffeine": "Caffeine",
+    "Cosmetic Surgery": "Cosmetic Surgery",
+    "Custom": "Custom",
+    "Alcohol": "Alcohol",
+    "Codependency": "Codependency",
+    "Official": "Official",
+    "General": "General"
+  },
+  "share-button": {
+    "copyLinkError": "Failed to copy link",
+    "copied": "Copied",
+    "copyLink": "Copy Link"
+  },
+  "profile-header": {
+    "shareDialogTitle": "Share Profile",
+    "shareTitleSuffix": "'s Profile",
+    "shareTextSuffix": "'s Profile",
+    "following": "Following",
+    "followers": "Followers"
+  },
+  "profile-page": {
+    "posts": "Posts",
+    "comments": "Comments"
+  },
+  "app-download-section": {
+    "title": "Addiction Recovery SNS QuitMate",
+    "message": "To read more stories, download the app"
+  },
+  "category-tag": {
+    "days": " days"
+  },
+  "sidebar": {
+    "home": "Home",
+    "articles": "Articles",
+    "habitCategories": "Habit Categories",
+    "downloadTitle": "Download QuitMate",
+    "qrCodeAlt": "App download QR code",
+    "openMenu": "Open menu",
+    "navigationMenu": "Navigation menu",
+    "postStory": "Post"
+  },
+  "story-post": {
+    "modalTitle": "Create New Story",
+    "selectHabit": "Select Habit",
+    "habit": "Habit",
+    "yourStory": "Your Story",
+    "placeholder": "What's happening?",
+    "sharePlaceholder": "Share your journey...",
+    "postButton": "Post",
+    "postStoryButton": "Post",
+    "noActiveHabit": "You need an active habit to post a story. Please start a habit first.",
+    "contentRequired": "Content is required",
+    "contentTooLong": "Content exceeds maximum length",
+    "createFailed": "Failed to create story",
+    "noActiveHabitFound": "No active habit found. Please start a habit first."
+  },
+  "footer": {
+    "title": "You don't have to quit alone",
+    "about": "About QuitMate",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
+  },
+  "login-prompt": {
+    "story-title": "Support posts you relate to or want to cheer on.",
+    "story-description": "Create an account to support posts.",
+    "article-title": "Support articles you relate to or want to cheer on.",
+    "article-description": "Create an account to support articles.",
+    "login": "Log in",
+    "sign-up": "Create account"
+  },
+  "comment-form": {
+    "placeholder": "Add a comment...",
+    "submitButton": "Reply",
+    "loginPrompt": "Log in to comment",
+    "contentRequired": "Comment content is required",
+    "contentTooLong": "Comment is too long",
+    "postFailed": "Failed to post comment",
+    "posting": "Posting..."
+  },
+  "comment-setting": {
+    "enabled": "Everyone can reply",
+    "disabled": "Disable comments",
+    "label": "Comment settings"
+  },
+  "disabled-comment": {
+    "title": "Comments are disabled",
+    "message": "The author has disabled comments on this post"
   }
+}

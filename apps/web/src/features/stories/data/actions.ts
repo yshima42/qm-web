@@ -11,9 +11,15 @@ import { fetchHabits } from '@/features/habits/data/data';
 
 export async function createStory(formData: FormData) {
   const content = formData.get('content') as string;
+  const commentSetting = (formData.get('comment_setting') as string) || 'enabled';
 
   if (!content || content.trim() === '') {
     throw new Error('Content is required');
+  }
+
+  // comment_settingのバリデーション
+  if (commentSetting !== 'enabled' && commentSetting !== 'disabled') {
+    throw new Error('Invalid comment setting');
   }
 
   const supabase = await createClient();
@@ -70,7 +76,7 @@ export async function createStory(formData: FormData) {
     custom_habit_name: activeHabit.custom_habit_name,
     trial_started_at: activeTrial.started_at,
     trial_elapsed_days: trialElapsedDays,
-    comment_setting: 'enabled', // Default to enabled
+    comment_setting: commentSetting,
     is_reason: false,
   });
 
