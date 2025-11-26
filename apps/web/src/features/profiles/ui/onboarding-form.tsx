@@ -7,6 +7,7 @@ import { Camera, Check, Loader2 } from "lucide-react";
 import {
   useEffect,
   useMemo,
+  useCallback,
   useRef,
   useState,
   useTransition,
@@ -93,6 +94,34 @@ export function ProfileOnboardingForm({
     return t(`errors.${code}` as never);
   };
 
+  const validateDisplayName = useCallback(
+    (value: string) => {
+      const trimmed = value.trim();
+      if (!trimmed) {
+        return { value: trimmed, error: t("errors.displayNameRequired") };
+      }
+      if (trimmed.length > 50) {
+        return { value: trimmed, error: t("errors.displayNameLength") };
+      }
+      return { value: trimmed, error: null };
+    },
+    [t]
+  );
+
+  const validateUserNameInput = useCallback(
+    (value: string) => {
+      const normalized = normalizeUserNameInput(value);
+      if (!normalized) {
+        return { value: normalized, error: t("errors.userNameRequired") };
+      }
+      if (!isValidUserName(normalized)) {
+        return { value: normalized, error: t("errors.userNameInvalid") };
+      }
+      return { value: normalized, error: null };
+    },
+    [t]
+  );
+
   const handleAvatarPreview = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
@@ -118,28 +147,20 @@ export function ProfileOnboardingForm({
   };
 
   const handleDisplayNameNext = () => {
-    const trimmed = displayName.trim();
-    if (!trimmed) {
-      setDisplayNameError(t("errors.displayNameRequired"));
+    const { value, error } = validateDisplayName(displayName);
+    if (error) {
+      setDisplayNameError(error);
       return;
     }
-    if (trimmed.length > 50) {
-      setDisplayNameError(t("errors.displayNameLength"));
-      return;
-    }
-    setDisplayName(trimmed);
+    setDisplayName(value);
     setDisplayNameError(null);
     setCurrentStep(2);
   };
 
   const handleUserNameNext = () => {
-    const normalized = normalizeUserNameInput(userName);
-    if (!normalized) {
-      setUserNameError(t("errors.userNameRequired"));
-      return;
-    }
-    if (!isValidUserName(normalized)) {
-      setUserNameError(t("errors.userNameInvalid"));
+    const { value: normalized, error } = validateUserNameInput(userName);
+    if (error || !normalized) {
+      setUserNameError(error);
       return;
     }
     setUserNameError(null);
@@ -159,30 +180,26 @@ export function ProfileOnboardingForm({
     event.preventDefault();
     if (!isFinalStep || isSubmitting) return;
 
-    const trimmedDisplayName = displayName.trim();
-    const normalizedUserName = normalizeUserNameInput(userName);
-
-    if (!trimmedDisplayName) {
+    const { value: safeDisplayName, error: displayError } =
+      validateDisplayName(displayName);
+    if (displayError || !safeDisplayName) {
       setCurrentStep(1);
-      setDisplayNameError(t("errors.displayNameRequired"));
+      setDisplayNameError(displayError);
       return;
     }
 
-    if (!normalizedUserName || !isValidUserName(normalizedUserName)) {
+    const { value: safeUserName, error: userNameValidationError } =
+      validateUserNameInput(userName);
+
+    if (userNameValidationError || !safeUserName) {
       setCurrentStep(2);
-      setUserNameError(
-        t(
-          !normalizedUserName
-            ? "errors.userNameRequired"
-            : "errors.userNameInvalid"
-        )
-      );
+      setUserNameError(userNameValidationError);
       return;
     }
 
     const formData = new FormData();
-    formData.set("display_name", trimmedDisplayName);
-    formData.set("user_name", normalizedUserName);
+    formData.set("display_name", safeDisplayName);
+    formData.set("user_name", safeUserName);
     formData.set("next", next ?? "");
     if (avatarFile) {
       formData.set("avatar", avatarFile);
