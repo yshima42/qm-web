@@ -1,6 +1,5 @@
 import { Tag } from '@quitmate/ui';
-
-import { CATEGORY_DISPLAY_NAMES } from '@/lib/categories';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   category: string;
@@ -9,11 +8,12 @@ type Props = {
 };
 
 export function CategoryTag({ category, customHabitName, elapsedDays }: Props) {
-  const displayName = category === 'Custom' ? customHabitName : CATEGORY_DISPLAY_NAMES[category as keyof typeof CATEGORY_DISPLAY_NAMES] || category;
+  const t = useTranslations('category-tag');
+  const tCategory = useTranslations('categories');
   return (
     <Tag>
-      {displayName}{' '}
-      {elapsedDays ? `- ${elapsedDays.toString()}日` : ''}
+      {category === 'Custom' ? customHabitName : tCategory(category)}{' '}
+      {elapsedDays ? `- ${elapsedDays.toString()}${t('days')}` : ''}
     </Tag>
   );
 }
