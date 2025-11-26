@@ -15,8 +15,7 @@ import {
   checkIsLikedByMe,
 } from '@/features/stories/data/data';
 
-import { CommentForm } from '@/features/stories/ui/comment-form';
-import { CommentTile } from '@/features/stories/ui/comment-tile';
+import { CommentsSection } from '@/features/stories/ui/comments-section';
 import { DisabledCommentNotice } from '@/features/stories/ui/disabled-comment-notice';
 import { StoryTile } from '@/features/stories/ui/story-tile';
 
@@ -149,17 +148,13 @@ export default async function Page({
           {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
           {story.comment_setting === 'disabled' && !isMyStory && <DisabledCommentNotice />}
 
-          {/* コメントフォーム（ログイン時かつコメント可能な場合のみ表示） */}
-          {isLoggedIn && canComment && <CommentForm storyId={id} />}
-
-          {/* コメント一覧 */}
-          {comments && comments.length > 0 && (
-            <div className="mt-4">
-              {comments.map((comment) => (
-                <CommentTile key={comment.id} comment={comment} />
-              ))}
-            </div>
-          )}
+          {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
+          <CommentsSection
+            storyId={id}
+            comments={comments}
+            isLoggedIn={isLoggedIn}
+            canComment={canComment}
+          />
 
           {/* App download section */}
           <AppDownloadSection />

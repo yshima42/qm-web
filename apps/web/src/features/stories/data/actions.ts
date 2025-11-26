@@ -128,7 +128,7 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
   return { success: true };
 }
 
-export async function createComment(storyId: string, content: string) {
+export async function createComment(storyId: string, content: string, parentCommentId?: string) {
   // バリデーション
   if (!content || content.trim() === '') {
     return { success: false, error: 'Content is required' };
@@ -155,6 +155,7 @@ export async function createComment(storyId: string, content: string) {
     story_id: storyId,
     user_id: user.id,
     content: trimmedContent,
+    parent_comment_id: parentCommentId || null,
   });
 
   if (error) {

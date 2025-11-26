@@ -99,6 +99,8 @@
   },
   "comment-form": {
     "placeholder": "Add a comment...",
+    "replyPlaceholder": "Add a reply...",
+    "replyingTo": "Replying to",
     "submitButton": "Reply",
     "loginPrompt": "Log in to comment",
     "contentRequired": "Comment content is required",

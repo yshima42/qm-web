@@ -73,6 +73,8 @@
   },
   "comment-form": {
     "placeholder": "コメントを追加...",
+    "replyPlaceholder": "返信を追加...",
+    "replyingTo": "返信先:",
     "submitButton": "返信",
     "loginPrompt": "コメントするにはログインしてください",
     "contentRequired": "コメント内容を入力してください",
