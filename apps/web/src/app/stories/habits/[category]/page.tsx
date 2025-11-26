@@ -7,9 +7,10 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
 import { fetchStoriesByHabitCategoryName } from '@/features/stories/data/data';
-import { HabitCategoryName } from '@/lib/types';
+import { HabitCategoryName, HabitTileDto } from '@/lib/types';
 
 import { StoryList } from '@/features/stories/ui/story-list';
+import { StoryModalProvider } from '@/features/stories/ui/story-modal-provider';
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -35,19 +36,38 @@ function capitalizeCategory(category: string): HabitCategoryName {
 }
 
 export default async function Page(props: { params: Promise<{ category: string }> }) {
+  // Fetch user and habits for modal
+  const { createClient } = await import('@/lib/supabase/server');
+  const { fetchHabits } = await import('@/features/habits/data/data');
+  
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const habits = user ? await fetchHabits(user.id) : [];
+
   return (
-    <div className="flex w-full">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
-        <Suspense fallback={<LoadingSpinner />}>
-          <CategoryPageContent params={props.params} />
-        </Suspense>
+    <StoryModalProvider habits={habits}>
+      <div className="flex w-full">
+        <Sidebar />
+        <div className="flex flex-1 flex-col">
+          <Suspense fallback={<LoadingSpinner />}>
+            <CategoryPageContent params={props.params} habits={habits} />
+          </Suspense>
+        </div>
       </div>
-    </div>
+    </StoryModalProvider>
   );
 }
 
-async function CategoryPageContent({ params }: { params: Promise<{ category: string }> }) {
+async function CategoryPageContent({ 
+  params,
+  habits 
+}: { 
+  params: Promise<{ category: string }>;
+  habits: HabitTileDto[];
+}) {
   const { category } = await params;
   if (!category) notFound();
 
@@ -58,17 +78,6 @@ async function CategoryPageContent({ params }: { params: Promise<{ category: str
 
   // カテゴリーアイコンを取得
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
-
-  // Fetch user and habits for inline posting
-  const { createClient } = await import('@/lib/supabase/server');
-  const { fetchHabits } = await import('@/features/habits/data/data');
-  
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const habits = user ? await fetchHabits(user.id) : [];
 
   return (
     <>

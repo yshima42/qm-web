@@ -63,11 +63,17 @@ export function SidebarContent({
 
       {!compact && (
         <div className="px-4 pb-4">
-          <Link href="/stories/create" onClick={handleLinkClick}>
-            <Button className="w-full rounded-full font-semibold" size="lg">
-              Post Story
-            </Button>
-          </Link>
+          <Button 
+            className="w-full rounded-full font-semibold" 
+            size="lg"
+            onClick={() => {
+              // Trigger modal open event
+              window.dispatchEvent(new CustomEvent('openStoryModal'));
+              handleLinkClick();
+            }}
+          >
+            Post Story
+          </Button>
         </div>
       )}
 
