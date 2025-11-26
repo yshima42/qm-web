@@ -63,6 +63,10 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
       try {
         await createStory(formData);
       } catch (e) {
+        // Ignore NEXT_REDIRECT errors as they are not actual errors
+        if (e instanceof Error && e.message.includes('NEXT_REDIRECT')) {
+          return;
+        }
         setError(e instanceof Error ? e.message : 'Something went wrong');
       }
     });

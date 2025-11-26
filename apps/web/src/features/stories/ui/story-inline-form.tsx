@@ -66,6 +66,10 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
         await createStory(formData);
         setContent(''); // Clear the form on success
       } catch (err) {
+        // Ignore NEXT_REDIRECT errors as they are not actual errors
+        if (err instanceof Error && err.message.includes('NEXT_REDIRECT')) {
+          return;
+        }
         setError(err instanceof Error ? err.message : 'Something went wrong');
       }
     });
