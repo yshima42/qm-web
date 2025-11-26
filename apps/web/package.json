@@ -1,12 +1,13 @@
 {
-  "name": "with-supabase",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev:local": "env-cmd -f .env.local next dev",
     "dev:dev": "env-cmd -f .env.dev next dev",
     "dev:prod": "env-cmd -f .env.prod next dev",
-    "build": "next build",
+    "build": "env-cmd -f .env.prod next build",
+    "build:dev": "env-cmd -f .env.dev next build",
     "build:prod-on-local": "env-cmd -f .env.prod next build",
     "start": "next start",
     "lint": "eslint --ext .ts,.js,.tsx .",
