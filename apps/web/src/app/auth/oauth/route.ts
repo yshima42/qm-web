@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 // The client you created from the Server-Side Auth instructions
 import { createClient } from "@/lib/supabase/server";
-import { createProfileIfNotExists } from "@/features/profiles/data/data";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -17,35 +16,32 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // プロファイル作成処理
+      const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
+      const isLocalEnv = process.env.NODE_ENV === "development";
+      const finalOrigin =
+        isLocalEnv || !forwardedHost ? origin : `https://${forwardedHost}`;
+
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
       if (user) {
-        const result = await createProfileIfNotExists(supabase, user);
+        const { data: existingProfile, error: profileError } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", user.id)
+          .maybeSingle();
 
-        if (result?.error) {
-          // プロファイル作成エラー時はサインアウトしてからエラーページにリダイレクト
-          await supabase.auth.signOut();
-          return NextResponse.redirect(
-            `${origin}/auth/error?error=${encodeURIComponent(
-              result.error.message
-            )}`
-          );
+        if (profileError) {
+          console.error("[oauth] failed to verify profile", profileError);
+        } else if (!existingProfile) {
+          const onboardingUrl = new URL("/auth/onboarding", finalOrigin);
+          onboardingUrl.searchParams.set("next", next);
+          return NextResponse.redirect(onboardingUrl);
         }
       }
 
-      const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
-      const isLocalEnv = process.env.NODE_ENV === "development";
-      if (isLocalEnv) {
-        // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
-        return NextResponse.redirect(`${origin}${next}`);
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`);
-      } else {
-        return NextResponse.redirect(`${origin}${next}`);
-      }
+      return NextResponse.redirect(`${finalOrigin}${next}`);
     }
   }
 

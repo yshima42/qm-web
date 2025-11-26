@@ -6,7 +6,62 @@
       "label": "Language",
       "en": "English",
       "ja": "Japanese"
+  },
+  "onboarding": {
+    "hero": {
+      "badge": "Profile setup",
+      "title": "Set up your QuitMate profile",
+      "subtitle": "Pick a nickname, secure your unique username, and upload an avatar to unlock the full community experience."
     },
+    "progress": "Step {current} / {total}",
+    "steps": {
+      "nickname": {
+        "title": "Choose your nickname",
+        "description": "Introduce yourself with a friendly name for the community.",
+        "label": "Nickname",
+        "placeholder": "e.g. Quitter Taro",
+        "helper": "Visible to other members and editable later."
+      },
+      "username": {
+        "title": "Create a unique username",
+        "description": "This will become part of your public profile URL.",
+        "label": "Username",
+        "placeholder": "e.g. quitmate_user",
+        "helper": "Use 3-20 lowercase letters, numbers, or underscores."
+      },
+      "avatar": {
+        "title": "Add a profile photo",
+        "description": "Upload an image that represents you or skip for now.",
+        "label": "Profile image",
+        "helper": "JPG / PNG / WEBP · max 5MB",
+        "button": "Choose image",
+        "selectedBadge": "Selected",
+        "previewAlt": "Selected profile image preview"
+      }
+    },
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "checking": "Checking...",
+      "saving": "Saving...",
+      "start": "Create profile"
+    },
+    "errors": {
+      "displayNameRequired": "Please enter a nickname.",
+      "displayNameLength": "Nicknames must be 50 characters or less.",
+      "userFetchFailed": "We couldn't verify your session. Please refresh and try again.",
+      "profileLookupFailed": "We couldn't fetch your profile information.",
+      "userNameRequired": "Please enter a username.",
+      "userNameInvalid": "Use 3-20 lowercase letters, numbers, or underscores.",
+      "userNameUnavailable": "That username is already taken.",
+      "userNameCheckFailed": "We couldn't check that username. Try again shortly.",
+      "avatarInvalidType": "Please upload an image file.",
+      "avatarTooLarge": "Images must be 5MB or smaller.",
+      "avatarUploadFailed": "We couldn't upload your image. Try again.",
+      "profileInsertFailed": "We couldn't save your profile. Please retry.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
     "articles-page": {
       "title": "Articles",
       "shareDialogTitle": "Share Article",
