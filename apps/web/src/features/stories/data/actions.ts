@@ -1,16 +1,25 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
-import { fetchHabits } from '@/features/habits/data/data';
 import { differenceInDays } from 'date-fns';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { createClient } from '@/lib/supabase/server';
+
+import { MAX_CHARACTERS } from '@/features/common/constants';
+import { fetchHabits } from '@/features/habits/data/data';
+
 export async function createStory(formData: FormData) {
   const content = formData.get('content') as string;
+  const commentSetting = (formData.get('comment_setting') as string) || 'enabled';
 
   if (!content || content.trim() === '') {
     throw new Error('Content is required');
+  }
+
+  // comment_settingのバリデーション
+  if (commentSetting !== 'enabled' && commentSetting !== 'disabled') {
+    throw new Error('Invalid comment setting');
   }
 
   const supabase = await createClient();
@@ -67,7 +76,7 @@ export async function createStory(formData: FormData) {
     custom_habit_name: activeHabit.custom_habit_name,
     trial_started_at: activeTrial.started_at,
     trial_elapsed_days: trialElapsedDays,
-    comment_setting: 'enabled', // Default to enabled
+    comment_setting: commentSetting,
     is_reason: false,
   });
 
@@ -98,9 +107,7 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
 
   if (shouldLike) {
     // いいねを追加
-    const { error } = await supabase
-      .from('likes')
-      .insert({ story_id: storyId, user_id: user.id });
+    const { error } = await supabase.from('likes').insert({ story_id: storyId, user_id: user.id });
 
     if (error) {
       return { success: false, error: error.message };
@@ -117,6 +124,46 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
     }
   }
 
+  revalidatePath('/');
+  return { success: true };
+}
+
+export async function createComment(storyId: string, content: string, parentCommentId?: string) {
+  // バリデーション
+  if (!content || content.trim() === '') {
+    return { success: false, error: 'Content is required' };
+  }
+
+  const trimmedContent = content.trim();
+
+  // 文字数制限
+  if (trimmedContent.length > MAX_CHARACTERS) {
+    return { success: false, error: 'Content is too long' };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  // コメントをDBに挿入
+  const { error } = await supabase.from('comments').insert({
+    story_id: storyId,
+    user_id: user.id,
+    content: trimmedContent,
+    parent_comment_id: parentCommentId || null,
+  });
+
+  if (error) {
+    console.error('Error creating comment:', error);
+    return { success: false, error: 'Failed to create comment' };
+  }
+
+  // ストーリー詳細ページを再検証
   revalidatePath('/');
   return { success: true };
 }

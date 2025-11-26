@@ -50,9 +50,16 @@ export type StoryTileDto = Story & {
   isLikedByMe?: boolean;
 };
 
+// 返信先の親コメント情報（最小限の情報）
+export type ParentCommentInfo = {
+  id: string;
+  profiles: ProfileForAvatar;
+};
+
 export type CommentTileDto = Comment & {
   profiles: ProfileForAvatar;
   comment_likes: { count: number }[];
+  parent_comment?: ParentCommentInfo | null;
 };
 
 export type ProfileTileDto = Profile & {

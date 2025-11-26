@@ -1,10 +1,6 @@
 import { createAnonServerClient, createClient } from '@/lib/supabase/server';
 
-import {
-  CommentTileDto,
-  HabitCategoryName,
-  StoryTileDto,
-} from '@/lib/types';
+import { CommentTileDto, HabitCategoryName, StoryTileDto } from '@/lib/types';
 
 const STORY_SELECT_QUERY = `*, 
   habit_categories!inner(habit_category_name), 
@@ -63,10 +59,37 @@ export async function fetchCommentsByStoryId(storyId: string) {
   const { data } = await supabase
     .from('comments')
     .select(
-      '*, profiles!comments_user_id_fkey(user_name, display_name, avatar_url), comment_likes(count)',
+      `*, 
+       profiles!comments_user_id_fkey(user_name, display_name, avatar_url), 
+       comment_likes(count)`,
     )
-    .eq('story_id', storyId);
-  return data as CommentTileDto[] | null;
+    .eq('story_id', storyId)
+    .order('created_at', { ascending: true });
+
+  if (!data) return null;
+
+  // コメントをMapに変換してIDで簡単にアクセスできるようにする（Flutterと同じアプローチ）
+  const commentMap = new Map(data.map((c) => [c.id, c]));
+
+  // parent_comment_idがあるコメントに親コメント情報を付与
+  const commentsWithParent = data.map((comment) => {
+    if (!comment.parent_comment_id) {
+      return { ...comment, parent_comment: null };
+    }
+
+    const parentComment = commentMap.get(comment.parent_comment_id);
+    return {
+      ...comment,
+      parent_comment: parentComment
+        ? {
+            id: parentComment.id,
+            profiles: parentComment.profiles,
+          }
+        : null,
+    };
+  });
+
+  return commentsWithParent as CommentTileDto[];
 }
 
 export async function fetchStoryDetailPageStaticParams(limit?: number) {
@@ -118,9 +141,7 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
 }
 
 // RPC関数を使って複数ストーリーのいいね状態を一括取得（Flutterと同じ方式）
-export async function fetchHasLikedByStoryIds(
-  storyIds: string[]
-): Promise<Map<string, boolean>> {
+export async function fetchHasLikedByStoryIds(storyIds: string[]): Promise<Map<string, boolean>> {
   if (storyIds.length === 0) return new Map();
 
   const supabase = await createClient();
@@ -146,7 +167,7 @@ export async function fetchHasLikedByStoryIds(
 
 // ストーリーリストにいいね状態を付与
 export async function enrichStoriesWithLikeStatus(
-  stories: StoryTileDto[]
+  stories: StoryTileDto[],
 ): Promise<StoryTileDto[]> {
   const storyIds = stories.map((s) => s.id);
   const hasLikedMap = await fetchHasLikedByStoryIds(storyIds);
@@ -162,4 +183,3 @@ export async function checkIsLikedByMe(storyId: string): Promise<boolean> {
   const hasLikedMap = await fetchHasLikedByStoryIds([storyId]);
   return hasLikedMap.get(storyId) ?? false;
 }
-
