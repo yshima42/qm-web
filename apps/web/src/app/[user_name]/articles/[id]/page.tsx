@@ -11,9 +11,9 @@ import {
   fetchArticleById,
   fetchArticlePageStaticParams,
   fetchCommentsByArticleId,
-} from '@/lib/data';
+} from '@/features/articles/data/data';
 
-import { ArticleContent } from '@/features/articles/article-content';
+import { ArticleContent } from '@/features/articles/ui/article-content';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) {
     return {
-      title: '記事が見つかりません',
+      title: 'Article not found',
     };
   }
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     article.custom_habit_name,
   );
 
-  const description = article.content.substring(0, 300) || '記事詳細ページです';
+  const description = article.content.substring(0, 300) || 'Article detail page';
 
   return {
     title: `${article.title} | ${categoryDisplayName}`,
@@ -99,3 +99,4 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     </>
   );
 }
+

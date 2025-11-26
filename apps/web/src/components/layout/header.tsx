@@ -1,10 +1,6 @@
 import clsx from 'clsx';
 
-import AuthButton from '@/features/auth/header-auth';
-
-import LocaleSwitcher from '../ui/locale-switcher';
-// import { ArrowLeft } from 'lucide-react';
-// import { useRouter } from 'next/navigation';
+import { AuthButton } from '@/components/auth-button';
 
 type HeaderProps = {
   title?: string;
@@ -22,22 +18,10 @@ type HeaderProps = {
 export function Header({
   title,
   titleElement,
-  // showBackButton = true,
-  // backUrl,
   rightElement,
   hideTitle,
   icon,
 }: HeaderProps) {
-  // const router = useRouter();
-
-  // const handleBack = () => {
-  //   if (backUrl) {
-  //     router.push(backUrl);
-  //   } else {
-  //     router.back();
-  //   }
-  // };
-
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="relative flex h-14 items-center justify-between px-4">
@@ -81,9 +65,9 @@ export function Header({
         <div className="flex w-24 items-center justify-end gap-2">
           {rightElement}
           <AuthButton />
-          <LocaleSwitcher />
         </div>
       </div>
     </header>
   );
 }
+

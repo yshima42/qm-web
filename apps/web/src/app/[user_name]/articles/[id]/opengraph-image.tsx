@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { fetchArticleById } from '@/lib/data';
+import { fetchArticleById } from '@/features/articles/data/data';
 
 // Image metadata
 export const alt = 'About Acme';
@@ -119,3 +119,4 @@ export default async function Image({ params }: { params: { id: string } }) {
     },
   );
 }
+

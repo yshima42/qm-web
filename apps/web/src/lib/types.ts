@@ -70,3 +70,17 @@ export type ArticleCommentTileDto = ArticleComment & {
   profiles: ProfileForAvatar;
   article_comment_likes: { count: number }[];
 };
+
+export type Trial = Tables<'trials'>;
+export type Reason = Tables<'reasons'>;
+export type Habit = Tables<'habits'>;
+
+export type TrialDto = Trial;
+export type ReasonDto = Reason;
+
+export type HabitTileDto = Habit & {
+  habit_categories: StoryHabitCategory;
+  trials: TrialDto[];
+  reasons: ReasonDto[];
+};
+
