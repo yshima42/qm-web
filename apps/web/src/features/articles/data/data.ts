@@ -1,4 +1,4 @@
-import { createAnonServerClient } from '@/lib/supabase/server';
+import { createAnonServerClient, createClient } from '@/lib/supabase/server';
 
 import {
   ArticleCommentTileDto,
@@ -84,5 +84,51 @@ export async function fetchArticlePageStaticParams(limit?: number) {
   }
 
   return allArticles;
+}
+
+// RPC関数を使って複数記事のいいね状態を一括取得（Flutterと同じ方式）
+export async function fetchHasLikedByArticleIds(
+  articleIds: string[]
+): Promise<Map<string, boolean>> {
+  if (articleIds.length === 0) return new Map();
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return new Map();
+
+  const { data, error } = await supabase.rpc('article_get_published_tile_data', {
+    article_ids: articleIds,
+    current_user_id: user.id,
+  });
+
+  if (error || !data) return new Map();
+
+  const result = new Map<string, boolean>();
+  for (const row of data as { article_json: { id: string }; is_liked_by_user: boolean }[]) {
+    result.set(row.article_json.id, row.is_liked_by_user);
+  }
+  return result;
+}
+
+// 記事リストにいいね状態を付与
+export async function enrichArticlesWithLikeStatus(
+  articles: ArticleTileDto[]
+): Promise<ArticleTileDto[]> {
+  const articleIds = articles.map((a) => a.id);
+  const hasLikedMap = await fetchHasLikedByArticleIds(articleIds);
+
+  return articles.map((article) => ({
+    ...article,
+    isLikedByMe: hasLikedMap.get(article.id) ?? false,
+  }));
+}
+
+// 単一記事のいいね状態チェック（詳細ページ用）
+export async function checkArticleIsLikedByMe(articleId: string): Promise<boolean> {
+  const hasLikedMap = await fetchHasLikedByArticleIds([articleId]);
+  return hasLikedMap.get(articleId) ?? false;
 }
 
