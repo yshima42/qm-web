@@ -117,3 +117,49 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
   return data as StoryTileDto[];
 }
 
+// RPC関数を使って複数ストーリーのいいね状態を一括取得（Flutterと同じ方式）
+export async function fetchHasLikedByStoryIds(
+  storyIds: string[]
+): Promise<Map<string, boolean>> {
+  if (storyIds.length === 0) return new Map();
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return new Map();
+
+  const { data, error } = await supabase.rpc('get_has_liked_by_story_ids', {
+    p_story_ids: storyIds,
+    p_user_id: user.id,
+  });
+
+  if (error || !data) return new Map();
+
+  const result = new Map<string, boolean>();
+  for (const row of data as { story_id: string; has_liked: boolean }[]) {
+    result.set(row.story_id, row.has_liked);
+  }
+  return result;
+}
+
+// ストーリーリストにいいね状態を付与
+export async function enrichStoriesWithLikeStatus(
+  stories: StoryTileDto[]
+): Promise<StoryTileDto[]> {
+  const storyIds = stories.map((s) => s.id);
+  const hasLikedMap = await fetchHasLikedByStoryIds(storyIds);
+
+  return stories.map((story) => ({
+    ...story,
+    isLikedByMe: hasLikedMap.get(story.id) ?? false,
+  }));
+}
+
+// 単一ストーリーのいいね状態チェック（詳細ページ用）
+export async function checkIsLikedByMe(storyId: string): Promise<boolean> {
+  const hasLikedMap = await fetchHasLikedByStoryIds([storyId]);
+  return hasLikedMap.get(storyId) ?? false;
+}
+

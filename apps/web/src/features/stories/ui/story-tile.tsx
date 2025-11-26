@@ -1,25 +1,57 @@
 'use client';
 
-import { AutoLinkText, CommentIcon, StoryLikeIcon, AppDownloadDialogTrigger } from '@quitmate/ui';
+import { AutoLinkText, CommentIcon, StoryLikeIcon } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 
 import { StoryTileDto } from '@/lib/types';
 
+import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 import { CategoryTag } from '@/features/common/ui/category-tag';
 import { UserAvatar } from '@/features/profiles/ui/user-avatar';
+import { toggleStoryLike } from '@/features/stories/data/actions';
 
 type Props = {
   story: StoryTileDto;
   disableLink?: boolean;
   showFullContent?: boolean;
+  isLoggedIn?: boolean;
 };
 
-export function StoryTile({ story, disableLink = false, showFullContent = false }: Props) {
+export function StoryTile({
+  story,
+  disableLink = false,
+  showFullContent = false,
+  isLoggedIn = false,
+}: Props) {
   const router = useRouter();
+
+  // いいね状態の管理（楽観的更新）
+  const [isLiked, setIsLiked] = useState(story.isLikedByMe ?? false);
+  const [likesCount, setLikesCount] = useState(story.likes[0]?.count ?? 0);
+  const [isPending, startTransition] = useTransition();
+
+  const handleLike = () => {
+    const shouldLike = !isLiked;
+
+    // 楽観的更新（即座にUI更新）
+    setIsLiked(shouldLike);
+    setLikesCount((prev) => (shouldLike ? prev + 1 : prev - 1));
+
+    // バックグラウンドでDB保存
+    startTransition(async () => {
+      const result = await toggleStoryLike(story.id, shouldLike);
+      if (!result.success) {
+        // 失敗時はロールバック
+        setIsLiked(!shouldLike);
+        setLikesCount((prev) => (shouldLike ? prev - 1 : prev + 1));
+      }
+    });
+  };
 
   // storyDateをUTC時間から東京時間に変換
   const storyDate = toZonedTime(new Date(story.created_at), 'Asia/Tokyo');
@@ -140,26 +172,34 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
               }}
               className="inline-flex"
             >
-              <AppDownloadDialogTrigger className="cursor-pointer">
-                <div className="flex items-center gap-1">
-                  <CommentIcon className="size-5" />
-                  <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
-                </div>
-              </AppDownloadDialogTrigger>
+              <div className="flex items-center gap-1">
+                <CommentIcon className="size-5" />
+                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+              </div>
             </div>
 
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              className="inline-flex"
-            >
-              <AppDownloadDialogTrigger className="cursor-pointer">
-                <div className="flex items-center gap-1">
-                  <StoryLikeIcon className="size-5" />
-                  <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-                </div>
-              </AppDownloadDialogTrigger>
+            <div onClick={(e) => e.stopPropagation()} className="inline-flex">
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLike}
+                  disabled={isPending}
+                  className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+                >
+                  <StoryLikeIcon
+                    className={`size-5 transition-colors ${
+                      isLiked ? 'fill-green-600 text-green-600' : ''
+                    }`}
+                  />
+                  <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
+                </button>
+              ) : (
+                <LoginPromptDialog className="cursor-pointer">
+                  <div className="flex items-center gap-1">
+                    <StoryLikeIcon className="size-5" />
+                    <span className="text-sm">{likesCount}</span>
+                  </div>
+                </LoginPromptDialog>
+              )}
             </div>
           </div>
         </div>

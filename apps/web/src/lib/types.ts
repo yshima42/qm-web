@@ -47,6 +47,7 @@ export type StoryTileDto = Story & {
   habit_categories: StoryHabitCategory;
   likes: { count: number }[];
   comments: { count: number }[];
+  isLikedByMe?: boolean;
 };
 
 export type CommentTileDto = Comment & {
@@ -64,6 +65,7 @@ export type ArticleTileDto = Article & {
   habit_categories: StoryHabitCategory | null;
   article_likes: { count: number }[];
   article_comments: { count: number }[];
+  isLikedByMe?: boolean;
 };
 
 export type ArticleCommentTileDto = ArticleComment & {

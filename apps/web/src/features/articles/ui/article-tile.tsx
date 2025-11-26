@@ -1,21 +1,52 @@
+'use client';
+
 import { ArticleLikeIcon, CommentIcon, DefaultAvatar } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useTransition } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 import { ArticleTileDto } from '@/lib/types';
 
+import { LoginPromptDialog } from '@/components/ui/login-prompt-dialog';
 import { CategoryTag } from '@/features/common/ui/category-tag';
+import { toggleArticleLike } from '@/features/articles/data/actions';
 
 type Props = {
   article: ArticleTileDto;
+  isLoggedIn?: boolean;
 };
 
-export function ArticleTile({ article }: Props) {
+export function ArticleTile({ article, isLoggedIn = false }: Props) {
+  // いいね状態の管理（楽観的更新）
+  const [isLiked, setIsLiked] = useState(article.isLikedByMe ?? false);
+  const [likesCount, setLikesCount] = useState(article.article_likes[0]?.count ?? 0);
+  const [isPending, startTransition] = useTransition();
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const shouldLike = !isLiked;
+
+    // 楽観的更新（即座にUI更新）
+    setIsLiked(shouldLike);
+    setLikesCount((prev) => (shouldLike ? prev + 1 : prev - 1));
+
+    // バックグラウンドでDB保存
+    startTransition(async () => {
+      const result = await toggleArticleLike(article.id, shouldLike);
+      if (!result.success) {
+        // 失敗時はロールバック
+        setIsLiked(!shouldLike);
+        setLikesCount((prev) => (shouldLike ? prev - 1 : prev + 1));
+      }
+    });
+  };
   // Convert article date to Tokyo time
   const articleDate = toZonedTime(new Date(article.created_at), 'Asia/Tokyo');
   const currentYear = new Date().getFullYear();
@@ -78,10 +109,25 @@ export function ArticleTile({ article }: Props) {
               <CommentIcon />
               <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <ArticleLikeIcon />
-              <span className="text-sm">{article.article_likes[0]?.count ?? 0}</span>
-            </div>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLike}
+                disabled={isPending}
+                className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+              >
+                <ArticleLikeIcon
+                  className={`size-4 transition-colors ${isLiked ? 'fill-green-600 text-green-600' : ''}`}
+                />
+                <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
+              </button>
+            ) : (
+              <LoginPromptDialog className="cursor-pointer" type="article">
+                <div className="flex items-center gap-1">
+                  <ArticleLikeIcon className="size-4" />
+                  <span className="text-sm">{likesCount}</span>
+                </div>
+              </LoginPromptDialog>
+            )}
           </div>
 
           {/* User info */}

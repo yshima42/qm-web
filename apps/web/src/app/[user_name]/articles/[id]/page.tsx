@@ -7,10 +7,12 @@ import { Header } from '@/components/layout/header';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { getCategoryDisplayName } from '@/lib/categories';
+import { createClient } from '@/lib/supabase/server';
 import {
   fetchArticleById,
   fetchArticlePageStaticParams,
   fetchCommentsByArticleId,
+  checkArticleIsLikedByMe,
 } from '@/features/articles/data/data';
 
 import { ArticleContent } from '@/features/articles/ui/article-content';
@@ -81,21 +83,36 @@ export async function generateStaticParams() {
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
-  const [article, comments] = await Promise.all([
+
+  // 並列でデータ取得
+  const [article, comments, supabase] = await Promise.all([
     fetchArticleById(id),
     fetchCommentsByArticleId(id),
+    createClient(),
   ]);
 
   if (!article) {
     notFound();
   }
 
+  // ログイン状態を取得
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
+
+  // いいね状態を取得（ログイン時のみ）
+  const isLikedByMe = isLoggedIn ? await checkArticleIsLikedByMe(id) : false;
+
+  // articleにisLikedByMeを付与
+  const articleWithLikeStatus = { ...article, isLikedByMe };
+
   return (
     <>
       <Suspense fallback={<LoadingSpinner fullHeight />}>
         <Header titleElement={<Logo />} />
       </Suspense>
-      <ArticleContent article={article} comments={comments} />
+      <ArticleContent article={articleWithLikeStatus} comments={comments} isLoggedIn={isLoggedIn} />
     </>
   );
 }
