@@ -7,6 +7,62 @@
     "en": "英語",
     "ja": "日本語"
   },
+  "onboarding": {
+    "hero": {
+      "badge": "プロフィール登録",
+      "title": "プロフィールを完成させましょう",
+      "subtitle": "ニックネーム・ユーザー名・画像を設定して、QuitMateのコミュニティ体験をはじめましょう。"
+    },
+    "progress": "Step {current} / {total}",
+    "steps": {
+      "nickname": {
+        "title": "ニックネームを決めましょう",
+        "description": "コミュニティに表示される名前です。",
+        "label": "ニックネーム",
+        "placeholder": "例：Quitter太郎",
+        "helper": "後から設定で変更できます。"
+      },
+      "username": {
+        "title": "ユーザー名を作成",
+        "description": "プロフィールURLにも利用されます。",
+        "label": "ユーザー名",
+        "placeholder": "例：quitmate_user",
+        "helper": "半角小文字英数字とアンダースコアのみ。3〜20文字。"
+      },
+      "avatar": {
+        "title": "プロフィール画像を追加",
+        "description": "あなたらしさが伝わる画像を選びましょう（後から変更できます）。",
+        "label": "プロフィール画像",
+        "helper": "JPG / PNG / WEBP ・ 5MB以下",
+        "button": "画像を選択",
+        "selectedBadge": "選択済み",
+        "previewAlt": "選択したプロフィール画像のプレビュー"
+      }
+    },
+    "buttons": {
+      "back": "戻る",
+      "next": "次へ",
+      "checking": "確認中...",
+      "saving": "保存中...",
+      "start": "はじめる",
+      "backToTop": "トップへ戻る"
+    },
+    "errors": {
+      "displayNameRequired": "ニックネームを入力してください。",
+      "displayNameLength": "ニックネームは50文字以内で入力してください。",
+      "userFetchFailed": "ログイン情報を確認できませんでした。ページを更新してください。",
+      "profileLookupFailed": "プロフィール情報の取得に失敗しました。",
+      "userNameRequired": "ユーザー名を入力してください。",
+      "userNameInvalid": "ユーザー名は半角英数字とアンダースコアのみで3〜20文字にしてください。",
+      "userNameUnavailable": "このユーザー名はすでに使われています。",
+      "userNameCheckFailed": "ユーザー名の確認に失敗しました。時間をおいて再度お試しください。",
+      "avatarInvalidType": "画像ファイルを選択してください。",
+      "avatarTooLarge": "画像サイズは5MB以下にしてください。",
+      "avatarUploadFailed": "画像のアップロードに失敗しました。",
+      "profileInsertFailed": "プロフィールの保存に失敗しました。",
+      "generic": "エラーが発生しました。もう一度お試しください。"
+    }
+  },
   "app-download-section": {
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
