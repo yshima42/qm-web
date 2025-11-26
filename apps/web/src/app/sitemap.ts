@@ -11,8 +11,13 @@ import { SITEMAP_LIMITS } from "@/features/sitemap/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = process.env.NEXT_PUBLIC_URL;
+  // Vercel環境では環境変数が必須、ローカル開発環境では空のsitemapを返す
   if (!url) {
-    throw new Error("NEXT_PUBLIC_URL is not set");
+    if (process.env.VERCEL) {
+      throw new Error("NEXT_PUBLIC_URL is not set");
+    }
+    // ローカル開発環境では空のsitemapを返す
+    return [];
   }
 
   // カテゴリーの一覧を取得

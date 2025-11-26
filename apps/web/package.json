@@ -6,7 +6,7 @@
     "dev:local": "env-cmd -f .env.local next dev",
     "dev:dev": "env-cmd -f .env.dev next dev",
     "dev:prod": "env-cmd -f .env.prod next dev",
-    "build": "env-cmd -f .env.prod next build",
+    "build": "next build",
     "build:dev": "env-cmd -f .env.dev next build",
     "build:prod-on-local": "env-cmd -f .env.prod next build",
     "start": "next start",
