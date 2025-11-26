@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { createStory } from '../data/actions';
 import { Loader2 } from 'lucide-react';
@@ -29,6 +30,8 @@ function countCharacters(text: string): number {
 }
 
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
+  const t = useTranslations('story-post');
+  const tCategory = useTranslations('categories');
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState('');
@@ -55,7 +58,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
     setError(null);
 
     if (isOverLimit) {
-      setError('Content exceeds maximum length');
+      setError(t('contentTooLong'));
       return;
     }
 
@@ -70,7 +73,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
         if (err instanceof Error && err.message.includes('NEXT_REDIRECT')) {
           return;
         }
-        setError(err instanceof Error ? err.message : 'Something went wrong');
+        setError(err instanceof Error ? err.message : t('createFailed'));
       }
     });
   };
@@ -97,7 +100,9 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
                 {activeHabits.map((habit) => (
                   <option key={habit.id} value={habit.id}>
                     {habit.custom_habit_name ||
-                      habit.habit_categories?.habit_category_name}
+                      (habit.habit_categories?.habit_category_name
+                        ? tCategory(habit.habit_categories.habit_category_name)
+                        : habit.habit_categories?.habit_category_name)}
                   </option>
                 ))}
               </select>
@@ -113,7 +118,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
               required
               rows={3}
               className="w-full resize-none rounded-md border-0 bg-transparent px-0 py-2 text-base placeholder:text-muted-foreground focus-visible:outline-none"
-              placeholder="What's happening?"
+              placeholder={t('placeholder')}
             />
           </div>
         </div>
@@ -176,7 +181,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
             className="rounded-full"
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Post
+            {t('postButton')}
           </Button>
         </div>
       </form>

@@ -75,7 +75,7 @@ export function SidebarContent({
               handleLinkClick();
             }}
           >
-            Post Story
+            {t('postStory')}
           </Button>
         </div>
       )}

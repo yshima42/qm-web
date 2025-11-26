@@ -64,7 +64,23 @@
       "downloadTitle": "Download QuitMate",
       "qrCodeAlt": "App download QR code",
       "openMenu": "Open menu",
-      "navigationMenu": "Navigation menu"
+      "navigationMenu": "Navigation menu",
+      "postStory": "Post"
+    },
+    "story-post": {
+      "modalTitle": "Create New Story",
+      "selectHabit": "Select Habit",
+      "habit": "Habit",
+      "yourStory": "Your Story",
+      "placeholder": "What's happening?",
+      "sharePlaceholder": "Share your journey...",
+      "postButton": "Post",
+      "postStoryButton": "Post",
+      "noActiveHabit": "You need an active habit to post a story. Please start a habit first.",
+      "contentRequired": "Content is required",
+      "contentTooLong": "Content exceeds maximum length",
+      "createFailed": "Failed to create story",
+      "noActiveHabitFound": "No active habit found. Please start a habit first."
     },
     "footer": {
       "title": "You don't have to quit alone",
