@@ -38,7 +38,23 @@
     "downloadTitle": "QuitMateをダウンロード",
     "qrCodeAlt": "アプリダウンロードQRコード",
     "openMenu": "メニューを開く",
-    "navigationMenu": "ナビゲーションメニュー"
+    "navigationMenu": "ナビゲーションメニュー",
+    "postStory": "投稿"
+  },
+  "story-post": {
+    "modalTitle": "新しいストーリーを作成",
+    "selectHabit": "習慣を選択",
+    "habit": "習慣",
+    "yourStory": "あなたのストーリー",
+    "placeholder": "今何してる?",
+    "sharePlaceholder": "あなたの体験をシェアしよう...",
+    "postButton": "投稿",
+    "postStoryButton": "投稿する",
+    "noActiveHabit": "ストーリーを投稿するには、アクティブな習慣が必要です。まず習慣を開始してください。",
+    "contentRequired": "内容を入力してください",
+    "contentTooLong": "文字数が上限を超えています",
+    "createFailed": "ストーリーの作成に失敗しました",
+    "noActiveHabitFound": "アクティブな習慣が見つかりません。まず習慣を開始してください。"
   },
   "footer": {
     "title": "共になら、やめられる",
