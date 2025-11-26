@@ -1,47 +1,51 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
-import { fetchArticlesXml, fetchProfilesXml, fetchStoriesXml } from '@/lib/data';
-import { HabitCategoryName } from '@/lib/types';
+import {
+  fetchArticlesXml,
+  fetchProfilesXml,
+  fetchStoriesXml,
+} from "@/features/sitemap/data/data";
+import { HabitCategoryName } from "@/lib/types";
 
-import { SITEMAP_LIMITS } from '@/utils/constants';
+import { SITEMAP_LIMITS } from "@/features/sitemap/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = process.env.NEXT_PUBLIC_URL;
   if (!url) {
-    throw new Error('NEXT_PUBLIC_URL is not set');
+    throw new Error("NEXT_PUBLIC_URL is not set");
   }
 
   // カテゴリーの一覧を取得
   const categories: HabitCategoryName[] = [
-    'Game',
-    'Tobacco',
-    'Shopping',
-    'Drugs',
-    'Overeating',
-    'Porno',
-    'SNS',
-    'Gambling',
-    'Caffeine',
-    'Cosmetic Surgery',
-    'Custom',
-    'Alcohol',
-    'Codependency',
-    'Official',
+    "Game",
+    "Tobacco",
+    "Shopping",
+    "Drugs",
+    "Overeating",
+    "Porno",
+    "SNS",
+    "Gambling",
+    "Caffeine",
+    "Cosmetic Surgery",
+    "Custom",
+    "Alcohol",
+    "Codependency",
+    "Official",
   ];
 
   const defaultPages: MetadataRoute.Sitemap = [
     {
       url: url,
       lastModified: new Date(),
-      changeFrequency: 'always',
+      changeFrequency: "always",
     },
     {
       url: `${url}/articles`,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: "daily",
     },
     ...categories.map((category) => ({
-      url: `${url}/stories/habits/${category.toLowerCase().replace(/ /g, '-')}`,
+      url: `${url}/stories/habits/${category.toLowerCase().replace(/ /g, "-")}`,
       lastModified: new Date(),
     })),
   ];

@@ -10,10 +10,10 @@ import {
   fetchStoryById,
   fetchCommentsByStoryId,
   fetchStoryDetailPageStaticParams,
-} from '@/lib/data';
+} from '@/features/stories/data/data';
 
-import { CommentTile } from '@/features/stories/comment-tile';
-import { StoryTile } from '@/features/stories/story-tile';
+import { CommentTile } from '@/features/stories/ui/comment-tile';
+import { StoryTile } from '@/features/stories/ui/story-tile';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!story) {
     return {
-      title: 'ストーリーが見つかりません',
+      title: 'Story not found',
     };
   }
 
   // ストーリー内容から短い抜粋を作成
-  const description = story.content.substring(0, 300) || 'ストーリー詳細ページです';
+  const description = story.content.substring(0, 300) || 'Story detail page';
 
   // プロフィール画像URLを取得（存在する場合）
   const profileImageUrl = story.profiles.avatar_url ?? null;
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             url: profileImageUrl,
             width: 100,
             height: 100,
-            alt: `${story.profiles.display_name}のプロフィール画像`,
+            alt: `${story.profiles.display_name}'s profile image`,
           },
         ],
       }),
@@ -122,10 +122,11 @@ export default async function Page({
             </div>
           )}
 
-          {/* アプリダウンロードセクションをコンポーネントに置き換え */}
+          {/* App download section */}
           <AppDownloadSection />
         </main>
       </Suspense>
     </>
   );
 }
+

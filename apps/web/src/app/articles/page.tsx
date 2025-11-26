@@ -1,24 +1,21 @@
 import { Logo } from '@quitmate/ui';
-import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
 
 import { Header } from '@/components/layout/header';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
-import { fetchArticles } from '@/lib/data';
+import { fetchArticles } from '@/features/articles/data/data';
 
-import { ArticleList } from '@/features/articles/article-list';
+import { ArticleList } from '@/features/articles/ui/article-list';
 
 export default function Page() {
-  const t = useTranslations('articles-page');
-
   return (
     <>
       <Header
         titleElement={
           <div className="flex items-center">
             <Logo size="small" />
-            <p className="ml-2 font-medium">{t('title')}</p>
+            <p className="ml-2 font-medium">Articles</p>
           </div>
         }
       />
@@ -30,3 +27,4 @@ export default function Page() {
     </>
   );
 }
+

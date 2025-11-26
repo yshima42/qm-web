@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 type MarkdownRendererProps = {
   content: string;
   className?: string;
-  variant?: 'default' | 'compact'; // 必要に応じてバリアントを追加
+  variant?: 'default' | 'compact'; // Add variants as needed
 };
 
 export function MarkdownRenderer({
@@ -58,3 +58,4 @@ export function MarkdownRenderer({
     </div>
   );
 }
+

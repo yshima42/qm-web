@@ -6,10 +6,10 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 import { CATEGORY_DISPLAY_NAMES, CATEGORY_ICONS } from '@/lib/categories';
-import { fetchStoriesByHabitCategoryName } from '@/lib/data';
+import { fetchStoriesByHabitCategoryName } from '@/features/stories/data/data';
 import { HabitCategoryName } from '@/lib/types';
 
-import { StoryList } from '@/features/stories/story-list';
+import { StoryList } from '@/features/stories/ui/story-list';
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -35,8 +35,20 @@ function capitalizeCategory(category: string): HabitCategoryName {
 }
 
 export default async function Page(props: { params: Promise<{ category: string }> }) {
-  const params = await props.params;
-  const category = params.category;
+  return (
+    <div className="flex w-full">
+      <Sidebar />
+      <div className="flex flex-1 flex-col">
+        <Suspense fallback={<LoadingSpinner />}>
+          <CategoryPageContent params={props.params} />
+        </Suspense>
+      </div>
+    </div>
+  );
+}
+
+async function CategoryPageContent({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
   if (!category) notFound();
 
   const habitCategory = capitalizeCategory(category);
@@ -48,21 +60,19 @@ export default async function Page(props: { params: Promise<{ category: string }
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
   return (
-    <div className="flex w-full">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
-        <Header
-          title={categoryDisplayName}
-          backUrl="/stories"
-          showBackButton={false}
-          icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
-        />
-        <main className="p-3 sm:p-5">
-          <Suspense fallback={<LoadingSpinner />}>
-            <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
-          </Suspense>
-        </main>
-      </div>
-    </div>
+    <>
+      <Header
+        title={categoryDisplayName}
+        backUrl="/stories"
+        showBackButton={false}
+        icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
+      />
+      <main className="p-3 sm:p-5">
+        <Suspense fallback={<LoadingSpinner />}>
+          <StoryList fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)} />
+        </Suspense>
+      </main>
+    </>
   );
 }
+
