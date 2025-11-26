@@ -85,3 +85,38 @@ export async function createStory(formData: FormData) {
   revalidatePath(categoryPath);
   redirect(categoryPath);
 }
+
+export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  if (shouldLike) {
+    // いいねを追加
+    const { error } = await supabase
+      .from('likes')
+      .insert({ story_id: storyId, user_id: user.id });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+  } else {
+    // いいねを削除
+    const { error } = await supabase
+      .from('likes')
+      .delete()
+      .match({ story_id: storyId, user_id: user.id });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+  }
+
+  revalidatePath('/');
+  return { success: true };
+}

@@ -6,20 +6,51 @@ import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 
 import { StoryTileDto } from '@/lib/types';
 
 import { CategoryTag } from '@/features/common/ui/category-tag';
 import { UserAvatar } from '@/features/profiles/ui/user-avatar';
+import { toggleStoryLike } from '@/features/stories/data/actions';
 
 type Props = {
   story: StoryTileDto;
   disableLink?: boolean;
   showFullContent?: boolean;
+  isLoggedIn?: boolean;
 };
 
-export function StoryTile({ story, disableLink = false, showFullContent = false }: Props) {
+export function StoryTile({
+  story,
+  disableLink = false,
+  showFullContent = false,
+  isLoggedIn = false,
+}: Props) {
   const router = useRouter();
+
+  // いいね状態の管理（楽観的更新）
+  const [isLiked, setIsLiked] = useState(story.isLikedByMe ?? false);
+  const [likesCount, setLikesCount] = useState(story.likes[0]?.count ?? 0);
+  const [isPending, startTransition] = useTransition();
+
+  const handleLike = () => {
+    const shouldLike = !isLiked;
+
+    // 楽観的更新（即座にUI更新）
+    setIsLiked(shouldLike);
+    setLikesCount((prev) => (shouldLike ? prev + 1 : prev - 1));
+
+    // バックグラウンドでDB保存
+    startTransition(async () => {
+      const result = await toggleStoryLike(story.id, shouldLike);
+      if (!result.success) {
+        // 失敗時はロールバック
+        setIsLiked(!shouldLike);
+        setLikesCount((prev) => (shouldLike ? prev - 1 : prev + 1));
+      }
+    });
+  };
 
   // storyDateをUTC時間から東京時間に変換
   const storyDate = toZonedTime(new Date(story.created_at), 'Asia/Tokyo');
@@ -70,7 +101,7 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
 
   return (
     <div
-      className="block cursor-pointer border-b border-gray-300 transition-colors hover:bg-accent/5 dark:border-gray-700"
+      className="hover:bg-accent/5 block cursor-pointer border-b border-gray-300 transition-colors dark:border-gray-700"
       onClick={handleClick}
     >
       <div className="flex px-0 py-4">
@@ -101,13 +132,13 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
             }}
           >
             <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="font-bold text-foreground">{story.profiles.display_name}</span>
+              <span className="text-foreground font-bold">{story.profiles.display_name}</span>
             </Link>
             <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="text-sm text-muted-foreground">@{story.profiles.user_name}</span>
+              <span className="text-muted-foreground text-sm">@{story.profiles.user_name}</span>
             </Link>
-            <span className="text-sm text-muted-foreground"> </span>
-            <span className="text-sm text-muted-foreground">{createdAt}</span>
+            <span className="text-muted-foreground text-sm"> </span>
+            <span className="text-muted-foreground text-sm">{createdAt}</span>
           </div>
 
           {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
@@ -122,7 +153,7 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
             </div>
 
             {/* 本文 - AutoLinkTextを使用 */}
-            <div className="mb-3 whitespace-pre-wrap text-foreground" onClick={handleContentClick}>
+            <div className="text-foreground mb-3 whitespace-pre-wrap" onClick={handleContentClick}>
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
                 <span className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500">
@@ -133,7 +164,7 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
           </div>
 
           {/* アクション */}
-          <div className="flex gap-6 text-muted-foreground">
+          <div className="text-muted-foreground flex gap-6">
             <div
               onClick={(e) => {
                 e.stopPropagation();
@@ -148,18 +179,28 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
               </AppDownloadDialogTrigger>
             </div>
 
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              className="inline-flex"
-            >
-              <AppDownloadDialogTrigger className="cursor-pointer">
-                <div className="flex items-center gap-1">
-                  <StoryLikeIcon className="size-5" />
-                  <span className="text-sm">{story.likes[0]?.count ?? 0}</span>
-                </div>
-              </AppDownloadDialogTrigger>
+            <div onClick={(e) => e.stopPropagation()} className="inline-flex">
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLike}
+                  disabled={isPending}
+                  className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+                >
+                  <StoryLikeIcon
+                    className={`size-5 transition-colors ${
+                      isLiked ? 'fill-green-600 text-green-600' : ''
+                    }`}
+                  />
+                  <span className={`text-sm ${isLiked ? 'text-green-600' : ''}`}>{likesCount}</span>
+                </button>
+              ) : (
+                <AppDownloadDialogTrigger className="cursor-pointer">
+                  <div className="flex items-center gap-1">
+                    <StoryLikeIcon className="size-5" />
+                    <span className="text-sm">{likesCount}</span>
+                  </div>
+                </AppDownloadDialogTrigger>
+              )}
             </div>
           </div>
         </div>
@@ -167,4 +208,3 @@ export function StoryTile({ story, disableLink = false, showFullContent = false 
     </div>
   );
 }
-
