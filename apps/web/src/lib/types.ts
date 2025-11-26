@@ -47,11 +47,19 @@ export type StoryTileDto = Story & {
   habit_categories: StoryHabitCategory;
   likes: { count: number }[];
   comments: { count: number }[];
+  isLikedByMe?: boolean;
+};
+
+// 返信先の親コメント情報（最小限の情報）
+export type ParentCommentInfo = {
+  id: string;
+  profiles: ProfileForAvatar;
 };
 
 export type CommentTileDto = Comment & {
   profiles: ProfileForAvatar;
   comment_likes: { count: number }[];
+  parent_comment?: ParentCommentInfo | null;
 };
 
 export type ProfileTileDto = Profile & {
@@ -64,6 +72,7 @@ export type ArticleTileDto = Article & {
   habit_categories: StoryHabitCategory | null;
   article_likes: { count: number }[];
   article_comments: { count: number }[];
+  isLikedByMe?: boolean;
 };
 
 export type ArticleCommentTileDto = ArticleComment & {

@@ -6,13 +6,17 @@ import { Suspense } from 'react';
 import { Header } from '@/components/layout/header';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
+import { createClient } from '@/lib/supabase/server';
+
 import {
   fetchStoryById,
   fetchCommentsByStoryId,
   fetchStoryDetailPageStaticParams,
+  checkIsLikedByMe,
 } from '@/features/stories/data/data';
 
-import { CommentTile } from '@/features/stories/ui/comment-tile';
+import { CommentsSection } from '@/features/stories/ui/comments-section';
+import { DisabledCommentNotice } from '@/features/stories/ui/disabled-comment-notice';
 import { StoryTile } from '@/features/stories/ui/story-tile';
 
 type Props = {
@@ -103,24 +107,54 @@ export default async function Page({
 }) {
   const resolvedParams = await params;
   const id = resolvedParams.id;
-  const story = await fetchStoryById(id);
-  const comments = await fetchCommentsByStoryId(id);
+
+  // 並列でデータ取得
+  const [story, comments, supabase] = await Promise.all([
+    fetchStoryById(id),
+    fetchCommentsByStoryId(id),
+    createClient(),
+  ]);
 
   if (!story) notFound();
+
+  // ログイン状態を取得
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
+
+  // いいね状態を取得（ログイン時のみ）
+  const isLikedByMe = isLoggedIn ? await checkIsLikedByMe(id) : false;
+
+  // storyにisLikedByMeを付与
+  const storyWithLikeStatus = { ...story, isLikedByMe };
+
+  // コメント可否判定（自分の投稿またはコメント有効の場合）
+  const isMyStory = user?.id === story.user_id;
+  const canComment = story.comment_setting === 'enabled' || isMyStory;
 
   return (
     <>
       <Header titleElement={<Logo />} />
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
-          <StoryTile story={story} disableLink showFullContent />
-          {comments && comments.length > 0 && (
-            <div className="mt-4">
-              {comments.map((comment) => (
-                <CommentTile key={comment.id} comment={comment} />
-              ))}
-            </div>
-          )}
+          <StoryTile
+            story={storyWithLikeStatus}
+            disableLink
+            showFullContent
+            isLoggedIn={isLoggedIn}
+          />
+
+          {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
+          {story.comment_setting === 'disabled' && !isMyStory && <DisabledCommentNotice />}
+
+          {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
+          <CommentsSection
+            storyId={id}
+            comments={comments}
+            isLoggedIn={isLoggedIn}
+            canComment={canComment}
+          />
 
           {/* App download section */}
           <AppDownloadSection />
@@ -129,4 +163,3 @@ export default async function Page({
     </>
   );
 }
-

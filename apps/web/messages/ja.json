@@ -117,5 +117,33 @@
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "contact": "お問い合わせ"
+  },
+  "login-prompt": {
+    "story-title": "共感した投稿、応援したい投稿に「応援」しましょう。",
+    "story-description": "アカウントを作成すると、投稿を「応援」できます。",
+    "article-title": "共感した記事、応援したい記事に「応援」しましょう。",
+    "article-description": "アカウントを作成すると、記事を「応援」できます。",
+    "login": "ログイン",
+    "sign-up": "アカウント作成"
+  },
+  "comment-form": {
+    "placeholder": "コメントを追加...",
+    "replyPlaceholder": "返信を追加...",
+    "replyingTo": "返信先:",
+    "submitButton": "返信",
+    "loginPrompt": "コメントするにはログインしてください",
+    "contentRequired": "コメント内容を入力してください",
+    "contentTooLong": "コメントが長すぎます",
+    "postFailed": "コメントの投稿に失敗しました",
+    "posting": "投稿中..."
+  },
+  "comment-setting": {
+    "enabled": "全員がコメント可能",
+    "disabled": "コメントを無効にする",
+    "label": "コメント設定"
+  },
+  "disabled-comment": {
+    "title": "コメントが無効です",
+    "message": "投稿者がこの投稿へのコメントを無効にしています"
   }
 }

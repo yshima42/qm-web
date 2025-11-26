@@ -1,7 +1,10 @@
+'use client';
+
 import { AppDownloadDialogTrigger } from '@quitmate/ui';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { toZonedTime } from 'date-fns-tz';
+import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 import { CommentTileDto } from '@/lib/types';
@@ -10,9 +13,12 @@ import { UserAvatar } from '@/features/profiles/ui/user-avatar';
 
 type Props = {
   comment: CommentTileDto;
+  onReply?: (comment: CommentTileDto) => void;
+  isLoggedIn?: boolean;
+  canComment?: boolean;
 };
 
-export function CommentTile({ comment }: Props) {
+export function CommentTile({ comment, onReply, isLoggedIn, canComment }: Props) {
   // コメント日時を東京時間に変換
   const commentDate = toZonedTime(new Date(comment.created_at), 'Asia/Tokyo');
 
@@ -41,7 +47,7 @@ export function CommentTile({ comment }: Props) {
   });
 
   return (
-    <div className="flex border-b border-border p-3 pl-12">
+    <div className="border-border flex border-b p-3 pl-12">
       {/* アバター */}
       <div className="mr-2">
         <UserAvatar
@@ -56,34 +62,56 @@ export function CommentTile({ comment }: Props) {
       <div className="flex-1">
         <div className="mb-0.5 flex items-center gap-1.5">
           <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-sm font-bold text-foreground">
+            <span className="text-foreground text-sm font-bold">
               {comment.profiles.display_name}
             </span>
           </Link>
           <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-xs text-muted-foreground">@{comment.profiles.user_name}</span>
+            <span className="text-muted-foreground text-xs">@{comment.profiles.user_name}</span>
           </Link>
-          <span className="text-xs text-muted-foreground">・</span>
-          <span className="text-xs text-muted-foreground">{createdAt}</span>
+          <span className="text-muted-foreground text-xs">・</span>
+          <span className="text-muted-foreground text-xs">{createdAt}</span>
         </div>
-        <p className="whitespace-pre-wrap text-sm text-foreground">{comment.content}</p>
 
-        {/* いいねボタン */}
-        <AppDownloadDialogTrigger className="cursor-pointer">
-          <div className="mt-1 flex items-center gap-1 text-muted-foreground">
-            <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-            <span className="text-xs">{comment.comment_likes[0]?.count ?? 0}</span>
-          </div>
-        </AppDownloadDialogTrigger>
+        <p className="text-foreground whitespace-pre-wrap text-sm">
+          {/* 返信先表示（返信コメントの場合） */}
+          {comment.parent_comment?.profiles?.display_name && (
+            <span className="text-primary mr-1 font-medium">
+              @{comment.parent_comment.profiles.display_name}
+            </span>
+          )}
+          {comment.content}
+        </p>
+
+        {/* アクションボタン */}
+        <div className="mt-1 flex items-center gap-4">
+          {/* 返信ボタン（ログイン時かつコメント可能な場合のみ表示） */}
+          {isLoggedIn && canComment && onReply && (
+            <button
+              onClick={() => onReply(comment)}
+              className="text-muted-foreground hover:text-primary flex items-center gap-1"
+            >
+              <MessageCircle className="size-4" />
+              <span className="text-xs">返信</span>
+            </button>
+          )}
+
+          {/* いいねボタン */}
+          <AppDownloadDialogTrigger className="cursor-pointer">
+            <div className="text-muted-foreground flex items-center gap-1">
+              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <span className="text-xs">{comment.comment_likes[0]?.count ?? 0}</span>
+            </div>
+          </AppDownloadDialogTrigger>
+        </div>
       </div>
     </div>
   );
 }
-
