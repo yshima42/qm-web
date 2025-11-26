@@ -4,6 +4,7 @@ import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import {
   generateUserName,
   normalizeUserNameInput,
@@ -49,7 +50,7 @@ function sanitizeNextPath(next?: string | null) {
 async function uploadAvatar(
   supabase: Awaited<ReturnType<typeof createClient>>,
   userId: string,
-  file: File
+  file: File,
 ) {
   if (!file.type.startsWith("image/")) {
     return { errorCode: "avatarInvalidType" as OnboardingErrorCode };
@@ -80,9 +81,7 @@ async function uploadAvatar(
   return { url: publicUrl };
 }
 
-export async function completeProfileOnboarding(
-  formData: FormData
-): Promise<OnboardingResult> {
+export async function completeProfileOnboarding(formData: FormData): Promise<OnboardingResult> {
   const displayName = (formData.get("display_name") as string | null)?.trim();
   const nextParam = formData.get("next") as string | null;
   const avatarFile = formData.get("avatar");
@@ -123,8 +122,7 @@ export async function completeProfileOnboarding(
     return { redirectTo: nextPath };
   }
 
-  const sanitizedUserName =
-    normalizeUserNameInput(userNameInput) ?? generateUserName(user.id);
+  const sanitizedUserName = normalizeUserNameInput(userNameInput) ?? generateUserName(user.id);
 
   if (!sanitizedUserName) {
     return { errorCode: "userNameRequired" };
@@ -172,11 +170,22 @@ export async function completeProfileOnboarding(
     return { errorCode: "profileInsertFailed" };
   }
 
+  // app_metadataにprofile_completedフラグを設定（次回以降のDBクエリをスキップ）
+  try {
+    const supabaseAdmin = createAdminClient();
+    await supabaseAdmin.auth.admin.updateUserById(user.id, {
+      app_metadata: { profile_completed: true },
+    });
+  } catch (error) {
+    // app_metadata更新の失敗はクリティカルではないのでログのみ
+    console.error("[onboarding] failed to update app_metadata", error);
+  }
+
   return { redirectTo: nextPath };
 }
 
 export async function checkUserNameAvailability(
-  userName: string
+  userName: string,
 ): Promise<UserNameAvailabilityResult> {
   const sanitizedUserName = normalizeUserNameInput(userName);
   if (!sanitizedUserName) {
@@ -211,4 +220,3 @@ export async function checkUserNameAvailability(
 
   return { available: true };
 }
-
