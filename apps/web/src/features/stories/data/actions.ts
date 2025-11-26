@@ -64,6 +64,7 @@ export async function createStory(formData: FormData) {
     content: content.trim(),
     user_id: user.id,
     habit_category_id: activeHabit.habit_category_id,
+    custom_habit_name: activeHabit.custom_habit_name,
     trial_started_at: activeTrial.started_at,
     trial_elapsed_days: trialElapsedDays,
     comment_setting: 'enabled', // Default to enabled
