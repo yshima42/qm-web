@@ -96,5 +96,14 @@
       "article-description": "Create an account to support articles.",
       "login": "Log in",
       "sign-up": "Create account"
+    },
+    "comment-form": {
+      "placeholder": "Add a comment...",
+      "submitButton": "Reply",
+      "loginPrompt": "Log in to comment",
+      "contentRequired": "Comment content is required",
+      "contentTooLong": "Comment is too long",
+      "postFailed": "Failed to post comment",
+      "posting": "Posting..."
     }
   }

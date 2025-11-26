@@ -70,5 +70,14 @@
     "article-description": "アカウントを作成すると、記事を「応援」できます。",
     "login": "ログイン",
     "sign-up": "アカウント作成"
+  },
+  "comment-form": {
+    "placeholder": "コメントを追加...",
+    "submitButton": "返信",
+    "loginPrompt": "コメントするにはログインしてください",
+    "contentRequired": "コメント内容を入力してください",
+    "contentTooLong": "コメントが長すぎます",
+    "postFailed": "コメントの投稿に失敗しました",
+    "posting": "投稿中..."
   }
 }

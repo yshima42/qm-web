@@ -15,6 +15,7 @@ import {
   checkIsLikedByMe,
 } from '@/features/stories/data/data';
 
+import { CommentForm } from '@/features/stories/ui/comment-form';
 import { CommentTile } from '@/features/stories/ui/comment-tile';
 import { StoryTile } from '@/features/stories/ui/story-tile';
 
@@ -133,7 +134,17 @@ export default async function Page({
       <Header titleElement={<Logo />} />
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
-          <StoryTile story={storyWithLikeStatus} disableLink showFullContent isLoggedIn={isLoggedIn} />
+          <StoryTile
+            story={storyWithLikeStatus}
+            disableLink
+            showFullContent
+            isLoggedIn={isLoggedIn}
+          />
+
+          {/* コメントフォーム（ログイン時のみ表示） */}
+          {isLoggedIn && <CommentForm storyId={id} />}
+
+          {/* コメント一覧 */}
           {comments && comments.length > 0 && (
             <div className="mt-4">
               {comments.map((comment) => (
@@ -149,4 +160,3 @@ export default async function Page({
     </>
   );
 }
-

@@ -120,3 +120,42 @@ export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
   revalidatePath('/');
   return { success: true };
 }
+
+export async function createComment(storyId: string, content: string) {
+  // バリデーション
+  if (!content || content.trim() === '') {
+    return { success: false, error: 'Content is required' };
+  }
+
+  const trimmedContent = content.trim();
+  
+  // 文字数制限（最大500文字）
+  if (trimmedContent.length > 500) {
+    return { success: false, error: 'Content is too long' };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  // コメントをDBに挿入
+  const { error } = await supabase.from('comments').insert({
+    story_id: storyId,
+    user_id: user.id,
+    content: trimmedContent,
+  });
+
+  if (error) {
+    console.error('Error creating comment:', error);
+    return { success: false, error: 'Failed to create comment' };
+  }
+
+  // ストーリー詳細ページを再検証
+  revalidatePath('/');
+  return { success: true };
+}
