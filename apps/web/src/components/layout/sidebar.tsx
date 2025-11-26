@@ -5,6 +5,7 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTrigger,
   SheetTitle,
   ThemeSwitcher,
   CategoryIcon,
@@ -145,11 +146,19 @@ export function SidebarContent({
 
 export function Sidebar() {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const t = useTranslations('sidebar');
 
+  // 画面サイズが大きくなったときにモバイル用サイドバーを閉じる
   useEffect(() => {
-    setIsMounted(true);
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        // md breakpoint以上になったら閉じる
+        setSheetOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -163,61 +172,50 @@ export function Sidebar() {
       </aside>
 
       <div className="fixed left-4 top-[7px] z-50 md:hidden">
-        {isMounted ? (
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+          <SheetTrigger asChild>
             <Button
               size="icon"
               variant="outline"
               className="rounded-full shadow-md"
               aria-label={t('openMenu')}
-              onClick={() => setSheetOpen(true)}
             >
               <Menu className="size-5" />
             </Button>
-            <SheetContent side="left" className="w-64 sm:max-w-xs">
-              <SheetHeader className="pb-2">
-                <SheetTitle className="sr-only">{t('navigationMenu')}</SheetTitle>
-                <Link
-                  href="/"
-                  className="flex items-end gap-1"
-                  onClick={() => {
-                    setSheetOpen(false);
-                  }}
-                >
-                  <Image
-                    src="/images/icon-web.png"
-                    alt="QuitMate Logo"
-                    width={24}
-                    height={24}
-                    className="h-8 w-auto"
-                  />
-                  <span className="text-2xl font-medium leading-tight">
-                    QuitMate
-                  </span>
-                </Link>
-              </SheetHeader>
-              <div className="pt-4">
-                <SidebarContent
-                  habitCategories={HABIT_CATEGORIES}
-                  onLinkClick={() => {
-                    setSheetOpen(false);
-                  }}
-                  skipLogo
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64 sm:max-w-xs">
+            <SheetHeader className="pb-2">
+              <SheetTitle className="sr-only">{t('navigationMenu')}</SheetTitle>
+              <Link
+                href="/"
+                className="flex items-end gap-1"
+                onClick={() => {
+                  setSheetOpen(false);
+                }}
+              >
+                <Image
+                  src="/images/icon-web.png"
+                  alt="QuitMate Logo"
+                  width={24}
+                  height={24}
+                  className="h-8 w-auto"
                 />
-              </div>
-            </SheetContent>
-          </Sheet>
-        ) : (
-          <Button
-            size="icon"
-            variant="outline"
-            className="rounded-full shadow-md"
-            aria-label={t('openMenu')}
-            disabled
-          >
-            <Menu className="size-5" />
-          </Button>
-        )}
+                <span className="text-2xl font-medium leading-tight">
+                  QuitMate
+                </span>
+              </Link>
+            </SheetHeader>
+            <div className="pt-4">
+              <SidebarContent
+                habitCategories={HABIT_CATEGORIES}
+                onLinkClick={() => {
+                  setSheetOpen(false);
+                }}
+                skipLogo
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </>
   );
