@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { createStory } from '../data/actions';
 import { Loader2 } from 'lucide-react';
@@ -9,6 +9,24 @@ import { HabitTileDto } from '@/lib/types';
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
 };
+
+const MAX_CHARACTERS = 300;
+const SHOW_COUNT_THRESHOLD = 20;
+
+// Count characters, treating multibyte characters as 2
+function countCharacters(text: string): number {
+  let count = 0;
+  for (const char of text) {
+    // Check if character is multibyte (e.g., Japanese, emoji, etc.)
+    const code = char.charCodeAt(0);
+    if (code > 0x7F) {
+      count += 2; // Multibyte character counts as 2
+    } else {
+      count += 1; // ASCII character counts as 1
+    }
+  }
+  return count;
+}
 
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const [isPending, startTransition] = useTransition();
@@ -23,9 +41,23 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const hasActiveHabit = activeHabits.length > 0;
   const showHabitSelect = activeHabits.length > 1;
 
+  // Calculate character count and remaining
+  const charCount = useMemo(() => countCharacters(content), [content]);
+  const remaining = MAX_CHARACTERS - charCount;
+  const isOverLimit = remaining < 0;
+  const showCount = remaining <= SHOW_COUNT_THRESHOLD;
+
+  // Calculate progress for circular indicator (0-1)
+  const progress = Math.min(charCount / MAX_CHARACTERS, 1);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+
+    if (isOverLimit) {
+      setError('Content exceeds maximum length');
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
 
@@ -86,10 +118,56 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
           <div className="ml-13 text-sm text-red-500">{error}</div>
         )}
 
-        <div className="flex justify-end ml-13">
+        <div className="flex items-center justify-end gap-3 ml-13">
+          {/* Character count indicator */}
+          <div className="relative flex items-center justify-center">
+            {/* Background circle */}
+            <svg className="w-8 h-8 -rotate-90">
+              <circle
+                cx="16"
+                cy="16"
+                r="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="text-muted"
+                opacity="0.2"
+              />
+              {/* Progress circle */}
+              <circle
+                cx="16"
+                cy="16"
+                r="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray={`${2 * Math.PI * 14}`}
+                strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
+                className={
+                  isOverLimit
+                    ? 'text-red-500'
+                    : remaining <= 20
+                      ? 'text-yellow-500'
+                      : 'text-primary'
+                }
+                strokeLinecap="round"
+              />
+            </svg>
+            {/* Character count text */}
+            {showCount && (
+              <span
+                className={`absolute text-xs font-medium ${
+                  isOverLimit ? 'text-red-500' : 'text-muted-foreground'
+                }`}
+              >
+                {remaining}
+              </span>
+            )}
+          </div>
+
           <Button 
             type="submit" 
-            disabled={isPending || !content.trim()}
+            disabled={isPending || !content.trim() || isOverLimit}
             size="sm"
             className="rounded-full"
           >

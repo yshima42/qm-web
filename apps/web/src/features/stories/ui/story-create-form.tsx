@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { createStory } from '../data/actions';
@@ -11,9 +11,28 @@ type StoryCreateFormProps = {
   habits: HabitTileDto[];
 };
 
+const MAX_CHARACTERS = 300;
+const SHOW_COUNT_THRESHOLD = 20;
+
+// Count characters, treating multibyte characters as 2
+function countCharacters(text: string): number {
+  let count = 0;
+  for (const char of text) {
+    // Check if character is multibyte (e.g., Japanese, emoji, etc.)
+    const code = char.charCodeAt(0);
+    if (code > 0x7F) {
+      count += 2; // Multibyte character counts as 2
+    } else {
+      count += 1; // ASCII character counts as 1
+    }
+  }
+  return count;
+}
+
 export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [content, setContent] = useState('');
 
   // Filter for active habits (has at least one trial with no ended_at)
   const activeHabits = habits.filter((habit) =>
@@ -23,8 +42,23 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const hasActiveHabit = activeHabits.length > 0;
   const showHabitSelect = activeHabits.length > 1;
 
+  // Calculate character count and remaining
+  const charCount = useMemo(() => countCharacters(content), [content]);
+  const remaining = MAX_CHARACTERS - charCount;
+  const isOverLimit = remaining < 0;
+  const showCount = remaining <= SHOW_COUNT_THRESHOLD;
+
+  // Calculate progress for circular indicator (0-1)
+  const progress = Math.min(charCount / MAX_CHARACTERS, 1);
+
   const handleSubmit = async (formData: FormData) => {
     setError(null);
+
+    if (isOverLimit) {
+      setError('Content exceeds maximum length');
+      return;
+    }
+
     startTransition(async () => {
       try {
         await createStory(formData);
@@ -79,6 +113,8 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
         <textarea
           id="content"
           name="content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           required
           rows={5}
           className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
@@ -86,10 +122,59 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
         />
       </div>
       {error && <p className="text-sm text-red-500">{error}</p>}
-      <Button type="submit" disabled={isPending}>
-        {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        Post Story
-      </Button>
+      
+      <div className="flex items-center justify-end gap-3">
+        {/* Character count indicator */}
+        <div className="relative flex items-center justify-center">
+          {/* Background circle */}
+          <svg className="w-8 h-8 -rotate-90">
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-muted"
+              opacity="0.2"
+            />
+            {/* Progress circle */}
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeDasharray={`${2 * Math.PI * 14}`}
+              strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
+              className={
+                isOverLimit
+                  ? 'text-red-500'
+                  : remaining <= 20
+                    ? 'text-yellow-500'
+                    : 'text-primary'
+              }
+              strokeLinecap="round"
+            />
+          </svg>
+          {/* Character count text */}
+          {showCount && (
+            <span
+              className={`absolute text-xs font-medium ${
+                isOverLimit ? 'text-red-500' : 'text-muted-foreground'
+              }`}
+            >
+              {remaining}
+            </span>
+          )}
+        </div>
+
+        <Button type="submit" disabled={isPending || isOverLimit}>
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Post Story
+        </Button>
+      </div>
     </form>
   );
 }
