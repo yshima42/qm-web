@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useTransition, useMemo } from "react";
+import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { createStory } from "../data/actions";
 import { Loader2 } from "lucide-react";
 import { HabitTileDto } from "@/lib/types";
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
-import { countCharacters } from "@/features/common/utils";
+import { useCharacterCount } from "@/features/common/hooks/use-character-count";
+import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
 
 type StoryCreateFormProps = {
   habits: HabitTileDto[];
@@ -28,13 +28,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const showHabitSelect = activeHabits.length > 1;
 
   // Calculate character count and remaining
-  const charCount = useMemo(() => countCharacters(content), [content]);
-  const remaining = MAX_CHARACTERS - charCount;
-  const isOverLimit = remaining < 0;
-  const showCount = remaining <= SHOW_COUNT_THRESHOLD;
-
-  // Calculate progress for circular indicator (0-1)
-  const progress = Math.min(charCount / MAX_CHARACTERS, 1);
+  const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
 
   const handleSubmit = async (formData: FormData) => {
     setError(null);
@@ -115,47 +109,12 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
       {error && <p className="text-sm text-red-500">{error}</p>}
 
       <div className="flex items-center justify-end gap-3">
-        {/* Character count indicator */}
-        <div className="relative flex items-center justify-center">
-          {/* Background circle */}
-          <svg className="h-8 w-8 -rotate-90">
-            <circle
-              cx="16"
-              cy="16"
-              r="14"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="text-muted"
-              opacity="0.2"
-            />
-            {/* Progress circle */}
-            <circle
-              cx="16"
-              cy="16"
-              r="14"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeDasharray={`${2 * Math.PI * 14}`}
-              strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
-              className={
-                isOverLimit ? "text-red-500" : remaining <= 20 ? "text-yellow-500" : "text-primary"
-              }
-              strokeLinecap="round"
-            />
-          </svg>
-          {/* Character count text */}
-          {showCount && (
-            <span
-              className={`absolute text-xs font-medium ${
-                isOverLimit ? "text-red-500" : "text-muted-foreground"
-              }`}
-            >
-              {remaining}
-            </span>
-          )}
-        </div>
+        <CharacterCountIndicator
+          remaining={remaining}
+          isOverLimit={isOverLimit}
+          showCount={showCount}
+          progress={progress}
+        />
 
         <Button type="submit" disabled={isPending || isOverLimit}>
           {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

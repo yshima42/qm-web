@@ -2,12 +2,12 @@
 
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
-import { countCharacters } from "@/features/common/utils";
+import { useCharacterCount } from "@/features/common/hooks/use-character-count";
+import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
 import { createArticleComment } from "@/features/articles/data/actions";
 
 type Props = {
@@ -21,13 +21,7 @@ export function ArticleCommentForm({ articleId }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   // Calculate character count and remaining
-  const charCount = useMemo(() => countCharacters(content), [content]);
-  const remaining = MAX_CHARACTERS - charCount;
-  const isOverLimit = remaining < 0;
-  const showCount = remaining <= SHOW_COUNT_THRESHOLD;
-
-  // Calculate progress for circular indicator (0-1)
-  const progress = Math.min(charCount / MAX_CHARACTERS, 1);
+  const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,51 +76,12 @@ export function ArticleCommentForm({ articleId }: Props) {
 
         {/* アクションボタン */}
         <div className="ml-13 flex items-center justify-end gap-3">
-          {/* Character count indicator */}
-          <div className="relative flex items-center justify-center">
-            {/* Background circle */}
-            <svg className="h-8 w-8 -rotate-90">
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="text-gray-200 dark:text-gray-700"
-                opacity="0.5"
-              />
-              {/* Progress circle */}
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeDasharray={`${2 * Math.PI * 14}`}
-                strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
-                className={
-                  isOverLimit
-                    ? "text-red-500"
-                    : remaining <= 20
-                      ? "text-yellow-500"
-                      : "text-primary"
-                }
-                strokeLinecap="round"
-              />
-            </svg>
-            {/* Character count text */}
-            {showCount && (
-              <span
-                className={`absolute text-xs font-medium ${
-                  isOverLimit ? "text-red-500" : "text-gray-500 dark:text-gray-400"
-                }`}
-              >
-                {remaining}
-              </span>
-            )}
-          </div>
+          <CharacterCountIndicator
+            remaining={remaining}
+            isOverLimit={isOverLimit}
+            showCount={showCount}
+            progress={progress}
+          />
 
           <Button
             type="submit"

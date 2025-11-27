@@ -12,7 +12,7 @@ import {
   SidebarIcon,
   StoreBadges,
 } from "@quitmate/ui";
-import { Home, BookOpen, Menu, Target, Pen, ChevronDown, ChevronRight, Users, Compass, Settings } from "lucide-react";
+import { Home, BookOpen, Menu, Target, Pen, ChevronDown, ChevronRight, Users, Compass, Settings, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,6 +28,7 @@ type SidebarContentProps = {
   compact?: boolean;
   onLinkClick?: () => void;
   skipLogo?: boolean;
+  currentUserUsername?: string | null;
 };
 
 export function SidebarContent({
@@ -35,6 +36,7 @@ export function SidebarContent({
   compact = false,
   onLinkClick,
   skipLogo = false,
+  currentUserUsername,
 }: SidebarContentProps) {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
@@ -108,6 +110,16 @@ export function SidebarContent({
           showLabel={!compact}
           onClick={handleLinkClick}
         />
+        {currentUserUsername && (
+          <SidebarIcon
+            icon={User}
+            label={t("profile")}
+            href={`/${currentUserUsername}`}
+            active={pathname === `/${currentUserUsername}`}
+            showLabel={!compact}
+            onClick={handleLinkClick}
+          />
+        )}
         <SidebarIcon
           icon={Target}
           label="Habits"
@@ -269,7 +281,11 @@ export function SidebarContent({
   );
 }
 
-export function Sidebar() {
+type SidebarProps = {
+  currentUserUsername?: string | null;
+};
+
+export function Sidebar({ currentUserUsername }: SidebarProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const t = useTranslations("sidebar");
@@ -295,11 +311,11 @@ export function Sidebar() {
   return (
     <>
       <aside className="border-border sticky top-0 hidden h-screen w-64 shrink-0 border-r pt-4 lg:block">
-        <SidebarContent habitCategories={HABIT_CATEGORIES} />
+        <SidebarContent habitCategories={HABIT_CATEGORIES} currentUserUsername={currentUserUsername} />
       </aside>
 
       <aside className="border-border sticky top-0 hidden h-screen w-16 shrink-0 border-r pt-4 md:block lg:hidden">
-        <SidebarContent habitCategories={HABIT_CATEGORIES} compact />
+        <SidebarContent habitCategories={HABIT_CATEGORIES} compact currentUserUsername={currentUserUsername} />
       </aside>
 
       <div className="fixed left-4 top-[7px] z-50 md:hidden">
@@ -342,6 +358,7 @@ export function Sidebar() {
                     setSheetOpen(false);
                   }}
                   skipLogo
+                  currentUserUsername={currentUserUsername}
                 />
               </div>
             </SheetContent>

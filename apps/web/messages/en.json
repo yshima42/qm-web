@@ -131,6 +131,7 @@
   },
   "sidebar": {
     "home": "Home",
+    "profile": "Profile",
     "articles": "Articles",
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
