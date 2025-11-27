@@ -31,6 +31,8 @@ export async function PageWithSidebar({ children, headerProps, className }: Page
             rightElement={headerProps.rightElement}
             hideTitle={headerProps.hideTitle}
             icon={headerProps.icon}
+            showBackButton={headerProps.showBackButton}
+            backUrl={headerProps.backUrl}
           />
         )}
         {children}

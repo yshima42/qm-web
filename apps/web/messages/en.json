@@ -257,5 +257,8 @@
     "emptyMessage": "Follow users you're interested in to see their posts in your timeline",
     "noMoreStories": "All posts loaded",
     "errorLoading": "Failed to load"
+  },
+  "page": {
+    "post": "Post"
   }
 }

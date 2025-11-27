@@ -6,7 +6,6 @@ import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
-import { CATEGORY_ICONS } from "@/lib/categories";
 import { createClient } from "@/lib/supabase/server";
 import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 
@@ -86,9 +85,6 @@ async function CategoryPageContent({
   // カテゴリー名を翻訳から取得
   const categoryDisplayName = tCategory(habitCategory);
 
-  // カテゴリーアイコンを取得
-  const CategoryIcon = CATEGORY_ICONS[habitCategory];
-
   // ログイン状態を取得
   const supabase = await createClient();
   const {
@@ -103,14 +99,7 @@ async function CategoryPageContent({
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
-    <PageWithSidebar
-      headerProps={{
-        title: categoryDisplayName,
-        backUrl: "/stories",
-        showBackButton: false,
-        icon: <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />,
-      }}
-    >
+    <PageWithSidebar>
       {/* タブヘッダー */}
       <StoriesTabHeader
         categoryName={habitCategory}

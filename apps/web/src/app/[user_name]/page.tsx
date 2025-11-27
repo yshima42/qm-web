@@ -1,4 +1,3 @@
-import { Logo } from "@quitmate/ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -101,7 +100,8 @@ export default async function Page(props: { params: Promise<{ user_name: string 
     <HabitsProvider habits={habits}>
       <PageWithSidebar
         headerProps={{
-          titleElement: <Logo />,
+          title: profile.display_name,
+          showBackButton: true,
         }}
       >
         <Suspense fallback={<LoadingSpinner fullHeight />}>
