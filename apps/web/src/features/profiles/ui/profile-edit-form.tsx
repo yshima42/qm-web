@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { updateProfile } from "@/features/profiles/data/actions";
 import { ProfileTileDto } from "@/lib/types";
+import { PROFILE_VALIDATIONS } from "@/features/profiles/lib/profile-validations";
 
 type ProfileEditFormProps = {
   profile: ProfileTileDto;
@@ -63,8 +64,8 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
       return;
     }
 
-    if (displayName.length > 50) {
-      setDisplayNameError("表示名は50文字以下にしてください");
+    if (displayName.length > PROFILE_VALIDATIONS.displayNameMaxLength) {
+      setDisplayNameError(`表示名は${PROFILE_VALIDATIONS.displayNameMaxLength}文字以下にしてください`);
       return;
     }
 
@@ -73,8 +74,13 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
       return;
     }
 
-    if (userName.length < 3) {
-      setUserNameError("ユーザーIDは3文字以上である必要があります");
+    if (userName.length < PROFILE_VALIDATIONS.userNameMinLength) {
+      setUserNameError(`ユーザーIDは${PROFILE_VALIDATIONS.userNameMinLength}文字以上である必要があります`);
+      return;
+    }
+
+    if (userName.length > PROFILE_VALIDATIONS.userNameMaxLength) {
+      setUserNameError(`ユーザーIDは${PROFILE_VALIDATIONS.userNameMaxLength}文字以下にしてください`);
       return;
     }
 
@@ -93,7 +99,7 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
           if (result.errorCode === "userNameInvalid" || result.errorCode === "userNameUnavailable") {
             setUserNameError(
               result.errorCode === "userNameInvalid"
-                ? "ユーザーIDは3-20文字の英数字とアンダースコアのみ使用できます"
+                ? `ユーザーIDは${PROFILE_VALIDATIONS.userNameMinLength}-${PROFILE_VALIDATIONS.userNameMaxLength}文字の英数字とアンダースコアのみ使用できます`
                 : "このユーザーIDは既に使用されています",
             );
           } else {
@@ -166,13 +172,13 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
             id="display_name"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            maxLength={50}
+            maxLength={PROFILE_VALIDATIONS.displayNameMaxLength}
             placeholder="ニックネームを入力"
           />
           {displayNameError && (
             <p className="text-destructive text-sm">{displayNameError}</p>
           )}
-          <p className="text-muted-foreground text-sm">{displayName.length}/50</p>
+          <p className="text-muted-foreground text-sm">{displayName.length}/{PROFILE_VALIDATIONS.displayNameMaxLength}</p>
         </div>
 
         {/* ユーザーID */}
@@ -182,14 +188,14 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
             id="user_name"
             value={userName}
             onChange={(e) => setUserName(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
-            maxLength={20}
+            maxLength={PROFILE_VALIDATIONS.userNameMaxLength}
             placeholder="ユーザーIDを入力"
           />
           {userNameError && (
             <p className="text-destructive text-sm">{userNameError}</p>
           )}
           <p className="text-muted-foreground text-sm">
-            {userName.length}/20（3文字以上、英数字とアンダースコアのみ）
+            {userName.length}/{PROFILE_VALIDATIONS.userNameMaxLength}（{PROFILE_VALIDATIONS.userNameMinLength}文字以上、英数字とアンダースコアのみ）
           </p>
         </div>
 

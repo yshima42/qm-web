@@ -18,6 +18,7 @@ import {
   AVATAR_MAX_SIZE,
   AVATAR_BUCKET,
 } from "@/features/profiles/lib/avatar-constants";
+import { PROFILE_VALIDATIONS } from "@/features/profiles/lib/profile-validations";
 
 export type OnboardingErrorCode =
   | "displayNameRequired"
@@ -156,7 +157,7 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
   if (!displayName) {
     return { errorCode: "displayNameRequired" };
   }
-  if (displayName.length > 50) {
+  if (displayName.length > PROFILE_VALIDATIONS.displayNameMaxLength) {
     return { errorCode: "displayNameLength" };
   }
 
@@ -332,7 +333,7 @@ export async function updateProfile(formData: FormData): Promise<UpdateProfileRe
   if (!displayName) {
     return { success: false, errorCode: "displayNameRequired" };
   }
-  if (displayName.length > 50) {
+  if (displayName.length > PROFILE_VALIDATIONS.displayNameMaxLength) {
     return { success: false, errorCode: "displayNameLength" };
   }
 
