@@ -12,6 +12,7 @@ import {
   fetchProfileByUsername,
   fetchProfilePageStaticParams,
   checkIsFollowing,
+  checkIsMuted,
 } from "@/features/profiles/data/data";
 
 import { ProfileHeader } from "@/features/profiles/ui/profile-header";
@@ -93,8 +94,11 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   const currentUserUsername = await getCurrentUserUsername();
   const isMyProfile = currentUserUsername === user_name;
 
-  // フォロー状態を取得（ログイン中かつ自分以外の場合のみ）
-  const isFollowing = isLoggedIn && !isMyProfile ? await checkIsFollowing(profile.id) : false;
+  // フォロー状態とミュート状態を取得（ログイン中かつ自分以外の場合のみ）
+  const [isFollowing, isMuted] =
+    isLoggedIn && !isMyProfile
+      ? await Promise.all([checkIsFollowing(profile.id), checkIsMuted(profile.id)])
+      : [false, false];
 
   return (
     <HabitsProvider habits={habits}>
@@ -111,8 +115,9 @@ export default async function Page(props: { params: Promise<{ user_name: string 
               isMyProfile={isMyProfile}
               isLoggedIn={isLoggedIn}
               isFollowing={isFollowing}
+              isMuted={isMuted}
             />
-            <ProfileTabs profile={profile} isLoggedIn={isLoggedIn} />
+            <ProfileTabs profile={profile} isLoggedIn={isLoggedIn} isMuted={isMuted} />
           </main>
         </Suspense>
       </PageWithSidebar>

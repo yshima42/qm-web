@@ -88,3 +88,71 @@ export async function checkIsFollowing(targetUserId: string): Promise<boolean> {
 
   return !!data;
 }
+
+/**
+ * 現在のユーザーが対象ユーザーをミュートしているかチェック
+ */
+export async function checkIsMuted(targetUserId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return false;
+  if (user.id === targetUserId) return false;
+
+  const { data, error } = await supabase
+    .from("blocked_users")
+    .select("blocker_id")
+    .eq("blocker_id", user.id)
+    .eq("blocked_id", targetUserId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("[checkIsMuted] error", error);
+    return false;
+  }
+
+  return !!data;
+}
+
+// ミュートしているユーザーの型
+export type MutedUser = {
+  id: string;
+  user_name: string;
+  display_name: string;
+  avatar_url: string | null;
+};
+
+/**
+ * ミュートしているユーザー一覧を取得
+ */
+export async function fetchMutedUsers(): Promise<MutedUser[]> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("blocked_users")
+    .select("profiles!blocked_users_blocked_id_fkey(id, user_name, display_name, avatar_url)")
+    .eq("blocker_id", user.id);
+
+  if (error) {
+    console.error("[fetchMutedUsers] error", error);
+    return [];
+  }
+
+  return data
+    .map((item) => {
+      const profiles = item.profiles as unknown as MutedUser | MutedUser[] | null;
+      // 配列の場合は最初の要素を返す、オブジェクトの場合はそのまま返す
+      if (Array.isArray(profiles)) {
+        return profiles[0] ?? null;
+      }
+      return profiles;
+    })
+    .filter((profile): profile is MutedUser => profile !== null);
+}

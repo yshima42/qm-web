@@ -13,9 +13,11 @@ import { StoryTile } from "./story-tile";
 type Props = {
   userId: string;
   isLoggedIn: boolean;
+  /** ストーリー投稿者がミュートされているかどうか */
+  isMutedOwner?: boolean;
 };
 
-export function StoryListInfiniteByUser({ userId, isLoggedIn }: Props) {
+export function StoryListInfiniteByUser({ userId, isLoggedIn, isMutedOwner = false }: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -44,7 +46,12 @@ export function StoryListInfiniteByUser({ userId, isLoggedIn }: Props) {
   return (
     <div className="mx-auto max-w-2xl">
       {stories.map((story) => (
-        <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} />
+        <StoryTile
+          key={story.id}
+          story={story}
+          isLoggedIn={isLoggedIn}
+          isMutedOwner={isMutedOwner}
+        />
       ))}
 
       <div ref={ref} className="py-4">
