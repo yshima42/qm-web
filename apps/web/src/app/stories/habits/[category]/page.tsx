@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
-import { Header } from "@/components/layout/header";
-import { Sidebar } from "@/components/layout/sidebar";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { CATEGORY_ICONS } from "@/lib/categories";
@@ -50,14 +49,9 @@ export default async function Page(props: { params: Promise<{ category: string }
 
   return (
     <StoryModalProvider habits={habits}>
-      <div className="flex w-full">
-        <Sidebar />
-        <div className="flex flex-1 flex-col">
-          <Suspense fallback={<LoadingSpinner />}>
-            <CategoryPageContent params={props.params} habits={habits} />
-          </Suspense>
-        </div>
-      </div>
+      <Suspense fallback={<LoadingSpinner />}>
+        <CategoryPageContent params={props.params} habits={habits} />
+      </Suspense>
     </StoryModalProvider>
   );
 }
@@ -84,13 +78,14 @@ async function CategoryPageContent({
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
   return (
-    <>
-      <Header
-        title={categoryDisplayName}
-        backUrl="/stories"
-        showBackButton={false}
-        icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
-      />
+    <PageWithSidebar
+      headerProps={{
+        title: categoryDisplayName,
+        backUrl: "/stories",
+        showBackButton: false,
+        icon: <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />,
+      }}
+    >
       <main className="p-3 sm:p-5">
         <Suspense fallback={<LoadingSpinner />}>
           <StoryList
@@ -99,6 +94,6 @@ async function CategoryPageContent({
           />
         </Suspense>
       </main>
-    </>
+    </PageWithSidebar>
   );
 }

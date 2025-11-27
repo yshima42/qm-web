@@ -198,6 +198,26 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
     setCurrentStep(3);
   };
 
+  const validateHabitInput = useCallback(() => {
+    if (!habitCategory) {
+      setHabitError(t("errors.habitCategoryRequired"));
+      return false;
+    }
+
+    const isCustomCategory = habitCategory === "Custom";
+    if (isCustomCategory && !customHabitName.trim()) {
+      setHabitError(t("errors.customHabitNameRequired"));
+      return false;
+    }
+
+    if (!habitReason.trim()) {
+      setHabitError(t("errors.habitReasonRequired"));
+      return false;
+    }
+
+    return true;
+  }, [habitCategory, customHabitName, habitReason, t]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFinalStep || isSubmitting) return;
@@ -218,24 +238,12 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
     }
 
     // 習慣登録のバリデーション
-    if (!habitCategory) {
+    if (!validateHabitInput()) {
       setCurrentStep(4);
-      setHabitError(t("errors.habitCategoryRequired"));
       return;
     }
 
     const isCustomCategory = habitCategory === "Custom";
-    if (isCustomCategory && !customHabitName.trim()) {
-      setCurrentStep(4);
-      setHabitError(t("errors.customHabitNameRequired"));
-      return;
-    }
-
-    if (!habitReason.trim()) {
-      setCurrentStep(4);
-      setHabitError(t("errors.habitReasonRequired"));
-      return;
-    }
 
     const formData = new FormData();
     formData.set("display_name", safeDisplayName);

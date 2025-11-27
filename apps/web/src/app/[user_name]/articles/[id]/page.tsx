@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Header } from "@/components/layout/header";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { getCategoryDisplayName } from "@/lib/categories";
@@ -108,11 +108,15 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   const articleWithLikeStatus = { ...article, isLikedByMe };
 
   return (
-    <>
+    <PageWithSidebar
+      headerProps={{
+        titleElement: <Logo />,
+      }}
+    >
       <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <Header titleElement={<Logo />} />
+        <div className="h-14" />
       </Suspense>
       <ArticleContent article={articleWithLikeStatus} comments={comments} isLoggedIn={isLoggedIn} />
-    </>
+    </PageWithSidebar>
   );
 }

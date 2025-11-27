@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Header } from "@/components/layout/header";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { createClient } from "@/lib/supabase/server";
@@ -134,8 +134,11 @@ export default async function Page({
   const canComment = story.comment_setting === "enabled" || isMyStory;
 
   return (
-    <>
-      <Header titleElement={<Logo />} />
+    <PageWithSidebar
+      headerProps={{
+        titleElement: <Logo />,
+      }}
+    >
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
           <StoryTile
@@ -160,6 +163,6 @@ export default async function Page({
           <AppDownloadSection />
         </main>
       </Suspense>
-    </>
+    </PageWithSidebar>
   );
 }

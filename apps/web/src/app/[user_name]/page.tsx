@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Header } from "@/components/layout/header";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import {
@@ -83,14 +83,17 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   if (!profile) notFound();
 
   return (
-    <>
-      <Header titleElement={<Logo />} />
+    <PageWithSidebar
+      headerProps={{
+        titleElement: <Logo />,
+      }}
+    >
       <Suspense fallback={<LoadingSpinner fullHeight />}>
         <main className="p-3 sm:p-5">
           <ProfileHeader profile={profile} />
           <ProfileTabs profile={profile} />
         </main>
       </Suspense>
-    </>
+    </PageWithSidebar>
   );
 }

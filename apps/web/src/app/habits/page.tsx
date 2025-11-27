@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { Header } from "@/components/layout/header";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { createClient } from "@/lib/supabase/server";
 import { fetchHabits } from "@/features/habits/data/data";
 
@@ -19,11 +19,15 @@ export default async function HabitsPage() {
   const habits = await fetchHabits(user.id);
 
   return (
-    <div className="bg-background min-h-screen">
-      <Header title="習慣" />
+    <PageWithSidebar
+      headerProps={{
+        title: "習慣",
+      }}
+      className="bg-background min-h-screen"
+    >
       <main className="container mx-auto px-4 py-6">
         <HabitsPageClient habits={habits} />
       </main>
-    </div>
+    </PageWithSidebar>
   );
 }

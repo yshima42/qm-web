@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { AuthButton } from "@/components/auth-button";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 
-type HeaderProps = {
+export type HeaderProps = {
   title?: string;
   titleElement?: React.ReactNode;
   showBackButton?: boolean;
