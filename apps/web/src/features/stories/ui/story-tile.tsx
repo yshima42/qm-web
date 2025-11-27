@@ -6,7 +6,7 @@ import { ja } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -55,6 +55,11 @@ export function StoryTile({
   const [isMuted, setIsMuted] = useState(isMutedOwner);
   const [successMessage, setSuccessMessage] = useState("");
 
+  // propsが変わったらstateを同期
+  useEffect(() => {
+    setIsMuted(isMutedOwner);
+  }, [isMutedOwner]);
+
   const isMyStory = currentUserId === story.user_id;
 
   const handleMute = () => {
@@ -65,6 +70,7 @@ export function StoryTile({
         setSuccessMessage(t("success"));
         setShowMuteSuccess(true);
         setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
       }
       setMenuOpen(false);
     });
@@ -78,6 +84,7 @@ export function StoryTile({
         setSuccessMessage(t("unmuteSuccess"));
         setShowMuteSuccess(true);
         setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
       }
       setMenuOpen(false);
     });

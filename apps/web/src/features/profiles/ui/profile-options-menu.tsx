@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 import {
   DropdownMenu,
@@ -21,11 +22,17 @@ type Props = {
 
 export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMuteSuccess }: Props) {
   const t = useTranslations("mute");
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [showSuccess, setShowSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(initialIsMuted);
   const [successMessage, setSuccessMessage] = useState("");
+
+  // propsが変わったらstateを同期
+  useEffect(() => {
+    setIsMuted(initialIsMuted);
+  }, [initialIsMuted]);
 
   const handleMute = () => {
     startTransition(async () => {
@@ -36,6 +43,7 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 3000);
         onMuteSuccess?.();
+        router.refresh();
       }
       setOpen(false);
     });
@@ -49,6 +57,7 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
         setSuccessMessage(t("unmuteSuccess"));
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 3000);
+        router.refresh();
       }
       setOpen(false);
     });
