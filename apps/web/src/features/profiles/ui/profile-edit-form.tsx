@@ -14,9 +14,10 @@ import { ProfileTileDto } from "@/lib/types";
 
 type ProfileEditFormProps = {
   profile: ProfileTileDto;
+  onClose?: () => void;
 };
 
-export function ProfileEditForm({ profile }: ProfileEditFormProps) {
+export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
   const router = useRouter();
   const [displayName, setDisplayName] = useState(profile.display_name);
   const [userName, setUserName] = useState(profile.user_name);
@@ -100,11 +101,17 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
           }
           return;
         }
+        // 成功したらモーダルを閉じて、プロフィールページをリフレッシュ
+        if (onClose) {
+          onClose();
+        }
         // user_nameが変更された場合は新しいuser_nameにリダイレクト
-        // 変更されていない場合はプロフィールページに直接遷移
-        // router.push()で遷移すると、遷移先のページが再レンダリングされるため、最新データが表示される
         const redirectUserName = result.newUserName || profile.user_name;
-        router.push(`/${redirectUserName}`);
+        if (result.newUserName && result.newUserName !== profile.user_name) {
+          router.push(`/${redirectUserName}`);
+        } else {
+          router.refresh();
+        }
       } catch (error) {
         console.error("Profile update error:", error);
         setGeneralError("プロフィールの更新に失敗しました");
@@ -113,10 +120,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   };
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 text-3xl font-bold">プロフィール編集</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
         {/* アバター */}
         <div className="space-y-2">
           <Label>プロフィール画像</Label>
@@ -131,26 +135,27 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="border-background size-24 overflow-hidden rounded-full border-2 transition-opacity hover:opacity-80"
+              className="border-background relative size-24 overflow-hidden rounded-full border-2 transition-opacity hover:opacity-90"
             >
               {previewUrl ? (
-                <Image
-                  src={previewUrl}
-                  alt="プロフィール画像"
-                  width={96}
-                  height={96}
-                  className="size-full object-cover"
-                />
+                <>
+                  <Image
+                    src={previewUrl}
+                    alt="プロフィール画像"
+                    width={96}
+                    height={96}
+                    className="size-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                    <Camera className="text-white size-6 opacity-80" />
+                  </div>
+                </>
               ) : (
                 <div className="bg-muted flex size-full items-center justify-center">
                   <Camera className="text-muted-foreground size-8" />
                 </div>
               )}
             </button>
-            <div>
-              <p className="text-muted-foreground text-sm">画像をクリックして選択</p>
-              <p className="text-muted-foreground text-sm">5MB以下、JPG/PNG形式</p>
-            </div>
           </div>
         </div>
 
@@ -214,7 +219,13 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
           <Button
             type="button"
             variant="outline"
-            onClick={() => router.back()}
+            onClick={() => {
+              if (onClose) {
+                onClose();
+              } else {
+                router.back();
+              }
+            }}
             disabled={isSubmitting}
           >
             キャンセル
@@ -231,7 +242,6 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
           </Button>
         </div>
       </form>
-    </div>
   );
 }
 

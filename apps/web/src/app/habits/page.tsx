@@ -27,9 +27,9 @@ export default async function HabitsPage() {
         }}
         className="bg-background min-h-screen"
       >
-        <main className="container mx-auto px-4 py-6">
-          <HabitsPageClient habits={habits} />
-        </main>
+      <main className="container mx-auto px-4 py-6">
+        <HabitsPageClient habits={habits} />
+      </main>
       </PageWithSidebar>
     </HabitsProvider>
   );

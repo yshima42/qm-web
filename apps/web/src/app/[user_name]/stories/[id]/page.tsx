@@ -144,30 +144,30 @@ export default async function Page({
           titleElement: <Logo />,
         }}
       >
-        <Suspense fallback={<LoadingSpinner />}>
-          <main className="p-3 sm:p-5">
-            <StoryTile
-              story={storyWithLikeStatus}
-              disableLink
-              showFullContent
-              isLoggedIn={isLoggedIn}
-            />
+      <Suspense fallback={<LoadingSpinner />}>
+        <main className="p-3 sm:p-5">
+          <StoryTile
+            story={storyWithLikeStatus}
+            disableLink
+            showFullContent
+            isLoggedIn={isLoggedIn}
+          />
 
-            {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
-            {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
+          {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
+          {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
 
-            {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
-            <CommentsSection
-              storyId={id}
-              comments={comments}
-              isLoggedIn={isLoggedIn}
-              canComment={canComment}
-            />
+          {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
+          <CommentsSection
+            storyId={id}
+            comments={comments}
+            isLoggedIn={isLoggedIn}
+            canComment={canComment}
+          />
 
-            {/* App download section */}
-            <AppDownloadSection />
-          </main>
-        </Suspense>
+          {/* App download section */}
+          <AppDownloadSection />
+        </main>
+      </Suspense>
       </PageWithSidebar>
     </HabitsProvider>
   );

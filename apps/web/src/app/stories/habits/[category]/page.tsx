@@ -44,11 +44,11 @@ export default async function Page(props: { params: Promise<{ category: string }
 
   return (
     <HabitsProvider habits={habits}>
-      <StoryModalProvider habits={habits}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <CategoryPageContent params={props.params} habits={habits} />
-        </Suspense>
-      </StoryModalProvider>
+    <StoryModalProvider habits={habits}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <CategoryPageContent params={props.params} habits={habits} />
+          </Suspense>
+    </StoryModalProvider>
     </HabitsProvider>
   );
 }

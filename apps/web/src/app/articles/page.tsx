@@ -18,18 +18,18 @@ export default async function Page() {
       <PageWithSidebar
         headerProps={{
           titleElement: (
-            <div className="flex items-center">
-              <Logo size="small" />
-              <p className="ml-2 font-medium">Articles</p>
-            </div>
+          <div className="flex items-center">
+            <Logo size="small" />
+            <p className="ml-2 font-medium">Articles</p>
+          </div>
           ),
         }}
       >
-        <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <div className="p-3 sm:p-5">
-            <ArticleList fetchArticlesFunc={fetchArticles} />
-          </div>
-        </Suspense>
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <div className="p-3 sm:p-5">
+          <ArticleList fetchArticlesFunc={fetchArticles} />
+        </div>
+      </Suspense>
       </PageWithSidebar>
     </HabitsProvider>
   );

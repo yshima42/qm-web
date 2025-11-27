@@ -95,12 +95,12 @@ export default async function Page(props: { params: Promise<{ user_name: string 
           titleElement: <Logo />,
         }}
       >
-        <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <main className="p-3 sm:p-5">
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <main className="p-3 sm:p-5">
             <ProfileHeader profile={profile} isMyProfile={isMyProfile} />
-            <ProfileTabs profile={profile} />
-          </main>
-        </Suspense>
+          <ProfileTabs profile={profile} />
+        </main>
+      </Suspense>
       </PageWithSidebar>
     </HabitsProvider>
   );

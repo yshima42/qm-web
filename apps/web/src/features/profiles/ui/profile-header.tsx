@@ -1,9 +1,9 @@
 import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from "@quitmate/ui";
 import Image from "next/image";
-import Link from "next/link";
 import { Pencil } from "lucide-react";
 
 import { ProfileTileDto } from "@/lib/types";
+import { ProfileEditDialog } from "./profile-edit-dialog";
 
 type Props = {
   profile: ProfileTileDto;
@@ -15,13 +15,14 @@ export function ProfileHeader({ profile, isMyProfile = false }: Props) {
     <div className="border-border bg-card relative mb-6 rounded-lg border p-6 shadow-sm">
       <div className="absolute right-4 top-4 flex items-center gap-2">
         {isMyProfile && (
-          <Link
-            href={`/${profile.user_name}/edit`}
-            className="text-muted-foreground hover:text-foreground flex items-center gap-1 rounded-md p-2 transition-colors hover:bg-accent"
-            title="編集"
-          >
-            <Pencil className="size-4" />
-          </Link>
+          <ProfileEditDialog profile={profile}>
+            <button
+              className="text-muted-foreground hover:text-foreground flex items-center gap-1 rounded-md p-2 transition-colors hover:bg-accent"
+              title="編集"
+            >
+              <Pencil className="size-4" />
+            </button>
+          </ProfileEditDialog>
         )}
         <div className="[&_button]:size-8 [&_svg]:size-4">
           <ShareButton
