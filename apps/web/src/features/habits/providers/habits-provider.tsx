@@ -34,4 +34,3 @@ export function useHabits() {
   }
   return context.habits;
 }
-

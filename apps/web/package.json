@@ -15,11 +15,6 @@
     "lint:type": "tsc --noEmit",
     "format": "prettier --write './**/*.{js,ts,tsx,scss}'"
   },
-  "lint-staged": {
-    "*.{js,ts,tsx,scss}": [
-      "yarn lint"
-    ]
-  },
   "dependencies": {
     "@quitmate/analytics": "*",
     "@quitmate/ui": "*",

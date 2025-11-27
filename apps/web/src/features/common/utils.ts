@@ -16,4 +16,3 @@ export function countCharacters(text: string): number {
   }
   return count;
 }
-

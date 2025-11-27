@@ -12,7 +12,19 @@ import {
   SidebarIcon,
   StoreBadges,
 } from "@quitmate/ui";
-import { Home, BookOpen, Menu, Target, Pen, ChevronDown, ChevronRight, Users, Compass, Settings, User } from "lucide-react";
+import {
+  Home,
+  BookOpen,
+  Menu,
+  Target,
+  Pen,
+  ChevronDown,
+  ChevronRight,
+  Users,
+  Compass,
+  Settings,
+  User,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -176,7 +188,7 @@ export function SidebarContent({
           onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
           className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
             !compact ? "w-full justify-between" : "justify-center px-2"
-          } text-muted-foreground hover:bg-primary-light/10 hover:font-medium hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark`}
+          } text-muted-foreground hover:bg-primary-light/10 hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark hover:font-medium`}
           title={!compact ? t("otherCommunity") : undefined}
         >
           <div className="flex min-w-0 items-center gap-4">
@@ -311,11 +323,18 @@ export function Sidebar({ currentUserUsername }: SidebarProps) {
   return (
     <>
       <aside className="border-border sticky top-0 hidden h-screen w-64 shrink-0 border-r pt-4 lg:block">
-        <SidebarContent habitCategories={HABIT_CATEGORIES} currentUserUsername={currentUserUsername} />
+        <SidebarContent
+          habitCategories={HABIT_CATEGORIES}
+          currentUserUsername={currentUserUsername}
+        />
       </aside>
 
       <aside className="border-border sticky top-0 hidden h-screen w-16 shrink-0 border-r pt-4 md:block lg:hidden">
-        <SidebarContent habitCategories={HABIT_CATEGORIES} compact currentUserUsername={currentUserUsername} />
+        <SidebarContent
+          habitCategories={HABIT_CATEGORIES}
+          compact
+          currentUserUsername={currentUserUsername}
+        />
       </aside>
 
       <div className="fixed left-4 top-[7px] z-50 md:hidden">

@@ -121,7 +121,11 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <Suspense fallback={<LoadingSpinner fullHeight />}>
           <div className="h-14" />
         </Suspense>
-        <ArticleContent article={articleWithLikeStatus} comments={comments} isLoggedIn={isLoggedIn} />
+        <ArticleContent
+          article={articleWithLikeStatus}
+          comments={comments}
+          isLoggedIn={isLoggedIn}
+        />
       </PageWithSidebar>
     </HabitsProvider>
   );

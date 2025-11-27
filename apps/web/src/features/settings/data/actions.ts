@@ -85,4 +85,3 @@ export async function deleteAccount(): Promise<DeleteAccountResult> {
     };
   }
 }
-
