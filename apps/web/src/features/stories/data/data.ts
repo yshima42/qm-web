@@ -218,3 +218,70 @@ export async function checkIsLikedByMe(storyId: string): Promise<boolean> {
   const hasLikedMap = await fetchHasLikedByStoryIds([storyId]);
   return hasLikedMap.get(storyId) ?? false;
 }
+
+// ページネーション対応版（ユーザーID用・無限スクロール用）
+export async function fetchPaginatedStoriesByUserId({
+  userId,
+  page,
+  limit,
+  boundaryTime,
+}: {
+  userId: string;
+  page: number;
+  limit: number;
+  boundaryTime: string;
+}): Promise<StoryTileDto[]> {
+  const supabase = await createClient();
+  const from = page * limit;
+  const to = (page + 1) * limit - 1;
+
+  const { data, error } = await supabase
+    .from("stories")
+    .select(STORY_SELECT_QUERY)
+    .eq("user_id", userId)
+    .lte("created_at", boundaryTime)
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    console.error("Error fetching paginated stories by user:", error);
+    return [];
+  }
+
+  return (data ?? []) as StoryTileDto[];
+}
+
+// ページネーション対応版（コメント済みストーリー用・無限スクロール用）
+export async function fetchPaginatedCommentedStoriesByUserId({
+  userId,
+  page,
+  limit,
+  boundaryTime,
+}: {
+  userId: string;
+  page: number;
+  limit: number;
+  boundaryTime: string;
+}): Promise<StoryTileDto[]> {
+  const supabase = await createClient();
+  const from = page * limit;
+  const to = (page + 1) * limit - 1;
+
+  const { data, error } = await supabase
+    .from("distinct_user_story_comments")
+    .select(`*, stories(${STORY_SELECT_QUERY})`)
+    .eq("user_id", userId)
+    .lte("created_at", boundaryTime)
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    console.error("Error fetching paginated commented stories:", error);
+    return [];
+  }
+
+  const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
+  return stories;
+}

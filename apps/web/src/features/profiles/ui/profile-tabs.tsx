@@ -1,15 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@quitmate/ui";
 
-import { fetchCommentedStoriesByUserId, fetchStoriesByUserId } from "@/features/stories/data/data";
 import { Profile } from "@/lib/types";
 
-import { StoryList } from "@/features/stories/ui/story-list";
+import { StoryListInfiniteByUser } from "@/features/stories/ui/story-list-infinite-by-user";
+import { StoryListInfiniteCommented } from "@/features/stories/ui/story-list-infinite-commented";
 
 type Props = {
   profile: Profile;
+  isLoggedIn: boolean;
 };
 
-export function ProfileTabs({ profile }: Props) {
+export function ProfileTabs({ profile, isLoggedIn }: Props) {
   return (
     <Tabs defaultValue="posts" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -17,10 +18,10 @@ export function ProfileTabs({ profile }: Props) {
         <TabsTrigger value="comments">Comments</TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
-        <StoryList fetchStoriesFunc={() => fetchStoriesByUserId(profile.id)} />
+        <StoryListInfiniteByUser userId={profile.id} isLoggedIn={isLoggedIn} />
       </TabsContent>
       <TabsContent value="comments">
-        <StoryList fetchStoriesFunc={() => fetchCommentedStoriesByUserId(profile.id)} />
+        <StoryListInfiniteCommented userId={profile.id} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   );
