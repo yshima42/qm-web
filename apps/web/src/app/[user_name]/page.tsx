@@ -12,6 +12,7 @@ import { createClient } from "@/lib/supabase/server";
 import {
   fetchProfileByUsername,
   fetchProfilePageStaticParams,
+  checkIsFollowing,
 } from "@/features/profiles/data/data";
 
 import { ProfileHeader } from "@/features/profiles/ui/profile-header";
@@ -93,6 +94,9 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   const currentUserUsername = await getCurrentUserUsername();
   const isMyProfile = currentUserUsername === user_name;
 
+  // フォロー状態を取得（ログイン中かつ自分以外の場合のみ）
+  const isFollowing = isLoggedIn && !isMyProfile ? await checkIsFollowing(profile.id) : false;
+
   return (
     <HabitsProvider habits={habits}>
       <PageWithSidebar
@@ -102,7 +106,12 @@ export default async function Page(props: { params: Promise<{ user_name: string 
       >
         <Suspense fallback={<LoadingSpinner fullHeight />}>
           <main className="p-3 sm:p-5">
-            <ProfileHeader profile={profile} isMyProfile={isMyProfile} />
+            <ProfileHeader
+              profile={profile}
+              isMyProfile={isMyProfile}
+              isLoggedIn={isLoggedIn}
+              isFollowing={isFollowing}
+            />
             <ProfileTabs profile={profile} isLoggedIn={isLoggedIn} />
           </main>
         </Suspense>

@@ -428,3 +428,92 @@ export async function updateProfile(formData: FormData): Promise<UpdateProfileRe
   // user_nameが変更された場合は、新しいuser_nameを返す
   return { success: true, newUserName };
 }
+
+// =====================
+// フォロー関連アクション
+// =====================
+
+export type FollowResult = {
+  success: boolean;
+  errorCode?: "notLoggedIn" | "cannotFollowSelf" | "alreadyFollowing" | "followFailed" | "generic";
+};
+
+export type UnfollowResult = {
+  success: boolean;
+  errorCode?: "notLoggedIn" | "cannotUnfollowSelf" | "unfollowFailed" | "generic";
+};
+
+/**
+ * ユーザーをフォローする
+ */
+export async function followUser(targetUserId: string): Promise<FollowResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { success: false, errorCode: "notLoggedIn" };
+  }
+
+  if (user.id === targetUserId) {
+    return { success: false, errorCode: "cannotFollowSelf" };
+  }
+
+  // 既にフォローしているかチェック
+  const { data: existingFollow } = await supabase
+    .from("followers")
+    .select("follower_id")
+    .eq("follower_id", user.id)
+    .eq("followed_id", targetUserId)
+    .maybeSingle();
+
+  if (existingFollow) {
+    return { success: false, errorCode: "alreadyFollowing" };
+  }
+
+  const { error: insertError } = await supabase.from("followers").insert({
+    follower_id: user.id,
+    followed_id: targetUserId,
+  });
+
+  if (insertError) {
+    console.error("[followUser] insert error", insertError);
+    return { success: false, errorCode: "followFailed" };
+  }
+
+  return { success: true };
+}
+
+/**
+ * ユーザーのフォローを解除する
+ */
+export async function unfollowUser(targetUserId: string): Promise<UnfollowResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { success: false, errorCode: "notLoggedIn" };
+  }
+
+  if (user.id === targetUserId) {
+    return { success: false, errorCode: "cannotUnfollowSelf" };
+  }
+
+  const { error: deleteError } = await supabase
+    .from("followers")
+    .delete()
+    .eq("follower_id", user.id)
+    .eq("followed_id", targetUserId);
+
+  if (deleteError) {
+    console.error("[unfollowUser] delete error", deleteError);
+    return { success: false, errorCode: "unfollowFailed" };
+  }
+
+  return { success: true };
+}

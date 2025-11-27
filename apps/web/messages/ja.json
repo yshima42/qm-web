@@ -219,5 +219,17 @@
     "errorLoading": "ストーリーの読み込みに失敗しました",
     "noMoreStories": "すべてのストーリーを読み込みました",
     "noStories": "まだストーリーがありません"
+  },
+  "follow": {
+    "follow": "フォロー",
+    "following": "フォロー中",
+    "unfollow": "フォロー解除"
+  },
+  "stories-tab": {
+    "following": "フォロー中",
+    "emptyTitle": "フォローしているユーザーがいません",
+    "emptyMessage": "興味のあるユーザーをフォローして、投稿をタイムラインで見よう",
+    "noMoreStories": "すべての投稿を読み込みました",
+    "errorLoading": "読み込みに失敗しました"
   }
 }

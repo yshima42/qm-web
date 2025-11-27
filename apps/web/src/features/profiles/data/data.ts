@@ -1,4 +1,4 @@
-import { createAnonServerClient } from "@/lib/supabase/server";
+import { createAnonServerClient, createClient } from "@/lib/supabase/server";
 
 import { ProfileTileDto } from "@/lib/types";
 
@@ -60,4 +60,31 @@ export async function fetchProfileByUsername(username: string) {
     followers: followersResult.data?.[0]?.count ?? 0,
     following: followingResult.data?.[0]?.count ?? 0,
   } as ProfileTileDto;
+}
+
+/**
+ * 現在のユーザーが対象ユーザーをフォローしているかチェック
+ */
+export async function checkIsFollowing(targetUserId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return false;
+  if (user.id === targetUserId) return false;
+
+  const { data, error } = await supabase
+    .from("followers")
+    .select("follower_id")
+    .eq("follower_id", user.id)
+    .eq("followed_id", targetUserId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("[checkIsFollowing] error", error);
+    return false;
+  }
+
+  return !!data;
 }

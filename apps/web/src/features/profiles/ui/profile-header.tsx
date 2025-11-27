@@ -4,13 +4,21 @@ import { Pencil } from "lucide-react";
 
 import { ProfileTileDto } from "@/lib/types";
 import { ProfileEditDialog } from "./profile-edit-dialog";
+import { FollowToggleButton } from "./follow-toggle-button";
 
 type Props = {
   profile: ProfileTileDto;
   isMyProfile?: boolean;
+  isLoggedIn?: boolean;
+  isFollowing?: boolean;
 };
 
-export function ProfileHeader({ profile, isMyProfile = false }: Props) {
+export function ProfileHeader({
+  profile,
+  isMyProfile = false,
+  isLoggedIn = false,
+  isFollowing = false,
+}: Props) {
   return (
     <div className="border-border bg-card relative mb-6 rounded-lg border p-6 shadow-sm">
       <div className="absolute right-4 top-4 flex items-center gap-2">
@@ -23,6 +31,9 @@ export function ProfileHeader({ profile, isMyProfile = false }: Props) {
               <Pencil className="size-4" />
             </button>
           </ProfileEditDialog>
+        )}
+        {!isMyProfile && isLoggedIn && (
+          <FollowToggleButton targetUserId={profile.id} initialIsFollowing={isFollowing} />
         )}
         <div className="[&_button]:size-8 [&_svg]:size-4">
           <ShareButton
