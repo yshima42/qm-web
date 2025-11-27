@@ -2,15 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import {
-  User,
-  Globe,
-  FileText,
-  Shield,
-  Mail,
-  LogOut,
-  ChevronRight,
-} from "lucide-react";
+import { User, Globe, FileText, Shield, Mail, LogOut, ChevronRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
@@ -79,7 +71,7 @@ export function SettingsContent() {
   return (
     <div className="mx-auto max-w-4xl">
       <h1 className="mb-2 text-3xl font-bold">{t("title")}</h1>
-      <p className="mb-8 text-muted-foreground">{t("subtitle")}</p>
+      <p className="text-muted-foreground mb-8">{t("subtitle")}</p>
 
       <div className="space-y-1">
         {settingsItems.map((item) => {
@@ -90,13 +82,13 @@ export function SettingsContent() {
             return (
               <div
                 key={item.id}
-                className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-accent"
+                className="hover:bg-accent flex items-center justify-between rounded-lg border p-4 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <Icon className="size-5 text-muted-foreground" />
+                  <Icon className="text-muted-foreground size-5" />
                   <div>
                     <div className="font-medium">{item.label}</div>
-                    <div className="text-sm text-muted-foreground">{item.description}</div>
+                    <div className="text-muted-foreground text-sm">{item.description}</div>
                   </div>
                 </div>
                 <LocaleSwitcher />
@@ -110,31 +102,31 @@ export function SettingsContent() {
               <button
                 key={item.id}
                 onClick={item.onClick}
-                className="flex w-full items-center justify-between rounded-lg border p-4 text-left transition-colors hover:bg-accent"
+                className="hover:bg-accent flex w-full items-center justify-between rounded-lg border p-4 text-left transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <Icon className="size-5 text-muted-foreground" />
+                  <Icon className="text-muted-foreground size-5" />
                   <div>
                     <div className="font-medium">{item.label}</div>
-                    <div className="text-sm text-muted-foreground">{item.description}</div>
+                    <div className="text-muted-foreground text-sm">{item.description}</div>
                   </div>
                 </div>
-                <ChevronRight className="size-4 text-muted-foreground" />
+                <ChevronRight className="text-muted-foreground size-4" />
               </button>
             );
           }
 
           // 通常のリンク
           const content = (
-            <div className="flex w-full items-center justify-between rounded-lg border p-4 transition-colors hover:bg-accent">
+            <div className="hover:bg-accent flex w-full items-center justify-between rounded-lg border p-4 transition-colors">
               <div className="flex items-center gap-4">
-                <Icon className="size-5 text-muted-foreground" />
+                <Icon className="text-muted-foreground size-5" />
                 <div>
                   <div className="font-medium">{item.label}</div>
-                  <div className="text-sm text-muted-foreground">{item.description}</div>
+                  <div className="text-muted-foreground text-sm">{item.description}</div>
                 </div>
               </div>
-              <ChevronRight className="size-4 text-muted-foreground" />
+              <ChevronRight className="text-muted-foreground size-4" />
             </div>
           );
 
@@ -162,4 +154,3 @@ export function SettingsContent() {
     </div>
   );
 }
-
