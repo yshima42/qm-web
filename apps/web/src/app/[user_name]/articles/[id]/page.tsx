@@ -3,8 +3,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Header } from "@/components/layout/header";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { HabitsProvider } from "@/features/habits/providers/habits-provider";
+import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 
 import { getCategoryDisplayName } from "@/lib/categories";
 import { createClient } from "@/lib/supabase/server";
@@ -107,12 +109,20 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   // articleにisLikedByMeを付与
   const articleWithLikeStatus = { ...article, isLikedByMe };
 
+  const habits = isLoggedIn ? await getCurrentUserHabits() : [];
+
   return (
-    <>
-      <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <Header titleElement={<Logo />} />
-      </Suspense>
-      <ArticleContent article={articleWithLikeStatus} comments={comments} isLoggedIn={isLoggedIn} />
-    </>
+    <HabitsProvider habits={habits}>
+      <PageWithSidebar
+        headerProps={{
+          titleElement: <Logo />,
+        }}
+      >
+        <Suspense fallback={<LoadingSpinner fullHeight />}>
+          <div className="h-14" />
+        </Suspense>
+        <ArticleContent article={articleWithLikeStatus} comments={comments} isLoggedIn={isLoggedIn} />
+      </PageWithSidebar>
+    </HabitsProvider>
   );
 }

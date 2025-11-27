@@ -7,28 +7,12 @@ import { Label } from "@/components/ui/label";
 import { createStory } from "../data/actions";
 import { Loader2 } from "lucide-react";
 import { HabitTileDto } from "@/lib/types";
+import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { countCharacters } from "@/features/common/utils";
 
 type StoryCreateFormProps = {
   habits: HabitTileDto[];
 };
-
-const MAX_CHARACTERS = 300;
-const SHOW_COUNT_THRESHOLD = 20;
-
-// Count characters, treating multibyte characters as 2
-function countCharacters(text: string): number {
-  let count = 0;
-  for (const char of text) {
-    // Check if character is multibyte (e.g., Japanese, emoji, etc.)
-    const code = char.charCodeAt(0);
-    if (code > 0x7f) {
-      count += 2; // Multibyte character counts as 2
-    } else {
-      count += 1; // ASCII character counts as 1
-    }
-  }
-  return count;
-}
 
 export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const t = useTranslations("story-post");

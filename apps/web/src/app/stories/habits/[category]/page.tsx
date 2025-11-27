@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
-import { Header } from "@/components/layout/header";
-import { Sidebar } from "@/components/layout/sidebar";
+import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
 import { CATEGORY_ICONS } from "@/lib/categories";
 import { fetchStoriesByHabitCategoryName } from "@/features/stories/data/data";
@@ -38,27 +38,18 @@ function capitalizeCategory(category: string): HabitCategoryName {
 
 export default async function Page(props: { params: Promise<{ category: string }> }) {
   // Fetch user and habits for modal
-  const { createClient } = await import("@/lib/supabase/server");
-  const { fetchHabits } = await import("@/features/habits/data/data");
+  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const habits = user ? await fetchHabits(user.id) : [];
+  const habits = await getCurrentUserHabits();
 
   return (
-    <StoryModalProvider habits={habits}>
-      <div className="flex w-full">
-        <Sidebar />
-        <div className="flex flex-1 flex-col">
-          <Suspense fallback={<LoadingSpinner />}>
-            <CategoryPageContent params={props.params} habits={habits} />
-          </Suspense>
-        </div>
-      </div>
-    </StoryModalProvider>
+    <HabitsProvider habits={habits}>
+      <StoryModalProvider habits={habits}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <CategoryPageContent params={props.params} habits={habits} />
+        </Suspense>
+      </StoryModalProvider>
+    </HabitsProvider>
   );
 }
 
@@ -84,13 +75,14 @@ async function CategoryPageContent({
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
   return (
-    <>
-      <Header
-        title={categoryDisplayName}
-        backUrl="/stories"
-        showBackButton={false}
-        icon={<CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
-      />
+    <PageWithSidebar
+      headerProps={{
+        title: categoryDisplayName,
+        backUrl: "/stories",
+        showBackButton: false,
+        icon: <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />,
+      }}
+    >
       <main className="p-3 sm:p-5">
         <Suspense fallback={<LoadingSpinner />}>
           <StoryList
@@ -99,6 +91,6 @@ async function CategoryPageContent({
           />
         </Suspense>
       </main>
-    </>
+    </PageWithSidebar>
   );
 }

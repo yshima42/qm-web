@@ -1,36 +1,38 @@
 import { Logo } from "@quitmate/ui";
+import { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
+import { DeleteAccountContent } from "@/features/settings/ui/delete-account-content";
 
-import { fetchArticles } from "@/features/articles/data/data";
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("settings");
+  return {
+    title: t("deleteAccount"),
+  };
+}
 
-import { ArticleList } from "@/features/articles/ui/article-list";
-
-export default async function Page() {
+export default async function DeleteAccountPage() {
   const habits = await getCurrentUserHabits();
 
   return (
     <HabitsProvider habits={habits}>
       <PageWithSidebar
         headerProps={{
-          titleElement: (
-            <div className="flex items-center">
-              <Logo size="small" />
-              <p className="ml-2 font-medium">Articles</p>
-            </div>
-          ),
+          titleElement: <Logo />,
         }}
       >
         <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <div className="p-3 sm:p-5">
-            <ArticleList fetchArticlesFunc={fetchArticles} />
-          </div>
+          <main className="p-3 sm:p-5">
+            <DeleteAccountContent />
+          </main>
         </Suspense>
       </PageWithSidebar>
     </HabitsProvider>
   );
 }
+

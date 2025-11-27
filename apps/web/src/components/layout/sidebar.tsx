@@ -12,15 +12,16 @@ import {
   SidebarIcon,
   StoreBadges,
 } from "@quitmate/ui";
-import { Home, BookOpen, Menu, Target, Pen } from "lucide-react";
+import { Home, BookOpen, Menu, Target, Pen, ChevronDown, ChevronRight, Users, Compass, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
+import { useHabits } from "@/features/habits/providers/habits-provider";
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
@@ -38,15 +39,53 @@ export function SidebarContent({
   const pathname = usePathname();
   const t = useTranslations("sidebar");
   const tCategory = useTranslations("categories");
+  const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false); // デフォルトは閉じた状態
+
+  // 習慣データを取得（Providerから、存在しない場合は空配列）
+  // React Hooksのルールに従い、常に同じ順序で呼び出す
+  const habits = useHabits();
 
   const handleLinkClick = () => {
     if (onLinkClick) onLinkClick();
   };
 
+  // 登録済みカテゴリーとその他カテゴリーを分ける
+  const { myCategories, otherCategories } = useMemo(() => {
+    const myCategoryNames = new Set<HabitCategoryName>(
+      habits.map((habit) => habit.habit_categories.habit_category_name as HabitCategoryName),
+    );
+    // "Official"は除外
+    const filteredCategories = habitCategories.filter((cat) => cat !== "Official");
+    const myCats: HabitCategoryName[] = [];
+    const otherCats: HabitCategoryName[] = [];
+
+    filteredCategories.forEach((cat) => {
+      if (myCategoryNames.has(cat)) {
+        myCats.push(cat);
+      } else {
+        otherCats.push(cat);
+      }
+    });
+
+    return { myCategories: myCats, otherCategories: otherCats };
+  }, [habits, habitCategories]);
+
+  // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
+  useEffect(() => {
+    const currentCategory = habitCategories.find((cat) => {
+      const href = `/stories/habits/${cat.toLowerCase().replace(/\s+/g, "-")}`;
+      return pathname === href;
+    });
+    if (currentCategory && otherCategories.includes(currentCategory)) {
+      setIsOtherCommunityOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 初回のみ実行（現在のページがその他コミュニティの場合のみ開く）
+
   return (
     <div className="flex h-full flex-col">
       {!compact && !skipLogo && (
-        <div className="mb-6 px-4 py-3">
+        <div className="mb-6 shrink-0 px-4 py-3">
           <Link href="/" className="flex items-end gap-1" onClick={handleLinkClick}>
             <Image
               src="/images/icon-web.png"
@@ -60,7 +99,7 @@ export function SidebarContent({
         </div>
       )}
 
-      <div className="mb-6 space-y-1 pr-2">
+      <div className="mb-6 min-h-0 flex-1 space-y-1 overflow-y-auto pr-2">
         <SidebarIcon
           icon={Home}
           label={t("home")}
@@ -85,65 +124,128 @@ export function SidebarContent({
           showLabel={!compact}
           onClick={handleLinkClick}
         />
+        {/* マイコミュニティ */}
+        {myCategories.length > 0 && (
+          <>
+            <div
+              className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
+                !compact ? "" : "justify-center px-2"
+              } text-muted-foreground`}
+              title={!compact ? t("myCommunity") : undefined}
+            >
+              <Users size={18} strokeWidth={2} className="transition-all" />
+              {!compact && <span>{t("myCommunity")}</span>}
+            </div>
+            {/* マイコミュニティのカテゴリー */}
+            <div className="pl-4">
+              {myCategories.map((category) => {
+                const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                const Icon = CATEGORY_ICONS[category];
+                const displayName = tCategory(category);
+
+                return (
+                  <CategoryIcon
+                    key={category}
+                    icon={Icon}
+                    label={displayName}
+                    href={href}
+                    active={pathname === href}
+                    showLabel={!compact}
+                    onClick={handleLinkClick}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
+        {/* その他コミュニティ */}
+        <button
+          type="button"
+          onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
+          className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
+            !compact ? "w-full justify-between" : "justify-center px-2"
+          } text-muted-foreground hover:bg-primary-light/10 hover:font-medium hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark`}
+          title={!compact ? t("otherCommunity") : undefined}
+        >
+          <div className="flex min-w-0 items-center gap-4">
+            <Compass size={18} strokeWidth={2} className="shrink-0 transition-all" />
+            {!compact && <span className="truncate">{t("otherCommunity")}</span>}
+          </div>
+          {!compact && (
+            <div className="shrink-0">
+              {isOtherCommunityOpen ? (
+                <ChevronDown className="size-4" />
+              ) : (
+                <ChevronRight className="size-4" />
+              )}
+            </div>
+          )}
+        </button>
+        {/* その他コミュニティのカテゴリー（開いた時のみ表示） */}
+        {isOtherCommunityOpen && (
+          <div className="pl-4">
+            {otherCategories.map((category) => {
+              const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+              const Icon = CATEGORY_ICONS[category];
+              const displayName = tCategory(category);
+
+              return (
+                <CategoryIcon
+                  key={category}
+                  icon={Icon}
+                  label={displayName}
+                  href={href}
+                  active={pathname === href}
+                  showLabel={!compact}
+                  onClick={handleLinkClick}
+                />
+              );
+            })}
+          </div>
+        )}
+        {/* 設定 */}
+        <SidebarIcon
+          icon={Settings}
+          label={t("settings")}
+          href="/settings"
+          active={pathname.startsWith("/settings")}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
       </div>
 
       {/* Post Story Button - moved below Articles */}
-      {compact ? (
-        <div className="pr-2">
-          <button
-            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-4 py-2 transition-colors"
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent("openStoryModal"));
-              handleLinkClick();
-            }}
-            aria-label={t("postStory")}
-          >
-            <Pen className="size-5" />
-          </button>
-        </div>
-      ) : (
-        <div className="px-4 pb-4">
-          <Button
-            className="w-full rounded-full font-semibold"
-            size="lg"
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent("openStoryModal"));
-              handleLinkClick();
-            }}
-          >
-            {t("postStory")}
-          </Button>
-        </div>
-      )}
-
-      <div className="border-border my-4 border-b" />
-
-      <div className="space-y-1 overflow-y-auto pr-2">
-        {!compact && (
-          <h3 className="text-muted-foreground mb-2 px-4 text-sm font-medium">
-            {t("habitCategories")}
-          </h3>
+      <div className="shrink-0">
+        {compact ? (
+          <div className="pr-2">
+            <button
+              className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-4 py-2 transition-colors"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("openStoryModal"));
+                handleLinkClick();
+              }}
+              aria-label={t("postStory")}
+            >
+              <Pen className="size-5" />
+            </button>
+          </div>
+        ) : (
+          <div className="px-4 pb-4">
+            <Button
+              className="w-full rounded-full font-semibold"
+              size="lg"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("openStoryModal"));
+                handleLinkClick();
+              }}
+            >
+              {t("postStory")}
+            </Button>
+          </div>
         )}
-        {habitCategories.map((category) => {
-          const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
-          const Icon = CATEGORY_ICONS[category];
-          const displayName = tCategory(category);
-
-          return (
-            <CategoryIcon
-              key={category}
-              icon={Icon}
-              label={displayName}
-              href={href}
-              active={pathname === href}
-              showLabel={!compact}
-              onClick={handleLinkClick}
-            />
-          );
-        })}
       </div>
 
-      <div className="mt-auto space-y-4 px-4 py-3">
+      <div className="mt-auto shrink-0 space-y-4 px-4 py-3">
         {!compact && (
           <div className="border-border bg-card hidden rounded-lg border p-3 shadow-sm lg:block">
             <h4 className="mb-2 text-center text-sm font-medium">{t("downloadTitle")}</h4>

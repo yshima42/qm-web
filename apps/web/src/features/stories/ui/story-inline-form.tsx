@@ -2,7 +2,7 @@
 
 import { Globe, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import {
 import { HabitTileDto } from "@/lib/types";
 
 import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { countCharacters } from "@/features/common/utils";
 import { createStory } from "@/features/stories/data/actions";
 
 type CommentSetting = "enabled" | "disabled";
@@ -22,21 +23,6 @@ type CommentSetting = "enabled" | "disabled";
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
 };
-
-// Count characters, treating multibyte characters as 2
-function countCharacters(text: string): number {
-  let count = 0;
-  for (const char of text) {
-    // Check if character is multibyte (e.g., Japanese, emoji, etc.)
-    const code = char.charCodeAt(0);
-    if (code > 0x7f) {
-      count += 2; // Multibyte character counts as 2
-    } else {
-      count += 1; // ASCII character counts as 1
-    }
-  }
-  return count;
-}
 
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const t = useTranslations("story-post");
@@ -46,6 +32,12 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
   const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
+  const [isMounted, setIsMounted] = useState(false);
+
+  // ハイドレーションミスマッチを防ぐため、マウント後にのみ表示
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Filter for active habits (has at least one trial with no ended_at)
   const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
@@ -89,6 +81,11 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
 
   if (!hasActiveHabit) {
     return null; // Don't show the form if no active habits
+  }
+
+  // ハイドレーション完了まで何も表示しない
+  if (!isMounted) {
+    return null;
   }
 
   return (

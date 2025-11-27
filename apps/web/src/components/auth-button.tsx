@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "./ui/button_mail";
 import { createClient } from "@/lib/supabase/server";
-import { LogoutButton } from "./logout-button_mail";
 
 export async function AuthButton() {
   const supabase = await createClient();
@@ -11,12 +10,13 @@ export async function AuthButton() {
 
   const user = data?.claims;
 
-  return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <LogoutButton />
-    </div>
-  ) : (
+  // ログインしている場合は何も表示しない（サイドバーに設定があるため）
+  if (user) {
+    return null;
+  }
+
+  // ログインしていない場合のみログインボタンを表示
+  return (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
         <Link href="/auth/login">Sign in</Link>
