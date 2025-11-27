@@ -24,6 +24,10 @@ export type OnboardingErrorCode =
   | "avatarTooLarge"
   | "avatarUploadFailed"
   | "profileInsertFailed"
+  | "habitCategoryRequired"
+  | "customHabitNameRequired"
+  | "habitReasonRequired"
+  | "habitCreateFailed"
   | "generic";
 
 type OnboardingResult = {
@@ -86,6 +90,10 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
   const nextParam = formData.get("next") as string | null;
   const avatarFile = formData.get("avatar");
   const userNameInput = formData.get("user_name") as string | null;
+  const habitCategory = formData.get("habit_category") as string | null;
+  const customHabitName = (formData.get("custom_habit_name") as string | null)?.trim();
+  const habitStartedAt = formData.get("habit_started_at") as string | null;
+  const habitReason = (formData.get("habit_reason") as string | null)?.trim();
 
   if (!displayName) {
     return { errorCode: "displayNameRequired" };
@@ -179,6 +187,33 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
   } catch (error) {
     // app_metadata更新の失敗はクリティカルではないのでログのみ
     console.error("[onboarding] failed to update app_metadata", error);
+  }
+
+  // 習慣登録
+  if (habitCategory && habitStartedAt && habitReason) {
+    const isCustomCategory = habitCategory === "Custom";
+    if (isCustomCategory && !customHabitName) {
+      return { errorCode: "customHabitNameRequired" };
+    }
+
+    // Convert local datetime to UTC ISO 8601 string
+    const startedAtDate = new Date(habitStartedAt);
+    const startedAtUtc = startedAtDate.toISOString();
+
+    const { error: habitError } = await supabase.rpc("habit_create_transaction", {
+      p_user_id: user.id,
+      p_habit_category_name: habitCategory,
+      p_custom_habit_name: isCustomCategory ? customHabitName : null,
+      p_reason: habitReason,
+      p_started_at: startedAtUtc,
+      p_duration_months: null,
+      p_frequency_per_week: null,
+    });
+
+    if (habitError) {
+      console.error("[onboarding] habit creation error", habitError);
+      return { errorCode: "habitCreateFailed" };
+    }
   }
 
   return { redirectTo: nextPath };

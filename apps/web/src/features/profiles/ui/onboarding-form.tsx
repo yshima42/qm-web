@@ -19,12 +19,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@quitmate/ui";
+import {
   checkUserNameAvailability,
   completeProfileOnboarding,
   type OnboardingErrorCode,
 } from "@/features/profiles/data/actions";
 import { isValidUserName, normalizeUserNameInput } from "@/features/profiles/lib/user-name";
 import { createClient } from "@/lib/supabase/client";
+import { HABIT_CATEGORIES } from "@/lib/categories";
+import { HabitCategoryName } from "@/lib/types";
 
 type ProfileOnboardingFormProps = {
   next?: string;
@@ -35,6 +44,7 @@ const steps = [
   { id: 1, key: "nickname" },
   { id: 2, key: "username" },
   { id: 3, key: "avatar" },
+  { id: 4, key: "habit" },
 ] as const;
 
 type StepKey = (typeof steps)[number]["key"];
@@ -42,6 +52,7 @@ type StepKey = (typeof steps)[number]["key"];
 export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardingFormProps) {
   const router = useRouter();
   const t = useTranslations("onboarding");
+  const tCategory = useTranslations("categories");
   const totalSteps = steps.length;
   const [currentStep, setCurrentStep] = useState<(typeof steps)[number]["id"]>(1);
   const [displayName, setDisplayName] = useState("");
@@ -52,6 +63,13 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
   const [displayNameError, setDisplayNameError] = useState<string | null>(null);
   const [userNameError, setUserNameError] = useState<string | null>(null);
   const [generalError, setGeneralError] = useState<string | null>(null);
+  const [habitCategory, setHabitCategory] = useState<HabitCategoryName | "">("");
+  const [customHabitName, setCustomHabitName] = useState("");
+  const [habitStartedAt, setHabitStartedAt] = useState(
+    new Date().toISOString().slice(0, 16), // YYYY-MM-DDTHH:mm format
+  );
+  const [habitReason, setHabitReason] = useState("");
+  const [habitError, setHabitError] = useState<string | null>(null);
 
   const [isSubmitting, startSubmitTransition] = useTransition();
   const [isCheckingUserName, startCheckUserNameTransition] = useTransition();
@@ -172,6 +190,14 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
     });
   };
 
+  const handleAvatarNext = () => {
+    setCurrentStep(4);
+  };
+
+  const handleHabitBack = () => {
+    setCurrentStep(3);
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFinalStep || isSubmitting) return;
@@ -191,6 +217,26 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
       return;
     }
 
+    // 習慣登録のバリデーション
+    if (!habitCategory) {
+      setCurrentStep(4);
+      setHabitError(t("errors.habitCategoryRequired"));
+      return;
+    }
+
+    const isCustomCategory = habitCategory === "Custom";
+    if (isCustomCategory && !customHabitName.trim()) {
+      setCurrentStep(4);
+      setHabitError(t("errors.customHabitNameRequired"));
+      return;
+    }
+
+    if (!habitReason.trim()) {
+      setCurrentStep(4);
+      setHabitError(t("errors.habitReasonRequired"));
+      return;
+    }
+
     const formData = new FormData();
     formData.set("display_name", safeDisplayName);
     formData.set("user_name", safeUserName);
@@ -198,8 +244,15 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
     if (avatarFile) {
       formData.set("avatar", avatarFile);
     }
+    formData.set("habit_category", habitCategory);
+    if (isCustomCategory) {
+      formData.set("custom_habit_name", customHabitName.trim());
+    }
+    formData.set("habit_started_at", habitStartedAt);
+    formData.set("habit_reason", habitReason.trim());
 
     setGeneralError(null);
+    setHabitError(null);
     startSubmitTransition(async () => {
       const result = await completeProfileOnboarding(formData);
       if (result?.errorCode) {
@@ -393,6 +446,118 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
               >
                 {t("buttons.back")}
               </Button>
+              <Button
+                type="button"
+                className="w-full sm:flex-[1.5]"
+                onClick={handleAvatarNext}
+                disabled={isSubmitting}
+              >
+                {t("buttons.next")}
+              </Button>
+            </div>
+            <button
+              type="button"
+              onClick={handleBackToTop}
+              className="text-muted-foreground hover:text-foreground mx-auto block text-xs font-medium underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isLoggingOut}
+            >
+              {t("buttons.backToTop")}
+            </button>
+          </div>
+        </>
+      )}
+
+      {currentStep === 4 && (
+        <div className="space-y-4">
+          <div className="space-y-3">
+            <Label htmlFor="habit_category" className="text-sm font-medium">
+              {t("steps.habit.categoryLabel")}
+            </Label>
+            <Select
+              value={habitCategory}
+              onValueChange={(value) => {
+                setHabitCategory(value as HabitCategoryName);
+                setHabitError(null);
+              }}
+            >
+              <SelectTrigger id="habit_category">
+                <SelectValue placeholder={t("steps.habit.categoryPlaceholder")} />
+              </SelectTrigger>
+              <SelectContent>
+                {HABIT_CATEGORIES.filter((cat) => cat !== "Official").map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {tCategory(cat)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {habitCategory === "Custom" && (
+              <div className="space-y-2">
+                <Label htmlFor="custom_habit_name" className="text-sm font-medium">
+                  {t("steps.habit.customHabitNameLabel")}
+                </Label>
+                <Input
+                  id="custom_habit_name"
+                  value={customHabitName}
+                  onChange={(e) => {
+                    setCustomHabitName(e.target.value);
+                    setHabitError(null);
+                  }}
+                  placeholder={t("steps.habit.customHabitNamePlaceholder")}
+                  disabled={isSubmitting}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-3">
+            <Label htmlFor="habit_started_at" className="text-sm font-medium">
+              {t("steps.habit.startedAtLabel")}
+            </Label>
+            <Input
+              id="habit_started_at"
+              type="datetime-local"
+              value={habitStartedAt}
+              onChange={(e) => {
+                setHabitStartedAt(e.target.value);
+                setHabitError(null);
+              }}
+              disabled={isSubmitting}
+              required
+            />
+          </div>
+
+          <div className="space-y-3">
+            <Label htmlFor="habit_reason" className="text-sm font-medium">
+              {t("steps.habit.reasonLabel")}
+            </Label>
+            <Input
+              id="habit_reason"
+              value={habitReason}
+              onChange={(e) => {
+                setHabitReason(e.target.value);
+                setHabitError(null);
+              }}
+              placeholder={t("steps.habit.reasonPlaceholder")}
+              disabled={isSubmitting}
+              required
+            />
+            <p className="text-muted-foreground text-xs">{t("steps.habit.reasonHelper")}</p>
+          </div>
+
+          {habitError && <p className="text-destructive text-sm">{habitError}</p>}
+
+          <div className="space-y-3 pt-2">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full sm:flex-1"
+                onClick={handleHabitBack}
+                disabled={isSubmitting}
+              >
+                {t("buttons.back")}
+              </Button>
               <Button type="submit" className="w-full sm:flex-[1.5]" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
@@ -413,7 +578,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
               {t("buttons.backToTop")}
             </button>
           </div>
-        </>
+        </div>
       )}
 
       {generalError && <p className="text-destructive text-sm">{generalError}</p>}

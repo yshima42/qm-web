@@ -37,6 +37,18 @@
         "button": "画像を選択",
         "selectedBadge": "選択済み",
         "previewAlt": "選択したプロフィール画像のプレビュー"
+      },
+      "habit": {
+        "title": "習慣を登録",
+        "description": "やめたい習慣を登録して、あなたの旅を始めましょう。",
+        "categoryLabel": "カテゴリ *",
+        "categoryPlaceholder": "カテゴリを選択",
+        "customHabitNameLabel": "カスタム習慣名 *",
+        "customHabitNamePlaceholder": "習慣名を入力",
+        "startedAtLabel": "開始日時 *",
+        "reasonLabel": "やめたい理由 *",
+        "reasonPlaceholder": "この習慣をやめたい理由を入力してください",
+        "reasonHelper": "あなたの動機を明確にすることで、目標達成に役立ちます。"
       }
     },
     "buttons": {
@@ -60,6 +72,10 @@
       "avatarTooLarge": "画像サイズは5MB以下にしてください。",
       "avatarUploadFailed": "画像のアップロードに失敗しました。",
       "profileInsertFailed": "プロフィールの保存に失敗しました。",
+      "habitCategoryRequired": "カテゴリを選択してください。",
+      "customHabitNameRequired": "カスタム習慣名を入力してください。",
+      "habitReasonRequired": "やめたい理由を入力してください。",
+      "habitCreateFailed": "習慣の登録に失敗しました。",
       "generic": "エラーが発生しました。もう一度お試しください。"
     }
   },

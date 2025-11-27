@@ -37,6 +37,18 @@
         "button": "Choose image",
         "selectedBadge": "Selected",
         "previewAlt": "Selected profile image preview"
+      },
+      "habit": {
+        "title": "Register a habit",
+        "description": "Register the habit you want to quit and start your journey.",
+        "categoryLabel": "Category *",
+        "categoryPlaceholder": "Select a category",
+        "customHabitNameLabel": "Custom habit name *",
+        "customHabitNamePlaceholder": "Enter habit name",
+        "startedAtLabel": "Start date and time *",
+        "reasonLabel": "Reason to quit *",
+        "reasonPlaceholder": "Enter your reason for wanting to quit this habit",
+        "reasonHelper": "Clarifying your motivation will help you achieve your goal."
       }
     },
     "buttons": {
@@ -60,6 +72,10 @@
       "avatarTooLarge": "Images must be 5MB or smaller.",
       "avatarUploadFailed": "We couldn't upload your image. Try again.",
       "profileInsertFailed": "We couldn't save your profile. Please retry.",
+      "habitCategoryRequired": "Please select a category.",
+      "customHabitNameRequired": "Please enter a custom habit name.",
+      "habitReasonRequired": "Please enter your reason for wanting to quit.",
+      "habitCreateFailed": "Failed to register habit.",
       "generic": "Something went wrong. Please try again."
     }
   },
