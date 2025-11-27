@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
 import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { countCharacters } from "@/features/common/utils";
 import { createComment } from "@/features/stories/data/actions";
 
 import { ParentCommentInfo } from "@/lib/types";
@@ -16,20 +17,6 @@ type Props = {
   replyTarget?: ParentCommentInfo | null;
   onCancelReply?: () => void;
 };
-
-// Count characters, treating multibyte characters as 2
-function countCharacters(text: string): number {
-  let count = 0;
-  for (const char of text) {
-    const code = char.charCodeAt(0);
-    if (code > 0x7f) {
-      count += 2;
-    } else {
-      count += 1;
-    }
-  }
-  return count;
-}
 
 export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
   const t = useTranslations("comment-form");

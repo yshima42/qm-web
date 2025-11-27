@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { fetchHabits } from "@/features/habits/data/data";
+import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -135,7 +135,7 @@ export default async function Page({
   const isMyStory = user?.id === story.user_id;
   const canComment = story.comment_setting === "enabled" || isMyStory;
 
-  const habits = isLoggedIn && user ? await fetchHabits(user.id) : [];
+  const habits = isLoggedIn ? await getCurrentUserHabits() : [];
 
   return (
     <HabitsProvider habits={habits}>

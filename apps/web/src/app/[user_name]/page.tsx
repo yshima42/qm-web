@@ -6,8 +6,7 @@ import { Suspense } from "react";
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { createClient } from "@/lib/supabase/server";
-import { fetchHabits } from "@/features/habits/data/data";
+import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 
 import {
   fetchProfileByUsername,
@@ -85,11 +84,7 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const habits = user ? await fetchHabits(user.id) : [];
+  const habits = await getCurrentUserHabits();
 
   return (
     <HabitsProvider habits={habits}>

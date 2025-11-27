@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { fetchHabits } from "@/features/habits/data/data";
+import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 
 import { getCategoryDisplayName } from "@/lib/categories";
 import { createClient } from "@/lib/supabase/server";
@@ -109,7 +109,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   // articleにisLikedByMeを付与
   const articleWithLikeStatus = { ...article, isLikedByMe };
 
-  const habits = isLoggedIn && user ? await fetchHabits(user.id) : [];
+  const habits = isLoggedIn ? await getCurrentUserHabits() : [];
 
   return (
     <HabitsProvider habits={habits}>

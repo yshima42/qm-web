@@ -6,8 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { createClient } from "@/lib/supabase/server";
-import { fetchHabits } from "@/features/habits/data/data";
+import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 import { DeleteAccountContent } from "@/features/settings/ui/delete-account-content";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,11 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DeleteAccountPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const habits = user ? await fetchHabits(user.id) : [];
+  const habits = await getCurrentUserHabits();
 
   return (
     <HabitsProvider habits={habits}>

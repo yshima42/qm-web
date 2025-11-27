@@ -16,7 +16,7 @@ type HabitsProviderProps = {
 
 /**
  * 習慣データを提供するProvider
- * サーバーから取得した習慣データをクライアント側でキャッシュとして使用
+ * サーバーから取得した習慣データをクライアント側で共有するためのデータプロバイダー
  */
 export function HabitsProvider({ habits, children }: HabitsProviderProps) {
   return <HabitsContext.Provider value={{ habits }}>{children}</HabitsContext.Provider>;

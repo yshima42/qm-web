@@ -15,6 +15,7 @@ import {
 import { HabitTileDto } from "@/lib/types";
 
 import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
+import { countCharacters } from "@/features/common/utils";
 import { createStory } from "@/features/stories/data/actions";
 
 type CommentSetting = "enabled" | "disabled";
@@ -22,21 +23,6 @@ type CommentSetting = "enabled" | "disabled";
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
 };
-
-// Count characters, treating multibyte characters as 2
-function countCharacters(text: string): number {
-  let count = 0;
-  for (const char of text) {
-    // Check if character is multibyte (e.g., Japanese, emoji, etc.)
-    const code = char.charCodeAt(0);
-    if (code > 0x7f) {
-      count += 2; // Multibyte character counts as 2
-    } else {
-      count += 1; // ASCII character counts as 1
-    }
-  }
-  return count;
-}
 
 export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const t = useTranslations("story-post");

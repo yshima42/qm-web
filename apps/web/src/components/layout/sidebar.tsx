@@ -43,11 +43,7 @@ export function SidebarContent({
 
   // 習慣データを取得（Providerから、存在しない場合は空配列）
   // React Hooksのルールに従い、常に同じ順序で呼び出す
-  // useHabitsは常に呼び出す必要がある（条件付きで呼び出してはいけない）
-  const habitsResult = useHabits();
-
-  // habits配列をメモ化して、useMemoの依存配列が安定するようにする
-  const habits = useMemo(() => habitsResult, [habitsResult]);
+  const habits = useHabits();
 
   const handleLinkClick = () => {
     if (onLinkClick) onLinkClick();

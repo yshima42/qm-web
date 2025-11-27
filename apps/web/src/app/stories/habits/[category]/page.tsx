@@ -38,15 +38,9 @@ function capitalizeCategory(category: string): HabitCategoryName {
 
 export default async function Page(props: { params: Promise<{ category: string }> }) {
   // Fetch user and habits for modal
-  const { createClient } = await import("@/lib/supabase/server");
-  const { fetchHabits } = await import("@/features/habits/data/data");
+  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const habits = user ? await fetchHabits(user.id) : [];
+  const habits = await getCurrentUserHabits();
 
   return (
     <HabitsProvider habits={habits}>
