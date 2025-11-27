@@ -7,10 +7,10 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
 import { CATEGORY_ICONS } from "@/lib/categories";
-import { fetchStoriesByHabitCategoryName } from "@/features/stories/data/data";
+import { createClient } from "@/lib/supabase/server";
 import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 
-import { StoryList } from "@/features/stories/ui/story-list";
+import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoryModalProvider } from "@/features/stories/ui/story-modal-provider";
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
@@ -74,6 +74,17 @@ async function CategoryPageContent({
   // カテゴリーアイコンを取得
   const CategoryIcon = CATEGORY_ICONS[habitCategory];
 
+  // ログイン状態を取得
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
+
+  // 現在のユーザーのプロフィール情報を取得
+  const { getCurrentUserProfile } = await import("@/lib/utils/page-helpers");
+  const currentUserProfile = await getCurrentUserProfile();
+
   return (
     <PageWithSidebar
       headerProps={{
@@ -84,12 +95,12 @@ async function CategoryPageContent({
       }}
     >
       <main className="p-3 sm:p-5">
-        <Suspense fallback={<LoadingSpinner />}>
-          <StoryList
-            fetchStoriesFunc={() => fetchStoriesByHabitCategoryName(habitCategory)}
-            habits={habits}
-          />
-        </Suspense>
+        <StoryListInfinite
+          category={habitCategory}
+          isLoggedIn={isLoggedIn}
+          habits={habits}
+          currentUserProfile={currentUserProfile}
+        />
       </main>
     </PageWithSidebar>
   );

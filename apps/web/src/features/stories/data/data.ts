@@ -1,12 +1,7 @@
 import { createAnonServerClient, createClient } from "@/lib/supabase/server";
 
 import { CommentTileDto, HabitCategoryName, StoryTileDto } from "@/lib/types";
-
-const STORY_SELECT_QUERY = `*, 
-  habit_categories!inner(habit_category_name), 
-  profiles!stories_user_id_fkey(user_name, display_name, avatar_url), 
-  likes(count), 
-  comments(count)`;
+import { STORY_SELECT_QUERY } from "./constants";
 
 const FETCH_LIMIT = 100;
 
@@ -140,7 +135,7 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
   return data as StoryTileDto[];
 }
 
-// RPC関数を使って複数ストーリーのいいね状態を一括取得（Flutterと同じ方式）
+// RPC関数を使って複数ストーリーのいいね状態を一括取得
 export async function fetchHasLikedByStoryIds(storyIds: string[]): Promise<Map<string, boolean>> {
   if (storyIds.length === 0) return new Map();
 

@@ -7,6 +7,7 @@ import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 import { getCurrentUserHabits, getCurrentUserUsername } from "@/lib/utils/page-helpers";
+import { createClient } from "@/lib/supabase/server";
 
 import {
   fetchProfileByUsername,
@@ -77,12 +78,16 @@ export async function generateStaticParams() {
 export default async function Page(props: { params: Promise<{ user_name: string }> }) {
   const params = await props.params;
   const user_name = params.user_name;
-  // 後で子コンポーネントに移動し、suspenseで読み込む
-  // const story = await fetchStoryById(id);
-  // const comments = await fetchCommentsByStoryId(id);
 
   const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
+
+  // ログイン状態を取得
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
 
   const habits = await getCurrentUserHabits();
   const currentUserUsername = await getCurrentUserUsername();
@@ -98,7 +103,7 @@ export default async function Page(props: { params: Promise<{ user_name: string 
         <Suspense fallback={<LoadingSpinner fullHeight />}>
           <main className="p-3 sm:p-5">
             <ProfileHeader profile={profile} isMyProfile={isMyProfile} />
-            <ProfileTabs profile={profile} />
+            <ProfileTabs profile={profile} isLoggedIn={isLoggedIn} />
           </main>
         </Suspense>
       </PageWithSidebar>

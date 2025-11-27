@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 
 import { Footer } from "@/components/layout/footer";
 import { SmartBanner } from "@/components/ui/smart-banner";
+import { QueryProvider } from "@/app/providers";
 
 import { getLocale } from "next-intl/server";
 
@@ -88,26 +89,28 @@ export default async function RootLayout({
       <body className="bg-background text-foreground" suppressHydrationWarning>
         {gaId && <GoogleAnalytics measurementId={gaId} />}
         <NextIntlClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <main className="flex min-h-screen flex-col items-center">
-              <div className="flex w-full flex-1 flex-col items-center">
-                {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
-                {/* <HeaderAuth /> */}
-                <div className="flex w-full max-w-5xl">
-                  {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
-                  {/* <Sidebar /> */}
-                  <div className="flex flex-1 flex-col">{children}</div>
+          <QueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <main className="flex min-h-screen flex-col items-center">
+                <div className="flex w-full flex-1 flex-col items-center">
+                  {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
+                  {/* <HeaderAuth /> */}
+                  <div className="flex w-full max-w-5xl">
+                    {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
+                    {/* <Sidebar /> */}
+                    <div className="flex flex-1 flex-col">{children}</div>
+                  </div>
+                  <SmartBanner />
+                  <Footer />
                 </div>
-                <SmartBanner />
-                <Footer />
-              </div>
-            </main>
-          </ThemeProvider>
+              </main>
+            </ThemeProvider>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>
