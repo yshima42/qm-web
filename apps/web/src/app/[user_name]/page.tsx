@@ -5,6 +5,9 @@ import { Suspense } from "react";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { HabitsProvider } from "@/features/habits/providers/habits-provider";
+import { createClient } from "@/lib/supabase/server";
+import { fetchHabits } from "@/features/habits/data/data";
 
 import {
   fetchProfileByUsername,
@@ -82,18 +85,26 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
 
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const habits = user ? await fetchHabits(user.id) : [];
+
   return (
-    <PageWithSidebar
-      headerProps={{
-        titleElement: <Logo />,
-      }}
-    >
-      <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <main className="p-3 sm:p-5">
-          <ProfileHeader profile={profile} />
-          <ProfileTabs profile={profile} />
-        </main>
-      </Suspense>
-    </PageWithSidebar>
+    <HabitsProvider habits={habits}>
+      <PageWithSidebar
+        headerProps={{
+          titleElement: <Logo />,
+        }}
+      >
+        <Suspense fallback={<LoadingSpinner fullHeight />}>
+          <main className="p-3 sm:p-5">
+            <ProfileHeader profile={profile} />
+            <ProfileTabs profile={profile} />
+          </main>
+        </Suspense>
+      </PageWithSidebar>
+    </HabitsProvider>
   );
 }

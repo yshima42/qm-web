@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
 import { CATEGORY_ICONS } from "@/lib/categories";
 import { fetchStoriesByHabitCategoryName } from "@/features/stories/data/data";
@@ -48,11 +49,13 @@ export default async function Page(props: { params: Promise<{ category: string }
   const habits = user ? await fetchHabits(user.id) : [];
 
   return (
-    <StoryModalProvider habits={habits}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <CategoryPageContent params={props.params} habits={habits} />
-      </Suspense>
-    </StoryModalProvider>
+    <HabitsProvider habits={habits}>
+      <StoryModalProvider habits={habits}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <CategoryPageContent params={props.params} habits={habits} />
+        </Suspense>
+      </StoryModalProvider>
+    </HabitsProvider>
   );
 }
 

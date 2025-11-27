@@ -1,8 +1,5 @@
 import clsx from "clsx";
 
-import { AuthButton } from "@/components/auth-button";
-import LocaleSwitcher from "@/components/ui/locale-switcher";
-
 export type HeaderProps = {
   title?: string;
   titleElement?: React.ReactNode;
@@ -59,8 +56,6 @@ export function Header({ title, titleElement, rightElement, hideTitle, icon }: H
 
         <div className="flex w-24 items-center justify-end gap-2">
           {rightElement}
-          <AuthButton />
-          <LocaleSwitcher />
         </div>
       </div>
     </header>

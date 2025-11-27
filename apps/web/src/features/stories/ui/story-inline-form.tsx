@@ -2,7 +2,7 @@
 
 import { Globe, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +46,12 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
   const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
+  const [isMounted, setIsMounted] = useState(false);
+
+  // ハイドレーションミスマッチを防ぐため、マウント後にのみ表示
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Filter for active habits (has at least one trial with no ended_at)
   const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
@@ -89,6 +95,11 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
 
   if (!hasActiveHabit) {
     return null; // Don't show the form if no active habits
+  }
+
+  // ハイドレーション完了まで何も表示しない
+  if (!isMounted) {
+    return null;
   }
 
   return (
