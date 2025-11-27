@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 
 /**
  * アカウント削除の結果
@@ -75,8 +74,8 @@ export async function deleteAccount(): Promise<DeleteAccountResult> {
       // ユーザーは既に削除されているので、エラーでもリダイレクトする
     }
 
-    // ログインページにリダイレクト
-    redirect("/auth/login");
+    // 成功を返す（クライアント側でリダイレクトする）
+    return { success: true };
   } catch (error) {
     console.error("Unexpected error during account deletion:", error);
     return {
