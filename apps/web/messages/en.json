@@ -240,5 +240,10 @@
   "disabled-comment": {
     "title": "Comments are disabled",
     "message": "The author has disabled comments on this post"
+  },
+  "stories": {
+    "errorLoading": "Failed to load stories",
+    "noMoreStories": "All stories loaded",
+    "noStories": "No stories yet"
   }
 }

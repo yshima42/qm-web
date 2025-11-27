@@ -214,5 +214,10 @@
   "disabled-comment": {
     "title": "コメントが無効です",
     "message": "投稿者がこの投稿へのコメントを無効にしています"
+  },
+  "stories": {
+    "errorLoading": "ストーリーの読み込みに失敗しました",
+    "noMoreStories": "すべてのストーリーを読み込みました",
+    "noStories": "まだストーリーがありません"
   }
 }

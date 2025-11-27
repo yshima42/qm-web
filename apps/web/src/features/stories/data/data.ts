@@ -140,6 +140,41 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
   return data as StoryTileDto[];
 }
 
+// ページネーション対応版（無限スクロール用）
+// Flutterのfetch_ranged_stories系と同じ方式
+export async function fetchPaginatedStoriesByHabitCategoryName({
+  name,
+  page,
+  limit,
+  boundaryTime,
+}: {
+  name: HabitCategoryName;
+  page: number;
+  limit: number;
+  boundaryTime: string; // ISO形式
+}): Promise<StoryTileDto[]> {
+  const supabase = await createClient();
+  const from = page * limit;
+  const to = (page + 1) * limit - 1;
+
+  const { data, error } = await supabase
+    .from("stories")
+    .select(STORY_SELECT_QUERY)
+    .eq("habit_categories.habit_category_name", name)
+    .lte("created_at", boundaryTime) // 境界時間より前のデータのみ取得
+    .order("created_at", { ascending: false })
+    // 同一時刻の投稿がある時無限スクロールで同じ投稿を取得する可能性があるため、idで降順にする
+    .order("id", { ascending: false }) // ← これを追加！
+    .range(from, to);
+
+  if (error) {
+    console.error("Error fetching paginated stories:", error);
+    return [];
+  }
+
+  return (data ?? []) as StoryTileDto[];
+}
+
 // RPC関数を使って複数ストーリーのいいね状態を一括取得（Flutterと同じ方式）
 export async function fetchHasLikedByStoryIds(storyIds: string[]): Promise<Map<string, boolean>> {
   if (storyIds.length === 0) return new Map();
