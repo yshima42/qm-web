@@ -22,8 +22,10 @@ export function DeleteAccountContent() {
       const result = await deleteAccount();
       if (!result.success) {
         setError(result.error || t("deleteAccountError"));
+        return;
       }
-      // 成功した場合はdeleteAccount内でリダイレクトされる
+      // 成功した場合はログインページにリダイレクト
+      window.location.href = "/auth/login";
     });
   };
 

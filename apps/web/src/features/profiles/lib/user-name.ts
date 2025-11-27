@@ -1,4 +1,8 @@
-export const USER_NAME_REGEX = /^[a-z0-9_]{3,20}$/;
+import { PROFILE_VALIDATIONS } from "./profile-validations";
+
+export const USER_NAME_REGEX = new RegExp(
+  `^[a-z0-9_]{${PROFILE_VALIDATIONS.userNameMinLength},${PROFILE_VALIDATIONS.userNameMaxLength}}$`,
+);
 
 export function generateUserName(userId: string) {
   return userId.replace(/-/g, "").substring(0, 10);

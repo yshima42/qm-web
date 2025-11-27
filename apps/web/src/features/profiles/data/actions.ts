@@ -2,6 +2,7 @@
 
 import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
+import sharp from "sharp";
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -10,6 +11,14 @@ import {
   normalizeUserNameInput,
   isValidUserName,
 } from "@/features/profiles/lib/user-name";
+import {
+  AVATAR_MAX_WIDTH,
+  AVATAR_MAX_HEIGHT,
+  AVATAR_QUALITY,
+  AVATAR_MAX_SIZE,
+  AVATAR_BUCKET,
+} from "@/features/profiles/lib/avatar-constants";
+import { PROFILE_VALIDATIONS } from "@/features/profiles/lib/profile-validations";
 
 export type OnboardingErrorCode =
   | "displayNameRequired"
@@ -41,14 +50,57 @@ type UserNameAvailabilityResult = {
 };
 
 const DEFAULT_REDIRECT_PATH = "/stories/habits/alcohol";
-const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB
-const AVATAR_BUCKET = "avatars";
 
 function sanitizeNextPath(next?: string | null) {
   if (!next || !next.startsWith("/")) {
     return DEFAULT_REDIRECT_PATH;
   }
   return next;
+}
+
+/**
+ * 画像をリサイズ・圧縮する
+ * Flutterアプリ側と同じ仕様:
+ * - アスペクト比 1:1 でクロップ
+ * - 400x400px にリサイズ
+ * - 圧縮率 70% で圧縮
+ * - 最大ファイルサイズ 256KB
+ */
+async function resizeAndCompressAvatar(imageBuffer: Buffer): Promise<Buffer> {
+  const metadata = await sharp(imageBuffer).metadata();
+
+  const minDimension = Math.min(metadata.width || 0, metadata.height || 0);
+  const left = Math.floor(((metadata.width || 0) - minDimension) / 2);
+  const top = Math.floor(((metadata.height || 0) - minDimension) / 2);
+
+  let quality = AVATAR_QUALITY;
+  let processedBuffer: Buffer;
+
+  do {
+    processedBuffer = await sharp(imageBuffer)
+      .extract({
+        left,
+        top,
+        width: minDimension,
+        height: minDimension,
+      })
+      .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
+        fit: "cover",
+        position: "center",
+      })
+      .jpeg({ quality })
+      .toBuffer();
+
+    if (processedBuffer.length > AVATAR_MAX_SIZE) {
+      quality -= 10; // 圧縮率を10%下げる
+    }
+  } while (processedBuffer.length > AVATAR_MAX_SIZE && quality > 10);
+
+  if (processedBuffer.length > AVATAR_MAX_SIZE) {
+    throw new Error("Image too large after compression");
+  }
+
+  return processedBuffer;
 }
 
 async function uploadAvatar(
@@ -59,30 +111,37 @@ async function uploadAvatar(
   if (!file.type.startsWith("image/")) {
     return { errorCode: "avatarInvalidType" as OnboardingErrorCode };
   }
-  if (file.size > MAX_AVATAR_SIZE) {
-    return { errorCode: "avatarTooLarge" as OnboardingErrorCode };
-  }
 
-  const extension = file.name.split(".").pop()?.toLowerCase() || "png";
-  const storagePath = `${userId}/${randomUUID()}.${extension}`;
-  const fileBuffer = Buffer.from(await file.arrayBuffer());
+  try {
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
+    const processedBuffer = await resizeAndCompressAvatar(fileBuffer);
 
-  const { error: uploadError } = await supabase.storage
-    .from(AVATAR_BUCKET)
-    .upload(storagePath, fileBuffer, {
-      contentType: file.type || "image/png",
-    });
+    if (processedBuffer.length > AVATAR_MAX_SIZE) {
+      return { errorCode: "avatarTooLarge" as OnboardingErrorCode };
+    }
 
-  if (uploadError) {
-    console.error("[onboarding] avatar upload error", uploadError);
+    const storagePath = `${userId}/${randomUUID()}.jpg`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(AVATAR_BUCKET)
+      .upload(storagePath, processedBuffer, {
+        contentType: "image/jpeg",
+      });
+
+    if (uploadError) {
+      console.error("[onboarding] avatar upload error", uploadError);
+      return { errorCode: "avatarUploadFailed" as OnboardingErrorCode };
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(storagePath);
+
+    return { url: publicUrl };
+  } catch (error) {
+    console.error("[uploadAvatar] processing or upload error", error);
     return { errorCode: "avatarUploadFailed" as OnboardingErrorCode };
   }
-
-  const {
-    data: { publicUrl },
-  } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(storagePath);
-
-  return { url: publicUrl };
 }
 
 export async function completeProfileOnboarding(formData: FormData): Promise<OnboardingResult> {
@@ -98,7 +157,7 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
   if (!displayName) {
     return { errorCode: "displayNameRequired" };
   }
-  if (displayName.length > 50) {
+  if (displayName.length > PROFILE_VALIDATIONS.displayNameMaxLength) {
     return { errorCode: "displayNameLength" };
   }
 
@@ -274,7 +333,7 @@ export async function updateProfile(formData: FormData): Promise<UpdateProfileRe
   if (!displayName) {
     return { success: false, errorCode: "displayNameRequired" };
   }
-  if (displayName.length > 50) {
+  if (displayName.length > PROFILE_VALIDATIONS.displayNameMaxLength) {
     return { success: false, errorCode: "displayNameLength" };
   }
 

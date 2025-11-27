@@ -132,14 +132,16 @@ export function SidebarContent({
             onClick={handleLinkClick}
           />
         )}
-        <SidebarIcon
-          icon={Target}
-          label="Habits"
-          href="/habits"
-          active={pathname === "/habits"}
-          showLabel={!compact}
-          onClick={handleLinkClick}
-        />
+        {currentUserUsername && (
+          <SidebarIcon
+            icon={Target}
+            label="Habits"
+            href="/habits"
+            active={pathname === "/habits"}
+            showLabel={!compact}
+            onClick={handleLinkClick}
+          />
+        )}
         <SidebarIcon
           icon={BookOpen}
           label={t("articles")}
@@ -228,46 +230,50 @@ export function SidebarContent({
           </div>
         )}
         {/* 設定 */}
-        <SidebarIcon
-          icon={Settings}
-          label={t("settings")}
-          href="/settings"
-          active={pathname.startsWith("/settings")}
-          showLabel={!compact}
-          onClick={handleLinkClick}
-        />
+        {currentUserUsername && (
+          <SidebarIcon
+            icon={Settings}
+            label={t("settings")}
+            href="/settings"
+            active={pathname.startsWith("/settings")}
+            showLabel={!compact}
+            onClick={handleLinkClick}
+          />
+        )}
       </div>
 
       {/* Post Story Button - moved below Articles */}
-      <div className="shrink-0">
-        {compact ? (
-          <div className="pr-2">
-            <button
-              className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-4 py-2 transition-colors"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent("openStoryModal"));
-                handleLinkClick();
-              }}
-              aria-label={t("postStory")}
-            >
-              <Pen className="size-5" />
-            </button>
-          </div>
-        ) : (
-          <div className="px-4 pb-4">
-            <Button
-              className="w-full rounded-full font-semibold"
-              size="lg"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent("openStoryModal"));
-                handleLinkClick();
-              }}
-            >
-              {t("postStory")}
-            </Button>
-          </div>
-        )}
-      </div>
+      {currentUserUsername && (
+        <div className="shrink-0">
+          {compact ? (
+            <div className="pr-2">
+              <button
+                className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-4 py-2 transition-colors"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("openStoryModal"));
+                  handleLinkClick();
+                }}
+                aria-label={t("postStory")}
+              >
+                <Pen className="size-5" />
+              </button>
+            </div>
+          ) : (
+            <div className="px-4 pb-4">
+              <Button
+                className="w-full rounded-full font-semibold"
+                size="lg"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("openStoryModal"));
+                  handleLinkClick();
+                }}
+              >
+                {t("postStory")}
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="mt-auto shrink-0 space-y-4 px-4 py-3">
         {!compact && (
