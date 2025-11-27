@@ -43,5 +43,8 @@ export function useInfiniteStories(category: HabitCategoryName) {
     queryFn: ({ pageParam }) => fetchStoriesPage(category, pageParam, boundaryTimeRef.current),
     getNextPageParam: (lastPage, allPages) => (lastPage.hasMore ? allPages.length : undefined),
     initialPageParam: 0,
+    // ページリロード時に最初の状態に戻すためキャッシュを保持しない
+    gcTime: 0,
+    refetchOnWindowFocus: false,
   });
 }
