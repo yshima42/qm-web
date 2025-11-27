@@ -17,7 +17,7 @@ export function ProfileHeader({ profile, isMyProfile = false }: Props) {
         {isMyProfile && (
           <ProfileEditDialog profile={profile}>
             <button
-              className="text-muted-foreground hover:text-foreground flex items-center gap-1 rounded-md p-2 transition-colors hover:bg-accent"
+              className="text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-1 rounded-md p-2 transition-colors"
               title="編集"
             >
               <Pencil className="size-4" />

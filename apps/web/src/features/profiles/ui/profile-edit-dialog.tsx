@@ -30,10 +30,10 @@ export function ProfileEditDialog({ profile, children }: ProfileEditDialogProps)
       >
         <DialogTitle className="sr-only">プロフィールを編集</DialogTitle>
         {/* ヘッダー */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-background px-4 py-3">
+        <div className="bg-background sticky top-0 z-10 flex items-center justify-between border-b px-4 py-3">
           <button
             onClick={handleClose}
-            className="text-muted-foreground hover:text-foreground rounded-full p-2 transition-colors hover:bg-accent"
+            className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-full p-2 transition-colors"
           >
             <X className="size-5" />
           </button>
@@ -49,4 +49,3 @@ export function ProfileEditDialog({ profile, children }: ProfileEditDialogProps)
     </Dialog>
   );
 }
-

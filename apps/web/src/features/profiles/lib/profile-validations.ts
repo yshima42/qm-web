@@ -8,4 +8,3 @@ export const PROFILE_VALIDATIONS = {
   displayNameMaxLength: 32,
   bioMaxLength: 200,
 } as const;
-

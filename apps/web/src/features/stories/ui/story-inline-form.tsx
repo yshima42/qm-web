@@ -112,9 +112,9 @@ export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormP
               )}
             </Link>
           ) : (
-          <div className="bg-muted flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-medium">
+            <div className="bg-muted flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-medium">
               U
-          </div>
+            </div>
           )}
           <div className="flex-1 space-y-3">
             {showHabitSelect && (
