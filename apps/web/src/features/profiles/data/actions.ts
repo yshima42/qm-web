@@ -255,3 +255,117 @@ export async function checkUserNameAvailability(
 
   return { available: true };
 }
+
+export type UpdateProfileResult = {
+  success: boolean;
+  errorCode?: string;
+  newUserName?: string;
+};
+
+/**
+ * プロフィールを更新する
+ */
+export async function updateProfile(formData: FormData): Promise<UpdateProfileResult> {
+  const displayName = (formData.get("display_name") as string | null)?.trim();
+  const bio = (formData.get("bio") as string | null)?.trim();
+  const userNameInput = formData.get("user_name") as string | null;
+  const avatarFile = formData.get("avatar");
+
+  if (!displayName) {
+    return { success: false, errorCode: "displayNameRequired" };
+  }
+  if (displayName.length > 50) {
+    return { success: false, errorCode: "displayNameLength" };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    console.error("[profile update] failed to fetch session user", userError);
+    return { success: false, errorCode: "userFetchFailed" };
+  }
+
+  // user_nameの更新がある場合、バリデーションと重複チェック
+  let newUserName: string | undefined = undefined;
+  if (userNameInput) {
+    const sanitizedUserName = normalizeUserNameInput(userNameInput);
+    if (!sanitizedUserName) {
+      return { success: false, errorCode: "userNameRequired" };
+    }
+
+    if (!isValidUserName(sanitizedUserName)) {
+      return { success: false, errorCode: "userNameInvalid" };
+    }
+
+    // 現在のuser_nameと異なる場合のみ重複チェック
+    const { data: currentProfile } = await supabase
+      .from("profiles")
+      .select("user_name")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (currentProfile?.user_name !== sanitizedUserName) {
+      const { data: duplicatedUserName, error: userNameCheckError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("user_name", sanitizedUserName)
+        .maybeSingle();
+
+      if (userNameCheckError) {
+        console.error("[profile update] username availability error", userNameCheckError);
+        return { success: false, errorCode: "userNameCheckFailed" };
+      }
+
+      if (duplicatedUserName) {
+        return { success: false, errorCode: "userNameUnavailable" };
+      }
+
+      newUserName = sanitizedUserName;
+    }
+  }
+
+  let avatarUrl: string | null | undefined = undefined;
+
+  if (avatarFile instanceof File && avatarFile.size > 0) {
+    const uploadResult = await uploadAvatar(supabase, user.id, avatarFile);
+    if (uploadResult?.errorCode) {
+      return { success: false, errorCode: uploadResult.errorCode };
+    }
+    avatarUrl = uploadResult.url ?? null;
+  }
+
+  const updateData: {
+    display_name: string;
+    bio: string | null;
+    user_name?: string;
+    avatar_url?: string | null;
+  } = {
+    display_name: displayName,
+    bio: bio || null,
+  };
+
+  if (newUserName !== undefined) {
+    updateData.user_name = newUserName;
+  }
+
+  if (avatarUrl !== undefined) {
+    updateData.avatar_url = avatarUrl;
+  }
+
+  const { error: updateError } = await supabase
+    .from("profiles")
+    .update(updateData)
+    .eq("id", user.id);
+
+  if (updateError) {
+    console.error("[profile update] profile update error", updateError);
+    return { success: false, errorCode: "profileUpdateFailed" };
+  }
+
+  // user_nameが変更された場合は、新しいuser_nameを返す
+  return { success: true, newUserName };
+}

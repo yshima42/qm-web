@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
 import type { HeaderProps } from "@/components/layout/header";
+import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 
 type PageWithSidebarProps = {
   children: ReactNode;
@@ -16,10 +17,12 @@ type PageWithSidebarProps = {
 /**
  * サイドバーとヘッダーを含む共通レイアウトコンポーネント
  */
-export function PageWithSidebar({ children, headerProps, className }: PageWithSidebarProps) {
+export async function PageWithSidebar({ children, headerProps, className }: PageWithSidebarProps) {
+  const currentUserUsername = await getCurrentUserUsername();
+
   return (
     <div className="flex w-full">
-      <Sidebar />
+      <Sidebar currentUserUsername={currentUserUsername} />
       <div className={`flex flex-1 flex-col ${className ?? ""}`}>
         {headerProps && (
           <Header

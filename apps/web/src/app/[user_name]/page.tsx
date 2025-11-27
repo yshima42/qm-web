@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
+import { getCurrentUserHabits, getCurrentUserUsername } from "@/lib/utils/page-helpers";
 
 import {
   fetchProfileByUsername,
@@ -85,6 +85,8 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   if (!profile) notFound();
 
   const habits = await getCurrentUserHabits();
+  const currentUserUsername = await getCurrentUserUsername();
+  const isMyProfile = currentUserUsername === user_name;
 
   return (
     <HabitsProvider habits={habits}>
@@ -95,7 +97,7 @@ export default async function Page(props: { params: Promise<{ user_name: string 
       >
         <Suspense fallback={<LoadingSpinner fullHeight />}>
           <main className="p-3 sm:p-5">
-            <ProfileHeader profile={profile} />
+            <ProfileHeader profile={profile} isMyProfile={isMyProfile} />
             <ProfileTabs profile={profile} />
           </main>
         </Suspense>

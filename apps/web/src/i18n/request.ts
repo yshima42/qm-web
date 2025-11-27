@@ -6,7 +6,6 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

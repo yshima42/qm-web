@@ -2,7 +2,9 @@
 
 import { Globe, Lock, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,20 +13,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DefaultAvatar } from "@quitmate/ui";
 
 import { HabitTileDto } from "@/lib/types";
 
-import { MAX_CHARACTERS, SHOW_COUNT_THRESHOLD } from "@/features/common/constants";
-import { countCharacters } from "@/features/common/utils";
+import { useCharacterCount } from "@/features/common/hooks/use-character-count";
+import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
 import { createStory } from "@/features/stories/data/actions";
 
 type CommentSetting = "enabled" | "disabled";
 
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
+  currentUserProfile?: {
+    user_name: string;
+    display_name: string;
+    avatar_url: string | null;
+  } | null;
 };
 
-export function StoryInlineForm({ habits }: StoryInlineFormProps) {
+export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormProps) {
   const t = useTranslations("story-post");
   const tCategory = useTranslations("categories");
   const tCommentSetting = useTranslations("comment-setting");
@@ -46,13 +54,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
   const showHabitSelect = activeHabits.length > 1;
 
   // Calculate character count and remaining
-  const charCount = useMemo(() => countCharacters(content), [content]);
-  const remaining = MAX_CHARACTERS - charCount;
-  const isOverLimit = remaining < 0;
-  const showCount = remaining <= SHOW_COUNT_THRESHOLD;
-
-  // Calculate progress for circular indicator (0-1)
-  const progress = Math.min(charCount / MAX_CHARACTERS, 1);
+  const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,9 +94,28 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
     <div className="border-border bg-card border-b">
       <form onSubmit={handleSubmit} className="space-y-3 p-4">
         <div className="flex gap-3">
-          <div className="bg-muted flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-medium">
-            {/* User avatar placeholder */}U
-          </div>
+          {currentUserProfile ? (
+            <Link
+              href={`/${currentUserProfile.user_name}`}
+              className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
+            >
+              {currentUserProfile.avatar_url ? (
+                <Image
+                  src={currentUserProfile.avatar_url}
+                  alt={currentUserProfile.display_name}
+                  width={40}
+                  height={40}
+                  className="size-full object-cover"
+                />
+              ) : (
+                <DefaultAvatar size="sm" className="bg-muted size-full" />
+              )}
+            </Link>
+          ) : (
+            <div className="bg-muted flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-medium">
+              U
+            </div>
+          )}
           <div className="flex-1 space-y-3">
             {showHabitSelect && (
               <select
@@ -165,51 +186,12 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
         {error && <div className="ml-13 text-sm text-red-500">{error}</div>}
 
         <div className="ml-13 flex items-center justify-end gap-3">
-          {/* Character count indicator */}
-          <div className="relative flex items-center justify-center">
-            {/* Background circle */}
-            <svg className="h-8 w-8 -rotate-90">
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="text-muted"
-                opacity="0.2"
-              />
-              {/* Progress circle */}
-              <circle
-                cx="16"
-                cy="16"
-                r="14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeDasharray={`${2 * Math.PI * 14}`}
-                strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
-                className={
-                  isOverLimit
-                    ? "text-red-500"
-                    : remaining <= 20
-                      ? "text-yellow-500"
-                      : "text-primary"
-                }
-                strokeLinecap="round"
-              />
-            </svg>
-            {/* Character count text */}
-            {showCount && (
-              <span
-                className={`absolute text-xs font-medium ${
-                  isOverLimit ? "text-red-500" : "text-muted-foreground"
-                }`}
-              >
-                {remaining}
-              </span>
-            )}
-          </div>
+          <CharacterCountIndicator
+            remaining={remaining}
+            isOverLimit={isOverLimit}
+            showCount={showCount}
+            progress={progress}
+          />
 
           <Button
             type="submit"
