@@ -171,6 +171,8 @@
     "deleteAccountWarning3": "Please back up important data before deleting your account",
     "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
     "deleteAccountButton": "Delete Account",
+    "deleteAccountError": "Failed to delete account. Please try again.",
+    "deleting": "Deleting...",
     "languageDescription": "You can change the display language of the app",
     "termsOfService": "Terms of Service",
     "termsDescription": "You can view the terms of service",

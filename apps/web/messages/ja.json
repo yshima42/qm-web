@@ -145,6 +145,8 @@
     "deleteAccountWarning3": "アカウントを削除する前に、重要なデータをバックアップしてください",
     "deleteAccountConfirm": "本当にアカウントを削除しますか？この操作は取り消せません。",
     "deleteAccountButton": "アカウントを削除",
+    "deleteAccountError": "アカウントの削除に失敗しました。もう一度お試しください。",
+    "deleting": "削除中...",
     "languageDescription": "アプリの表示言語を変更できます",
     "termsOfService": "利用規約",
     "termsDescription": "利用規約を確認できます",

@@ -4,16 +4,27 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Trash2, ArrowLeft } from "lucide-react";
 import { Button } from "@quitmate/ui";
+import { useState, useTransition } from "react";
+import { deleteAccount } from "@/features/settings/data/actions";
 
 export function DeleteAccountContent() {
   const t = useTranslations("settings");
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
   const handleDeleteAccount = async () => {
-    // TODO: アカウント削除の実装
-    if (confirm(t("deleteAccountConfirm"))) {
-      // アカウント削除処理
-      console.log("Account deletion not implemented yet");
+    if (!confirm(t("deleteAccountConfirm"))) {
+      return;
     }
+
+    setError(null);
+    startTransition(async () => {
+      const result = await deleteAccount();
+      if (!result.success) {
+        setError(result.error || t("deleteAccountError"));
+      }
+      // 成功した場合はdeleteAccount内でリダイレクトされる
+    });
   };
 
   return (
@@ -43,12 +54,18 @@ export function DeleteAccountContent() {
           <li>{t("deleteAccountWarning2")}</li>
           <li>{t("deleteAccountWarning3")}</li>
         </ul>
+        {error && (
+          <div className="mb-4 rounded-md bg-destructive/20 p-3 text-sm text-destructive">
+            {error}
+          </div>
+        )}
         <Button
           variant="destructive"
           onClick={handleDeleteAccount}
+          disabled={isPending}
           className="w-full sm:w-auto"
         >
-          {t("deleteAccountButton")}
+          {isPending ? t("deleting") : t("deleteAccountButton")}
         </Button>
       </div>
     </div>
