@@ -39,11 +39,7 @@ export function CharacterCountIndicator({
           strokeDasharray={`${2 * Math.PI * 14}`}
           strokeDashoffset={`${2 * Math.PI * 14 * (1 - progress)}`}
           className={
-            isOverLimit
-              ? "text-red-500"
-              : remaining <= 20
-                ? "text-yellow-500"
-                : "text-primary"
+            isOverLimit ? "text-red-500" : remaining <= 20 ? "text-yellow-500" : "text-primary"
           }
           strokeLinecap="round"
         />
@@ -61,4 +57,3 @@ export function CharacterCountIndicator({
     </div>
   );
 }
-

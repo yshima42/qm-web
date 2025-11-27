@@ -54,4 +54,3 @@ export default async function ProfileEditPage(props: { params: Promise<{ user_na
     </HabitsProvider>
   );
 }
-

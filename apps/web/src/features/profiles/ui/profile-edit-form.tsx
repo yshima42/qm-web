@@ -3,7 +3,14 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Camera, Loader2 } from "lucide-react";
-import { useEffect, useRef, useState, useTransition, type ChangeEvent, type FormEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,7 +96,10 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
       try {
         const result = await updateProfile(formData);
         if (!result.success) {
-          if (result.errorCode === "userNameInvalid" || result.errorCode === "userNameUnavailable") {
+          if (
+            result.errorCode === "userNameInvalid" ||
+            result.errorCode === "userNameUnavailable"
+          ) {
             setUserNameError(
               result.errorCode === "userNameInvalid"
                 ? "ユーザーIDは3-20文字の英数字とアンダースコアのみ使用できます"
@@ -164,9 +174,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
             maxLength={50}
             placeholder="ニックネームを入力"
           />
-          {displayNameError && (
-            <p className="text-destructive text-sm">{displayNameError}</p>
-          )}
+          {displayNameError && <p className="text-destructive text-sm">{displayNameError}</p>}
           <p className="text-muted-foreground text-sm">{displayName.length}/50</p>
         </div>
 
@@ -180,9 +188,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
             maxLength={20}
             placeholder="ユーザーIDを入力"
           />
-          {userNameError && (
-            <p className="text-destructive text-sm">{userNameError}</p>
-          )}
+          {userNameError && <p className="text-destructive text-sm">{userNameError}</p>}
           <p className="text-muted-foreground text-sm">
             {userName.length}/20（3文字以上、英数字とアンダースコアのみ）
           </p>
@@ -234,4 +240,3 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
     </div>
   );
 }
-

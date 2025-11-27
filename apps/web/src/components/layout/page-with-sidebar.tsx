@@ -38,4 +38,3 @@ export async function PageWithSidebar({ children, headerProps, className }: Page
     </div>
   );
 }
-
