@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -62,7 +61,7 @@ export function FollowToggleButton({
         className,
       )}
     >
-      {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : buttonText}
+      {buttonText}
     </Button>
   );
 }
