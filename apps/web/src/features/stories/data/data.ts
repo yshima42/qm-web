@@ -1,12 +1,7 @@
 import { createAnonServerClient, createClient } from "@/lib/supabase/server";
 
 import { CommentTileDto, HabitCategoryName, StoryTileDto } from "@/lib/types";
-
-const STORY_SELECT_QUERY = `*, 
-  habit_categories!inner(habit_category_name), 
-  profiles!stories_user_id_fkey(user_name, display_name, avatar_url), 
-  likes(count), 
-  comments(count)`;
+import { STORY_SELECT_QUERY } from "./constants";
 
 const FETCH_LIMIT = 100;
 
@@ -140,42 +135,7 @@ export async function fetchStoriesByHabitCategoryName(name: HabitCategoryName) {
   return data as StoryTileDto[];
 }
 
-// ページネーション対応版（無限スクロール用）
-// Flutterのfetch_ranged_stories系と同じ方式
-export async function fetchPaginatedStoriesByHabitCategoryName({
-  name,
-  page,
-  limit,
-  boundaryTime,
-}: {
-  name: HabitCategoryName;
-  page: number;
-  limit: number;
-  boundaryTime: string; // ISO形式
-}): Promise<StoryTileDto[]> {
-  const supabase = await createClient();
-  const from = page * limit;
-  const to = (page + 1) * limit - 1;
-
-  const { data, error } = await supabase
-    .from("stories")
-    .select(STORY_SELECT_QUERY)
-    .eq("habit_categories.habit_category_name", name)
-    .lte("created_at", boundaryTime) // 境界時間より前のデータのみ取得
-    .order("created_at", { ascending: false })
-    // 同一時刻の投稿がある時無限スクロールで同じ投稿を取得する可能性があるため、idで降順にする
-    .order("id", { ascending: false }) // ← これを追加！
-    .range(from, to);
-
-  if (error) {
-    console.error("Error fetching paginated stories:", error);
-    return [];
-  }
-
-  return (data ?? []) as StoryTileDto[];
-}
-
-// RPC関数を使って複数ストーリーのいいね状態を一括取得（Flutterと同じ方式）
+// RPC関数を使って複数ストーリーのいいね状態を一括取得
 export async function fetchHasLikedByStoryIds(storyIds: string[]): Promise<Map<string, boolean>> {
   if (storyIds.length === 0) return new Map();
 
@@ -217,71 +177,4 @@ export async function enrichStoriesWithLikeStatus(
 export async function checkIsLikedByMe(storyId: string): Promise<boolean> {
   const hasLikedMap = await fetchHasLikedByStoryIds([storyId]);
   return hasLikedMap.get(storyId) ?? false;
-}
-
-// ページネーション対応版（ユーザーID用・無限スクロール用）
-export async function fetchPaginatedStoriesByUserId({
-  userId,
-  page,
-  limit,
-  boundaryTime,
-}: {
-  userId: string;
-  page: number;
-  limit: number;
-  boundaryTime: string;
-}): Promise<StoryTileDto[]> {
-  const supabase = await createClient();
-  const from = page * limit;
-  const to = (page + 1) * limit - 1;
-
-  const { data, error } = await supabase
-    .from("stories")
-    .select(STORY_SELECT_QUERY)
-    .eq("user_id", userId)
-    .lte("created_at", boundaryTime)
-    .order("created_at", { ascending: false })
-    .order("id", { ascending: false })
-    .range(from, to);
-
-  if (error) {
-    console.error("Error fetching paginated stories by user:", error);
-    return [];
-  }
-
-  return (data ?? []) as StoryTileDto[];
-}
-
-// ページネーション対応版（コメント済みストーリー用・無限スクロール用）
-export async function fetchPaginatedCommentedStoriesByUserId({
-  userId,
-  page,
-  limit,
-  boundaryTime,
-}: {
-  userId: string;
-  page: number;
-  limit: number;
-  boundaryTime: string;
-}): Promise<StoryTileDto[]> {
-  const supabase = await createClient();
-  const from = page * limit;
-  const to = (page + 1) * limit - 1;
-
-  const { data, error } = await supabase
-    .from("distinct_user_story_comments")
-    .select(`*, stories(${STORY_SELECT_QUERY})`)
-    .eq("user_id", userId)
-    .lte("created_at", boundaryTime)
-    .order("created_at", { ascending: false })
-    .order("id", { ascending: false })
-    .range(from, to);
-
-  if (error) {
-    console.error("Error fetching paginated commented stories:", error);
-    return [];
-  }
-
-  const stories = data?.map((comment: { stories: StoryTileDto }) => comment.stories) ?? [];
-  return stories;
 }
