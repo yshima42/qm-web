@@ -168,6 +168,15 @@ export function SidebarContent({
             </div>
             {/* マイコミュニティのカテゴリー */}
             <div className="pl-4">
+              {/* 「すべて」を一番上に表示 */}
+              <CategoryIcon
+                icon={CATEGORY_ICONS["All"]}
+                label={tCategory("All")}
+                href="/stories/habits/all"
+                active={pathname === "/stories/habits/all"}
+                showLabel={!compact}
+                onClick={handleLinkClick}
+              />
               {myCategories.map((category) => {
                 const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
                 const Icon = CATEGORY_ICONS[category];
@@ -188,50 +197,99 @@ export function SidebarContent({
             </div>
           </>
         )}
-        {/* その他コミュニティ */}
-        <button
-          type="button"
-          onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
-          className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
-            !compact ? "w-full justify-between" : "justify-center px-2"
-          } text-muted-foreground hover:bg-primary-light/10 hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark hover:font-medium`}
-          title={!compact ? t("otherCommunity") : undefined}
-        >
-          <div className="flex min-w-0 items-center gap-4">
-            <Compass size={18} strokeWidth={2} className="shrink-0 transition-all" />
-            {!compact && <span className="truncate">{t("otherCommunity")}</span>}
-          </div>
-          {!compact && (
-            <div className="shrink-0">
-              {isOtherCommunityOpen ? (
-                <ChevronDown className="size-4" />
-              ) : (
-                <ChevronRight className="size-4" />
-              )}
+        {/* ログインしていない or 習慣未登録の場合：「Communities」セクションを表示 */}
+        {myCategories.length === 0 && (
+          <>
+            <div
+              className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
+                !compact ? "" : "justify-center px-2"
+              } text-muted-foreground`}
+              title={!compact ? t("communities") : undefined}
+            >
+              <Compass size={18} strokeWidth={2} className="transition-all" />
+              {!compact && <span>{t("communities")}</span>}
             </div>
-          )}
-        </button>
-        {/* その他コミュニティのカテゴリー（開いた時のみ表示） */}
-        {isOtherCommunityOpen && (
-          <div className="pl-4">
-            {otherCategories.map((category) => {
-              const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
-              const Icon = CATEGORY_ICONS[category];
-              const displayName = tCategory(category);
+            <div className="pl-4">
+              {/* 「すべて」を一番上に表示 */}
+              <CategoryIcon
+                icon={CATEGORY_ICONS["All"]}
+                label={tCategory("All")}
+                href="/stories/habits/all"
+                active={pathname === "/stories/habits/all"}
+                showLabel={!compact}
+                onClick={handleLinkClick}
+              />
+              {/* 全カテゴリを表示（Officialを除く） */}
+              {habitCategories
+                .filter((cat) => cat !== "Official")
+                .map((category) => {
+                  const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                  const Icon = CATEGORY_ICONS[category];
+                  const displayName = tCategory(category);
 
-              return (
-                <CategoryIcon
-                  key={category}
-                  icon={Icon}
-                  label={displayName}
-                  href={href}
-                  active={pathname === href}
-                  showLabel={!compact}
-                  onClick={handleLinkClick}
-                />
-              );
-            })}
-          </div>
+                  return (
+                    <CategoryIcon
+                      key={category}
+                      icon={Icon}
+                      label={displayName}
+                      href={href}
+                      active={pathname === href}
+                      showLabel={!compact}
+                      onClick={handleLinkClick}
+                    />
+                  );
+                })}
+            </div>
+          </>
+        )}
+        {/* その他コミュニティ - myCategoriesがある場合のみ表示 */}
+        {myCategories.length > 0 && (
+          <>
+            <button
+              type="button"
+              onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
+              className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
+                !compact ? "w-full justify-between" : "justify-center px-2"
+              } text-muted-foreground hover:bg-primary-light/10 hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark hover:font-medium`}
+              title={!compact ? t("otherCommunity") : undefined}
+            >
+              <div className="flex min-w-0 items-center gap-4">
+                <Compass size={18} strokeWidth={2} className="shrink-0 transition-all" />
+                {!compact && <span className="truncate">{t("otherCommunity")}</span>}
+              </div>
+              {!compact && (
+                <div className="shrink-0">
+                  {isOtherCommunityOpen ? (
+                    <ChevronDown className="size-4" />
+                  ) : (
+                    <ChevronRight className="size-4" />
+                  )}
+                </div>
+              )}
+            </button>
+            {/* その他コミュニティのカテゴリー（開いた時のみ表示） */}
+            {isOtherCommunityOpen && (
+              <div className="pl-4">
+                {otherCategories.map((category) => {
+                  const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                  const Icon = CATEGORY_ICONS[category];
+                  const displayName = tCategory(category);
+
+                  return (
+                    <CategoryIcon
+                      key={category}
+                      icon={Icon}
+                      label={displayName}
+                      href={href}
+                      active={pathname === href}
+                      showLabel={!compact}
+                      onClick={handleLinkClick}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
         {/* 設定 */}
         {currentUserUsername && (

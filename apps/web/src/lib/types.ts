@@ -10,6 +10,7 @@ export type ArticleComment = Tables<"article_comments">;
 export type ProfileForAvatar = Pick<Profile, "avatar_url" | "user_name" | "display_name">;
 export type StoryHabitCategory = Pick<HabitCategory, "habit_category_name">;
 export type HabitCategoryName =
+  | "All"
   | "Game"
   | "Tobacco"
   | "Shopping"

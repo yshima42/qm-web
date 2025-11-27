@@ -13,6 +13,7 @@ import {
   UserRound,
   Wrench,
   Ban,
+  Infinity,
   LucideIcon,
 } from "lucide-react";
 
@@ -38,6 +39,7 @@ export const HABIT_CATEGORIES: HabitCategoryName[] = [
 
 // カテゴリーごとのアイコンをマッピング
 export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
+  All: Infinity,
   Game: Gamepad2,
   Tobacco: Cigarette,
   Shopping: ShoppingBag,
@@ -56,6 +58,7 @@ export const CATEGORY_ICONS: Record<HabitCategoryName, LucideIcon> = {
 
 // Category display names in English
 export const CATEGORY_DISPLAY_NAMES: Record<HabitCategoryName, string> = {
+  All: "All",
   Game: "Game",
   Tobacco: "Tobacco",
   Shopping: "Shopping",

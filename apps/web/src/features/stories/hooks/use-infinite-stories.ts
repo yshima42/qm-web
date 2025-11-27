@@ -17,15 +17,22 @@ export function useInfiniteStories(category: HabitCategoryName) {
       const from = pageParam * PAGE_SIZE;
       const to = (pageParam + 1) * PAGE_SIZE - 1;
 
-      // ストーリー取得
-      const { data: stories, error } = await supabase
+      // クエリビルダーを構築
+      let query = supabase
         .from("stories")
         .select(STORY_SELECT_QUERY)
-        .eq("habit_categories.habit_category_name", category)
         .lte("created_at", boundaryTimeRef.current)
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
         .range(from, to);
+
+      // 「All」以外の場合のみカテゴリフィルタを適用
+      if (category !== "All") {
+        query = query.eq("habit_categories.habit_category_name", category);
+      }
+
+      // ストーリー取得
+      const { data: stories, error } = await query;
 
       if (error) {
         throw new Error("Failed to fetch stories");

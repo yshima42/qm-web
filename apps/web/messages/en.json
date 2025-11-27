@@ -90,6 +90,7 @@
     "linkText": "Back to articles"
   },
   "categories": {
+    "All": "All",
     "Game": "Game",
     "Tobacco": "Tobacco",
     "Shopping": "Shopping",
@@ -136,6 +137,7 @@
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
     "otherCommunity": "Other Community",
+    "communities": "Communities",
     "noHabitsRegistered": "No habits registered",
     "settings": "Settings",
     "deleteAccount": "Delete Account",

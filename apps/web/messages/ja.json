@@ -84,6 +84,7 @@
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
   "categories": {
+    "All": "すべて",
     "Game": "ゲーム",
     "Tobacco": "たばこ",
     "Shopping": "買い物",
@@ -110,6 +111,7 @@
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
     "otherCommunity": "その他コミュニティ",
+    "communities": "コミュニティ",
     "noHabitsRegistered": "習慣が登録されていません",
     "settings": "設定",
     "deleteAccount": "アカウント削除",

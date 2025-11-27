@@ -17,6 +17,7 @@ import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
   const categoryMap: Record<string, HabitCategoryName> = {
+    all: "All",
     game: "Game",
     tobacco: "Tobacco",
     shopping: "Shopping",
