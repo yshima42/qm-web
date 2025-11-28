@@ -5,8 +5,9 @@ import { useInView } from "react-intersection-observer";
 import { useTranslations } from "next-intl";
 import { UserPlus } from "lucide-react";
 
-import { HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+
+import { HabitTileDto } from "@/lib/types";
 
 import { useInfiniteFollowingStories } from "../hooks/use-infinite-following-stories";
 import { StoryTile } from "./story-tile";

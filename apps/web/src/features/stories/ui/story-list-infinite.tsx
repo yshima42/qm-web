@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { AppDownloadSection } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
-import { HabitTileDto, HabitCategoryName } from "@/lib/types";
+import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { useInfiniteStories } from "../hooks/use-infinite-stories";
