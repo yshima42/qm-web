@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Button,
-  ThemeSwitcher,
-  CategoryIcon,
-  SidebarIcon,
-  AppDownloadDialogTrigger,
-} from "@quitmate/ui";
+import { Button, CategoryIcon, SidebarIcon, AppDownloadDialogTrigger } from "@quitmate/ui";
 import {
   BookOpen,
   Target,
@@ -303,43 +297,37 @@ export function SidebarContent({
             onClick={handleLinkClick}
           />
         )}
-      </div>
-
-      {/* Post Story Button - moved below Articles */}
-      {currentUserUsername && (
-        <div className="shrink-0">
-          {compact ? (
-            <div className="px-2">
-              <button
-                className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-2 py-2 transition-colors"
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent("openStoryModal"));
-                  handleLinkClick();
-                }}
-                aria-label={t("postStory")}
-              >
-                <Pen size={24} strokeWidth={2} />
-              </button>
-            </div>
-          ) : (
-            <div className="px-4 pb-4">
-              <Button
-                className="w-full rounded-full font-semibold"
-                size="lg"
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent("openStoryModal"));
-                  handleLinkClick();
-                }}
-              >
-                {t("postStory")}
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
-
-      <div className="mt-auto shrink-0 space-y-4 px-4 py-3">
-        <ThemeSwitcher />
+        {/* Post Story Button - 設定の下に配置 */}
+        {currentUserUsername && (
+          <>
+            {compact ? (
+              <div className="px-2 pt-2">
+                <button
+                  className="flex w-full items-center justify-center rounded-full bg-black p-3 text-white shadow-sm transition-colors hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-100"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("openStoryModal"));
+                    handleLinkClick();
+                  }}
+                  aria-label={t("postStory")}
+                >
+                  <Pen size={20} strokeWidth={2} />
+                </button>
+              </div>
+            ) : (
+              <div className="px-4 pt-2">
+                <Button
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-full rounded-lg text-sm font-semibold"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("openStoryModal"));
+                    handleLinkClick();
+                  }}
+                >
+                  {t("postStory")}
+                </Button>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

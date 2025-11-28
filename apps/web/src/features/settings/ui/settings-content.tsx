@@ -2,10 +2,21 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { User, Globe, FileText, Shield, Mail, LogOut, ChevronRight, VolumeX } from "lucide-react";
+import {
+  User,
+  Globe,
+  FileText,
+  Shield,
+  Mail,
+  LogOut,
+  ChevronRight,
+  VolumeX,
+  Palette,
+} from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export function SettingsContent() {
   const router = useRouter();
@@ -39,6 +50,15 @@ export function SettingsContent() {
       href: null,
       description: t("languageDescription"),
       isCustom: true,
+    },
+    {
+      id: "theme",
+      icon: Palette,
+      label: t("theme"),
+      href: null,
+      description: t("themeDescription"),
+      isCustom: true,
+      customComponent: "theme",
     },
     {
       id: "terms",
@@ -85,6 +105,24 @@ export function SettingsContent() {
           const Icon = item.icon;
 
           if (item.isCustom) {
+            // 言語設定またはテーマ設定
+            if (item.customComponent === "theme") {
+              return (
+                <div
+                  key={item.id}
+                  className="hover:bg-accent flex items-center justify-between rounded-lg border p-4 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <Icon className="text-muted-foreground size-5" />
+                    <div>
+                      <div className="font-medium">{item.label}</div>
+                      <div className="text-muted-foreground text-sm">{item.description}</div>
+                    </div>
+                  </div>
+                  <ThemeSwitcher />
+                </div>
+              );
+            }
             // 言語設定
             return (
               <div
