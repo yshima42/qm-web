@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient, type InfiniteData } from "@tanstack/react-query";
 import { useRef, useEffect } from "react";
 import { useLocale } from "next-intl";
 
@@ -36,6 +36,109 @@ export function useInfiniteStories(category: HabitCategoryName) {
     queryClient.resetQueries({
       queryKey: ["stories", "category", category, locale],
     });
+  };
+
+  // 新しいストーリーをタイムラインの先頭に追加する関数（オプティミスティックアップデート）
+  const addStoryToTimeline = async (storyId: string) => {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const languageCode = locale === "ja" || locale === "en" ? locale : "ja";
+
+    // ストーリーの詳細を取得
+    const { data: story, error: storyError } = await supabase
+      .from("stories")
+      .select(STORY_SELECT_QUERY)
+      .eq("id", storyId)
+      .single();
+
+    if (storyError || !story) {
+      console.error("[addStoryToTimeline] Error fetching story:", storyError);
+      // エラーが発生した場合は、通常のリフレッシュにフォールバック
+      resetAndRefetch();
+      return;
+    }
+
+    // 言語コードでフィルタリング（該当する場合のみ追加）
+    if (story.language_code && story.language_code !== languageCode) {
+      // 言語が一致しない場合は何もしない
+      return;
+    }
+
+    // カテゴリーフィルタリング（該当する場合のみ追加）
+    const storyCategory = (story as StoryTileDto).habit_categories?.habit_category_name;
+    if (category !== "All" && storyCategory !== category) {
+      // カテゴリーが一致しない場合は何もしない
+      return;
+    }
+
+    const storyList = [story] as StoryTileDto[];
+
+    // いいね状態を取得
+    let storiesWithLikes = storyList;
+    if (user && storyList.length > 0) {
+      const { data: likeData } = await supabase.rpc("get_has_liked_by_story_ids", {
+        p_story_ids: [storyId],
+        p_user_id: user.id,
+      });
+
+      const likeMap = new Map(
+        (likeData as { story_id: string; has_liked: boolean }[])?.map((l) => [
+          l.story_id,
+          l.has_liked,
+        ]) ?? [],
+      );
+
+      storiesWithLikes = storyList.map((s) => ({
+        ...s,
+        isLikedByMe: likeMap.get(s.id) ?? false,
+      }));
+    }
+
+    const newStory = storiesWithLikes[0];
+
+    // React Queryのキャッシュを更新
+    type StoryPage = {
+      stories: StoryTileDto[];
+      hasMore: boolean;
+    };
+    queryClient.setQueryData<InfiniteData<StoryPage>>(
+      ["stories", "category", category, locale],
+      (oldData) => {
+        if (!oldData) {
+          // データがまだない場合は、新しいページとして追加
+          return {
+            pages: [{ stories: [newStory], hasMore: true }],
+            pageParams: [0],
+          };
+        }
+
+        // 既存のデータがある場合は、最初のページの先頭に追加
+        const newPages = [...oldData.pages];
+        if (newPages.length > 0) {
+          // 既に同じストーリーが存在する場合は追加しない（重複防止）
+          const existingStoryIds = new Set(
+            newPages.flatMap((page) => page.stories.map((s: StoryTileDto) => s.id)),
+          );
+          if (!existingStoryIds.has(newStory.id)) {
+            newPages[0] = {
+              ...newPages[0],
+              stories: [newStory, ...newPages[0].stories],
+            };
+          }
+        }
+
+        return {
+          ...oldData,
+          pages: newPages,
+        };
+      },
+    );
+
+    // boundaryTimeを更新（新しいストーリーが追加されたので、現在時刻に更新）
+    boundaryTimeRef.current = new Date().toISOString();
   };
 
   const query = useInfiniteQuery({
@@ -125,9 +228,10 @@ export function useInfiniteStories(category: HabitCategoryName) {
     refetchOnWindowFocus: false,
   });
 
-  // resetAndRefetchをqueryオブジェクトに追加
+  // resetAndRefetchとaddStoryToTimelineをqueryオブジェクトに追加
   return {
     ...query,
     resetAndRefetch,
+    addStoryToTimeline,
   };
 }

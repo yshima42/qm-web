@@ -36,6 +36,7 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
     isLoading,
     isError,
     resetAndRefetch,
+    addStoryToTimeline,
   } = useInfiniteStories(category);
 
   // スクロールで次のページを読み込み
@@ -59,7 +60,11 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
   return (
     <div className="mx-auto max-w-2xl">
       {habits && habits.length > 0 && (
-        <StoryInlineForm habits={habits} onStoryCreated={resetAndRefetch} />
+        <StoryInlineForm
+          habits={habits}
+          onStoryCreated={resetAndRefetch}
+          onStoryCreatedWithId={addStoryToTimeline}
+        />
       )}
 
       {stories.map((story) => (

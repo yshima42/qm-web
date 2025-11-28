@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -20,9 +19,14 @@ import { useLocale } from "next-intl";
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
   onStoryCreated?: () => void;
+  onStoryCreatedWithId?: (storyId: string) => void;
 };
 
-export function StoryInlineForm({ habits, onStoryCreated }: StoryInlineFormProps) {
+export function StoryInlineForm({
+  habits,
+  onStoryCreated,
+  onStoryCreatedWithId,
+}: StoryInlineFormProps) {
   const t = useTranslations("story-post");
   const locale = useLocale();
   const queryClient = useQueryClient();
@@ -80,8 +84,12 @@ export function StoryInlineForm({ habits, onStoryCreated }: StoryInlineFormProps
         if (result?.success) {
           // フォームをクリア
           setContent("");
-          // タイムラインを更新（boundaryTimeをリセットして再取得）
-          if (onStoryCreated) {
+          // タイムラインを更新（オプティミスティックアップデート）
+          if (result.storyId && onStoryCreatedWithId) {
+            // 新しいストーリーをタイムラインの先頭に追加（ローディングインジケーターなし）
+            onStoryCreatedWithId(result.storyId);
+          } else if (onStoryCreated) {
+            // フォールバック: 従来の方法（リセットして再取得）
             onStoryCreated();
           } else {
             // フォールバック: onStoryCreatedが提供されていない場合
@@ -160,7 +168,6 @@ export function StoryInlineForm({ habits, onStoryCreated }: StoryInlineFormProps
               disabled={isPending || !content.trim() || isOverLimit}
               className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold disabled:opacity-50"
             >
-              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {t("postButton")}
             </Button>
           </div>

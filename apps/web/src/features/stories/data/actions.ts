@@ -75,19 +75,23 @@ export async function createStory(formData: FormData) {
   const now = new Date();
   const trialElapsedDays = differenceInDays(now, trialStartedAt);
 
-  const { error } = await supabase.from("stories").insert({
-    content: content.trim(),
-    user_id: user.id,
-    habit_category_id: activeHabit.habit_category_id,
-    custom_habit_name: activeHabit.custom_habit_name,
-    trial_started_at: activeTrial.started_at,
-    trial_elapsed_days: trialElapsedDays,
-    comment_setting: commentSetting,
-    is_reason: false,
-    language_code: languageCode,
-  });
+  const { data: storyData, error } = await supabase
+    .from("stories")
+    .insert({
+      content: content.trim(),
+      user_id: user.id,
+      habit_category_id: activeHabit.habit_category_id,
+      custom_habit_name: activeHabit.custom_habit_name,
+      trial_started_at: activeTrial.started_at,
+      trial_elapsed_days: trialElapsedDays,
+      comment_setting: commentSetting,
+      is_reason: false,
+      language_code: languageCode,
+    })
+    .select("id")
+    .single();
 
-  if (error) {
+  if (error || !storyData) {
     console.error("Error creating story:", error);
     throw new Error("Failed to create story");
   }
@@ -99,7 +103,7 @@ export async function createStory(formData: FormData) {
     : "/stories";
 
   revalidatePath(categoryPath);
-  return { success: true };
+  return { success: true, storyId: storyData.id };
 }
 
 export async function toggleStoryLike(storyId: string, shouldLike: boolean) {
