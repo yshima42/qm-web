@@ -2,12 +2,13 @@
 
 import { Button, AppDownloadDialogTrigger } from "@quitmate/ui";
 import { Plus } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { HabitTileDto } from "@/lib/types";
 import { HabitList } from "@/features/habits/ui/habit-list";
 import { getMaxHabits } from "@/features/habits/data/constants";
+import { HabitRegisterModal } from "@/features/habits/ui/habit-register-modal";
 
 type Props = {
   habits: HabitTileDto[];
@@ -18,16 +19,15 @@ export function HabitsPageClient({ habits }: Props) {
   const tAppDownload = useTranslations("app-download-dialog");
   const maxHabits = getMaxHabits();
   const canRegisterMore = habits.length < maxHabits;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const RegisterButton = () => {
     if (canRegisterMore) {
       return (
-        <Link href="/habits/register">
-          <Button>
-            <Plus className="size-4" />
-            {t("registerHabit")}
-          </Button>
-        </Link>
+        <Button onClick={() => setIsModalOpen(true)}>
+          <Plus className="size-4" />
+          {t("registerHabit")}
+        </Button>
       );
     }
 
@@ -55,6 +55,7 @@ export function HabitsPageClient({ habits }: Props) {
         <RegisterButton />
       </div>
       <HabitList habits={habits} />
+      <HabitRegisterModal open={isModalOpen} onOpenChange={setIsModalOpen} habits={habits} />
     </>
   );
 }

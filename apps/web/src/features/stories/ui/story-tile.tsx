@@ -287,6 +287,7 @@ export function StoryTile({
                 category={story.habit_categories.habit_category_name}
                 customHabitName={story.custom_habit_name}
                 elapsedDays={story.trial_elapsed_days}
+                isReason={story.is_reason}
               />
             </div>
 

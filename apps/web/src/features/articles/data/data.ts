@@ -1,14 +1,7 @@
 import { createAnonServerClient, createClient } from "@/lib/supabase/server";
 
 import { ArticleCommentTileDto, ArticleTileDto } from "@/lib/types";
-
-const ARTICLE_SELECT_QUERY = `*, 
-  habit_categories!inner(habit_category_name), 
-  profiles!articles_user_id_fkey(user_name, display_name, avatar_url), 
-  article_likes(count), 
-  article_comments(count)`;
-
-const FETCH_LIMIT = 100;
+import { ARTICLE_SELECT_QUERY, FETCH_LIMIT } from "./constants";
 
 export async function fetchArticles() {
   const supabase = createAnonServerClient();
@@ -20,6 +13,23 @@ export async function fetchArticles() {
 
   if (error) {
     console.error("Error fetching articles:", error);
+    return [];
+  }
+
+  return data as ArticleTileDto[];
+}
+
+export async function fetchArticlesByUserId(userId: string) {
+  const supabase = createAnonServerClient();
+  const { data, error } = await supabase
+    .from("articles")
+    .select(ARTICLE_SELECT_QUERY)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(FETCH_LIMIT);
+
+  if (error) {
+    console.error("Error fetching articles by user:", error);
     return [];
   }
 

@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
-import { Button } from "@/components/ui/button";
+import { Button } from "@quitmate/ui";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;

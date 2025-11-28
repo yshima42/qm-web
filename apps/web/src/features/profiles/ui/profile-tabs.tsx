@@ -1,9 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@quitmate/ui";
+import { useTranslations } from "next-intl";
 
 import { Profile, ProfileTileDto } from "@/lib/types";
 
 import { StoryListInfiniteByUser } from "@/features/stories/ui/story-list-infinite-by-user";
 import { StoryListInfiniteCommented } from "@/features/stories/ui/story-list-infinite-commented";
+import { ArticleListInfiniteByUser } from "@/features/articles/ui/article-list-infinite-by-user";
 
 type Props = {
   profile: Profile | ProfileTileDto;
@@ -14,11 +16,14 @@ type Props = {
 };
 
 export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserId }: Props) {
+  const t = useTranslations("profile-tabs");
+
   return (
     <Tabs defaultValue="posts" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="posts">Posts</TabsTrigger>
-        <TabsTrigger value="comments">Comments</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="posts">{t("posts")}</TabsTrigger>
+        <TabsTrigger value="comments">{t("comments")}</TabsTrigger>
+        <TabsTrigger value="articles">{t("articles")}</TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
         <StoryListInfiniteByUser
@@ -34,6 +39,9 @@ export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserI
           isLoggedIn={isLoggedIn}
           currentUserId={currentUserId}
         />
+      </TabsContent>
+      <TabsContent value="articles">
+        <ArticleListInfiniteByUser userId={profile.id} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   );

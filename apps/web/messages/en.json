@@ -140,19 +140,21 @@
     "categoryPlaceholder": "Select category",
     "customHabitNameLabel": "Custom Habit Name *",
     "customHabitNamePlaceholder": "Enter habit name",
-    "startedAtLabel": "Start Date & Time *",
+    "startedAtLabel": "Last time you did this habit *",
     "durationMonthsLabel": "Duration (months)",
     "durationMonthsPlaceholder": "e.g., 3",
     "frequencyPerWeekLabel": "Frequency per week",
     "frequencyPerWeekPlaceholder": "e.g., 3",
-    "reasonLabel": "Reason (optional)",
+    "reasonLabel": "Reason to quit *",
     "reasonPlaceholder": "Reason for wanting to quit this habit",
+    "reasonDescription": "This reason will be posted as a story",
+    "reasonRequired": "Please enter a reason",
     "categoryRequired": "Please select a category",
     "customHabitNameRequired": "Please enter a custom habit name",
     "maxHabitsReached": "You can only register up to {max} habits",
     "noRegisterableCategories": "No registerable categories available",
     "cancel": "Cancel",
-    "register": "Register",
+    "register": "Register & Post",
     "registering": "Registering..."
   },
   "app-download-dialog": {
@@ -163,7 +165,8 @@
     "storeLabel": "Download from store"
   },
   "category-tag": {
-    "days": " days"
+    "days": " days",
+    "reasonTag": "Reason to quit"
   },
   "sidebar": {
     "home": "Home",
@@ -258,6 +261,11 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "contact": "Contact"
+  },
+  "profile-tabs": {
+    "posts": "Posts",
+    "comments": "Comments",
+    "articles": "Articles"
   },
   "login-prompt": {
     "story-title": "Support posts you relate to or want to cheer on.",
