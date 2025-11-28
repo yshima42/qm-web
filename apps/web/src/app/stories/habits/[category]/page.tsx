@@ -4,13 +4,11 @@ import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
 import { createClient } from "@/lib/supabase/server";
-import { HabitCategoryName, HabitTileDto } from "@/lib/types";
+import { HabitCategoryName } from "@/lib/types";
 
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
-import { StoryModalProvider } from "@/features/stories/ui/story-modal-provider";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
 import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
 
@@ -44,37 +42,8 @@ type PageProps = {
 };
 
 export default async function Page(props: PageProps) {
-  // Fetch user and habits for modal
-  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
-
-  const habits = await getCurrentUserHabits();
-
-  return (
-    <HabitsProvider habits={habits}>
-      <StoryModalProvider habits={habits}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <CategoryPageContent
-            params={props.params}
-            searchParams={props.searchParams}
-            habits={habits}
-          />
-        </Suspense>
-      </StoryModalProvider>
-    </HabitsProvider>
-  );
-}
-
-async function CategoryPageContent({
-  params,
-  searchParams,
-  habits,
-}: {
-  params: Promise<{ category: string }>;
-  searchParams: Promise<{ tab?: string }>;
-  habits: HabitTileDto[];
-}) {
-  const { category } = await params;
-  const { tab } = await searchParams;
+  const { category } = await props.params;
+  const { tab } = await props.searchParams;
   if (!category) notFound();
 
   // ログイン状態を取得
@@ -90,7 +59,6 @@ async function CategoryPageContent({
   }
 
   const habitCategory = capitalizeCategory(category);
-  const currentTab = tab ?? "category";
 
   // 翻訳を取得
   const tCategory = await getTranslations("categories");
@@ -98,11 +66,15 @@ async function CategoryPageContent({
   // カテゴリー名を翻訳から取得
   const categoryDisplayName = tCategory(habitCategory);
 
+  // タブとフォームに必要なデータを取得（Suspenseの外側）
+  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
+  const habits = await getCurrentUserHabits();
+
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
     <PageWithSidebar>
-      {/* タブヘッダー */}
+      {/* タブヘッダー - Suspenseの外側、再描画されない */}
       <StoriesTabHeader
         categoryName={habitCategory}
         categoryDisplayName={categoryDisplayName}
@@ -110,18 +82,51 @@ async function CategoryPageContent({
         isLoggedIn={isLoggedIn}
       />
 
+      {/* インライン投稿フォームと投稿リスト */}
       <main className="p-3 sm:p-5">
-        {currentTab === "following" && isLoggedIn ? (
-          <FollowingStoryList habits={habits} currentUserId={user?.id} />
-        ) : (
-          <StoryListInfinite
-            category={habitCategory}
+        {/* 投稿リストのみSuspense内で更新 */}
+        <Suspense fallback={<LoadingSpinner />}>
+          <CategoryPageContent
+            category={category}
+            tab={tab}
             isLoggedIn={isLoggedIn}
+            userId={user?.id}
             habits={habits}
-            currentUserId={user?.id}
           />
-        )}
+        </Suspense>
       </main>
     </PageWithSidebar>
+  );
+}
+
+async function CategoryPageContent({
+  category,
+  tab,
+  isLoggedIn,
+  userId,
+  habits,
+}: {
+  category: string;
+  tab?: string;
+  isLoggedIn: boolean;
+  userId?: string;
+  habits?: import("@/lib/types").HabitTileDto[];
+}) {
+  const habitCategory = capitalizeCategory(category);
+  const currentTab = tab ?? "category";
+
+  return (
+    <>
+      {currentTab === "following" && isLoggedIn ? (
+        <FollowingStoryList habits={habits} currentUserId={userId} />
+      ) : (
+        <StoryListInfinite
+          category={habitCategory}
+          isLoggedIn={isLoggedIn}
+          habits={habits}
+          currentUserId={userId}
+        />
+      )}
+    </>
   );
 }
