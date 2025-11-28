@@ -105,14 +105,16 @@
     "durationMonthsPlaceholder": "例: 3",
     "frequencyPerWeekLabel": "週の頻度",
     "frequencyPerWeekPlaceholder": "例: 3",
-    "reasonLabel": "理由（任意）",
+    "reasonLabel": "やめる理由 *",
     "reasonPlaceholder": "この習慣をやめたい理由",
+    "reasonDescription": "この理由はストーリーに投稿されます",
+    "reasonRequired": "理由を入力してください",
     "categoryRequired": "カテゴリを選択してください",
     "customHabitNameRequired": "カスタム習慣名を入力してください",
     "maxHabitsReached": "最大{max}つまでしか習慣を登録できません",
     "noRegisterableCategories": "登録可能なカテゴリがありません",
     "cancel": "キャンセル",
-    "register": "登録",
+    "register": "登録&投稿",
     "registering": "登録中..."
   },
   "app-download-dialog": {
@@ -141,7 +143,8 @@
     "General": "一般"
   },
   "category-tag": {
-    "days": "日"
+    "days": "日",
+    "reasonTag": "やめる理由"
   },
   "sidebar": {
     "home": "ホーム",
@@ -236,6 +239,11 @@
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "contact": "お問い合わせ"
+  },
+  "profile-tabs": {
+    "posts": "投稿",
+    "comments": "コメント",
+    "articles": "記事"
   },
   "login-prompt": {
     "story-title": "共感した投稿、応援したい投稿に「応援」しましょう。",
