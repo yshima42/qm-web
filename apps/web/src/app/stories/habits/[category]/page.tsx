@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
@@ -52,11 +52,6 @@ export default async function Page(props: PageProps) {
     data: { user },
   } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
-
-  // ログアウト時で「all」以外のカテゴリーにアクセスした場合は「all」にリダイレクト
-  if (!isLoggedIn && category.toLowerCase() !== "all") {
-    redirect("/stories/habits/all");
-  }
 
   const habitCategory = capitalizeCategory(category);
 
