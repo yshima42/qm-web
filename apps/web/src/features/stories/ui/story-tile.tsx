@@ -7,7 +7,7 @@ import { toZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
-import { MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
+import { MoreHorizontal, VolumeX, Volume2, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { StoryTileDto } from "@/lib/types";
@@ -15,7 +15,7 @@ import { StoryTileDto } from "@/lib/types";
 import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
 import { CategoryTag } from "@/features/common/ui/category-tag";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
-import { toggleStoryLike } from "@/features/stories/data/actions";
+import { toggleStoryLike, deleteStory } from "@/features/stories/data/actions";
 import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
 import {
   DropdownMenu,
@@ -45,6 +45,8 @@ export function StoryTile({
 }: Props) {
   const router = useRouter();
   const t = useTranslations("mute");
+  const tDelete = useTranslations("delete");
+  const tStories = useTranslations("stories");
 
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(story.isLikedByMe ?? false);
@@ -54,6 +56,7 @@ export function StoryTile({
   const [showMuteSuccess, setShowMuteSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(isMutedOwner);
   const [successMessage, setSuccessMessage] = useState("");
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
   // propsが変わったらstateを同期
   useEffect(() => {
@@ -85,6 +88,24 @@ export function StoryTile({
         setShowMuteSuccess(true);
         setTimeout(() => setShowMuteSuccess(false), 3000);
         router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
+
+  const handleDelete = () => {
+    if (!confirm(tDelete("confirmStory"))) {
+      return;
+    }
+    startTransition(async () => {
+      const result = await deleteStory(story.id);
+      if (result.success) {
+        setShowDeleteSuccess(true);
+        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        router.refresh();
+      } else {
+        // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
+        console.error(tDelete("error"), result.error);
       }
       setMenuOpen(false);
     });
@@ -199,7 +220,7 @@ export function StoryTile({
             </div>
 
             {/* 三点リーダーメニュー */}
-            {isLoggedIn && !isMyStory && (
+            {isLoggedIn && (
               <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="size-8">
@@ -207,24 +228,37 @@ export function StoryTile({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  {isMuted ? (
+                  {isMyStory ? (
                     <DropdownMenuItem
-                      onClick={handleUnmute}
+                      onClick={handleDelete}
                       disabled={isPending}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
                     >
-                      <Volume2 className="mr-2 size-4" />
-                      {t("unmute")}
+                      <Trash2 className="mr-2 size-4" />
+                      {tDelete("deleteStory")}
                     </DropdownMenuItem>
                   ) : (
-                    <DropdownMenuItem
-                      onClick={handleMute}
-                      disabled={isPending}
-                      className="cursor-pointer"
-                    >
-                      <VolumeX className="mr-2 size-4" />
-                      {t("mute")}
-                    </DropdownMenuItem>
+                    <>
+                      {isMuted ? (
+                        <DropdownMenuItem
+                          onClick={handleUnmute}
+                          disabled={isPending}
+                          className="cursor-pointer"
+                        >
+                          <Volume2 className="mr-2 size-4" />
+                          {t("unmute")}
+                        </DropdownMenuItem>
+                      ) : (
+                        <DropdownMenuItem
+                          onClick={handleMute}
+                          disabled={isPending}
+                          className="cursor-pointer"
+                        >
+                          <VolumeX className="mr-2 size-4" />
+                          {t("mute")}
+                        </DropdownMenuItem>
+                      )}
+                    </>
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -247,7 +281,7 @@ export function StoryTile({
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
                 <span className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500">
-                  もっと見る
+                  {tStories("showMore")}
                 </span>
               )}
             </div>
@@ -298,6 +332,13 @@ export function StoryTile({
       {showMuteSuccess && (
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {successMessage}
+        </div>
+      )}
+
+      {/* 削除成功スナックバー */}
+      {showDeleteSuccess && (
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+          {tDelete("success")}
         </div>
       )}
     </div>

@@ -37,7 +37,7 @@ export async function StoryList({ fetchStoriesFunc, habits }: StoryListProps) {
       )}
 
       {storiesWithLikeStatus.map((story) => (
-        <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} />
+        <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} currentUserId={user?.id} />
       ))}
 
       <div className="mt-8">

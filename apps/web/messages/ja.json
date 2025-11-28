@@ -222,7 +222,8 @@
   "stories": {
     "errorLoading": "ストーリーの読み込みに失敗しました",
     "noMoreStories": "すべてのストーリーを読み込みました",
-    "noStories": "まだストーリーがありません"
+    "noStories": "まだストーリーがありません",
+    "showMore": "もっと見る"
   },
   "follow": {
     "follow": "フォロー",
@@ -247,5 +248,16 @@
     "unmuteSuccess": "ミュートを解除しました",
     "error": "エラーが発生しました",
     "emptyMessage": "ミュートしているユーザーはいません"
+  },
+  "delete": {
+    "delete": "削除",
+    "deleteStory": "投稿を削除",
+    "deleteArticle": "記事を削除",
+    "deleteComment": "コメントを削除",
+    "confirmStory": "この投稿を削除しますか？この操作は取り消せません。",
+    "confirmArticle": "この記事を削除しますか？この操作は取り消せません。",
+    "confirmComment": "このコメントを削除しますか？この操作は取り消せません。",
+    "success": "削除しました",
+    "error": "削除に失敗しました"
   }
 }

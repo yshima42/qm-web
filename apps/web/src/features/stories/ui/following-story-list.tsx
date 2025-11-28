@@ -19,9 +19,10 @@ type Props = {
     display_name: string;
     avatar_url: string | null;
   } | null;
+  currentUserId?: string;
 };
 
-export function FollowingStoryList({ habits, currentUserProfile }: Props) {
+export function FollowingStoryList({ habits, currentUserProfile, currentUserId }: Props) {
   const t = useTranslations("stories-tab");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -74,7 +75,7 @@ export function FollowingStoryList({ habits, currentUserProfile }: Props) {
       )}
 
       {stories.map((story) => (
-        <StoryTile key={story.id} story={story} isLoggedIn={true} />
+        <StoryTile key={story.id} story={story} isLoggedIn={true} currentUserId={currentUserId} />
       ))}
 
       {/* ローディング & 読み込みトリガー */}

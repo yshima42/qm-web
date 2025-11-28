@@ -15,9 +15,15 @@ type Props = {
   isLoggedIn: boolean;
   /** ストーリー投稿者がミュートされているかどうか */
   isMutedOwner?: boolean;
+  currentUserId?: string;
 };
 
-export function StoryListInfiniteByUser({ userId, isLoggedIn, isMutedOwner = false }: Props) {
+export function StoryListInfiniteByUser({
+  userId,
+  isLoggedIn,
+  isMutedOwner = false,
+  currentUserId,
+}: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -51,6 +57,7 @@ export function StoryListInfiniteByUser({ userId, isLoggedIn, isMutedOwner = fal
           story={story}
           isLoggedIn={isLoggedIn}
           isMutedOwner={isMutedOwner}
+          currentUserId={currentUserId}
         />
       ))}
 

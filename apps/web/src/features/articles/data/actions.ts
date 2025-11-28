@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 import { MAX_CHARACTERS } from "@/features/common/constants";
+import type { DeleteResult } from "@/features/common/types";
 
 export async function toggleArticleLike(articleId: string, shouldLike: boolean) {
   const supabase = await createClient();
@@ -76,6 +77,56 @@ export async function createArticleComment(articleId: string, content: string) {
   }
 
   // ページを再検証
+  revalidatePath("/");
+  return { success: true };
+}
+
+/**
+ * 記事コメントを削除する
+ * RLSで制御されているため、user_idのフィルタリングは不要
+ */
+export async function deleteArticleComment(commentId: string): Promise<DeleteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { error } = await supabase.from("article_comments").delete().match({ id: commentId });
+
+  if (error) {
+    console.error("[deleteArticleComment] Error:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/");
+  return { success: true };
+}
+
+/**
+ * 記事を削除する
+ * RLSで制御されているため、user_idのフィルタリングは不要
+ */
+export async function deleteArticle(articleId: string): Promise<DeleteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { error } = await supabase.from("articles").delete().eq("id", articleId);
+
+  if (error) {
+    console.error("[deleteArticle] Error:", error);
+    return { success: false, error: error.message };
+  }
+
   revalidatePath("/");
   return { success: true };
 }

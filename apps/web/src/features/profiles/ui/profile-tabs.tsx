@@ -10,9 +10,10 @@ type Props = {
   isLoggedIn: boolean;
   /** プロフィールのユーザーがミュートされているかどうか */
   isMuted?: boolean;
+  currentUserId?: string;
 };
 
-export function ProfileTabs({ profile, isLoggedIn, isMuted = false }: Props) {
+export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserId }: Props) {
   return (
     <Tabs defaultValue="posts" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -24,10 +25,15 @@ export function ProfileTabs({ profile, isLoggedIn, isMuted = false }: Props) {
           userId={profile.id}
           isLoggedIn={isLoggedIn}
           isMutedOwner={isMuted}
+          currentUserId={currentUserId}
         />
       </TabsContent>
       <TabsContent value="comments">
-        <StoryListInfiniteCommented userId={profile.id} isLoggedIn={isLoggedIn} />
+        <StoryListInfiniteCommented
+          userId={profile.id}
+          isLoggedIn={isLoggedIn}
+          currentUserId={currentUserId}
+        />
       </TabsContent>
     </Tabs>
   );

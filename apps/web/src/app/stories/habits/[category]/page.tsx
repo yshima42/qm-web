@@ -111,13 +111,18 @@ async function CategoryPageContent({
 
       <main className="p-3 sm:p-5">
         {currentTab === "following" && isLoggedIn ? (
-          <FollowingStoryList habits={habits} currentUserProfile={currentUserProfile} />
+          <FollowingStoryList
+            habits={habits}
+            currentUserProfile={currentUserProfile}
+            currentUserId={user?.id}
+          />
         ) : (
           <StoryListInfinite
             category={habitCategory}
             isLoggedIn={isLoggedIn}
             habits={habits}
             currentUserProfile={currentUserProfile}
+            currentUserId={user?.id}
           />
         )}
       </main>
