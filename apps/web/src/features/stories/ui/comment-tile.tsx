@@ -4,7 +4,7 @@ import { AppDownloadDialogTrigger } from "@quitmate/ui";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
-import { MessageCircle, MoreHorizontal, VolumeX, Volume2, Trash2 } from "lucide-react";
+import { MessageCircle, MoreHorizontal, VolumeX, Volume2, Trash2, Flag } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
@@ -15,6 +15,8 @@ import { CommentTileDto } from "@/lib/types";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
 import { deleteComment } from "@/features/stories/data/actions";
+import { ReportDialog } from "@/features/reports/ui/report-dialog";
+import { ReportType } from "@/features/reports/domain/report-dto";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,6 +48,7 @@ export function CommentTile({
   const tDelete = useTranslations("delete");
   const tComment = useTranslations("comment-form");
   const tAppDownload = useTranslations("app-download-dialog");
+  const tReport = useTranslations("report");
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -53,6 +56,7 @@ export function CommentTile({
   const [isMuted, setIsMuted] = useState(isMutedOwner);
   const [successMessage, setSuccessMessage] = useState("");
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyComment = currentUserId === comment.user_id;
 
@@ -200,6 +204,16 @@ export function CommentTile({
                         {t("mute")}
                       </DropdownMenuItem>
                     )}
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setReportDialogOpen(true);
+                        setMenuOpen(false);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      <Flag className="mr-2 size-4" />
+                      {tReport("report")}
+                    </DropdownMenuItem>
                   </>
                 )}
               </DropdownMenuContent>
@@ -266,6 +280,15 @@ export function CommentTile({
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {tDelete("success")}
         </div>
+      )}
+
+      {/* 報告ダイアログ */}
+      {!isMyComment && (
+        <ReportDialog
+          open={reportDialogOpen}
+          onOpenChange={setReportDialogOpen}
+          reportDTO={{ type: ReportType.comment, itemId: comment.id }}
+        />
       )}
     </div>
   );

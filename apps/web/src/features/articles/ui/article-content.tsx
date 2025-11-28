@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import { MoreHorizontal, Trash2, Flag } from "lucide-react";
 
 import { MarkdownRenderer } from "@/lib/markdown-render";
 import type { ArticleTileDto, ArticleCommentTileDto } from "@/lib/types";
@@ -19,6 +19,8 @@ import { ArticleCommentForm } from "@/features/articles/ui/article-comment-form"
 import { ArticleCommentTile } from "@/features/articles/ui/article-comment-tile";
 import { toggleArticleLike, deleteArticle } from "@/features/articles/data/actions";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
+import { ReportDialog } from "@/features/reports/ui/report-dialog";
+import { ReportType } from "@/features/reports/domain/report-dto";
 
 import { CategoryTag } from "@/features/common/ui/category-tag";
 import {
@@ -45,12 +47,14 @@ export function ArticleContent({
   const router = useRouter();
   const t = useTranslations("articles-page");
   const tDelete = useTranslations("delete");
+  const tReport = useTranslations("report");
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(article.isLikedByMe ?? false);
   const [likesCount, setLikesCount] = useState(article.article_likes[0]?.count ?? 0);
   const [isPending, startTransition] = useTransition();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyArticle = currentUserId === article.user_id;
 
@@ -140,7 +144,7 @@ export function ArticleContent({
                 </LoginPromptDialog>
               )}
 
-              {isLoggedIn && isMyArticle && (
+              {isLoggedIn && (
                 <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className="size-8">
@@ -148,14 +152,27 @@ export function ArticleContent({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                      onClick={handleDelete}
-                      disabled={isPending}
-                      className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
-                    >
-                      <Trash2 className="mr-2 size-4" />
-                      {tDelete("deleteArticle")}
-                    </DropdownMenuItem>
+                    {isMyArticle ? (
+                      <DropdownMenuItem
+                        onClick={handleDelete}
+                        disabled={isPending}
+                        className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+                      >
+                        <Trash2 className="mr-2 size-4" />
+                        {tDelete("deleteArticle")}
+                      </DropdownMenuItem>
+                    ) : (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setReportDialogOpen(true);
+                          setMenuOpen(false);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        <Flag className="mr-2 size-4" />
+                        {tReport("report")}
+                      </DropdownMenuItem>
+                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}
@@ -164,7 +181,7 @@ export function ArticleContent({
                 url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
                 title={article.title}
                 text={`${article.title} | ${article.profiles.display_name}`}
-                dialogTitle={t("articles-page.shareDialogTitle")}
+                dialogTitle={t("shareDialogTitle")}
                 className="p-0"
               />
             </div>
@@ -232,7 +249,7 @@ export function ArticleContent({
               url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
               title={article.title}
               text={`${article.title} | ${article.profiles.display_name}`}
-              dialogTitle={t("articles-page.shareDialogTitle")}
+              dialogTitle={t("shareDialogTitle")}
             />
           </div>
         </div>
@@ -269,6 +286,15 @@ export function ArticleContent({
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {tDelete("success")}
         </div>
+      )}
+
+      {/* 報告ダイアログ */}
+      {!isMyArticle && (
+        <ReportDialog
+          open={reportDialogOpen}
+          onOpenChange={setReportDialogOpen}
+          reportDTO={{ type: ReportType.article, itemId: article.id }}
+        />
       )}
     </main>
   );

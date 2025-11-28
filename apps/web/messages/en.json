@@ -199,6 +199,9 @@
     "mutedAccounts": "Muted Accounts",
     "mutedAccountsDescription": "Manage users you have muted",
     "language": "Language",
+    "languageDescription": "You can change the display language of the app",
+    "theme": "Theme",
+    "themeDescription": "You can change the display theme (Light/Dark/System) of the app",
     "accountPageDescription": "You can check your account information, download data archives, and view details about account suspension options",
     "accountInfo": "Account Information",
     "accountInfoDescription": "You can check account information such as phone number and email address",
@@ -217,7 +220,6 @@
     "deleteAccountButton": "Delete Account",
     "deleteAccountError": "Failed to delete account. Please try again.",
     "deleting": "Deleting...",
-    "languageDescription": "You can change the display language of the app",
     "termsOfService": "Terms of Service",
     "termsDescription": "You can view the terms of service",
     "privacyPolicy": "Privacy Policy",
@@ -324,5 +326,22 @@
     "confirmComment": "Are you sure you want to delete this comment? This action cannot be undone.",
     "success": "Deleted",
     "error": "Failed to delete"
+  },
+  "reportDialog": {
+    "title": "Report",
+    "content": {
+      "story": "Would you like to report this story?",
+      "comment": "Would you like to report this comment?",
+      "user": "Would you like to report this user?",
+      "article": "Would you like to report this article?",
+      "articleComment": "Would you like to report this article comment?"
+    },
+    "confirm": "Report",
+    "cancel": "Cancel",
+    "reporting": "Reporting...",
+    "reportComplete": "Your report has been submitted.\nThank you for helping keep the community safe."
+  },
+  "report": {
+    "report": "Report"
   }
 }

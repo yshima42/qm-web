@@ -7,7 +7,7 @@ import { toZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
-import { MoreHorizontal, VolumeX, Volume2, Trash2 } from "lucide-react";
+import { MoreHorizontal, VolumeX, Volume2, Trash2, Flag } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { StoryTileDto } from "@/lib/types";
@@ -17,6 +17,8 @@ import { CategoryTag } from "@/features/common/ui/category-tag";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { toggleStoryLike, deleteStory } from "@/features/stories/data/actions";
 import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
+import { ReportDialog } from "@/features/reports/ui/report-dialog";
+import { ReportType } from "@/features/reports/domain/report-dto";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +49,7 @@ export function StoryTile({
   const t = useTranslations("mute");
   const tDelete = useTranslations("delete");
   const tStories = useTranslations("stories");
+  const tReport = useTranslations("report");
 
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(story.isLikedByMe ?? false);
@@ -57,6 +60,7 @@ export function StoryTile({
   const [isMuted, setIsMuted] = useState(isMutedOwner);
   const [successMessage, setSuccessMessage] = useState("");
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   // propsが変わったらstateを同期
   useEffect(() => {
@@ -258,6 +262,16 @@ export function StoryTile({
                           {t("mute")}
                         </DropdownMenuItem>
                       )}
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setReportDialogOpen(true);
+                          setMenuOpen(false);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        <Flag className="mr-2 size-4" />
+                        {tReport("report")}
+                      </DropdownMenuItem>
                     </>
                   )}
                 </DropdownMenuContent>
@@ -340,6 +354,15 @@ export function StoryTile({
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {tDelete("success")}
         </div>
+      )}
+
+      {/* 報告ダイアログ */}
+      {!isMyStory && (
+        <ReportDialog
+          open={reportDialogOpen}
+          onOpenChange={setReportDialogOpen}
+          reportDTO={{ type: ReportType.story, itemId: story.id }}
+        />
       )}
     </div>
   );
