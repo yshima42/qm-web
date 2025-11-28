@@ -1,36 +1,43 @@
 "use client";
 
-import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@quitmate/ui";
-import Link from "next/link";
-import { useMemo } from "react";
+import { Card, CardContent } from "@quitmate/ui";
+import { useMemo, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 
 import { CATEGORY_ICONS, getCategoryDisplayName } from "@/lib/categories";
 import { HabitTileDto } from "@/lib/types";
 import { deleteHabit } from "@/features/habits/data/actions";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { HabitResetButton } from "./habit-reset-button";
 
 type Props = {
   habit: HabitTileDto;
 };
 
+function formatElapsedDays(startedAt: string): number {
+  const start = new Date(startedAt);
+  const now = new Date();
+  const diff = now.getTime() - start.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
 function formatElapsedTime(startedAt: string): string {
   const start = new Date(startedAt);
   const now = new Date();
   const diff = now.getTime() - start.getTime();
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-  if (days > 0) {
-    return `${days}日 ${hours}時間 ${minutes}分`;
-  } else if (hours > 0) {
-    return `${hours}時間 ${minutes}分`;
-  } else {
-    return `${minutes}分`;
-  }
+  return `${hours}hr ${minutes}m ${seconds}s`;
 }
 
 function getCurrentTrial(habit: HabitTileDto) {
@@ -60,11 +67,31 @@ export function HabitCard({ habit }: Props) {
   const Icon = CATEGORY_ICONS[categoryName as keyof typeof CATEGORY_ICONS];
 
   const currentTrial = useMemo(() => getCurrentTrial(habit), [habit]);
-  const elapsedTime = useMemo(() => {
+  const [elapsedDays, setElapsedDays] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // クライアントサイドでのみ時間を計算・更新
+  useEffect(() => {
+    setIsMounted(true);
     if (!currentTrial) {
-      return "継続中なし";
+      setElapsedDays(null);
+      setElapsedTime(null);
+      return;
     }
-    return formatElapsedTime(currentTrial.started_at);
+
+    const updateTime = () => {
+      setElapsedDays(formatElapsedDays(currentTrial.started_at));
+      setElapsedTime(formatElapsedTime(currentTrial.started_at));
+    };
+
+    // 初回更新
+    updateTime();
+
+    // 1秒ごとに更新
+    const interval = setInterval(updateTime, 1000);
+
+    return () => clearInterval(interval);
   }, [currentTrial]);
 
   const handleDelete = async () => {
@@ -83,47 +110,62 @@ export function HabitCard({ habit }: Props) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between">
+    <Card className="relative">
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between">
+          {/* 左側: アイコンとタイトル */}
           <div className="flex items-center gap-2">
-            {Icon && <Icon className="size-5" />}
-            <CardTitle>{displayName}</CardTitle>
+            {Icon && <Icon className="text-primary size-5" />}
+            <span className="font-medium">{displayName}</span>
           </div>
+
+          {/* 右上: オプションメニュー */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="size-8">
+                <MoreHorizontal className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={handleDelete}
+                className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+              >
+                <Trash2 className="mr-2 size-4" />
+                削除
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          <div>
-            <span className="text-muted-foreground text-sm">継続時間: </span>
-            <span className="text-lg font-semibold">{elapsedTime}</span>
+
+        {/* 日数と時間の表示（中央揃え） */}
+        {!isMounted ? (
+          <div className="mt-4 space-y-1 text-center">
+            <div className="text-2xl font-bold">- days</div>
+            <div className="text-muted-foreground text-sm">-hr -m -s</div>
           </div>
-          {currentTrial && (
-            <div className="text-muted-foreground text-xs">
-              開始日時: {new Date(currentTrial.started_at).toLocaleString("ja-JP")}
+        ) : currentTrial && elapsedDays !== null && elapsedTime ? (
+          <div className="mt-4 space-y-1 text-center">
+            <div className="text-2xl font-bold">
+              {elapsedDays} {elapsedDays === 1 ? "day" : "days"}
             </div>
-          )}
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between gap-2">
-        <div className="flex gap-2">
-          {currentTrial && (
+            <div className="text-muted-foreground text-sm">{elapsedTime}</div>
+          </div>
+        ) : (
+          <div className="text-muted-foreground mt-4 text-center">継続中なし</div>
+        )}
+
+        {/* リセットボタン（中央揃え） */}
+        {currentTrial && (
+          <div className="mt-4 flex justify-center">
             <HabitResetButton
               habitId={habit.id}
               trialId={currentTrial.id}
               habitName={displayName}
             />
-          )}
-          <Button variant="destructive" size="sm" onClick={handleDelete}>
-            削除
-          </Button>
-        </div>
-        <Link href={`/habits/${habit.id}`}>
-          <Button variant="outline" size="sm">
-            詳細
-          </Button>
-        </Link>
-      </CardFooter>
+          </div>
+        )}
+      </CardContent>
     </Card>
   );
 }
