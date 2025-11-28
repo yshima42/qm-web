@@ -20,7 +20,8 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    if (process.env.NODE_ENV === "development") {
+    // ローカルでのproductionテスト時はDISABLE_CSP=trueでCSPを無効化
+    if (process.env.NODE_ENV === "development" || process.env.DISABLE_CSP === "true") {
       return [];
     }
 
