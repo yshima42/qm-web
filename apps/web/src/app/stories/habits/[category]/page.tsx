@@ -11,7 +11,6 @@ import { HabitCategoryName } from "@/lib/types";
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
 import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
-import { StoryInlineForm } from "@/features/stories/ui/story-inline-form";
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -59,14 +58,18 @@ export default async function Page(props: PageProps) {
     redirect("/stories/habits/all");
   }
 
+  const habitCategory = capitalizeCategory(category);
+
+  // 翻訳を取得
+  const tCategory = await getTranslations("categories");
+
+  // カテゴリー名を翻訳から取得
+  const categoryDisplayName = tCategory(habitCategory);
+
   // タブとフォームに必要なデータを取得（Suspenseの外側）
-  const { getCurrentUserProfile, getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
-  const currentUserProfile = await getCurrentUserProfile();
+  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
   const habits = await getCurrentUserHabits();
 
-  const habitCategory = capitalizeCategory(category);
-  const tCategory = await getTranslations("categories");
-  const categoryDisplayName = tCategory(habitCategory);
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
@@ -81,17 +84,6 @@ export default async function Page(props: PageProps) {
 
       {/* インライン投稿フォームと投稿リスト */}
       <main className="p-3 sm:p-5">
-        {/* インライン投稿フォーム - Suspenseの外側、再描画されない */}
-        {isLoggedIn && habits && habits.length > 0 && (
-          <div className="mx-auto max-w-2xl">
-            <StoryInlineForm
-              habits={habits}
-              currentUserProfile={currentUserProfile}
-              defaultCategory={habitCategory !== "All" ? habitCategory : undefined}
-            />
-          </div>
-        )}
-
         {/* 投稿リストのみSuspense内で更新 */}
         <Suspense fallback={<LoadingSpinner />}>
           <CategoryPageContent
@@ -99,6 +91,7 @@ export default async function Page(props: PageProps) {
             tab={tab}
             isLoggedIn={isLoggedIn}
             userId={user?.id}
+            habits={habits}
           />
         </Suspense>
       </main>
@@ -111,11 +104,13 @@ async function CategoryPageContent({
   tab,
   isLoggedIn,
   userId,
+  habits,
 }: {
   category: string;
   tab?: string;
   isLoggedIn: boolean;
   userId?: string;
+  habits?: import("@/lib/types").HabitTileDto[];
 }) {
   const habitCategory = capitalizeCategory(category);
   const currentTab = tab ?? "category";
@@ -123,11 +118,12 @@ async function CategoryPageContent({
   return (
     <>
       {currentTab === "following" && isLoggedIn ? (
-        <FollowingStoryList currentUserId={userId} />
+        <FollowingStoryList habits={habits} currentUserId={userId} />
       ) : (
         <StoryListInfinite
           category={habitCategory}
           isLoggedIn={isLoggedIn}
+          habits={habits}
           currentUserId={userId}
         />
       )}

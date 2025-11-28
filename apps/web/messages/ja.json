@@ -227,7 +227,8 @@
     "contentRequired": "内容を入力してください",
     "contentTooLong": "文字数が上限を超えています",
     "createFailed": "ストーリーの作成に失敗しました",
-    "noActiveHabitFound": "アクティブな習慣が見つかりません。まず習慣を開始してください。"
+    "noActiveHabitFound": "アクティブな習慣が見つかりません。まず習慣を開始してください。",
+    "everyoneCanReply": "全員が返信できます"
   },
   "footer": {
     "title": "共になら、やめられる",

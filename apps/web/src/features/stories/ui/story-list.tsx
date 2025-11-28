@@ -2,7 +2,6 @@ import { AppDownloadSection } from "@quitmate/ui";
 
 import { StoryTileDto, HabitTileDto } from "@/lib/types";
 import { createClient } from "@/lib/supabase/server";
-import { getCurrentUserProfile } from "@/lib/utils/page-helpers";
 
 import { enrichStoriesWithLikeStatus } from "@/features/stories/data/data";
 
@@ -27,14 +26,9 @@ export async function StoryList({ fetchStoriesFunc, habits }: StoryListProps) {
   // ログイン時はいいね状態を付与
   const storiesWithLikeStatus = isLoggedIn ? await enrichStoriesWithLikeStatus(stories) : stories;
 
-  // 現在のユーザーのプロフィール情報を取得
-  const currentUserProfile = await getCurrentUserProfile();
-
   return (
     <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && (
-        <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
-      )}
+      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
 
       {storiesWithLikeStatus.map((story) => (
         <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} currentUserId={user?.id} />

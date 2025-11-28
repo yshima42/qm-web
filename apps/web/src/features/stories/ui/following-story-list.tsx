@@ -7,14 +7,18 @@ import { UserPlus } from "lucide-react";
 
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
+import { HabitTileDto } from "@/lib/types";
+
 import { useInfiniteFollowingStories } from "../hooks/use-infinite-following-stories";
 import { StoryTile } from "./story-tile";
+import { StoryInlineForm } from "./story-inline-form";
 
 type Props = {
+  habits?: HabitTileDto[];
   currentUserId?: string;
 };
 
-export function FollowingStoryList({ currentUserId }: Props) {
+export function FollowingStoryList({ habits, currentUserId }: Props) {
   const t = useTranslations("stories-tab");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -46,6 +50,7 @@ export function FollowingStoryList({ currentUserId }: Props) {
   if (!isLoading && stories.length === 0) {
     return (
       <div className="mx-auto max-w-2xl">
+        {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="bg-muted mb-4 rounded-full p-4">
             <UserPlus className="text-muted-foreground size-8" />
@@ -59,6 +64,8 @@ export function FollowingStoryList({ currentUserId }: Props) {
 
   return (
     <div className="mx-auto max-w-2xl">
+      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
+
       {stories.map((story) => (
         <StoryTile key={story.id} story={story} isLoggedIn={true} currentUserId={currentUserId} />
       ))}

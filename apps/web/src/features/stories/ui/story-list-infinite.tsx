@@ -5,19 +5,21 @@ import { useInView } from "react-intersection-observer";
 import { AppDownloadSection } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
-import { HabitCategoryName } from "@/lib/types";
+import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { useInfiniteStories } from "../hooks/use-infinite-stories";
 import { StoryTile } from "./story-tile";
+import { StoryInlineForm } from "./story-inline-form";
 
 type Props = {
   category: HabitCategoryName;
   isLoggedIn: boolean;
+  habits?: HabitTileDto[];
   currentUserId?: string;
 };
 
-export function StoryListInfinite({ category, isLoggedIn, currentUserId }: Props) {
+export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId }: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -48,6 +50,8 @@ export function StoryListInfinite({ category, isLoggedIn, currentUserId }: Props
 
   return (
     <div className="mx-auto max-w-2xl">
+      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
+
       {stories.map((story) => (
         <StoryTile
           key={story.id}
