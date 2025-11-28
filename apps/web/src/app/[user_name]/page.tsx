@@ -117,7 +117,12 @@ export default async function Page(props: { params: Promise<{ user_name: string 
               isFollowing={isFollowing}
               isMuted={isMuted}
             />
-            <ProfileTabs profile={profile} isLoggedIn={isLoggedIn} isMuted={isMuted} />
+            <ProfileTabs
+              profile={profile}
+              isLoggedIn={isLoggedIn}
+              isMuted={isMuted}
+              currentUserId={user?.id}
+            />
           </main>
         </Suspense>
       </PageWithSidebar>

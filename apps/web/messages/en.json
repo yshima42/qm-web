@@ -117,15 +117,50 @@
     "shareTitleSuffix": "'s Profile",
     "shareTextSuffix": "'s Profile",
     "following": "Following",
-    "followers": "Followers"
+    "followers": "Followers",
+    "edit": "Edit"
   },
   "profile-page": {
     "posts": "Posts",
     "comments": "Comments"
   },
+  "profile-edit": {
+    "avatarAlt": "Profile image",
+    "displayNameLabel": "Nickname *",
+    "displayNamePlaceholder": "Enter nickname"
+  },
   "app-download-section": {
     "title": "Addiction Recovery SNS QuitMate",
     "message": "To read more stories, download the app"
+  },
+  "habit-register": {
+    "title": "Register Habit",
+    "description": "Register a new habit",
+    "categoryLabel": "Category *",
+    "categoryPlaceholder": "Select category",
+    "customHabitNameLabel": "Custom Habit Name *",
+    "customHabitNamePlaceholder": "Enter habit name",
+    "startedAtLabel": "Start Date & Time *",
+    "durationMonthsLabel": "Duration (months)",
+    "durationMonthsPlaceholder": "e.g., 3",
+    "frequencyPerWeekLabel": "Frequency per week",
+    "frequencyPerWeekPlaceholder": "e.g., 3",
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "Reason for wanting to quit this habit",
+    "categoryRequired": "Please select a category",
+    "customHabitNameRequired": "Please enter a custom habit name",
+    "maxHabitsReached": "You can only register up to {max} habits",
+    "noRegisterableCategories": "No registerable categories available",
+    "cancel": "Cancel",
+    "register": "Register",
+    "registering": "Registering..."
+  },
+  "app-download-dialog": {
+    "title": "Addiction Recovery SNS QuitMate",
+    "description": "You're not alone in wanting to quit but not being able to.",
+    "qrCodeLabel": "Download from QR code",
+    "qrCodeAlt": "App download QR code",
+    "storeLabel": "Download from store"
   },
   "category-tag": {
     "days": " days"
@@ -133,13 +168,17 @@
   "sidebar": {
     "home": "Home",
     "profile": "Profile",
+    "habits": "Habits",
     "articles": "Articles",
+    "app": "App",
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
     "otherCommunity": "Other Community",
     "communities": "Communities",
     "noHabitsRegistered": "No habits registered",
     "settings": "Settings",
+    "registerHabit": "Register habit",
+    "habitList": "Habit list",
     "deleteAccount": "Delete Account",
     "language": "Language",
     "termsOfService": "Terms of Service",
@@ -248,7 +287,8 @@
   "stories": {
     "errorLoading": "Failed to load stories",
     "noMoreStories": "All stories loaded",
-    "noStories": "No stories yet"
+    "noStories": "No stories yet",
+    "showMore": "Show more"
   },
   "follow": {
     "follow": "Follow",
@@ -273,5 +313,16 @@
     "unmuteSuccess": "User unmuted",
     "error": "An error occurred",
     "emptyMessage": "You haven't muted anyone"
+  },
+  "delete": {
+    "delete": "Delete",
+    "deleteStory": "Delete post",
+    "deleteArticle": "Delete article",
+    "deleteComment": "Delete comment",
+    "confirmStory": "Are you sure you want to delete this post? This action cannot be undone.",
+    "confirmArticle": "Are you sure you want to delete this article? This action cannot be undone.",
+    "confirmComment": "Are you sure you want to delete this comment? This action cannot be undone.",
+    "success": "Deleted",
+    "error": "Failed to delete"
   }
 }

@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
@@ -77,6 +77,18 @@ async function CategoryPageContent({
   const { tab } = await searchParams;
   if (!category) notFound();
 
+  // ログイン状態を取得
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
+
+  // ログアウト時で「all」以外のカテゴリーにアクセスした場合は「all」にリダイレクト
+  if (!isLoggedIn && category.toLowerCase() !== "all") {
+    redirect("/stories/habits/all");
+  }
+
   const habitCategory = capitalizeCategory(category);
   const currentTab = tab ?? "category";
 
@@ -85,13 +97,6 @@ async function CategoryPageContent({
 
   // カテゴリー名を翻訳から取得
   const categoryDisplayName = tCategory(habitCategory);
-
-  // ログイン状態を取得
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const isLoggedIn = !!user;
 
   // 現在のユーザーのプロフィール情報を取得
   const { getCurrentUserProfile } = await import("@/lib/utils/page-helpers");
@@ -111,13 +116,18 @@ async function CategoryPageContent({
 
       <main className="p-3 sm:p-5">
         {currentTab === "following" && isLoggedIn ? (
-          <FollowingStoryList habits={habits} currentUserProfile={currentUserProfile} />
+          <FollowingStoryList
+            habits={habits}
+            currentUserProfile={currentUserProfile}
+            currentUserId={user?.id}
+          />
         ) : (
           <StoryListInfinite
             category={habitCategory}
             isLoggedIn={isLoggedIn}
             habits={habits}
             currentUserProfile={currentUserProfile}
+            currentUserId={user?.id}
           />
         )}
       </main>

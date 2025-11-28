@@ -1,7 +1,8 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { fetchHabits } from "@/features/habits/data/data";
-import { HabitTileDto } from "@/lib/types";
+import { HabitTileDto, HabitCategoryName } from "@/lib/types";
+import { getCategoryUrl } from "@/lib/categories";
 
 /**
  * 現在のユーザーの習慣データを取得する
@@ -77,3 +78,27 @@ export const getCurrentUserProfile = cache(
     };
   },
 );
+
+/**
+ * ユーザーの最初の習慣のコミュニティURLを取得する
+ * @returns ログインしていない場合は「all」、習慣がない場合は「alcohol」、それ以外は最初の習慣のカテゴリー
+ */
+export const getDefaultCommunityPath = cache(async (): Promise<string> => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return getCategoryUrl("All");
+  }
+
+  const habits = await getCurrentUserHabits();
+  if (habits.length === 0) {
+    return getCategoryUrl("Alcohol");
+  }
+
+  // 最初の習慣のカテゴリーを取得（display_orderでソート済み）
+  const firstHabitCategory = habits[0].habit_categories.habit_category_name as HabitCategoryName;
+  return getCategoryUrl(firstHabitCategory);
+});

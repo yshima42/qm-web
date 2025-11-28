@@ -1,4 +1,7 @@
+"use client";
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../ui/dialog";
+import { DialogTrigger } from "../ui/dialog";
 import React from "react";
 import { StoreBadges } from "./store-badge";
 import Image from "next/image";
@@ -52,23 +55,42 @@ const AppDownloadDialogContent = ({
   );
 };
 
-type AppDownloadDialogProps = {
-  title: string;
-  description: string;
-  qrCodeLabel: string;
-  qrCodeAlt: string;
-  storeLabel: string;
-};
-
-export function AppDownloadDialog({
+// アイコンをダイアログトリガーとして使用するラッパーコンポーネント
+export function AppDownloadDialogTrigger({ 
+  children, 
+  className,
   title,
   description,
   qrCodeLabel,
   qrCodeAlt,
   storeLabel,
-}: AppDownloadDialogProps) {
+}: { 
+  children: React.ReactNode; 
+  className?: string;
+  title: string;
+  description: string;
+  qrCodeLabel: string;
+  qrCodeAlt: string;
+  storeLabel: string;
+}) {
   return (
     <Dialog>
+      <DialogTrigger asChild>
+        <div 
+          role="button"
+          tabIndex={0}
+          className={className} 
+          aria-label={qrCodeAlt}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              (e.currentTarget as HTMLElement).click();
+            }
+          }}
+        >
+          {children}
+        </div>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <AppDownloadDialogContent
           title={title}
@@ -81,3 +103,4 @@ export function AppDownloadDialog({
     </Dialog>
   );
 }
+

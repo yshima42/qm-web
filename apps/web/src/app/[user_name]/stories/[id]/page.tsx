@@ -155,6 +155,7 @@ export default async function Page({
               disableLink
               showFullContent
               isLoggedIn={isLoggedIn}
+              currentUserId={user?.id}
             />
 
             {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}

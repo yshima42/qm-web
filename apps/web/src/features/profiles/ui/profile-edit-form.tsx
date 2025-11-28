@@ -11,6 +11,7 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,7 @@ type ProfileEditFormProps = {
 
 export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
   const router = useRouter();
+  const t = useTranslations("profile-edit");
   const [displayName, setDisplayName] = useState(profile.display_name);
   const [userName, setUserName] = useState(profile.user_name);
   const [bio, setBio] = useState(profile.bio ?? "");
@@ -163,7 +165,7 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
               <>
                 <Image
                   src={previewUrl}
-                  alt="プロフィール画像"
+                  alt={t("profile-edit.avatarAlt")}
                   width={96}
                   height={96}
                   className="size-full object-cover"
@@ -183,13 +185,13 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
 
       {/* 表示名 */}
       <div className="space-y-2">
-        <Label htmlFor="display_name">ニックネーム *</Label>
+        <Label htmlFor="display_name">{t("displayNameLabel")}</Label>
         <Input
           id="display_name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           maxLength={PROFILE_VALIDATIONS.displayNameMaxLength}
-          placeholder="ニックネームを入力"
+          placeholder={t("displayNamePlaceholder")}
         />
         {displayNameError && <p className="text-destructive text-sm">{displayNameError}</p>}
         <p className="text-muted-foreground text-sm">

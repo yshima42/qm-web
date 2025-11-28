@@ -4,7 +4,7 @@ import { AppDownloadDialogTrigger } from "@quitmate/ui";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
-import { MessageCircle, MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
+import { MessageCircle, MoreHorizontal, VolumeX, Volume2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
@@ -14,6 +14,7 @@ import { CommentTileDto } from "@/lib/types";
 
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
+import { deleteComment } from "@/features/stories/data/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,12 +43,16 @@ export function CommentTile({
 }: Props) {
   const router = useRouter();
   const t = useTranslations("mute");
+  const tDelete = useTranslations("delete");
+  const tComment = useTranslations("comment-form");
+  const tAppDownload = useTranslations("app-download-dialog");
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [showMuteSuccess, setShowMuteSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(isMutedOwner);
   const [successMessage, setSuccessMessage] = useState("");
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
   const isMyComment = currentUserId === comment.user_id;
 
@@ -79,6 +84,24 @@ export function CommentTile({
         setShowMuteSuccess(true);
         setTimeout(() => setShowMuteSuccess(false), 3000);
         router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
+
+  const handleDelete = () => {
+    if (!confirm(tDelete("confirmComment"))) {
+      return;
+    }
+    startTransition(async () => {
+      const result = await deleteComment(comment.id);
+      if (result.success) {
+        setShowDeleteSuccess(true);
+        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        router.refresh();
+      } else {
+        // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
+        console.error(tDelete("error"), result.error);
       }
       setMenuOpen(false);
     });
@@ -139,7 +162,7 @@ export function CommentTile({
           </div>
 
           {/* 三点リーダーメニュー */}
-          {isLoggedIn && !isMyComment && (
+          {isLoggedIn && (
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="size-6">
@@ -147,24 +170,37 @@ export function CommentTile({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                {isMuted ? (
+                {isMyComment ? (
                   <DropdownMenuItem
-                    onClick={handleUnmute}
+                    onClick={handleDelete}
                     disabled={isPending}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
                   >
-                    <Volume2 className="mr-2 size-4" />
-                    {t("unmute")}
+                    <Trash2 className="mr-2 size-4" />
+                    {tDelete("deleteComment")}
                   </DropdownMenuItem>
                 ) : (
-                  <DropdownMenuItem
-                    onClick={handleMute}
-                    disabled={isPending}
-                    className="cursor-pointer"
-                  >
-                    <VolumeX className="mr-2 size-4" />
-                    {t("mute")}
-                  </DropdownMenuItem>
+                  <>
+                    {isMuted ? (
+                      <DropdownMenuItem
+                        onClick={handleUnmute}
+                        disabled={isPending}
+                        className="cursor-pointer"
+                      >
+                        <Volume2 className="mr-2 size-4" />
+                        {t("unmute")}
+                      </DropdownMenuItem>
+                    ) : (
+                      <DropdownMenuItem
+                        onClick={handleMute}
+                        disabled={isPending}
+                        className="cursor-pointer"
+                      >
+                        <VolumeX className="mr-2 size-4" />
+                        {t("mute")}
+                      </DropdownMenuItem>
+                    )}
+                  </>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -190,12 +226,19 @@ export function CommentTile({
               className="text-muted-foreground hover:text-primary flex items-center gap-1"
             >
               <MessageCircle className="size-4" />
-              <span className="text-xs">返信</span>
+              <span className="text-xs">{tComment("submitButton")}</span>
             </button>
           )}
 
           {/* いいねボタン */}
-          <AppDownloadDialogTrigger className="cursor-pointer">
+          <AppDownloadDialogTrigger
+            className="cursor-pointer"
+            title={tAppDownload("title")}
+            description={tAppDownload("description")}
+            qrCodeLabel={tAppDownload("qrCodeLabel")}
+            qrCodeAlt={tAppDownload("qrCodeAlt")}
+            storeLabel={tAppDownload("storeLabel")}
+          >
             <div className="text-muted-foreground flex items-center gap-1">
               <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -215,6 +258,13 @@ export function CommentTile({
       {showMuteSuccess && (
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {successMessage}
+        </div>
+      )}
+
+      {/* 削除成功スナックバー */}
+      {showDeleteSuccess && (
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+          {tDelete("success")}
         </div>
       )}
     </div>

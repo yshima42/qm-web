@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 import { MAX_CHARACTERS } from "@/features/common/constants";
+import type { DeleteResult } from "@/features/common/types";
 import { fetchHabits } from "@/features/habits/data/data";
 
 export async function createStory(formData: FormData) {
@@ -164,6 +165,60 @@ export async function createComment(storyId: string, content: string, parentComm
   }
 
   // ストーリー詳細ページを再検証
+  revalidatePath("/");
+  return { success: true };
+}
+
+/**
+ * コメントを削除する
+ * RLSで制御されているため、user_idのフィルタリングは不要
+ */
+export async function deleteComment(commentId: string): Promise<DeleteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { error } = await supabase.from("comments").delete().match({ id: commentId });
+
+  if (error) {
+    console.error("[deleteComment] Error:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/");
+  return { success: true };
+}
+
+/**
+ * ストーリーを削除する
+ * user_idでフィルタリングして自分のストーリーのみ削除可能
+ */
+export async function deleteStory(storyId: string): Promise<DeleteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { error } = await supabase
+    .from("stories")
+    .delete()
+    .eq("id", storyId)
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("[deleteStory] Error:", error);
+    return { success: false, error: error.message };
+  }
+
   revalidatePath("/");
   return { success: true };
 }

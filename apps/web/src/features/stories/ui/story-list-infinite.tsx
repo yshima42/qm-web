@@ -21,9 +21,16 @@ type Props = {
     display_name: string;
     avatar_url: string | null;
   } | null;
+  currentUserId?: string;
 };
 
-export function StoryListInfinite({ category, isLoggedIn, habits, currentUserProfile }: Props) {
+export function StoryListInfinite({
+  category,
+  isLoggedIn,
+  habits,
+  currentUserProfile,
+  currentUserId,
+}: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -59,7 +66,12 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserPro
       )}
 
       {stories.map((story) => (
-        <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} />
+        <StoryTile
+          key={story.id}
+          story={story}
+          isLoggedIn={isLoggedIn}
+          currentUserId={currentUserId}
+        />
       ))}
 
       {/* ローディング & 読み込みトリガー */}

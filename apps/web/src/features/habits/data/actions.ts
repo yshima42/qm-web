@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { getMaxHabits } from "./constants";
 
 export type HabitRegisterDTO = {
   habitCategoryName: string;
@@ -19,6 +20,25 @@ export async function createHabit(dto: HabitRegisterDTO): Promise<{ error: Error
 
   if (!user) {
     return { error: new Error("User not authenticated") };
+  }
+
+  // 最大登録数チェック（サーバー側でもバリデーション）
+  const { count, error: countError } = await supabase
+    .from("habits")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
+  if (countError) {
+    console.error("[createHabit] Error counting habits:", countError);
+    return { error: new Error("習慣数の確認に失敗しました") };
+  }
+
+  const maxHabits = getMaxHabits(user.id);
+  const currentHabitCount = count ?? 0;
+  if (currentHabitCount >= maxHabits) {
+    return {
+      error: new Error(`最大${maxHabits}つまでしか習慣を登録できません`),
+    };
   }
 
   const { error } = await supabase.rpc("habit_create_transaction", {

@@ -83,6 +83,35 @@
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
+  "habit-register": {
+    "title": "習慣を登録",
+    "description": "新しい習慣を登録します",
+    "categoryLabel": "カテゴリ *",
+    "categoryPlaceholder": "カテゴリを選択",
+    "customHabitNameLabel": "カスタム習慣名 *",
+    "customHabitNamePlaceholder": "習慣名を入力",
+    "startedAtLabel": "開始日時 *",
+    "durationMonthsLabel": "期間（月数）",
+    "durationMonthsPlaceholder": "例: 3",
+    "frequencyPerWeekLabel": "週の頻度",
+    "frequencyPerWeekPlaceholder": "例: 3",
+    "reasonLabel": "理由（任意）",
+    "reasonPlaceholder": "この習慣をやめたい理由",
+    "categoryRequired": "カテゴリを選択してください",
+    "customHabitNameRequired": "カスタム習慣名を入力してください",
+    "maxHabitsReached": "最大{max}つまでしか習慣を登録できません",
+    "noRegisterableCategories": "登録可能なカテゴリがありません",
+    "cancel": "キャンセル",
+    "register": "登録",
+    "registering": "登録中..."
+  },
+  "app-download-dialog": {
+    "title": "依存克服SNS QuitMate",
+    "description": "「やめたくても、やめられない」のは、あなただけじゃない。",
+    "qrCodeLabel": "QRコードからダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード",
+    "storeLabel": "ストアからダウンロード"
+  },
   "categories": {
     "All": "すべて",
     "Game": "ゲーム",
@@ -107,13 +136,17 @@
   "sidebar": {
     "home": "ホーム",
     "profile": "プロフィール",
+    "habits": "習慣",
     "articles": "記事",
+    "app": "アプリ",
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
     "otherCommunity": "その他コミュニティ",
     "communities": "コミュニティ",
     "noHabitsRegistered": "習慣が登録されていません",
     "settings": "設定",
+    "registerHabit": "習慣を登録",
+    "habitList": "習慣一覧",
     "deleteAccount": "アカウント削除",
     "language": "言語設定",
     "termsOfService": "利用規約",
@@ -222,7 +255,8 @@
   "stories": {
     "errorLoading": "ストーリーの読み込みに失敗しました",
     "noMoreStories": "すべてのストーリーを読み込みました",
-    "noStories": "まだストーリーがありません"
+    "noStories": "まだストーリーがありません",
+    "showMore": "もっと見る"
   },
   "follow": {
     "follow": "フォロー",
@@ -247,5 +281,33 @@
     "unmuteSuccess": "ミュートを解除しました",
     "error": "エラーが発生しました",
     "emptyMessage": "ミュートしているユーザーはいません"
+  },
+  "delete": {
+    "delete": "削除",
+    "deleteStory": "投稿を削除",
+    "deleteArticle": "記事を削除",
+    "deleteComment": "コメントを削除",
+    "confirmStory": "この投稿を削除しますか？この操作は取り消せません。",
+    "confirmArticle": "この記事を削除しますか？この操作は取り消せません。",
+    "confirmComment": "このコメントを削除しますか？この操作は取り消せません。",
+    "success": "削除しました",
+    "error": "削除に失敗しました"
+  },
+  "profile-header": {
+    "shareDialogTitle": "プロフィールをシェア",
+    "shareTitleSuffix": "のプロフィール",
+    "shareTextSuffix": "のプロフィール",
+    "following": "フォロー中",
+    "followers": "フォロワー",
+    "edit": "編集"
+  },
+  "profile-page": {
+    "posts": "投稿",
+    "comments": "コメント"
+  },
+  "profile-edit": {
+    "avatarAlt": "プロフィール画像",
+    "displayNameLabel": "ニックネーム *",
+    "displayNamePlaceholder": "ニックネームを入力"
   }
 }

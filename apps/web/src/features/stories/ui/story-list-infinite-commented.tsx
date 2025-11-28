@@ -13,9 +13,10 @@ import { StoryTile } from "./story-tile";
 type Props = {
   userId: string;
   isLoggedIn: boolean;
+  currentUserId?: string;
 };
 
-export function StoryListInfiniteCommented({ userId, isLoggedIn }: Props) {
+export function StoryListInfiniteCommented({ userId, isLoggedIn, currentUserId }: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -44,7 +45,12 @@ export function StoryListInfiniteCommented({ userId, isLoggedIn }: Props) {
   return (
     <div className="mx-auto max-w-2xl">
       {stories.map((story) => (
-        <StoryTile key={story.id} story={story} isLoggedIn={isLoggedIn} />
+        <StoryTile
+          key={story.id}
+          story={story}
+          isLoggedIn={isLoggedIn}
+          currentUserId={currentUserId}
+        />
       ))}
 
       <div ref={ref} className="py-4">

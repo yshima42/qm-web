@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -14,8 +15,9 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // typeに応じてリダイレクト先を決定（セキュリティのため固定パス）
-      redirect("/stories/habits/alcohol");
+      // ユーザーの最初の習慣のコミュニティにリダイレクト
+      const defaultPath = await getDefaultCommunityPath();
+      redirect(defaultPath);
     } else {
       redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
     }
@@ -31,22 +33,20 @@ export async function GET(request: NextRequest) {
     });
 
     if (!error) {
-      // typeに応じて安全なリダイレクト先を決定（オープンリダイレクトを防ぐため固定パス）
-      let redirectPath = "/stories/habits/alcohol";
+      // typeに応じて安全なリダイレクト先を決定
+      let redirectPath: string;
 
       switch (type) {
-        case "signup":
-          redirectPath = "/stories/habits/alcohol";
-          break;
         case "recovery":
           redirectPath = "/auth/update-password";
           break;
+        case "signup":
         case "email_change":
         case "email":
-          redirectPath = "/stories/habits/alcohol";
-          break;
         default:
-          redirectPath = "/stories/habits/alcohol";
+          // ユーザーの最初の習慣のコミュニティにリダイレクト
+          redirectPath = await getDefaultCommunityPath();
+          break;
       }
 
       redirect(redirectPath);

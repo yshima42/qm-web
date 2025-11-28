@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 // The client you created from the Server-Side Auth instructions
 import { createClient } from "@/lib/supabase/server";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
-  let next = searchParams.get("next") ?? "/stories/habits/alcohol";
+  const defaultPath = await getDefaultCommunityPath();
+  let next = searchParams.get("next") ?? defaultPath;
   if (!next.startsWith("/")) {
     // if "next" is not a relative URL, use the default
-    next = "/stories/habits/alcohol";
+    next = defaultPath;
   }
 
   if (code) {

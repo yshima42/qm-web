@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import { Header } from "@/components/layout/header";
 import { createClient } from "@/lib/supabase/server";
@@ -16,10 +17,11 @@ export default async function HabitRegisterPage() {
   }
 
   const habits = await fetchHabits(user.id);
+  const t = await getTranslations("sidebar");
 
   return (
     <div className="bg-background min-h-screen">
-      <Header title="習慣を登録" />
+      <Header title={t("registerHabit")} />
       <main className="container mx-auto px-4 py-6">
         <HabitRegisterForm existingHabits={habits} />
       </main>

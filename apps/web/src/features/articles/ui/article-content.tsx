@@ -6,6 +6,9 @@ import { enUS } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 
 import { MarkdownRenderer } from "@/lib/markdown-render";
 import type { ArticleTileDto, ArticleCommentTileDto } from "@/lib/types";
@@ -14,22 +17,42 @@ import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
 
 import { ArticleCommentForm } from "@/features/articles/ui/article-comment-form";
 import { ArticleCommentTile } from "@/features/articles/ui/article-comment-tile";
-import { toggleArticleLike } from "@/features/articles/data/actions";
+import { toggleArticleLike, deleteArticle } from "@/features/articles/data/actions";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 
 import { CategoryTag } from "@/features/common/ui/category-tag";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 type ArticleContentProps = {
   article: ArticleTileDto;
   comments: ArticleCommentTileDto[] | null;
   isLoggedIn?: boolean;
+  currentUserId?: string;
 };
 
-export function ArticleContent({ article, comments, isLoggedIn = false }: ArticleContentProps) {
+export function ArticleContent({
+  article,
+  comments,
+  isLoggedIn = false,
+  currentUserId,
+}: ArticleContentProps) {
+  const router = useRouter();
+  const t = useTranslations("articles-page");
+  const tDelete = useTranslations("delete");
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(article.isLikedByMe ?? false);
   const [likesCount, setLikesCount] = useState(article.article_likes[0]?.count ?? 0);
   const [isPending, startTransition] = useTransition();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const isMyArticle = currentUserId === article.user_id;
 
   const handleLike = () => {
     const shouldLike = !isLiked;
@@ -48,6 +71,25 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
       }
     });
   };
+
+  const handleDelete = () => {
+    if (!confirm(tDelete("confirmArticle"))) {
+      return;
+    }
+    startTransition(async () => {
+      const result = await deleteArticle(article.id);
+      if (result.success) {
+        setShowDeleteSuccess(true);
+        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        router.push(`/${article.profiles.user_name}`);
+      } else {
+        // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
+        console.error(tDelete("error"), result.error);
+      }
+      setMenuOpen(false);
+    });
+  };
+
   const articleDate = toZonedTime(new Date(article.created_at), "Asia/Tokyo");
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
@@ -98,11 +140,31 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
                 </LoginPromptDialog>
               )}
 
+              {isLoggedIn && isMyArticle && (
+                <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="size-8">
+                      <MoreHorizontal className="size-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      onClick={handleDelete}
+                      disabled={isPending}
+                      className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+                    >
+                      <Trash2 className="mr-2 size-4" />
+                      {tDelete("deleteArticle")}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+
               <ShareButton
                 url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
                 title={article.title}
                 text={`${article.title} | ${article.profiles.display_name}`}
-                dialogTitle="Share Article"
+                dialogTitle={t("articles-page.shareDialogTitle")}
                 className="p-0"
               />
             </div>
@@ -170,7 +232,7 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
               url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
               title={article.title}
               text={`${article.title} | ${article.profiles.display_name}`}
-              dialogTitle="Share Article"
+              dialogTitle={t("articles-page.shareDialogTitle")}
             />
           </div>
         </div>
@@ -185,7 +247,14 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
 
           <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
             {comments && comments.length > 0 ? (
-              comments.map((comment) => <ArticleCommentTile key={comment.id} comment={comment} />)
+              comments.map((comment) => (
+                <ArticleCommentTile
+                  key={comment.id}
+                  comment={comment}
+                  isLoggedIn={isLoggedIn}
+                  currentUserId={currentUserId}
+                />
+              ))
             ) : (
               <p className="py-4 text-center text-gray-500 dark:text-gray-400">No comments yet</p>
             )}
@@ -194,6 +263,13 @@ export function ArticleContent({ article, comments, isLoggedIn = false }: Articl
 
         <AppDownloadSection message={`Follow ${article.profiles.display_name} on the app`} />
       </div>
+
+      {/* 削除成功スナックバー */}
+      {showDeleteSuccess && (
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+          {tDelete("success")}
+        </div>
+      )}
     </main>
   );
 }

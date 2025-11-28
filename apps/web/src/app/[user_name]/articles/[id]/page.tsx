@@ -125,6 +125,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           article={articleWithLikeStatus}
           comments={comments}
           isLoggedIn={isLoggedIn}
+          currentUserId={user?.id}
         />
       </PageWithSidebar>
     </HabitsProvider>
