@@ -45,6 +45,7 @@ export async function PageWithSidebar({ children, headerProps, className }: Page
             showBackButton={headerProps?.showBackButton}
             backUrl={headerProps?.backUrl}
             currentUserProfile={currentUserProfile}
+            hideHeader={headerProps?.hideHeader}
           />
           <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
         </div>

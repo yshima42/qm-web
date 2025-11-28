@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
@@ -53,11 +53,6 @@ export default async function Page(props: PageProps) {
   } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
 
-  // ログアウト時で「all」以外のカテゴリーにアクセスした場合は「all」にリダイレクト
-  if (!isLoggedIn && category.toLowerCase() !== "all") {
-    redirect("/stories/habits/all");
-  }
-
   const habitCategory = capitalizeCategory(category);
 
   // 翻訳を取得
@@ -73,7 +68,15 @@ export default async function Page(props: PageProps) {
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
-    <PageWithSidebar>
+    <PageWithSidebar
+      headerProps={
+        !isLoggedIn
+          ? {
+              hideHeader: true, // 未ログイン時はヘッダーを非表示（StoriesTabHeaderが表示されるため）
+            }
+          : undefined
+      }
+    >
       {/* タブヘッダー - Suspenseの外側、再描画されない */}
       <StoriesTabHeader
         categoryName={habitCategory}

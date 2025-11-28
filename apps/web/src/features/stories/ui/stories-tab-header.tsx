@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
+import { Button } from "@quitmate/ui";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;
@@ -47,36 +48,48 @@ export function StoriesTabHeader({
       : []),
   ];
 
-  // ログアウト時はタブを表示しない（ヘッダーのAuthButtonでログインボタンが表示されるため）
-  if (!isLoggedIn) {
-    return null;
-  }
+  const tLogin = useTranslations("login-prompt");
 
   return (
     <div className="border-border bg-card sticky top-0 z-10 border-b">
-      <div className="flex">
-        {tabs.map((tab) => {
-          const isActive = tab.id === currentTab;
+      <div className="flex items-center">
+        {/* タブ部分 */}
+        <div className="flex flex-1">
+          {tabs.map((tab) => {
+            const isActive = tab.id === currentTab;
 
-          return (
-            <Link
-              key={tab.id}
-              href={tab.href}
-              className={cn(
-                "flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors",
-                "hover:bg-accent/50",
-                isActive
-                  ? "text-foreground border-primary border-b-2"
-                  : "text-muted-foreground border-b-2 border-transparent",
-              )}
-            >
-              {tab.hasIcon && CategoryIcon && (
-                <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />
-              )}
-              <span>{tab.label}</span>
-            </Link>
-          );
-        })}
+            return (
+              <Link
+                key={tab.id}
+                href={tab.href}
+                className={cn(
+                  "flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors",
+                  "hover:bg-accent/50",
+                  isActive
+                    ? "text-foreground border-primary border-b-2"
+                    : "text-muted-foreground border-b-2 border-transparent",
+                )}
+              >
+                {tab.hasIcon && CategoryIcon && (
+                  <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />
+                )}
+                <span>{tab.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* 未ログイン時はログインボタンを表示 */}
+        {!isLoggedIn && (
+          <div className="flex items-center gap-2 px-4">
+            <Button asChild size="sm" variant="outline">
+              <Link href="/auth/login">{tLogin("login")}</Link>
+            </Button>
+            <Button asChild size="sm" variant="default">
+              <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
