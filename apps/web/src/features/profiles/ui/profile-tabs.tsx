@@ -21,9 +21,24 @@ export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserI
   return (
     <Tabs defaultValue="posts" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="posts">{t("posts")}</TabsTrigger>
-        <TabsTrigger value="comments">{t("comments")}</TabsTrigger>
-        <TabsTrigger value="articles">{t("articles")}</TabsTrigger>
+        <TabsTrigger
+          value="posts"
+          className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
+        >
+          {t("posts")}
+        </TabsTrigger>
+        <TabsTrigger
+          value="comments"
+          className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
+        >
+          {t("comments")}
+        </TabsTrigger>
+        <TabsTrigger
+          value="articles"
+          className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
+        >
+          {t("articles")}
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
         <StoryListInfiniteByUser
