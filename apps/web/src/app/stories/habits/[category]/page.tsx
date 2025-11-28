@@ -11,6 +11,7 @@ import { HabitCategoryName } from "@/lib/types";
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
 import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
+import { StoryInlineForm } from "@/features/stories/ui/story-inline-form";
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -58,16 +59,45 @@ export default async function Page(props: PageProps) {
     redirect("/stories/habits/all");
   }
 
+  // タブとフォームに必要なデータを取得（Suspenseの外側）
+  const { getCurrentUserProfile, getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
+  const currentUserProfile = await getCurrentUserProfile();
+  const habits = await getCurrentUserHabits();
+
+  const habitCategory = capitalizeCategory(category);
+  const tCategory = await getTranslations("categories");
+  const categoryDisplayName = tCategory(habitCategory);
+  const categoryPath = `/stories/habits/${category.toLowerCase()}`;
+
   return (
     <PageWithSidebar>
-      <Suspense fallback={<LoadingSpinner />}>
-        <CategoryPageContent
-          category={category}
-          tab={tab}
-          isLoggedIn={isLoggedIn}
-          userId={user?.id}
-        />
-      </Suspense>
+      {/* タブヘッダー - Suspenseの外側、再描画されない */}
+      <StoriesTabHeader
+        categoryName={habitCategory}
+        categoryDisplayName={categoryDisplayName}
+        categoryPath={categoryPath}
+        isLoggedIn={isLoggedIn}
+      />
+
+      {/* インライン投稿フォームと投稿リスト */}
+      <main className="p-3 sm:p-5">
+        {/* インライン投稿フォーム - Suspenseの外側、再描画されない */}
+        {isLoggedIn && habits && habits.length > 0 && (
+          <div className="mx-auto max-w-2xl">
+            <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
+          </div>
+        )}
+
+        {/* 投稿リストのみSuspense内で更新 */}
+        <Suspense fallback={<LoadingSpinner />}>
+          <CategoryPageContent
+            category={category}
+            tab={tab}
+            isLoggedIn={isLoggedIn}
+            userId={user?.id}
+          />
+        </Suspense>
+      </main>
     </PageWithSidebar>
   );
 }
@@ -86,46 +116,17 @@ async function CategoryPageContent({
   const habitCategory = capitalizeCategory(category);
   const currentTab = tab ?? "category";
 
-  // 翻訳を取得
-  const tCategory = await getTranslations("categories");
-
-  // カテゴリー名を翻訳から取得
-  const categoryDisplayName = tCategory(habitCategory);
-
-  // 現在のユーザーのプロフィール情報を取得
-  const { getCurrentUserProfile, getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
-  const currentUserProfile = await getCurrentUserProfile();
-  const habits = await getCurrentUserHabits();
-
-  const categoryPath = `/stories/habits/${category.toLowerCase()}`;
-
   return (
     <>
-      {/* タブヘッダー */}
-      <StoriesTabHeader
-        categoryName={habitCategory}
-        categoryDisplayName={categoryDisplayName}
-        categoryPath={categoryPath}
-        isLoggedIn={isLoggedIn}
-      />
-
-      <main className="p-3 sm:p-5">
-        {currentTab === "following" && isLoggedIn ? (
-          <FollowingStoryList
-            habits={habits}
-            currentUserProfile={currentUserProfile}
-            currentUserId={userId}
-          />
-        ) : (
-          <StoryListInfinite
-            category={habitCategory}
-            isLoggedIn={isLoggedIn}
-            habits={habits}
-            currentUserProfile={currentUserProfile}
-            currentUserId={userId}
-          />
-        )}
-      </main>
+      {currentTab === "following" && isLoggedIn ? (
+        <FollowingStoryList currentUserId={userId} />
+      ) : (
+        <StoryListInfinite
+          category={habitCategory}
+          isLoggedIn={isLoggedIn}
+          currentUserId={userId}
+        />
+      )}
     </>
   );
 }

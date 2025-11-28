@@ -20,6 +20,7 @@ import { HabitTileDto } from "@/lib/types";
 import { useCharacterCount } from "@/features/common/hooks/use-character-count";
 import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
 import { createStory } from "@/features/stories/data/actions";
+import { cn } from "@/lib/utils";
 
 type CommentSetting = "enabled" | "disabled";
 
@@ -51,7 +52,7 @@ export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormP
   const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
 
   const hasActiveHabit = activeHabits.length > 0;
-  const showHabitSelect = activeHabits.length > 1;
+  const isSingleHabit = activeHabits.length === 1;
 
   // Calculate character count and remaining
   const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
@@ -117,23 +118,25 @@ export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormP
             </div>
           )}
           <div className="flex-1 space-y-3">
-            {showHabitSelect && (
-              <select
-                name="habit_id"
-                required
-                className="border-input focus-visible:ring-ring w-full rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1"
-              >
-                {activeHabits.map((habit) => (
-                  <option key={habit.id} value={habit.id}>
-                    {habit.custom_habit_name ||
-                      (habit.habit_categories?.habit_category_name
-                        ? tCategory(habit.habit_categories.habit_category_name)
-                        : habit.habit_categories?.habit_category_name)}
-                  </option>
-                ))}
-              </select>
-            )}
-            {!showHabitSelect && <input type="hidden" name="habit_id" value={activeHabits[0].id} />}
+            {/* 常に習慣選択欄を表示（1つの時はdisabled） */}
+            <select
+              name="habit_id"
+              required
+              disabled={isSingleHabit}
+              className={cn(
+                "border-input focus-visible:ring-ring w-full rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1",
+                isSingleHabit && "cursor-not-allowed opacity-60",
+              )}
+            >
+              {activeHabits.map((habit) => (
+                <option key={habit.id} value={habit.id}>
+                  {habit.custom_habit_name ||
+                    (habit.habit_categories?.habit_category_name
+                      ? tCategory(habit.habit_categories.habit_category_name)
+                      : habit.habit_categories?.habit_category_name)}
+                </option>
+              ))}
+            </select>
 
             <textarea
               name="content"
