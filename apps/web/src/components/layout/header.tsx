@@ -1,6 +1,7 @@
 import clsx from "clsx";
 
 import { AuthButton } from "@/components/auth-button";
+import { BackButton } from "@/components/layout/back-button";
 
 export type HeaderProps = {
   title?: string;
@@ -15,7 +16,35 @@ export type HeaderProps = {
   icon?: React.ReactNode;
 };
 
-export function Header({ title, titleElement, rightElement, hideTitle, icon }: HeaderProps) {
+export function Header({
+  title,
+  titleElement,
+  showBackButton,
+  backUrl,
+  rightElement,
+  hideTitle,
+  icon,
+}: HeaderProps) {
+  // 戻るボタン + タイトル左寄せレイアウト
+  if (showBackButton) {
+    return (
+      <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm">
+        <div className="flex h-14 items-center px-4">
+          <div className="flex items-center gap-4">
+            <BackButton backUrl={backUrl} />
+            {titleElement ? titleElement : <h1 className="text-lg font-bold">{title}</h1>}
+          </div>
+
+          <div className="ml-auto flex items-center gap-2">
+            {rightElement}
+            <AuthButton />
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  // 通常の中央寄せレイアウト
   return (
     <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm">
       <div className="relative flex h-14 items-center justify-between px-4">

@@ -98,9 +98,13 @@ export function SidebarContent({
 
   return (
     <div className="flex h-full flex-col">
-      {!compact && !skipLogo && (
-        <div className="mb-6 shrink-0 px-4 py-3">
-          <Link href="/" className="flex items-end gap-1" onClick={handleLinkClick}>
+      {!skipLogo && (
+        <div className={`mb-6 shrink-0 py-3 ${compact ? "flex justify-center" : "px-4"}`}>
+          <Link
+            href="/"
+            className={`flex items-end gap-1 ${compact ? "justify-center" : ""}`}
+            onClick={handleLinkClick}
+          >
             <Image
               src="/images/icon-web.png"
               alt="QuitMate Logo"
@@ -108,7 +112,7 @@ export function SidebarContent({
               height={24}
               className="h-8 w-auto"
             />
-            <span className="text-2xl font-medium leading-tight">QuitMate</span>
+            {!compact && <span className="text-2xl font-medium leading-tight">QuitMate</span>}
           </Link>
         </div>
       )}

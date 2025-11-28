@@ -1,12 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@quitmate/ui";
 
-import { Profile } from "@/lib/types";
+import { Profile, ProfileTileDto } from "@/lib/types";
 
 import { StoryListInfiniteByUser } from "@/features/stories/ui/story-list-infinite-by-user";
 import { StoryListInfiniteCommented } from "@/features/stories/ui/story-list-infinite-commented";
 
 type Props = {
-  profile: Profile;
+  profile: Profile | ProfileTileDto;
   isLoggedIn: boolean;
 };
 

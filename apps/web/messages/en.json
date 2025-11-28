@@ -245,5 +245,20 @@
     "errorLoading": "Failed to load stories",
     "noMoreStories": "All stories loaded",
     "noStories": "No stories yet"
+  },
+  "follow": {
+    "follow": "Follow",
+    "following": "Following",
+    "unfollow": "Unfollow"
+  },
+  "stories-tab": {
+    "following": "Following",
+    "emptyTitle": "No users followed yet",
+    "emptyMessage": "Follow users you're interested in to see their posts in your timeline",
+    "noMoreStories": "All posts loaded",
+    "errorLoading": "Failed to load"
+  },
+  "page": {
+    "post": "Post"
   }
 }

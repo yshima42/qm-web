@@ -1,7 +1,8 @@
-import { AppDownloadSection, Logo } from "@quitmate/ui";
+import { AppDownloadSection } from "@quitmate/ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -128,6 +129,9 @@ export default async function Page({
   // いいね状態を取得（ログイン時のみ）
   const isLikedByMe = isLoggedIn ? await checkIsLikedByMe(id) : false;
 
+  // 翻訳を取得
+  const t = await getTranslations("page");
+
   // storyにisLikedByMeを付与
   const storyWithLikeStatus = { ...story, isLikedByMe };
 
@@ -141,7 +145,8 @@ export default async function Page({
     <HabitsProvider habits={habits}>
       <PageWithSidebar
         headerProps={{
-          titleElement: <Logo />,
+          title: t("post"),
+          showBackButton: true,
         }}
       >
         <Suspense fallback={<LoadingSpinner />}>
