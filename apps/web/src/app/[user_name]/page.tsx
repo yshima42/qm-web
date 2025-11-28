@@ -4,8 +4,7 @@ import { Suspense } from "react";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { getCurrentUserHabits, getCurrentUserUsername } from "@/lib/utils/page-helpers";
+import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 import { createClient } from "@/lib/supabase/server";
 
 import {
@@ -90,7 +89,6 @@ export default async function Page(props: { params: Promise<{ user_name: string 
   } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
 
-  const habits = await getCurrentUserHabits();
   const currentUserUsername = await getCurrentUserUsername();
   const isMyProfile = currentUserUsername === user_name;
 
@@ -101,31 +99,29 @@ export default async function Page(props: { params: Promise<{ user_name: string 
       : [false, false];
 
   return (
-    <HabitsProvider habits={habits}>
-      <PageWithSidebar
-        headerProps={{
-          title: profile.display_name,
-          showBackButton: true,
-        }}
-      >
-        <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <main className="p-3 sm:p-5">
-            <ProfileHeader
-              profile={profile}
-              isMyProfile={isMyProfile}
-              isLoggedIn={isLoggedIn}
-              isFollowing={isFollowing}
-              isMuted={isMuted}
-            />
-            <ProfileTabs
-              profile={profile}
-              isLoggedIn={isLoggedIn}
-              isMuted={isMuted}
-              currentUserId={user?.id}
-            />
-          </main>
-        </Suspense>
-      </PageWithSidebar>
-    </HabitsProvider>
+    <PageWithSidebar
+      headerProps={{
+        title: profile.display_name,
+        showBackButton: true,
+      }}
+    >
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <main className="p-3 sm:p-5">
+          <ProfileHeader
+            profile={profile}
+            isMyProfile={isMyProfile}
+            isLoggedIn={isLoggedIn}
+            isFollowing={isFollowing}
+            isMuted={isMuted}
+          />
+          <ProfileTabs
+            profile={profile}
+            isLoggedIn={isLoggedIn}
+            isMuted={isMuted}
+            currentUserId={user?.id}
+          />
+        </main>
+      </Suspense>
+    </PageWithSidebar>
   );
 }

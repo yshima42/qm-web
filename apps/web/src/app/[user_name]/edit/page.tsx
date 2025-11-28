@@ -5,8 +5,7 @@ import { Suspense } from "react";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { getCurrentUserHabits, getCurrentUserUsername } from "@/lib/utils/page-helpers";
+import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 
 import { fetchProfileByUsername } from "@/features/profiles/data/data";
 import { ProfileEditForm } from "@/features/profiles/ui/profile-edit-form";
@@ -36,21 +35,17 @@ export default async function ProfileEditPage(props: { params: Promise<{ user_na
   const profile = await fetchProfileByUsername(user_name);
   if (!profile) notFound();
 
-  const habits = await getCurrentUserHabits();
-
   return (
-    <HabitsProvider habits={habits}>
-      <PageWithSidebar
-        headerProps={{
-          titleElement: <Logo />,
-        }}
-      >
-        <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <main className="p-3 sm:p-5">
-            <ProfileEditForm profile={profile} />
-          </main>
-        </Suspense>
-      </PageWithSidebar>
-    </HabitsProvider>
+    <PageWithSidebar
+      headerProps={{
+        titleElement: <Logo />,
+      }}
+    >
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <main className="p-3 sm:p-5">
+          <ProfileEditForm profile={profile} />
+        </main>
+      </Suspense>
+    </PageWithSidebar>
   );
 }

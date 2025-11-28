@@ -7,8 +7,6 @@ import { redirect } from "next/navigation";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { HabitsProvider } from "@/features/habits/providers/habits-provider";
-import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 import { SettingsContent } from "@/features/settings/ui/settings-content";
 import { createClient } from "@/lib/supabase/server";
 
@@ -29,21 +27,17 @@ export default async function SettingsPage() {
     redirect("/auth/login");
   }
 
-  const habits = await getCurrentUserHabits();
-
   return (
-    <HabitsProvider habits={habits}>
-      <PageWithSidebar
-        headerProps={{
-          titleElement: <Logo />,
-        }}
-      >
-        <Suspense fallback={<LoadingSpinner fullHeight />}>
-          <main className="p-3 sm:p-5">
-            <SettingsContent />
-          </main>
-        </Suspense>
-      </PageWithSidebar>
-    </HabitsProvider>
+    <PageWithSidebar
+      headerProps={{
+        titleElement: <Logo />,
+      }}
+    >
+      <Suspense fallback={<LoadingSpinner fullHeight />}>
+        <main className="p-3 sm:p-5">
+          <SettingsContent />
+        </main>
+      </Suspense>
+    </PageWithSidebar>
   );
 }

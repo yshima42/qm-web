@@ -7,6 +7,9 @@ import { ThemeProvider } from "next-themes";
 import { Footer } from "@/components/layout/footer";
 import { SmartBanner } from "@/components/ui/smart-banner";
 import { QueryProvider } from "@/app/providers";
+import { CurrentUserProvider } from "@/features/common/providers/current-user-provider";
+import { HabitsProvider } from "@/features/habits/providers/habits-provider";
+import { getCurrentUserProfile, getCurrentUserHabits } from "@/lib/utils/page-helpers";
 
 import { getLocale } from "next-intl/server";
 
@@ -84,6 +87,12 @@ export default async function RootLayout({
 
   const locale = await getLocale();
 
+  // ユーザー情報を並列でフェッチ（ルートレイアウトで一度だけ）
+  const [currentUserProfile, habits] = await Promise.all([
+    getCurrentUserProfile(),
+    getCurrentUserHabits(),
+  ]);
+
   return (
     <html lang={locale} className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground" suppressHydrationWarning>
@@ -96,19 +105,22 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <main className="flex min-h-screen flex-col items-center">
-                <div className="flex w-full flex-1 flex-col items-center">
-                  {/* layoutじゃなくてpageで呼び出すコンポーネントに入れるとエラーが出る。やる時になおす */}
-                  {/* <HeaderAuth /> */}
-                  <div className="flex w-full max-w-5xl">
-                    {/* レイアウトで認証をチェックしない方がいいいらしいので。実装する時また考える */}
-                    {/* <Sidebar /> */}
-                    <div className="flex flex-1 flex-col">{children}</div>
-                  </div>
-                  <SmartBanner />
-                  <Footer />
-                </div>
-              </main>
+              <CurrentUserProvider
+                username={currentUserProfile?.user_name ?? null}
+                profile={currentUserProfile}
+              >
+                <HabitsProvider habits={habits}>
+                  <main className="flex min-h-screen flex-col items-center">
+                    <div className="flex w-full flex-1 flex-col items-center">
+                      <div className="flex w-full max-w-5xl">
+                        <div className="flex flex-1 flex-col">{children}</div>
+                      </div>
+                      <SmartBanner />
+                      <Footer />
+                    </div>
+                  </main>
+                </HabitsProvider>
+              </CurrentUserProvider>
             </ThemeProvider>
           </QueryProvider>
         </NextIntlClientProvider>
