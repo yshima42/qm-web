@@ -98,10 +98,6 @@ async function CategoryPageContent({
   // カテゴリー名を翻訳から取得
   const categoryDisplayName = tCategory(habitCategory);
 
-  // 現在のユーザーのプロフィール情報を取得
-  const { getCurrentUserProfile } = await import("@/lib/utils/page-helpers");
-  const currentUserProfile = await getCurrentUserProfile();
-
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
@@ -116,17 +112,12 @@ async function CategoryPageContent({
 
       <main className="p-3 sm:p-5">
         {currentTab === "following" && isLoggedIn ? (
-          <FollowingStoryList
-            habits={habits}
-            currentUserProfile={currentUserProfile}
-            currentUserId={user?.id}
-          />
+          <FollowingStoryList habits={habits} currentUserId={user?.id} />
         ) : (
           <StoryListInfinite
             category={habitCategory}
             isLoggedIn={isLoggedIn}
             habits={habits}
-            currentUserProfile={currentUserProfile}
             currentUserId={user?.id}
           />
         )}

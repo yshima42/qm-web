@@ -16,21 +16,10 @@ type Props = {
   category: HabitCategoryName;
   isLoggedIn: boolean;
   habits?: HabitTileDto[];
-  currentUserProfile?: {
-    user_name: string;
-    display_name: string;
-    avatar_url: string | null;
-  } | null;
   currentUserId?: string;
 };
 
-export function StoryListInfinite({
-  category,
-  isLoggedIn,
-  habits,
-  currentUserProfile,
-  currentUserId,
-}: Props) {
+export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId }: Props) {
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -61,9 +50,7 @@ export function StoryListInfinite({
 
   return (
     <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && (
-        <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
-      )}
+      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
 
       {stories.map((story) => (
         <StoryTile
