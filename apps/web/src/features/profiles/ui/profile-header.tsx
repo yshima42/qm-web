@@ -24,6 +24,7 @@ export function ProfileHeader({
   isMuted = false,
 }: Props) {
   const t = useTranslations("profile-header");
+  const tAppDownload = useTranslations("app-download-dialog");
 
   return (
     <div className="border-border bg-card relative mb-6 rounded-lg border p-6 shadow-sm">
@@ -85,15 +86,22 @@ export function ProfileHeader({
           )}
 
           {/* Follow information */}
-          <AppDownloadDialogTrigger className="cursor-pointer">
+          <AppDownloadDialogTrigger
+            className="cursor-pointer"
+            title={tAppDownload("title")}
+            description={tAppDownload("description")}
+            qrCodeLabel={tAppDownload("qrCodeLabel")}
+            qrCodeAlt={tAppDownload("qrCodeAlt")}
+            storeLabel={tAppDownload("storeLabel")}
+          >
             <div className="text-muted-foreground flex gap-4 text-sm">
               <div className="flex items-center gap-1">
                 <span className="text-foreground font-semibold">{profile.following}</span>
-                <span>Following</span>
+                <span>{t("following")}</span>
               </div>
               <div className="flex items-center gap-1">
                 <span className="text-foreground font-semibold">{profile.followers}</span>
-                <span>Followers</span>
+                <span>{t("followers")}</span>
               </div>
             </div>
           </AppDownloadDialogTrigger>

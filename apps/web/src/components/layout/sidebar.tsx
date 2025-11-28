@@ -10,10 +10,9 @@ import {
   ThemeSwitcher,
   CategoryIcon,
   SidebarIcon,
-  StoreBadges,
+  AppDownloadDialogTrigger,
 } from "@quitmate/ui";
 import {
-  Home,
   BookOpen,
   Menu,
   Target,
@@ -24,6 +23,7 @@ import {
   Compass,
   Settings,
   User,
+  Smartphone,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,6 +53,7 @@ export function SidebarContent({
   const pathname = usePathname();
   const t = useTranslations("sidebar");
   const tCategory = useTranslations("categories");
+  const tAppDownload = useTranslations("app-download-dialog");
   const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false); // デフォルトは閉じた状態
 
   // 習慣データを取得（Providerから、存在しない場合は空配列）
@@ -121,14 +122,6 @@ export function SidebarContent({
       )}
 
       <div className="mb-6 min-h-0 flex-1 space-y-1 overflow-y-auto pr-2">
-        <SidebarIcon
-          icon={Home}
-          label={t("home")}
-          href="/"
-          active={pathname === "/"}
-          showLabel={!compact}
-          onClick={handleLinkClick}
-        />
         {currentUserUsername && (
           <SidebarIcon
             icon={User}
@@ -294,6 +287,24 @@ export function SidebarContent({
             )}
           </>
         )}
+        {/* アプリ */}
+        <AppDownloadDialogTrigger
+          title={tAppDownload("title")}
+          description={tAppDownload("description")}
+          qrCodeLabel={tAppDownload("qrCodeLabel")}
+          qrCodeAlt={tAppDownload("qrCodeAlt")}
+          storeLabel={tAppDownload("storeLabel")}
+        >
+          <div
+            className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
+              !compact ? "" : "justify-center px-2"
+            } text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer`}
+            title={!compact ? t("app") : undefined}
+          >
+            <Smartphone size={18} strokeWidth={2} className="transition-all" />
+            {!compact && <span>{t("app")}</span>}
+          </div>
+        </AppDownloadDialogTrigger>
         {/* 設定 */}
         {currentUserUsername && (
           <SidebarIcon
@@ -341,23 +352,6 @@ export function SidebarContent({
       )}
 
       <div className="mt-auto shrink-0 space-y-4 px-4 py-3">
-        {!compact && (
-          <div className="border-border bg-card hidden rounded-lg border p-3 shadow-sm lg:block">
-            <h4 className="mb-2 text-center text-sm font-medium">{t("downloadTitle")}</h4>
-            <div className="mb-3 flex justify-center">
-              <div className="rounded bg-white p-0">
-                <Image
-                  src="/images/qr-code.svg"
-                  alt={t("qrCodeAlt")}
-                  width={100}
-                  height={100}
-                  className="rounded-none"
-                />
-              </div>
-            </div>
-            <StoreBadges size="small" />
-          </div>
-        )}
         <ThemeSwitcher />
       </div>
     </div>

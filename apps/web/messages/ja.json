@@ -83,6 +83,13 @@
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
+  "app-download-dialog": {
+    "title": "依存克服SNS QuitMate",
+    "description": "「やめたくても、やめられない」のは、あなただけじゃない。",
+    "qrCodeLabel": "QRコードからダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード",
+    "storeLabel": "ストアからダウンロード"
+  },
   "categories": {
     "All": "すべて",
     "Game": "ゲーム",
@@ -109,6 +116,7 @@
     "profile": "プロフィール",
     "habits": "習慣",
     "articles": "記事",
+    "app": "アプリ",
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
     "otherCommunity": "その他コミュニティ",

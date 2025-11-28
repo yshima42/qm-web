@@ -133,6 +133,13 @@
     "title": "Addiction Recovery SNS QuitMate",
     "message": "To read more stories, download the app"
   },
+  "app-download-dialog": {
+    "title": "Addiction Recovery SNS QuitMate",
+    "description": "You're not alone in wanting to quit but not being able to.",
+    "qrCodeLabel": "Download from QR code",
+    "qrCodeAlt": "App download QR code",
+    "storeLabel": "Download from store"
+  },
   "category-tag": {
     "days": " days"
   },
@@ -141,6 +148,7 @@
     "profile": "Profile",
     "habits": "Habits",
     "articles": "Articles",
+    "app": "App",
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
     "otherCommunity": "Other Community",

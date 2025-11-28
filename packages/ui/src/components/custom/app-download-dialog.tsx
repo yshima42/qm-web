@@ -4,24 +4,38 @@ import React from "react";
 import { StoreBadges } from "./store-badge";
 import Image from "next/image";
 
+type AppDownloadDialogContentProps = {
+  title: string;
+  description: string;
+  qrCodeLabel: string;
+  qrCodeAlt: string;
+  storeLabel: string;
+};
+
 // ダイアログの共通コンテンツを独立したコンポーネントとして切り出す
-const AppDownloadDialogContent = () => {
+const AppDownloadDialogContent = ({
+  title,
+  description,
+  qrCodeLabel,
+  qrCodeAlt,
+  storeLabel,
+}: AppDownloadDialogContentProps) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="text-xl md:text-2xl">依存克服SNS QuitMate</DialogTitle>
+        <DialogTitle className="text-xl md:text-2xl">{title}</DialogTitle>
         <DialogDescription className="text-base md:text-lg mt-2">
-          「やめたくても、やめられない」のは、あなただけじゃない。
+          {description}
         </DialogDescription>
       </DialogHeader>
       <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-4">
         <div className="flex flex-col items-center space-y-4 md:space-y-6">
-          <div className="hidden md:flex md:flex-col md:items-center">
-            <p className="font-medium">QRコードからダウンロード</p>
-            <div className="bg-white rounded-lg">
+          <div className="flex flex-col items-center">
+            <p className="font-medium">{qrCodeLabel}</p>
+            <div className="bg-white rounded-lg p-2">
               <Image 
                 src="/images/qr-code.svg" 
-                alt="アプリダウンロードQRコード" 
+                alt={qrCodeAlt}
                 width={120} 
                 height={120}
                 className="rounded"
@@ -30,20 +44,40 @@ const AppDownloadDialogContent = () => {
           </div>
           
           <div className="flex flex-col items-center">
-            <p className="font-medium mb-2 md:mb-3">ストアからダウンロード</p>
+            <p className="font-medium mb-2 md:mb-3">{storeLabel}</p>
             <StoreBadges size="medium" />
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
-export function AppDownloadDialog() {
+type AppDownloadDialogProps = {
+  title: string;
+  description: string;
+  qrCodeLabel: string;
+  qrCodeAlt: string;
+  storeLabel: string;
+};
+
+export function AppDownloadDialog({
+  title,
+  description,
+  qrCodeLabel,
+  qrCodeAlt,
+  storeLabel,
+}: AppDownloadDialogProps) {
   return (
     <Dialog>
       <DialogContent className="sm:max-w-md">
-        <AppDownloadDialogContent />
+        <AppDownloadDialogContent
+          title={title}
+          description={description}
+          qrCodeLabel={qrCodeLabel}
+          qrCodeAlt={qrCodeAlt}
+          storeLabel={storeLabel}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -52,20 +86,36 @@ export function AppDownloadDialog() {
 // アイコンをダイアログトリガーとして使用するラッパーコンポーネント
 export function AppDownloadDialogTrigger({ 
   children, 
-  className 
+  className,
+  title,
+  description,
+  qrCodeLabel,
+  qrCodeAlt,
+  storeLabel,
 }: { 
   children: React.ReactNode; 
-  className?: string 
+  className?: string;
+  title: string;
+  description: string;
+  qrCodeLabel: string;
+  qrCodeAlt: string;
+  storeLabel: string;
 }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className={className} aria-label="ダウンロードダイアログを開く">
+        <button className={className} aria-label={qrCodeAlt}>
           {children}
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
-        <AppDownloadDialogContent />
+        <AppDownloadDialogContent
+          title={title}
+          description={description}
+          qrCodeLabel={qrCodeLabel}
+          qrCodeAlt={qrCodeAlt}
+          storeLabel={storeLabel}
+        />
       </DialogContent>
     </Dialog>
   );

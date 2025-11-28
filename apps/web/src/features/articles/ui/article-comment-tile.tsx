@@ -30,6 +30,7 @@ type Props = {
 export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId }: Props) {
   const router = useRouter();
   const tDelete = useTranslations("delete");
+  const tAppDownload = useTranslations("app-download-dialog");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
@@ -116,7 +117,14 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
 
         {/* Like button */}
         <div className="text-muted-foreground mt-1 flex items-center gap-1">
-          <AppDownloadDialogTrigger className="cursor-pointer">
+          <AppDownloadDialogTrigger
+            className="cursor-pointer"
+            title={tAppDownload("title")}
+            description={tAppDownload("description")}
+            qrCodeLabel={tAppDownload("qrCodeLabel")}
+            qrCodeAlt={tAppDownload("qrCodeAlt")}
+            storeLabel={tAppDownload("storeLabel")}
+          >
             <div className="flex items-center gap-1">
               <ArticleLikeIcon className="size-4" />
               <span className="text-xs">{comment.article_comment_likes[0]?.count ?? 0}</span>

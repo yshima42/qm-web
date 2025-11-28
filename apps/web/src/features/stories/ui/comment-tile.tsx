@@ -45,6 +45,7 @@ export function CommentTile({
   const t = useTranslations("mute");
   const tDelete = useTranslations("delete");
   const tComment = useTranslations("comment-form");
+  const tAppDownload = useTranslations("app-download-dialog");
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -230,7 +231,14 @@ export function CommentTile({
           )}
 
           {/* いいねボタン */}
-          <AppDownloadDialogTrigger className="cursor-pointer">
+          <AppDownloadDialogTrigger
+            className="cursor-pointer"
+            title={tAppDownload("title")}
+            description={tAppDownload("description")}
+            qrCodeLabel={tAppDownload("qrCodeLabel")}
+            qrCodeAlt={tAppDownload("qrCodeAlt")}
+            storeLabel={tAppDownload("storeLabel")}
+          >
             <div className="text-muted-foreground flex items-center gap-1">
               <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
