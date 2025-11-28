@@ -7,12 +7,14 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import { MoreHorizontal, Trash2, Flag } from "lucide-react";
 
 import { ArticleCommentTileDto } from "@/lib/types";
 
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { deleteArticleComment } from "@/features/articles/data/actions";
+import { ReportDialog } from "@/features/reports/ui/report-dialog";
+import { ReportType } from "@/features/reports/domain/report-dto";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,9 +33,11 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
   const router = useRouter();
   const tDelete = useTranslations("delete");
   const tAppDownload = useTranslations("app-download-dialog");
+  const tReport = useTranslations("report");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyComment = currentUserId === comment.user_id;
 
@@ -93,7 +97,7 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
           </div>
 
           {/* 三点リーダーメニュー */}
-          {isLoggedIn && isMyComment && (
+          {isLoggedIn && (
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="size-6">
@@ -101,14 +105,27 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={handleDelete}
-                  disabled={isPending}
-                  className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
-                >
-                  <Trash2 className="mr-2 size-4" />
-                  {tDelete("deleteComment")}
-                </DropdownMenuItem>
+                {isMyComment ? (
+                  <DropdownMenuItem
+                    onClick={handleDelete}
+                    disabled={isPending}
+                    className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+                  >
+                    <Trash2 className="mr-2 size-4" />
+                    {tDelete("deleteComment")}
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setReportDialogOpen(true);
+                      setMenuOpen(false);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <Flag className="mr-2 size-4" />
+                    {tReport("report")}
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -138,6 +155,15 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
         <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
           {tDelete("success")}
         </div>
+      )}
+
+      {/* 報告ダイアログ */}
+      {!isMyComment && (
+        <ReportDialog
+          open={reportDialogOpen}
+          onOpenChange={setReportDialogOpen}
+          reportDTO={{ type: ReportType.articleComment, itemId: comment.id }}
+        />
       )}
     </div>
   );

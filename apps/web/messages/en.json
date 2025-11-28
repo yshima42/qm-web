@@ -324,5 +324,22 @@
     "confirmComment": "Are you sure you want to delete this comment? This action cannot be undone.",
     "success": "Deleted",
     "error": "Failed to delete"
+  },
+  "reportDialog": {
+    "title": "Report",
+    "content": {
+      "story": "Would you like to report this story?",
+      "comment": "Would you like to report this comment?",
+      "user": "Would you like to report this user?",
+      "article": "Would you like to report this article?",
+      "articleComment": "Would you like to report this article comment?"
+    },
+    "confirm": "Report",
+    "cancel": "Cancel",
+    "reporting": "Reporting...",
+    "reportComplete": "Your report has been submitted.\nThank you for helping keep the community safe."
+  },
+  "report": {
+    "report": "Report"
   }
 }

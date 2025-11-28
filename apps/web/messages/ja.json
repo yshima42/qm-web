@@ -79,6 +79,16 @@
       "generic": "エラーが発生しました。もう一度お試しください。"
     }
   },
+  "articles-page": {
+    "title": "記事",
+    "shareDialogTitle": "記事をシェア",
+    "preFollowMessage": "",
+    "postFollowMessage": "をアプリでフォロー",
+    "noComments": "まだコメントがありません",
+    "comments": "コメント",
+    "notFound": "指定された記事は存在しません。",
+    "linkText": "記事一覧に戻る"
+  },
   "app-download-section": {
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
@@ -309,5 +319,22 @@
     "avatarAlt": "プロフィール画像",
     "displayNameLabel": "ニックネーム *",
     "displayNamePlaceholder": "ニックネームを入力"
+  },
+  "reportDialog": {
+    "title": "報告",
+    "content": {
+      "story": "このストーリーを報告しますか？",
+      "comment": "このコメントを報告しますか？",
+      "user": "このユーザーを報告しますか？",
+      "article": "この記事を報告しますか？",
+      "articleComment": "この記事のコメントを報告しますか？"
+    },
+    "confirm": "報告する",
+    "cancel": "キャンセル",
+    "reporting": "報告中...",
+    "reportComplete": "報告が完了しました。\nご協力ありがとうございます。"
+  },
+  "report": {
+    "report": "報告"
   }
 }
