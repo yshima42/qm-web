@@ -42,22 +42,8 @@ type PageProps = {
 };
 
 export default async function Page(props: PageProps) {
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <CategoryPageContent params={props.params} searchParams={props.searchParams} />
-    </Suspense>
-  );
-}
-
-async function CategoryPageContent({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ category: string }>;
-  searchParams: Promise<{ tab?: string }>;
-}) {
-  const { category } = await params;
-  const { tab } = await searchParams;
+  const { category } = await props.params;
+  const { tab } = await props.searchParams;
   if (!category) notFound();
 
   // ログイン状態を取得
@@ -72,6 +58,31 @@ async function CategoryPageContent({
     redirect("/stories/habits/all");
   }
 
+  return (
+    <PageWithSidebar>
+      <Suspense fallback={<LoadingSpinner />}>
+        <CategoryPageContent
+          category={category}
+          tab={tab}
+          isLoggedIn={isLoggedIn}
+          userId={user?.id}
+        />
+      </Suspense>
+    </PageWithSidebar>
+  );
+}
+
+async function CategoryPageContent({
+  category,
+  tab,
+  isLoggedIn,
+  userId,
+}: {
+  category: string;
+  tab?: string;
+  isLoggedIn: boolean;
+  userId?: string;
+}) {
   const habitCategory = capitalizeCategory(category);
   const currentTab = tab ?? "category";
 
@@ -89,7 +100,7 @@ async function CategoryPageContent({
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
   return (
-    <PageWithSidebar>
+    <>
       {/* タブヘッダー */}
       <StoriesTabHeader
         categoryName={habitCategory}
@@ -103,7 +114,7 @@ async function CategoryPageContent({
           <FollowingStoryList
             habits={habits}
             currentUserProfile={currentUserProfile}
-            currentUserId={user?.id}
+            currentUserId={userId}
           />
         ) : (
           <StoryListInfinite
@@ -111,10 +122,10 @@ async function CategoryPageContent({
             isLoggedIn={isLoggedIn}
             habits={habits}
             currentUserProfile={currentUserProfile}
-            currentUserId={user?.id}
+            currentUserId={userId}
           />
         )}
       </main>
-    </PageWithSidebar>
+    </>
   );
 }
