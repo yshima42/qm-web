@@ -14,15 +14,10 @@ import { StoryInlineForm } from "./story-inline-form";
 
 type Props = {
   habits?: HabitTileDto[];
-  currentUserProfile?: {
-    user_name: string;
-    display_name: string;
-    avatar_url: string | null;
-  } | null;
   currentUserId?: string;
 };
 
-export function FollowingStoryList({ habits, currentUserProfile, currentUserId }: Props) {
+export function FollowingStoryList({ habits, currentUserId }: Props) {
   const t = useTranslations("stories-tab");
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -54,9 +49,7 @@ export function FollowingStoryList({ habits, currentUserProfile, currentUserId }
   if (!isLoading && stories.length === 0) {
     return (
       <div className="mx-auto max-w-2xl">
-        {habits && habits.length > 0 && (
-          <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
-        )}
+        {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="bg-muted mb-4 rounded-full p-4">
             <UserPlus className="text-muted-foreground size-8" />
@@ -70,9 +63,7 @@ export function FollowingStoryList({ habits, currentUserProfile, currentUserId }
 
   return (
     <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && (
-        <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
-      )}
+      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
 
       {stories.map((story) => (
         <StoryTile key={story.id} story={story} isLoggedIn={true} currentUserId={currentUserId} />

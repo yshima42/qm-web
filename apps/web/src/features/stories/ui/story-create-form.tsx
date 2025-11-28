@@ -3,12 +3,14 @@
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { createStory } from "../data/actions";
 import { Loader2 } from "lucide-react";
 import { HabitTileDto } from "@/lib/types";
 import { useCharacterCount } from "@/features/common/hooks/use-character-count";
 import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
+import { CommentSettingDropdown, type CommentSetting } from "./comment-setting-dropdown";
+import { HabitSelectDropdown } from "./habit-select-dropdown";
+import { getActiveHabits } from "../utils/habit-utils";
 
 type StoryCreateFormProps = {
   habits: HabitTileDto[];
@@ -16,16 +18,17 @@ type StoryCreateFormProps = {
 
 export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const t = useTranslations("story-post");
-  const tCategory = useTranslations("categories");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
+  const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
 
-  // Filter for active habits (has at least one trial with no ended_at)
-  const activeHabits = habits.filter((habit) => habit.trials?.some((trial) => !trial.ended_at));
-
+  const activeHabits = getActiveHabits(habits);
   const hasActiveHabit = activeHabits.length > 0;
   const showHabitSelect = activeHabits.length > 1;
+  const [selectedHabitId, setSelectedHabitId] = useState<string>(
+    activeHabits.length > 0 ? activeHabits[0].id : "",
+  );
 
   // Calculate character count and remaining
   const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
@@ -37,6 +40,10 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
       setError(t("contentTooLong"));
       return;
     }
+
+    // 選択された習慣IDとコメント設定を設定
+    formData.set("habit_id", selectedHabitId);
+    formData.set("comment_setting", commentSetting);
 
     startTransition(async () => {
       try {
@@ -60,66 +67,59 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   }
 
   return (
-    <form action={handleSubmit} className="space-y-4">
-      {showHabitSelect ? (
-        <div className="space-y-2">
-          <Label htmlFor="habit_id">{t("selectHabit")}</Label>
-          <select
-            id="habit_id"
-            name="habit_id"
-            required
-            className="border-input file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-          >
-            {activeHabits.map((habit) => (
-              <option key={habit.id} value={habit.id}>
-                {habit.custom_habit_name ||
-                  (habit.habit_categories?.habit_category_name
-                    ? tCategory(habit.habit_categories.habit_category_name)
-                    : habit.habit_categories?.habit_category_name)}
-              </option>
-            ))}
-          </select>
+    <form action={handleSubmit} className="flex flex-col">
+      {/* 習慣選択とコメント可能表示 */}
+      <div className="px-4 py-3">
+        <div className="flex items-center justify-between">
+          <HabitSelectDropdown
+            habits={activeHabits}
+            selectedHabitId={selectedHabitId}
+            onSelect={setSelectedHabitId}
+            showDropdown={showHabitSelect}
+          />
+          <CommentSettingDropdown value={commentSetting} onChange={setCommentSetting} />
         </div>
-      ) : (
-        <div className="space-y-2">
-          <Label>{t("habit")}</Label>
-          <div className="bg-muted/20 rounded-md border p-2 text-sm font-medium">
-            {activeHabits[0].custom_habit_name ||
-              (activeHabits[0].habit_categories?.habit_category_name
-                ? tCategory(activeHabits[0].habit_categories.habit_category_name)
-                : activeHabits[0].habit_categories?.habit_category_name)}
-          </div>
-          <input type="hidden" name="habit_id" value={activeHabits[0].id} />
-        </div>
-      )}
+      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="content">{t("yourStory")}</Label>
+      {/* テキストエリア */}
+      <div className="flex-1 px-4 py-3">
         <textarea
           id="content"
           name="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
-          rows={5}
-          className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-sm focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          rows={8}
+          className="placeholder:text-muted-foreground w-full resize-none border-0 bg-transparent text-lg focus:outline-none"
           placeholder={t("sharePlaceholder")}
         />
       </div>
-      {error && <p className="text-sm text-red-500">{error}</p>}
 
-      <div className="flex items-center justify-end gap-3">
-        <CharacterCountIndicator
-          remaining={remaining}
-          isOverLimit={isOverLimit}
-          showCount={showCount}
-          progress={progress}
-        />
+      {error && (
+        <div className="px-4 pb-2">
+          <p className="text-sm text-red-500">{error}</p>
+        </div>
+      )}
 
-        <Button type="submit" disabled={isPending || isOverLimit}>
-          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {t("postStoryButton")}
-        </Button>
+      {/* フッター（文字数カウントと投稿ボタン） */}
+      <div className="px-4 py-3">
+        <div className="flex items-center justify-between">
+          <CharacterCountIndicator
+            remaining={remaining}
+            isOverLimit={isOverLimit}
+            showCount={showCount}
+            progress={progress}
+          />
+
+          <Button
+            type="submit"
+            disabled={isPending || isOverLimit || !content.trim()}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold disabled:opacity-50"
+          >
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {t("postStoryButton")}
+          </Button>
+        </div>
       </div>
     </form>
   );

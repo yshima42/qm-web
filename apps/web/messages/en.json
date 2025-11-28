@@ -249,7 +249,8 @@
     "contentRequired": "Content is required",
     "contentTooLong": "Content exceeds maximum length",
     "createFailed": "Failed to create story",
-    "noActiveHabitFound": "No active habit found. Please start a habit first."
+    "noActiveHabitFound": "No active habit found. Please start a habit first.",
+    "everyoneCanReply": "Everyone can reply"
   },
   "footer": {
     "title": "You don't have to quit alone",
