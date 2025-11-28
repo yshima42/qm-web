@@ -32,7 +32,7 @@ export async function PageWithSidebar({ children, headerProps, className }: Page
   const habits = currentUserUsername ? await getCurrentUserHabits() : [];
 
   return (
-    <>
+    <HabitsProvider habits={habits}>
       <div className="flex w-full">
         <Sidebar currentUserUsername={currentUserUsername} />
         <div className={`flex flex-1 flex-col pb-16 md:pb-0 ${className ?? ""}`}>
@@ -46,12 +46,10 @@ export async function PageWithSidebar({ children, headerProps, className }: Page
             backUrl={headerProps?.backUrl}
             currentUserProfile={currentUserProfile}
           />
-          <HabitsProvider habits={habits}>
-            <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
-          </HabitsProvider>
+          <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
         </div>
       </div>
       <MobileBottomNav currentUserUsername={currentUserUsername} />
-    </>
+    </HabitsProvider>
   );
 }
