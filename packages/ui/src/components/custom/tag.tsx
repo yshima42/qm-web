@@ -6,7 +6,7 @@ const tagVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-accent text-accent-foreground',
+        default: 'bg-muted text-foreground',
         secondary: 'bg-secondary text-secondary-foreground',
         outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         destructive: 'bg-destructive/10 text-destructive dark:bg-destructive/20',

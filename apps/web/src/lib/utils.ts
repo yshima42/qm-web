@@ -1,10 +1,10 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-/**
- * クラス名を結合するユーティリティ関数
- * clsxとtailwind-mergeを組み合わせて使用
- */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+// 環境変数が設定されているかチェック
+export const hasEnvVars =
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;

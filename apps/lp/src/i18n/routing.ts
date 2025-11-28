@@ -8,5 +8,4 @@ export const routing = defineRouting({
 });
 
 // ナビゲーション用のユーティリティを作成
-export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createNavigation(routing);
+export const { Link, redirect, usePathname, useRouter, getPathname } = createNavigation(routing);

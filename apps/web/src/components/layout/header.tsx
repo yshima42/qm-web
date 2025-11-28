@@ -1,13 +1,12 @@
-'use client';
+import clsx from "clsx";
 
-// import { Button } from '@quitmate/ui';
-import clsx from 'clsx';
+import { AuthButton } from "@/components/auth-button";
+import { BackButton } from "@/components/layout/back-button";
+import { MobileHeaderSidebar } from "@/components/layout/mobile-header-sidebar";
 
-import LocaleSwitcher from '../ui/locale-switcher';
-// import { ArrowLeft } from 'lucide-react';
-// import { useRouter } from 'next/navigation';
+import type { ProfileTileDto } from "@/lib/types";
 
-type HeaderProps = {
+export type HeaderProps = {
   title?: string;
   titleElement?: React.ReactNode;
   showBackButton?: boolean;
@@ -18,39 +17,68 @@ type HeaderProps = {
     desktop?: boolean;
   };
   icon?: React.ReactNode;
+  currentUserProfile?: ProfileTileDto | null;
+  hideHeader?: boolean;
 };
 
 export function Header({
   title,
   titleElement,
-  // showBackButton = true,
-  // backUrl,
+  showBackButton,
+  backUrl,
   rightElement,
   hideTitle,
   icon,
+  currentUserProfile,
+  hideHeader,
 }: HeaderProps) {
-  // const router = useRouter();
+  // ヘッダーを完全に非表示にする場合
+  if (hideHeader) {
+    return null;
+  }
 
-  // const handleBack = () => {
-  //   if (backUrl) {
-  //     router.push(backUrl);
-  //   } else {
-  //     router.back();
-  //   }
-  // };
+  // ログイン中でデスクトップサイズの場合はヘッダーを非表示（戻るボタンがある場合は除く）
+  const isLoggedIn = !!currentUserProfile;
+  const hideOnDesktop = isLoggedIn && !showBackButton;
 
+  // 戻るボタン + タイトル左寄せレイアウト
+  if (showBackButton) {
+    return (
+      <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm">
+        <div className="flex h-14 items-center px-4">
+          <div className="flex items-center gap-4">
+            <BackButton backUrl={backUrl} />
+            {titleElement ? titleElement : <h1 className="text-lg font-bold">{title}</h1>}
+          </div>
+
+          <div className="ml-auto flex items-center gap-2">
+            {rightElement}
+            <AuthButton />
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  // 通常の中央寄せレイアウト
   return (
-    <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
+    <header
+      className={`border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm ${
+        hideOnDesktop ? "md:hidden" : ""
+      }`}
+    >
       <div className="relative flex h-14 items-center justify-between px-4">
-        <div className="w-24" />
+        <div className="flex w-24 items-center">
+          <MobileHeaderSidebar currentUserProfile={currentUserProfile} />
+        </div>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           {titleElement ? (
             <>
               <div
                 className={clsx(
-                  hideTitle?.mobile ? 'hidden' : '',
-                  hideTitle?.desktop ? 'md:hidden' : 'md:block',
+                  hideTitle?.mobile ? "hidden" : "",
+                  hideTitle?.desktop ? "md:hidden" : "md:block",
                 )}
               >
                 {titleElement}
@@ -58,9 +86,9 @@ export function Header({
               {!titleElement && (
                 <h1
                   className={clsx(
-                    'whitespace-nowrap text-base font-medium',
-                    'md:hidden',
-                    hideTitle?.desktop ? 'hidden' : 'block',
+                    "whitespace-nowrap text-base font-medium",
+                    "md:hidden",
+                    hideTitle?.desktop ? "hidden" : "block",
                   )}
                 >
                   {title}
@@ -71,7 +99,7 @@ export function Header({
             <div className="flex items-center justify-center gap-2">
               {icon && <div className="text-foreground">{icon}</div>}
               <h1
-                className={`whitespace-nowrap text-base font-medium ${hideTitle?.mobile ? 'hidden md:block' : ''} ${hideTitle?.desktop ? 'md:hidden' : ''}`}
+                className={`whitespace-nowrap text-base font-medium ${hideTitle?.mobile ? "hidden md:block" : ""} ${hideTitle?.desktop ? "md:hidden" : ""}`}
               >
                 {title}
               </h1>
@@ -81,7 +109,7 @@ export function Header({
 
         <div className="flex w-24 items-center justify-end gap-2">
           {rightElement}
-          <LocaleSwitcher />
+          <AuthButton />
         </div>
       </div>
     </header>

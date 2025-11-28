@@ -1,9 +1,7 @@
-export const dynamic = 'force-dynamic';
+import { redirect } from "next/navigation";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
-import { redirect } from 'next/navigation';
-
-import { EXTERNAL_URLS } from '@/lib/urls';
-
-export default function Page() {
-  redirect(EXTERNAL_URLS.LP);
+export default async function Home() {
+  const defaultPath = await getDefaultCommunityPath();
+  redirect(defaultPath);
 }

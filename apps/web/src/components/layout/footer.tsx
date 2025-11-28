@@ -1,13 +1,13 @@
-import { ThemeSwitcher } from '@quitmate/ui';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { ThemeSwitcher } from "@quitmate/ui";
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 
-import { EXTERNAL_URLS } from '@/lib/urls';
+import { EXTERNAL_URLS } from "@/lib/urls";
 
 export function Footer() {
-  const t = useTranslations('footer');
-  const tConfig = useTranslations('config');
+  const t = useTranslations("footer");
+  const tConfig = useTranslations("config");
 
   return (
     <footer className="mx-auto flex w-full flex-col items-center justify-center gap-4 border-t py-8 text-center">
@@ -20,34 +20,34 @@ export function Footer() {
             height={40}
             className="mb-2"
           />
-          <p className="text-sm font-medium">{t('title')}</p>
+          <p className="text-sm font-medium">{t("title")}</p>
         </Link>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
+      <div className="text-muted-foreground mt-4 flex flex-wrap items-center justify-center gap-6 text-xs">
         <Link
-          href={`${EXTERNAL_URLS.LP}/${tConfig('language-code')}`}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}`}
           className="hover:text-foreground hover:underline"
         >
-          {t('about')}
+          {t("about")}
         </Link>
         <Link
-          href={`${EXTERNAL_URLS.LP}/${tConfig('language-code')}/terms`}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/terms`}
           className="hover:text-foreground hover:underline"
         >
-          {t('terms')}
+          {t("terms")}
         </Link>
         <Link
-          href={`${EXTERNAL_URLS.LP}/${tConfig('language-code')}/privacy`}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/privacy`}
           className="hover:text-foreground hover:underline"
         >
-          {t('privacy')}
+          {t("privacy")}
         </Link>
         <Link
-          href={`${EXTERNAL_URLS.LP}/${tConfig('language-code')}/contact`}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/contact`}
           className="hover:text-foreground hover:underline"
         >
-          {t('contact')}
+          {t("contact")}
         </Link>
       </div>
 
@@ -55,7 +55,7 @@ export function Footer() {
         <ThemeSwitcher />
       </div>
 
-      <p className="mt-4 text-xs text-muted-foreground">
+      <p className="text-muted-foreground mt-4 text-xs">
         © {new Date().getFullYear()} QuitMate All Rights Reserved.
       </p>
     </footer>

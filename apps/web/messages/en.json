@@ -1,66 +1,368 @@
 {
-    "config": {
-        "language-code": "en"
+  "config": {
+    "language-code": "en"
+  },
+  "locale-switcher": {
+    "label": "Language",
+    "en": "English",
+    "ja": "Japanese"
+  },
+  "onboarding": {
+    "hero": {
+      "badge": "Profile setup",
+      "title": "Set up your QuitMate profile",
+      "subtitle": "Pick a nickname, secure your unique username, and upload an avatar to unlock the full community experience."
     },
-    "locale-switcher": {
-      "label": "Language",
-      "en": "English",
-      "ja": "Japanese"
+    "progress": "Step {current} / {total}",
+    "steps": {
+      "nickname": {
+        "title": "Choose your nickname",
+        "description": "Introduce yourself with a friendly name for the community.",
+        "label": "Nickname",
+        "placeholder": "e.g. Quitter Taro",
+        "helper": "Visible to other members and editable later."
+      },
+      "username": {
+        "title": "Create a unique username",
+        "description": "This will become part of your public profile URL.",
+        "label": "Username",
+        "placeholder": "e.g. quitmate_user",
+        "helper": "Use 3-20 lowercase letters, numbers, or underscores."
+      },
+      "avatar": {
+        "title": "Add a profile photo",
+        "description": "Upload an image that represents you or skip for now.",
+        "label": "Profile image",
+        "helper": "JPG / PNG / WEBP · max 5MB",
+        "button": "Choose image",
+        "selectedBadge": "Selected",
+        "previewAlt": "Selected profile image preview"
+      },
+      "habit": {
+        "title": "Register a habit",
+        "description": "Register the habit you want to quit and start your journey.",
+        "categoryLabel": "Category *",
+        "categoryPlaceholder": "Select a category",
+        "customHabitNameLabel": "Custom habit name *",
+        "customHabitNamePlaceholder": "Enter habit name",
+        "startedAtLabel": "Start date and time *",
+        "reasonLabel": "Reason to quit *",
+        "reasonPlaceholder": "Enter your reason for wanting to quit this habit",
+        "reasonHelper": "Clarifying your motivation will help you achieve your goal."
+      }
     },
-    "articles-page": {
-      "title": "Articles",
-      "shareDialogTitle": "Share Article",
-      "preFollowMessage": "Follow ",
-      "postFollowMessage": " on the app",
-      "noComments": "No comments yet",
-      "comments": "Comments",
-      "notFound": "The specified article does not exist.",
-      "linkText": "Back to articles"
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "checking": "Checking...",
+      "saving": "Saving...",
+      "start": "Create profile",
+      "backToTop": "Back to top"
     },
-    "categories": {
-      "Game": "Game",
-      "Tobacco": "Tobacco",
-      "Shopping": "Shopping",
-      "Drugs": "Drugs",
-      "Overeating": "Overeating",
-      "Porno": "Porno",
-      "SNS": "SNS",
-      "Gambling": "Gambling",
-      "Caffeine": "Caffeine",
-      "Cosmetic Surgery": "Cosmetic Surgery",
-      "Custom": "Custom",
-      "Alcohol": "Alcohol",
-      "Codependency": "Codependency",
-      "Official": "Official"
-    },
-    "share-button": {
-      "copyLinkError": "Failed to copy link",
-      "copied": "Copied",
-      "copyLink": "Copy Link"
-    },
-    "profile-header": {
-      "shareDialogTitle": "Share Profile",
-      "shareTitleSuffix": "'s Profile",
-      "shareTextSuffix": "'s Profile",
-      "following": "Following",
-      "followers": "Followers"
-    },
-    "profile-page": {
-      "posts": "Posts",
-      "comments": "Comments"
-    },
-    "app-download-section": {
-      "title": "Addiction Recovery SNS QuitMate",
-      "message": "To read more stories, download the app"
-    },
-    "category-tag": {
-      "days": " days"
-    },
-    "footer": {
-      "title": "You don't have to quit alone",
-      "about": "About QuitMate",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "contact": "Contact"
+    "errors": {
+      "displayNameRequired": "Please enter a nickname.",
+      "displayNameLength": "Nicknames must be 50 characters or less.",
+      "userFetchFailed": "We couldn't verify your session. Please refresh and try again.",
+      "profileLookupFailed": "We couldn't fetch your profile information.",
+      "userNameRequired": "Please enter a username.",
+      "userNameInvalid": "Use 3-20 lowercase letters, numbers, or underscores.",
+      "userNameUnavailable": "That username is already taken.",
+      "userNameCheckFailed": "We couldn't check that username. Try again shortly.",
+      "avatarInvalidType": "Please upload an image file.",
+      "avatarTooLarge": "Images must be 5MB or smaller.",
+      "avatarUploadFailed": "We couldn't upload your image. Try again.",
+      "profileInsertFailed": "We couldn't save your profile. Please retry.",
+      "habitCategoryRequired": "Please select a category.",
+      "customHabitNameRequired": "Please enter a custom habit name.",
+      "habitReasonRequired": "Please enter your reason for wanting to quit.",
+      "habitCreateFailed": "Failed to register habit.",
+      "generic": "Something went wrong. Please try again."
     }
+  },
+  "articles-page": {
+    "title": "Articles",
+    "shareDialogTitle": "Share Article",
+    "preFollowMessage": "Follow ",
+    "postFollowMessage": " on the app",
+    "noComments": "No comments yet",
+    "comments": "Comments",
+    "notFound": "The specified article does not exist.",
+    "linkText": "Back to articles"
+  },
+  "categories": {
+    "All": "All",
+    "Game": "Game",
+    "Tobacco": "Tobacco",
+    "Shopping": "Shopping",
+    "Drugs": "Drugs",
+    "Overeating": "Overeating",
+    "Porno": "Porno",
+    "SNS": "SNS",
+    "Gambling": "Gambling",
+    "Caffeine": "Caffeine",
+    "Cosmetic Surgery": "Cosmetic Surgery",
+    "Custom": "Custom",
+    "Alcohol": "Alcohol",
+    "Codependency": "Codependency",
+    "Official": "Official",
+    "General": "General"
+  },
+  "share-button": {
+    "copyLinkError": "Failed to copy link",
+    "copied": "Copied",
+    "copyLink": "Copy Link"
+  },
+  "profile-header": {
+    "shareDialogTitle": "Share Profile",
+    "shareTitleSuffix": "'s Profile",
+    "shareTextSuffix": "'s Profile",
+    "following": "Following",
+    "followers": "Followers",
+    "edit": "Edit"
+  },
+  "profile-page": {
+    "posts": "Posts",
+    "comments": "Comments"
+  },
+  "profile-edit": {
+    "avatarAlt": "Profile image",
+    "displayNameLabel": "Nickname *",
+    "displayNamePlaceholder": "Enter nickname"
+  },
+  "app-download-section": {
+    "title": "Addiction Recovery SNS QuitMate",
+    "message": "To read more stories, download the app"
+  },
+  "habit-register": {
+    "title": "Register Habit",
+    "description": "Register a new habit",
+    "categoryLabel": "Category *",
+    "categoryPlaceholder": "Select category",
+    "customHabitNameLabel": "Custom Habit Name *",
+    "customHabitNamePlaceholder": "Enter habit name",
+    "startedAtLabel": "Last time you did this habit *",
+    "durationMonthsLabel": "Duration (months)",
+    "durationMonthsPlaceholder": "e.g., 3",
+    "frequencyPerWeekLabel": "Frequency per week",
+    "frequencyPerWeekPlaceholder": "e.g., 3",
+    "reasonLabel": "Reason to quit *",
+    "reasonPlaceholder": "Reason for wanting to quit this habit",
+    "reasonDescription": "This reason will be posted as a story",
+    "reasonRequired": "Please enter a reason",
+    "categoryRequired": "Please select a category",
+    "customHabitNameRequired": "Please enter a custom habit name",
+    "maxHabitsReached": "You can only register up to {max} habits",
+    "noRegisterableCategories": "No registerable categories available",
+    "cancel": "Cancel",
+    "register": "Register & Post",
+    "registering": "Registering..."
+  },
+  "habit-reset": {
+    "reset": "Reset",
+    "resetTitle": "Reset Days",
+    "resetAndPost": "Reset & Post",
+    "resetConfirmationContent": "This will reset the start date to today.",
+    "resetErrorMessage": "Error: Failed to reset and post story.",
+    "storyContentLabel": "Story content (optional)",
+    "storyContentPlaceholder": "Share your feelings about the reset...",
+    "contentTooLong": "Content exceeds character limit",
+    "cancel": "Cancel"
+  },
+  "app-download-dialog": {
+    "title": "Addiction Recovery SNS QuitMate",
+    "description": "You're not alone in wanting to quit but not being able to.",
+    "qrCodeLabel": "Download from QR code",
+    "qrCodeAlt": "App download QR code",
+    "storeLabel": "Download from store"
+  },
+  "category-tag": {
+    "days": " days",
+    "reasonTag": "Reason to quit",
+    "resetTag": "Reset"
+  },
+  "sidebar": {
+    "home": "Home",
+    "profile": "Profile",
+    "habits": "Habits",
+    "articles": "Articles",
+    "app": "App",
+    "habitCategories": "Habit Categories",
+    "myCommunity": "My Community",
+    "otherCommunity": "Other Community",
+    "communities": "Communities",
+    "noHabitsRegistered": "No habits registered",
+    "settings": "Settings",
+    "registerHabit": "Register habit",
+    "habitList": "Habit list",
+    "deleteAccount": "Delete Account",
+    "language": "Language",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "contact": "Contact",
+    "logout": "Logout",
+    "openMenu": "Open menu",
+    "navigationMenu": "Navigation menu",
+    "postStory": "Post",
+    "downloadTitle": "Download QuitMate",
+    "qrCodeAlt": "App download QR code"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account settings and app preferences",
+    "account": "Account",
+    "accountDescription": "Manage your account information and security settings",
+    "mutedAccounts": "Muted Accounts",
+    "mutedAccountsDescription": "Manage users you have muted",
+    "language": "Language",
+    "languageDescription": "You can change the display language of the app",
+    "theme": "Theme",
+    "themeDescription": "You can change the display theme (Light/Dark/System) of the app",
+    "accountPageDescription": "You can check your account information, download data archives, and view details about account suspension options",
+    "accountInfo": "Account Information",
+    "accountInfoDescription": "You can check account information such as phone number and email address",
+    "changePassword": "Change Password",
+    "changePasswordDescription": "You can change your password at any time.",
+    "downloadData": "Download Data Archive",
+    "downloadDataDescription": "You can check what types of information are stored in your account.",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDescription": "Explains how to delete your account.",
+    "deleteAccountPageDescription": "Deleting your account will permanently delete all your data. This action cannot be undone.",
+    "deleteAccountWarning": "Warning",
+    "deleteAccountWarning1": "Deleting your account will permanently delete all your posts, comments, and habit data",
+    "deleteAccountWarning2": "This action cannot be undone",
+    "deleteAccountWarning3": "Please back up important data before deleting your account",
+    "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
+    "deleteAccountButton": "Delete Account",
+    "deleteAccountError": "Failed to delete account. Please try again.",
+    "deleting": "Deleting...",
+    "termsOfService": "Terms of Service",
+    "termsDescription": "You can view the terms of service",
+    "privacyPolicy": "Privacy Policy",
+    "privacyDescription": "You can view the privacy policy",
+    "contact": "Contact",
+    "contactDescription": "You can contact support through the contact form",
+    "logout": "Logout",
+    "logoutDescription": "Log out of your account",
+    "backToSettings": "Back to Settings",
+    "backToAccount": "Back to Account Settings",
+    "downloadTitle": "Download QuitMate",
+    "qrCodeAlt": "App download QR code",
+    "openMenu": "Open menu",
+    "navigationMenu": "Navigation menu",
+    "postStory": "Post"
+  },
+  "story-post": {
+    "modalTitle": "Create New Story",
+    "selectHabit": "Select Habit",
+    "habit": "Habit",
+    "yourStory": "Your Story",
+    "placeholder": "What's happening?",
+    "sharePlaceholder": "Share your journey...",
+    "postButton": "Post",
+    "postStoryButton": "Post",
+    "noActiveHabit": "You need an active habit to post a story. Please start a habit first.",
+    "contentRequired": "Content is required",
+    "contentTooLong": "Content exceeds maximum length",
+    "createFailed": "Failed to create story",
+    "noActiveHabitFound": "No active habit found. Please start a habit first.",
+    "everyoneCanReply": "Everyone can reply"
+  },
+  "footer": {
+    "title": "You don't have to quit alone",
+    "about": "About QuitMate",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contact": "Contact"
+  },
+  "profile-tabs": {
+    "posts": "Posts",
+    "comments": "Comments",
+    "articles": "Articles"
+  },
+  "login-prompt": {
+    "story-title": "Support posts you relate to or want to cheer on.",
+    "story-description": "Create an account to support posts.",
+    "article-title": "Support articles you relate to or want to cheer on.",
+    "article-description": "Create an account to support articles.",
+    "login": "Log in",
+    "sign-up": "Create account"
+  },
+  "comment-form": {
+    "placeholder": "Add a comment...",
+    "replyPlaceholder": "Add a reply...",
+    "replyingTo": "Replying to",
+    "submitButton": "Reply",
+    "loginPrompt": "Log in to comment",
+    "contentRequired": "Comment content is required",
+    "contentTooLong": "Comment is too long",
+    "postFailed": "Failed to post comment",
+    "posting": "Posting..."
+  },
+  "comment-setting": {
+    "enabled": "Everyone can reply",
+    "disabled": "Disable comments",
+    "label": "Comment settings"
+  },
+  "disabled-comment": {
+    "title": "Comments are disabled",
+    "message": "The author has disabled comments on this post"
+  },
+  "stories": {
+    "errorLoading": "Failed to load stories",
+    "noMoreStories": "All stories loaded",
+    "noStories": "No stories yet",
+    "showMore": "Show more"
+  },
+  "follow": {
+    "follow": "Follow",
+    "following": "Following",
+    "unfollow": "Unfollow"
+  },
+  "stories-tab": {
+    "following": "Following",
+    "emptyTitle": "No users followed yet",
+    "emptyMessage": "Follow users you're interested in to see their posts in your timeline",
+    "noMoreStories": "All posts loaded",
+    "errorLoading": "Failed to load"
+  },
+  "page": {
+    "post": "Post"
+  },
+  "mute": {
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "confirmContent": "Do you want to mute this user?",
+    "success": "User muted",
+    "unmuteSuccess": "User unmuted",
+    "error": "An error occurred",
+    "emptyMessage": "You haven't muted anyone"
+  },
+  "delete": {
+    "delete": "Delete",
+    "deleteStory": "Delete post",
+    "deleteArticle": "Delete article",
+    "deleteComment": "Delete comment",
+    "confirmStory": "Are you sure you want to delete this post? This action cannot be undone.",
+    "confirmArticle": "Are you sure you want to delete this article? This action cannot be undone.",
+    "confirmComment": "Are you sure you want to delete this comment? This action cannot be undone.",
+    "success": "Deleted",
+    "error": "Failed to delete"
+  },
+  "reportDialog": {
+    "title": "Report",
+    "content": {
+      "story": "Would you like to report this story?",
+      "comment": "Would you like to report this comment?",
+      "user": "Would you like to report this user?",
+      "article": "Would you like to report this article?",
+      "articleComment": "Would you like to report this article comment?"
+    },
+    "confirm": "Report",
+    "cancel": "Cancel",
+    "reporting": "Reporting...",
+    "reportComplete": "Your report has been submitted.\nThank you for helping keep the community safe."
+  },
+  "report": {
+    "report": "Report"
   }
+}

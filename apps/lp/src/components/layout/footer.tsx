@@ -15,19 +15,19 @@ export const Footer = () => {
         <div className="flex flex-wrap justify-center gap-6">
           <Link
             href="/terms"
-            className="text-sm transition-colors hover:text-primary-light md:text-base"
+            className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.terms")}
           </Link>
           <Link
             href="/privacy"
-            className="text-sm transition-colors hover:text-primary-light md:text-base"
+            className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.privacy")}
           </Link>
           <Link
             href="/contact"
-            className="text-sm transition-colors hover:text-primary-light md:text-base"
+            className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.contact")}
           </Link>
@@ -40,7 +40,7 @@ export const Footer = () => {
               href="https://x.com/QuitMate_JP"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-primary-light"
+              className="hover:text-primary-light transition-colors"
             >
               <X size={22} />
             </a>
@@ -48,7 +48,7 @@ export const Footer = () => {
               href="https://note.com/quitmate"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-primary-light"
+              className="hover:text-primary-light transition-colors"
             >
               <PenLine size={22} />
             </a>

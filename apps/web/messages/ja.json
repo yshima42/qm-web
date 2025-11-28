@@ -1,66 +1,363 @@
 {
-    "config": {
-        "language-code": "ja"
+  "config": {
+    "language-code": "ja"
+  },
+  "locale-switcher": {
+    "label": "言語",
+    "en": "英語",
+    "ja": "日本語"
+  },
+  "onboarding": {
+    "hero": {
+      "badge": "プロフィール登録",
+      "title": "プロフィールを完成させましょう",
+      "subtitle": "ニックネーム・ユーザー名・画像を設定して、QuitMateのコミュニティ体験をはじめましょう。"
     },
-    "locale-switcher": {
-      "label": "言語",
-      "en": "英語",
-      "ja": "日本語"
+    "progress": "Step {current} / {total}",
+    "steps": {
+      "nickname": {
+        "title": "ニックネームを決めましょう",
+        "description": "コミュニティに表示される名前です。",
+        "label": "ニックネーム",
+        "placeholder": "例：Quitter太郎",
+        "helper": "後から設定で変更できます。"
+      },
+      "username": {
+        "title": "ユーザー名を作成",
+        "description": "プロフィールURLにも利用されます。",
+        "label": "ユーザー名",
+        "placeholder": "例：quitmate_user",
+        "helper": "半角小文字英数字とアンダースコアのみ。3〜20文字。"
+      },
+      "avatar": {
+        "title": "プロフィール画像を追加",
+        "description": "あなたらしさが伝わる画像を選びましょう（後から変更できます）。",
+        "label": "プロフィール画像",
+        "helper": "JPG / PNG / WEBP ・ 5MB以下",
+        "button": "画像を選択",
+        "selectedBadge": "選択済み",
+        "previewAlt": "選択したプロフィール画像のプレビュー"
+      },
+      "habit": {
+        "title": "習慣を登録",
+        "description": "やめたい習慣を登録して、あなたの旅を始めましょう。",
+        "categoryLabel": "カテゴリ *",
+        "categoryPlaceholder": "カテゴリを選択",
+        "customHabitNameLabel": "カスタム習慣名 *",
+        "customHabitNamePlaceholder": "習慣名を入力",
+        "startedAtLabel": "開始日時 *",
+        "reasonLabel": "やめたい理由 *",
+        "reasonPlaceholder": "この習慣をやめたい理由を入力してください",
+        "reasonHelper": "あなたの動機を明確にすることで、目標達成に役立ちます。"
+      }
     },
-    "articles-page": {
-      "title": "記事一覧",
-      "shareDialogTitle": "記事をシェアする",
-      "preFollowMessage": "",
-      "postFollowMessage": "さんを\nアプリでフォローしよう",
-      "noComments": "コメントはまだありません",
-      "comments": "コメント",
-      "notFound": "指定された記事は存在しません。",
-      "linkText": "記事一覧に戻る"
+    "buttons": {
+      "back": "戻る",
+      "next": "次へ",
+      "checking": "確認中...",
+      "saving": "保存中...",
+      "start": "はじめる",
+      "backToTop": "トップへ戻る"
     },
-    "categories": {
-        "Game": "ゲーム",
-        "Tobacco": "たばこ",
-        "Shopping": "買い物",
-        "Drugs": "薬物",
-        "Overeating": "過食",
-        "Porno": "ポルノ",
-        "SNS": "SNS",
-        "Gambling": "ギャンブル",
-        "Caffeine": "カフェイン",
-        "Cosmetic Surgery": "美容整形",
-        "Custom": "カスタム",
-        "Alcohol": "アルコール",
-        "Codependency": "共依存",
-        "Official": "運営"
-    },
-    "share-button": {
-        "copyLinkError": "リンクをコピーに失敗しました",
-        "copied": "コピーしました",
-        "copyLink": "リンクをコピー"
-    },
-    "profile-header": {
-        "shareDialogTitle": "プロフィールをシェア",
-        "shareTitleSuffix": "のプロフィール",
-        "shareTextSuffix": "のプロフィール",
-        "following": "フォロー中",
-        "followers": "フォロワー"
-    },
-    "profile-page": {
-        "posts": "投稿",
-        "comments": "コメント"
-    },
-    "app-download-section": {
-        "title": "依存克服SNS QuitMate",
-        "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
-    },
-    "category-tag": {
-        "days": "日"
-    },
-    "footer": {
-        "title": "共になら、やめられる",
-        "about": "QuitMateについて",
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー",
-        "contact": "お問い合わせ"
+    "errors": {
+      "displayNameRequired": "ニックネームを入力してください。",
+      "displayNameLength": "ニックネームは50文字以内で入力してください。",
+      "userFetchFailed": "ログイン情報を確認できませんでした。ページを更新してください。",
+      "profileLookupFailed": "プロフィール情報の取得に失敗しました。",
+      "userNameRequired": "ユーザー名を入力してください。",
+      "userNameInvalid": "ユーザー名は半角英数字とアンダースコアのみで3〜20文字にしてください。",
+      "userNameUnavailable": "このユーザー名はすでに使われています。",
+      "userNameCheckFailed": "ユーザー名の確認に失敗しました。時間をおいて再度お試しください。",
+      "avatarInvalidType": "画像ファイルを選択してください。",
+      "avatarTooLarge": "画像サイズは5MB以下にしてください。",
+      "avatarUploadFailed": "画像のアップロードに失敗しました。",
+      "profileInsertFailed": "プロフィールの保存に失敗しました。",
+      "habitCategoryRequired": "カテゴリを選択してください。",
+      "customHabitNameRequired": "カスタム習慣名を入力してください。",
+      "habitReasonRequired": "やめたい理由を入力してください。",
+      "habitCreateFailed": "習慣の登録に失敗しました。",
+      "generic": "エラーが発生しました。もう一度お試しください。"
     }
+  },
+  "articles-page": {
+    "title": "記事",
+    "shareDialogTitle": "記事をシェア",
+    "preFollowMessage": "",
+    "postFollowMessage": "をアプリでフォロー",
+    "noComments": "まだコメントがありません",
+    "comments": "コメント",
+    "notFound": "指定された記事は存在しません。",
+    "linkText": "記事一覧に戻る"
+  },
+  "app-download-section": {
+    "title": "依存克服SNS QuitMate",
+    "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
+  },
+  "habit-register": {
+    "title": "習慣を登録",
+    "description": "新しい習慣を登録します",
+    "categoryLabel": "カテゴリ *",
+    "categoryPlaceholder": "カテゴリを選択",
+    "customHabitNameLabel": "カスタム習慣名 *",
+    "customHabitNamePlaceholder": "習慣名を入力",
+    "startedAtLabel": "開始日時 *",
+    "durationMonthsLabel": "期間（月数）",
+    "durationMonthsPlaceholder": "例: 3",
+    "frequencyPerWeekLabel": "週の頻度",
+    "frequencyPerWeekPlaceholder": "例: 3",
+    "reasonLabel": "やめる理由 *",
+    "reasonPlaceholder": "この習慣をやめたい理由",
+    "reasonDescription": "この理由はストーリーに投稿されます",
+    "reasonRequired": "理由を入力してください",
+    "categoryRequired": "カテゴリを選択してください",
+    "customHabitNameRequired": "カスタム習慣名を入力してください",
+    "maxHabitsReached": "最大{max}つまでしか習慣を登録できません",
+    "noRegisterableCategories": "登録可能なカテゴリがありません",
+    "cancel": "キャンセル",
+    "register": "登録&投稿",
+    "registering": "登録中..."
+  },
+  "habit-reset": {
+    "reset": "リセット",
+    "resetTitle": "日数をリセット",
+    "resetAndPost": "リセット & 投稿",
+    "resetConfirmationContent": "開始日を今日にリセットします。",
+    "resetErrorMessage": "エラー：リセット及びストーリーの追加に失敗しました",
+    "storyContentLabel": "投稿内容（任意）",
+    "storyContentPlaceholder": "リセットについての気持ちをシェアしよう...",
+    "contentTooLong": "文字数が上限を超えています",
+    "cancel": "キャンセル"
+  },
+  "app-download-dialog": {
+    "title": "依存克服SNS QuitMate",
+    "description": "「やめたくても、やめられない」のは、あなただけじゃない。",
+    "qrCodeLabel": "QRコードからダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード",
+    "storeLabel": "ストアからダウンロード"
+  },
+  "categories": {
+    "All": "すべて",
+    "Game": "ゲーム",
+    "Tobacco": "たばこ",
+    "Shopping": "買い物",
+    "Drugs": "薬物",
+    "Overeating": "過食",
+    "Porno": "ポルノ",
+    "SNS": "SNS",
+    "Gambling": "ギャンブル",
+    "Caffeine": "カフェイン",
+    "Cosmetic Surgery": "美容整形",
+    "Custom": "カスタム",
+    "Alcohol": "アルコール",
+    "Codependency": "共依存",
+    "Official": "運営",
+    "General": "一般"
+  },
+  "category-tag": {
+    "days": "日",
+    "reasonTag": "やめる理由",
+    "resetTag": "リセット"
+  },
+  "sidebar": {
+    "home": "ホーム",
+    "profile": "プロフィール",
+    "habits": "習慣",
+    "articles": "記事",
+    "app": "アプリ",
+    "habitCategories": "習慣カテゴリー",
+    "myCommunity": "マイコミュニティ",
+    "otherCommunity": "その他コミュニティ",
+    "communities": "コミュニティ",
+    "noHabitsRegistered": "習慣が登録されていません",
+    "settings": "設定",
+    "registerHabit": "習慣を登録",
+    "habitList": "習慣一覧",
+    "deleteAccount": "アカウント削除",
+    "language": "言語設定",
+    "termsOfService": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "contact": "お問い合わせ",
+    "logout": "ログアウト",
+    "openMenu": "メニューを開く",
+    "navigationMenu": "ナビゲーションメニュー",
+    "postStory": "投稿",
+    "downloadTitle": "QuitMateをダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アカウント設定やアプリの設定を変更できます",
+    "account": "アカウント",
+    "accountDescription": "アカウント情報やセキュリティ設定を管理します",
+    "mutedAccounts": "ミュートしたアカウント",
+    "mutedAccountsDescription": "ミュートしているユーザーを管理します",
+    "language": "言語設定",
+    "languageDescription": "アプリの表示言語を変更できます",
+    "theme": "テーマ設定",
+    "themeDescription": "アプリの表示テーマ（ライト/ダーク/システム）を変更できます",
+    "accountPageDescription": "アカウントについての情報を確認したり、データのアーカイブをダウンロード停止オプションの詳細を確認したりできます",
+    "accountInfo": "アカウント情報",
+    "accountInfoDescription": "電話番号やメールアドレスなどのアカウント情報を確認できます",
+    "changePassword": "パスワードを変更する",
+    "changePasswordDescription": "パスワードはいつでも変更できます。",
+    "downloadData": "データのアーカイブをダウンロード",
+    "downloadDataDescription": "アカウントに保存されている情報の種類を確認できます。",
+    "deleteAccount": "アカウント削除",
+    "deleteAccountDescription": "アカウントを削除する方法について説明します。",
+    "deleteAccountPageDescription": "アカウントを削除すると、すべてのデータが永久に削除されます。この操作は取り消せません。",
+    "deleteAccountWarning": "警告",
+    "deleteAccountWarning1": "アカウントを削除すると、すべての投稿、コメント、習慣データが永久に削除されます",
+    "deleteAccountWarning2": "この操作は取り消せません",
+    "deleteAccountWarning3": "アカウントを削除する前に、重要なデータをバックアップしてください",
+    "deleteAccountConfirm": "本当にアカウントを削除しますか？この操作は取り消せません。",
+    "deleteAccountButton": "アカウントを削除",
+    "deleteAccountError": "アカウントの削除に失敗しました。もう一度お試しください。",
+    "deleting": "削除中...",
+    "termsOfService": "利用規約",
+    "termsDescription": "利用規約を確認できます",
+    "privacyPolicy": "プライバシーポリシー",
+    "privacyDescription": "プライバシーポリシーを確認できます",
+    "contact": "お問い合わせ",
+    "contactDescription": "お問い合わせフォームからサポートに連絡できます",
+    "logout": "ログアウト",
+    "logoutDescription": "アカウントからログアウトします",
+    "backToSettings": "設定に戻る",
+    "backToAccount": "アカウント設定に戻る",
+    "downloadTitle": "QuitMateをダウンロード",
+    "qrCodeAlt": "アプリダウンロードQRコード",
+    "openMenu": "メニューを開く",
+    "navigationMenu": "ナビゲーションメニュー",
+    "postStory": "投稿"
+  },
+  "story-post": {
+    "modalTitle": "新しいストーリーを作成",
+    "selectHabit": "習慣を選択",
+    "habit": "習慣",
+    "yourStory": "あなたのストーリー",
+    "placeholder": "今何してる?",
+    "sharePlaceholder": "あなたの体験をシェアしよう...",
+    "postButton": "投稿",
+    "postStoryButton": "投稿する",
+    "noActiveHabit": "ストーリーを投稿するには、アクティブな習慣が必要です。まず習慣を開始してください。",
+    "contentRequired": "内容を入力してください",
+    "contentTooLong": "文字数が上限を超えています",
+    "createFailed": "ストーリーの作成に失敗しました",
+    "noActiveHabitFound": "アクティブな習慣が見つかりません。まず習慣を開始してください。",
+    "everyoneCanReply": "全員が返信できます"
+  },
+  "footer": {
+    "title": "共になら、やめられる",
+    "about": "QuitMateについて",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "contact": "お問い合わせ"
+  },
+  "profile-tabs": {
+    "posts": "投稿",
+    "comments": "コメント",
+    "articles": "記事"
+  },
+  "login-prompt": {
+    "story-title": "共感した投稿、応援したい投稿に「応援」しましょう。",
+    "story-description": "アカウントを作成すると、投稿を「応援」できます。",
+    "article-title": "共感した記事、応援したい記事に「応援」しましょう。",
+    "article-description": "アカウントを作成すると、記事を「応援」できます。",
+    "login": "ログイン",
+    "sign-up": "アカウント作成"
+  },
+  "comment-form": {
+    "placeholder": "コメントを追加...",
+    "replyPlaceholder": "返信を追加...",
+    "replyingTo": "返信先:",
+    "submitButton": "返信",
+    "loginPrompt": "コメントするにはログインしてください",
+    "contentRequired": "コメント内容を入力してください",
+    "contentTooLong": "コメントが長すぎます",
+    "postFailed": "コメントの投稿に失敗しました",
+    "posting": "投稿中..."
+  },
+  "comment-setting": {
+    "enabled": "全員がコメント可能",
+    "disabled": "コメントを無効にする",
+    "label": "コメント設定"
+  },
+  "disabled-comment": {
+    "title": "コメントが無効です",
+    "message": "投稿者がこの投稿へのコメントを無効にしています"
+  },
+  "stories": {
+    "errorLoading": "ストーリーの読み込みに失敗しました",
+    "noMoreStories": "すべてのストーリーを読み込みました",
+    "noStories": "まだストーリーがありません",
+    "showMore": "もっと見る"
+  },
+  "follow": {
+    "follow": "フォロー",
+    "following": "フォロー中",
+    "unfollow": "フォロー解除"
+  },
+  "stories-tab": {
+    "following": "フォロー中",
+    "emptyTitle": "フォローしているユーザーがいません",
+    "emptyMessage": "興味のあるユーザーをフォローして、投稿をタイムラインで見よう",
+    "noMoreStories": "すべての投稿を読み込みました",
+    "errorLoading": "読み込みに失敗しました"
+  },
+  "page": {
+    "post": "投稿"
+  },
+  "mute": {
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "confirmContent": "このユーザーをミュートしますか？",
+    "success": "ミュートしました",
+    "unmuteSuccess": "ミュートを解除しました",
+    "error": "エラーが発生しました",
+    "emptyMessage": "ミュートしているユーザーはいません"
+  },
+  "delete": {
+    "delete": "削除",
+    "deleteStory": "投稿を削除",
+    "deleteArticle": "記事を削除",
+    "deleteComment": "コメントを削除",
+    "confirmStory": "この投稿を削除しますか？この操作は取り消せません。",
+    "confirmArticle": "この記事を削除しますか？この操作は取り消せません。",
+    "confirmComment": "このコメントを削除しますか？この操作は取り消せません。",
+    "success": "削除しました",
+    "error": "削除に失敗しました"
+  },
+  "profile-header": {
+    "shareDialogTitle": "プロフィールをシェア",
+    "shareTitleSuffix": "のプロフィール",
+    "shareTextSuffix": "のプロフィール",
+    "following": "フォロー中",
+    "followers": "フォロワー",
+    "edit": "編集"
+  },
+  "profile-page": {
+    "posts": "投稿",
+    "comments": "コメント"
+  },
+  "profile-edit": {
+    "avatarAlt": "プロフィール画像",
+    "displayNameLabel": "ニックネーム *",
+    "displayNamePlaceholder": "ニックネームを入力"
+  },
+  "reportDialog": {
+    "title": "報告",
+    "content": {
+      "story": "このストーリーを報告しますか？",
+      "comment": "このコメントを報告しますか？",
+      "user": "このユーザーを報告しますか？",
+      "article": "この記事を報告しますか？",
+      "articleComment": "この記事のコメントを報告しますか？"
+    },
+    "confirm": "報告する",
+    "cancel": "キャンセル",
+    "reporting": "報告中...",
+    "reportComplete": "報告が完了しました。\nご協力ありがとうございます。"
+  },
+  "report": {
+    "report": "報告"
+  }
 }

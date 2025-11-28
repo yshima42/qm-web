@@ -1,4 +1,4 @@
-import { NotFoundBase } from '@quitmate/ui';
+import { NotFoundBase } from "@quitmate/ui";
 
 export default function NotFound() {
   return (

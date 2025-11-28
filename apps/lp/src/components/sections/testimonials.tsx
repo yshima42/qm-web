@@ -24,16 +24,11 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section className="bg-[#f8fbf7] px-6  py-20 text-center">
-      <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">
-        {t("title")}
-      </h2>
+    <section className="bg-[#f8fbf7] px-6 py-20 text-center">
+      <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">{t("title")}</h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
-          <Card
-            key={index}
-            className="h-full border-none bg-white text-left shadow-md"
-          >
+          <Card key={index} className="h-full border-none bg-white text-left shadow-md">
             <CardContent className="p-6">
               <div className="mb-4 flex justify-center">
                 {[...Array(5)].map((_, i) => (
@@ -47,15 +42,9 @@ export const Testimonials = () => {
                   </svg>
                 ))}
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-800">
-                {item.title}
-              </h3>
-              <p className="mb-4 text-sm text-gray-600">
-                &quot;{item.message}&quot;
-              </p>
-              <p className="text-right text-sm font-semibold text-gray-700">
-                — {item.name}
-              </p>
+              <h3 className="mb-2 text-lg font-semibold text-gray-800">{item.title}</h3>
+              <p className="mb-4 text-sm text-gray-600">&quot;{item.message}&quot;</p>
+              <p className="text-right text-sm font-semibold text-gray-700">— {item.name}</p>
             </CardContent>
           </Card>
         ))}

@@ -1,19 +1,19 @@
-import ReactMarkdown, { Components } from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import ReactMarkdown, { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type MarkdownRendererProps = {
   content: string;
   className?: string;
-  variant?: 'default' | 'compact'; // 必要に応じてバリアントを追加
+  variant?: "default" | "compact"; // Add variants as needed
 };
 
 export function MarkdownRenderer({
   content,
-  className = '',
-  variant = 'default',
+  className = "",
+  variant = "default",
 }: MarkdownRendererProps) {
   return (
-    <div className={`prose max-w-none dark:prose-invert ${className}`}>
+    <div className={`prose dark:prose-invert max-w-none ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={
@@ -28,7 +28,7 @@ export function MarkdownRenderer({
             h3: (props) => <h3 className="mb-3 mt-6 text-xl font-semibold" {...props} />,
             p: (props) => (
               <p
-                className={`${variant === 'compact' ? 'my-1' : 'my-3'} whitespace-pre-line text-lg leading-relaxed`}
+                className={`${variant === "compact" ? "my-1" : "my-3"} whitespace-pre-line text-lg leading-relaxed`}
                 {...props}
               />
             ),

@@ -24,18 +24,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'achievement_records_achievement_key_fkey';
-            columns: ['achievement_key'];
+            foreignKeyName: "achievement_records_achievement_key_fkey";
+            columns: ["achievement_key"];
             isOneToOne: false;
-            referencedRelation: 'achievements';
-            referencedColumns: ['key'];
+            referencedRelation: "achievements";
+            referencedColumns: ["key"];
           },
           {
-            foreignKeyName: 'achievement_records_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "achievement_records_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -72,18 +72,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'article_comment_likes_comment_id_fkey';
-            columns: ['comment_id'];
+            foreignKeyName: "article_comment_likes_comment_id_fkey";
+            columns: ["comment_id"];
             isOneToOne: false;
-            referencedRelation: 'article_comments';
-            referencedColumns: ['id'];
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'article_comment_likes_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "article_comment_likes_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -114,25 +114,25 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'article_comments_article_id_fkey';
-            columns: ['article_id'];
+            foreignKeyName: "article_comments_article_id_fkey";
+            columns: ["article_id"];
             isOneToOne: false;
-            referencedRelation: 'articles';
-            referencedColumns: ['id'];
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'article_comments_parent_comment_id_fkey';
-            columns: ['parent_comment_id'];
+            foreignKeyName: "article_comments_parent_comment_id_fkey";
+            columns: ["parent_comment_id"];
             isOneToOne: false;
-            referencedRelation: 'article_comments';
-            referencedColumns: ['id'];
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'article_comments_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "article_comments_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -154,18 +154,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'article_likes_article_id_fkey';
-            columns: ['article_id'];
+            foreignKeyName: "article_likes_article_id_fkey";
+            columns: ["article_id"];
             isOneToOne: false;
-            referencedRelation: 'articles';
-            referencedColumns: ['id'];
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'article_likes_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "article_likes_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -208,18 +208,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'articles_habit_category_id_fkey';
-            columns: ['habit_category_id'];
+            foreignKeyName: "articles_habit_category_id_fkey";
+            columns: ["habit_category_id"];
             isOneToOne: false;
-            referencedRelation: 'habit_categories';
-            referencedColumns: ['id'];
+            referencedRelation: "habit_categories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'articles_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "articles_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -241,18 +241,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'blocked_users_blocked_id_fkey';
-            columns: ['blocked_id'];
+            foreignKeyName: "blocked_users_blocked_id_fkey";
+            columns: ["blocked_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'blocked_users_blocker_id_fkey';
-            columns: ['blocker_id'];
+            foreignKeyName: "blocked_users_blocker_id_fkey";
+            columns: ["blocker_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -277,11 +277,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'breathings_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "breathings_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -306,11 +306,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'challenge_record_images_challenge_record_id_fkey';
-            columns: ['challenge_record_id'];
+            foreignKeyName: "challenge_record_images_challenge_record_id_fkey";
+            columns: ["challenge_record_id"];
             isOneToOne: false;
-            referencedRelation: 'challenge_records';
-            referencedColumns: ['id'];
+            referencedRelation: "challenge_records";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -341,18 +341,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'challenge_records_challenge_key_fkey';
-            columns: ['challenge_key'];
+            foreignKeyName: "challenge_records_challenge_key_fkey";
+            columns: ["challenge_key"];
             isOneToOne: false;
-            referencedRelation: 'challenges';
-            referencedColumns: ['key'];
+            referencedRelation: "challenges";
+            referencedColumns: ["key"];
           },
           {
-            foreignKeyName: 'challenge_records_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "challenge_records_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -389,18 +389,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'comment_likes_comment_id_fkey';
-            columns: ['comment_id'];
+            foreignKeyName: "comment_likes_comment_id_fkey";
+            columns: ["comment_id"];
             isOneToOne: false;
-            referencedRelation: 'comments';
-            referencedColumns: ['id'];
+            referencedRelation: "comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'comment_likes_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "comment_likes_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -431,25 +431,25 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'comments_parent_comment_id_fkey';
-            columns: ['parent_comment_id'];
+            foreignKeyName: "comments_parent_comment_id_fkey";
+            columns: ["parent_comment_id"];
             isOneToOne: false;
-            referencedRelation: 'comments';
-            referencedColumns: ['id'];
+            referencedRelation: "comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'comments_story_id_fkey';
-            columns: ['story_id'];
+            foreignKeyName: "comments_story_id_fkey";
+            columns: ["story_id"];
             isOneToOne: false;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'comments_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "comments_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -474,11 +474,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'daily_active_users_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "daily_active_users_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -503,11 +503,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'fk_story';
-            columns: ['story_id'];
+            foreignKeyName: "fk_story";
+            columns: ["story_id"];
             isOneToOne: true;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -535,11 +535,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'dp_quotes_quote_id_fkey';
-            columns: ['quote_id'];
+            foreignKeyName: "dp_quotes_quote_id_fkey";
+            columns: ["quote_id"];
             isOneToOne: false;
-            referencedRelation: 'quotes';
-            referencedColumns: ['id'];
+            referencedRelation: "quotes";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -561,11 +561,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'dp_qw_session_sequences_session_id_fkey';
-            columns: ['session_id'];
+            foreignKeyName: "dp_qw_session_sequences_session_id_fkey";
+            columns: ["session_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -587,11 +587,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'fk_story';
-            columns: ['story_id'];
+            foreignKeyName: "fk_story";
+            columns: ["story_id"];
             isOneToOne: true;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -613,11 +613,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'fk_story';
-            columns: ['story_id'];
+            foreignKeyName: "fk_story";
+            columns: ["story_id"];
             isOneToOne: true;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -654,11 +654,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'dp_user_completed_dates_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "dp_user_completed_dates_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -686,18 +686,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'dp_user_qw_progresses_last_completed_session_sequence_id_fkey';
-            columns: ['last_completed_session_sequence_id'];
+            foreignKeyName: "dp_user_qw_progresses_last_completed_session_sequence_id_fkey";
+            columns: ["last_completed_session_sequence_id"];
             isOneToOne: false;
-            referencedRelation: 'dp_qw_session_sequences';
-            referencedColumns: ['id'];
+            referencedRelation: "dp_qw_session_sequences";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'dp_user_qw_progresses_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "dp_user_qw_progresses_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: true;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -725,18 +725,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'fk_dp_story';
-            columns: ['dp_story_id'];
+            foreignKeyName: "fk_dp_story";
+            columns: ["dp_story_id"];
             isOneToOne: false;
-            referencedRelation: 'dp_stories';
-            referencedColumns: ['story_id'];
+            referencedRelation: "dp_stories";
+            referencedColumns: ["story_id"];
           },
           {
-            foreignKeyName: 'fk_user';
-            columns: ['user_id'];
+            foreignKeyName: "fk_user";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -767,18 +767,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'dp_user_tasks_task_type_fkey';
-            columns: ['task_type'];
+            foreignKeyName: "dp_user_tasks_task_type_fkey";
+            columns: ["task_type"];
             isOneToOne: false;
-            referencedRelation: 'dp_tasks';
-            referencedColumns: ['task_type'];
+            referencedRelation: "dp_tasks";
+            referencedColumns: ["task_type"];
           },
           {
-            foreignKeyName: 'dp_user_tasks_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "dp_user_tasks_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -800,18 +800,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'followers_followed_id_fkey';
-            columns: ['followed_id'];
+            foreignKeyName: "followers_followed_id_fkey";
+            columns: ["followed_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'followers_follower_id_fkey';
-            columns: ['follower_id'];
+            foreignKeyName: "followers_follower_id_fkey";
+            columns: ["follower_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -839,11 +839,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'habit_baselines_habit_id_fkey';
-            columns: ['habit_id'];
+            foreignKeyName: "habit_baselines_habit_id_fkey";
+            columns: ["habit_id"];
             isOneToOne: true;
-            referencedRelation: 'habits';
-            referencedColumns: ['id'];
+            referencedRelation: "habits";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -892,18 +892,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'habits_habit_category_id_fkey';
-            columns: ['habit_category_id'];
+            foreignKeyName: "habits_habit_category_id_fkey";
+            columns: ["habit_category_id"];
             isOneToOne: false;
-            referencedRelation: 'habit_categories';
-            referencedColumns: ['id'];
+            referencedRelation: "habit_categories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'habits_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "habits_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -925,18 +925,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'likes_story_id_fkey';
-            columns: ['story_id'];
+            foreignKeyName: "likes_story_id_fkey";
+            columns: ["story_id"];
             isOneToOne: false;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'likes_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "likes_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -961,11 +961,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meditations_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "meditations_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -990,25 +990,25 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meeting_attendance_logs_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_attendance_logs_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_attendance_logs_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_attendance_logs_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings_active';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings_active";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_attendance_logs_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "meeting_attendance_logs_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1033,25 +1033,25 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meeting_hosts_host_user_id_fkey';
-            columns: ['host_user_id'];
+            foreignKeyName: "meeting_hosts_host_user_id_fkey";
+            columns: ["host_user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_hosts_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_hosts_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_hosts_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_hosts_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings_active';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings_active";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1079,32 +1079,32 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meeting_kicked_users_kicked_by_fkey';
-            columns: ['kicked_by'];
+            foreignKeyName: "meeting_kicked_users_kicked_by_fkey";
+            columns: ["kicked_by"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_kicked_users_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_kicked_users_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_kicked_users_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_kicked_users_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings_active';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings_active";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_kicked_users_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "meeting_kicked_users_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1129,25 +1129,25 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meeting_participants_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_participants_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_participants_meeting_id_fkey';
-            columns: ['meeting_id'];
+            foreignKeyName: "meeting_participants_meeting_id_fkey";
+            columns: ["meeting_id"];
             isOneToOne: false;
-            referencedRelation: 'meetings_active';
-            referencedColumns: ['id'];
+            referencedRelation: "meetings_active";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'meeting_participants_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "meeting_participants_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1196,11 +1196,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meetings_created_by_fkey';
-            columns: ['created_by'];
+            foreignKeyName: "meetings_created_by_fkey";
+            columns: ["created_by"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1264,53 +1264,53 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'notifications_article_comment_id_fkey';
-            columns: ['article_comment_id'];
+            foreignKeyName: "notifications_article_comment_id_fkey";
+            columns: ["article_comment_id"];
             isOneToOne: false;
-            referencedRelation: 'article_comments';
-            referencedColumns: ['id'];
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_article_id_fkey';
-            columns: ['article_id'];
+            foreignKeyName: "notifications_article_id_fkey";
+            columns: ["article_id"];
             isOneToOne: false;
-            referencedRelation: 'articles';
-            referencedColumns: ['id'];
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_comment_id_fkey';
-            columns: ['comment_id'];
+            foreignKeyName: "notifications_comment_id_fkey";
+            columns: ["comment_id"];
             isOneToOne: false;
-            referencedRelation: 'comments';
-            referencedColumns: ['id'];
+            referencedRelation: "comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_notification_category_id_fkey';
-            columns: ['notification_category_id'];
+            foreignKeyName: "notifications_notification_category_id_fkey";
+            columns: ["notification_category_id"];
             isOneToOne: false;
-            referencedRelation: 'notification_categories';
-            referencedColumns: ['id'];
+            referencedRelation: "notification_categories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_story_id_fkey';
-            columns: ['story_id'];
+            foreignKeyName: "notifications_story_id_fkey";
+            columns: ["story_id"];
             isOneToOne: false;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_target_user_id_fkey';
-            columns: ['target_user_id'];
+            foreignKeyName: "notifications_target_user_id_fkey";
+            columns: ["target_user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'notifications_trigger_user_id_fkey';
-            columns: ['trigger_user_id'];
+            foreignKeyName: "notifications_trigger_user_id_fkey";
+            columns: ["trigger_user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1398,18 +1398,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'quotes_user_favorite_quote_id_fkey';
-            columns: ['quote_id'];
+            foreignKeyName: "quotes_user_favorite_quote_id_fkey";
+            columns: ["quote_id"];
             isOneToOne: false;
-            referencedRelation: 'quotes';
-            referencedColumns: ['id'];
+            referencedRelation: "quotes";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'quotes_user_favorite_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "quotes_user_favorite_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1443,29 +1443,29 @@ export type Database = {
           key: string;
           qw_session_id: string;
           sort_order: number;
-          type: Database['public']['Enums']['qw_exercise_type'];
+          type: Database["public"]["Enums"]["qw_exercise_type"];
         };
         Insert: {
           id?: string;
           key: string;
           qw_session_id: string;
           sort_order: number;
-          type: Database['public']['Enums']['qw_exercise_type'];
+          type: Database["public"]["Enums"]["qw_exercise_type"];
         };
         Update: {
           id?: string;
           key?: string;
           qw_session_id?: string;
           sort_order?: number;
-          type?: Database['public']['Enums']['qw_exercise_type'];
+          type?: Database["public"]["Enums"]["qw_exercise_type"];
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_exercises_qw_session_id_fkey';
-            columns: ['qw_session_id'];
+            foreignKeyName: "qw_exercises_qw_session_id_fkey";
+            columns: ["qw_session_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1490,11 +1490,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_modules_qw_chapter_key_fkey';
-            columns: ['qw_chapter_key'];
+            foreignKeyName: "qw_modules_qw_chapter_key_fkey";
+            columns: ["qw_chapter_key"];
             isOneToOne: false;
-            referencedRelation: 'qw_chapters';
-            referencedColumns: ['key'];
+            referencedRelation: "qw_chapters";
+            referencedColumns: ["key"];
           },
         ];
       };
@@ -1525,11 +1525,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_sessions_qw_module_key_fkey';
-            columns: ['qw_module_key'];
+            foreignKeyName: "qw_sessions_qw_module_key_fkey";
+            columns: ["qw_module_key"];
             isOneToOne: false;
-            referencedRelation: 'qw_modules';
-            referencedColumns: ['key'];
+            referencedRelation: "qw_modules";
+            referencedColumns: ["key"];
           },
         ];
       };
@@ -1554,18 +1554,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_user_emotion_exercise_input_qw_user_emotion_exercise_id_fkey';
-            columns: ['qw_user_emotion_exercise_id'];
+            foreignKeyName: "qw_user_emotion_exercise_input_qw_user_emotion_exercise_id_fkey";
+            columns: ["qw_user_emotion_exercise_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_user_emotion_exercises';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_user_emotion_exercises";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'qw_user_emotion_exercise_inputs_emotion_type_fkey';
-            columns: ['emotion_type'];
+            foreignKeyName: "qw_user_emotion_exercise_inputs_emotion_type_fkey";
+            columns: ["emotion_type"];
             isOneToOne: false;
-            referencedRelation: 'qw_emotions';
-            referencedColumns: ['emotion_type'];
+            referencedRelation: "qw_emotions";
+            referencedColumns: ["emotion_type"];
           },
         ];
       };
@@ -1593,18 +1593,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_user_emotion_exercises_qw_exercise_id_fkey';
-            columns: ['qw_exercise_id'];
+            foreignKeyName: "qw_user_emotion_exercises_qw_exercise_id_fkey";
+            columns: ["qw_exercise_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_exercises';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_exercises";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'qw_user_emotion_exercises_qw_user_sessions_id_fkey';
-            columns: ['qw_user_sessions_id'];
+            foreignKeyName: "qw_user_emotion_exercises_qw_user_sessions_id_fkey";
+            columns: ["qw_user_sessions_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_user_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1629,18 +1629,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_user_sessions_qw_session_id_fkey';
-            columns: ['qw_session_id'];
+            foreignKeyName: "qw_user_sessions_qw_session_id_fkey";
+            columns: ["qw_session_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_sessions";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'qw_user_sessions_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "qw_user_sessions_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1671,18 +1671,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'qw_user_write_exercises_qw_exercise_id_fkey';
-            columns: ['qw_exercise_id'];
+            foreignKeyName: "qw_user_write_exercises_qw_exercise_id_fkey";
+            columns: ["qw_exercise_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_exercises';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_exercises";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'qw_user_write_exercises_qw_user_sessions_id_fkey';
-            columns: ['qw_user_sessions_id'];
+            foreignKeyName: "qw_user_write_exercises_qw_user_sessions_id_fkey";
+            columns: ["qw_user_sessions_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_user_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1707,11 +1707,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'reasons_habit_id_fkey';
-            columns: ['habit_id'];
+            foreignKeyName: "reasons_habit_id_fkey";
+            columns: ["habit_id"];
             isOneToOne: false;
-            referencedRelation: 'habits';
-            referencedColumns: ['id'];
+            referencedRelation: "habits";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1751,46 +1751,46 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'fk_article';
-            columns: ['article_id'];
+            foreignKeyName: "fk_article";
+            columns: ["article_id"];
             isOneToOne: false;
-            referencedRelation: 'articles';
-            referencedColumns: ['id'];
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'fk_article_comment';
-            columns: ['article_comment_id'];
+            foreignKeyName: "fk_article_comment";
+            columns: ["article_comment_id"];
             isOneToOne: false;
-            referencedRelation: 'article_comments';
-            referencedColumns: ['id'];
+            referencedRelation: "article_comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'reports_comment_id_fkey';
-            columns: ['comment_id'];
+            foreignKeyName: "reports_comment_id_fkey";
+            columns: ["comment_id"];
             isOneToOne: false;
-            referencedRelation: 'comments';
-            referencedColumns: ['id'];
+            referencedRelation: "comments";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'reports_profile_id_fkey';
-            columns: ['profile_id'];
+            foreignKeyName: "reports_profile_id_fkey";
+            columns: ["profile_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'reports_reporter_id_fkey';
-            columns: ['reporter_id'];
+            foreignKeyName: "reports_reporter_id_fkey";
+            columns: ["reporter_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'reports_story_id_fkey';
-            columns: ['story_id'];
+            foreignKeyName: "reports_story_id_fkey";
+            columns: ["story_id"];
             isOneToOne: false;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1811,27 +1811,27 @@ export type Database = {
           key: string;
           sort_order: number;
           sp_session_key: string;
-          type: Database['public']['Enums']['sp_exercise_type'];
+          type: Database["public"]["Enums"]["sp_exercise_type"];
         };
         Insert: {
           key: string;
           sort_order: number;
           sp_session_key: string;
-          type: Database['public']['Enums']['sp_exercise_type'];
+          type: Database["public"]["Enums"]["sp_exercise_type"];
         };
         Update: {
           key?: string;
           sort_order?: number;
           sp_session_key?: string;
-          type?: Database['public']['Enums']['sp_exercise_type'];
+          type?: Database["public"]["Enums"]["sp_exercise_type"];
         };
         Relationships: [
           {
-            foreignKeyName: 'sp_exercises_sp_session_key_fkey';
-            columns: ['sp_session_key'];
+            foreignKeyName: "sp_exercises_sp_session_key_fkey";
+            columns: ["sp_session_key"];
             isOneToOne: false;
-            referencedRelation: 'sp_sessions';
-            referencedColumns: ['key'];
+            referencedRelation: "sp_sessions";
+            referencedColumns: ["key"];
           },
         ];
       };
@@ -1874,18 +1874,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'sp_user_emotion_exercise_input_sp_user_emotion_exercise_id_fkey';
-            columns: ['sp_user_emotion_exercise_id'];
+            foreignKeyName: "sp_user_emotion_exercise_input_sp_user_emotion_exercise_id_fkey";
+            columns: ["sp_user_emotion_exercise_id"];
             isOneToOne: false;
-            referencedRelation: 'sp_user_emotion_exercises';
-            referencedColumns: ['id'];
+            referencedRelation: "sp_user_emotion_exercises";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'sp_user_emotion_exercise_inputs_emotion_type_fkey';
-            columns: ['emotion_type'];
+            foreignKeyName: "sp_user_emotion_exercise_inputs_emotion_type_fkey";
+            columns: ["emotion_type"];
             isOneToOne: false;
-            referencedRelation: 'sp_emotions';
-            referencedColumns: ['emotion_type'];
+            referencedRelation: "sp_emotions";
+            referencedColumns: ["emotion_type"];
           },
         ];
       };
@@ -1913,18 +1913,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'sp_user_emotion_exercises_sp_exercise_key_fkey';
-            columns: ['sp_exercise_key'];
+            foreignKeyName: "sp_user_emotion_exercises_sp_exercise_key_fkey";
+            columns: ["sp_exercise_key"];
             isOneToOne: false;
-            referencedRelation: 'sp_exercises';
-            referencedColumns: ['key'];
+            referencedRelation: "sp_exercises";
+            referencedColumns: ["key"];
           },
           {
-            foreignKeyName: 'sp_user_emotion_exercises_sp_user_sessions_id_fkey';
-            columns: ['sp_user_sessions_id'];
+            foreignKeyName: "sp_user_emotion_exercises_sp_user_sessions_id_fkey";
+            columns: ["sp_user_sessions_id"];
             isOneToOne: false;
-            referencedRelation: 'sp_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "sp_user_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1949,18 +1949,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'sp_user_sessions_sp_session_key_fkey';
-            columns: ['sp_session_key'];
+            foreignKeyName: "sp_user_sessions_sp_session_key_fkey";
+            columns: ["sp_session_key"];
             isOneToOne: false;
-            referencedRelation: 'sp_sessions';
-            referencedColumns: ['key'];
+            referencedRelation: "sp_sessions";
+            referencedColumns: ["key"];
           },
           {
-            foreignKeyName: 'sp_user_sessions_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "sp_user_sessions_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -1991,18 +1991,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'sp_user_write_exercises_sp_exercise_key_fkey';
-            columns: ['sp_exercise_key'];
+            foreignKeyName: "sp_user_write_exercises_sp_exercise_key_fkey";
+            columns: ["sp_exercise_key"];
             isOneToOne: false;
-            referencedRelation: 'sp_exercises';
-            referencedColumns: ['key'];
+            referencedRelation: "sp_exercises";
+            referencedColumns: ["key"];
           },
           {
-            foreignKeyName: 'sp_user_write_exercises_sp_user_sessions_id_fkey';
-            columns: ['sp_user_sessions_id'];
+            foreignKeyName: "sp_user_write_exercises_sp_user_sessions_id_fkey";
+            columns: ["sp_user_sessions_id"];
             isOneToOne: false;
-            referencedRelation: 'sp_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "sp_user_sessions";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2063,53 +2063,53 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'stories_article_id_fkey';
-            columns: ['article_id'];
+            foreignKeyName: "stories_article_id_fkey";
+            columns: ["article_id"];
             isOneToOne: false;
-            referencedRelation: 'articles';
-            referencedColumns: ['id'];
+            referencedRelation: "articles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_challenge_record_id_fkey';
-            columns: ['challenge_record_id'];
+            foreignKeyName: "stories_challenge_record_id_fkey";
+            columns: ["challenge_record_id"];
             isOneToOne: false;
-            referencedRelation: 'challenge_records';
-            referencedColumns: ['id'];
+            referencedRelation: "challenge_records";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_habit_category_id_fkey';
-            columns: ['habit_category_id'];
+            foreignKeyName: "stories_habit_category_id_fkey";
+            columns: ["habit_category_id"];
             isOneToOne: false;
-            referencedRelation: 'habit_categories';
-            referencedColumns: ['id'];
+            referencedRelation: "habit_categories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_qw_user_sessions_id_fkey';
-            columns: ['qw_user_session_id'];
+            foreignKeyName: "stories_qw_user_sessions_id_fkey";
+            columns: ["qw_user_session_id"];
             isOneToOne: false;
-            referencedRelation: 'qw_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "qw_user_sessions";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_sp_user_session_id_fkey';
-            columns: ['sp_user_session_id'];
+            foreignKeyName: "stories_sp_user_session_id_fkey";
+            columns: ["sp_user_session_id"];
             isOneToOne: false;
-            referencedRelation: 'sp_user_sessions';
-            referencedColumns: ['id'];
+            referencedRelation: "sp_user_sessions";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_story_topic_id_fkey';
-            columns: ['story_topic_id'];
+            foreignKeyName: "stories_story_topic_id_fkey";
+            columns: ["story_topic_id"];
             isOneToOne: false;
-            referencedRelation: 'story_topics';
-            referencedColumns: ['id'];
+            referencedRelation: "story_topics";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'stories_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "stories_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2131,18 +2131,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'story_tags_story_id_fkey';
-            columns: ['story_id'];
+            foreignKeyName: "story_tags_story_id_fkey";
+            columns: ["story_id"];
             isOneToOne: false;
-            referencedRelation: 'stories';
-            referencedColumns: ['id'];
+            referencedRelation: "stories";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: 'story_tags_tag_id_fkey';
-            columns: ['tag_id'];
+            foreignKeyName: "story_tags_tag_id_fkey";
+            columns: ["tag_id"];
             isOneToOne: false;
-            referencedRelation: 'tags';
-            referencedColumns: ['id'];
+            referencedRelation: "tags";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2230,11 +2230,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'subscriptions_app_user_id_fkey';
-            columns: ['app_user_id'];
+            foreignKeyName: "subscriptions_app_user_id_fkey";
+            columns: ["app_user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2253,11 +2253,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'suspended_users_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "suspended_users_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: true;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2303,11 +2303,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'trials_habit_id_fkey';
-            columns: ['habit_id'];
+            foreignKeyName: "trials_habit_id_fkey";
+            columns: ["habit_id"];
             isOneToOne: false;
-            referencedRelation: 'habits';
-            referencedColumns: ['id'];
+            referencedRelation: "habits";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2332,11 +2332,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'user_fcm_tokens_user_id_fkey';
-            columns: ['user_id'];
+            foreignKeyName: "user_fcm_tokens_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2387,11 +2387,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: 'meetings_created_by_fkey';
-            columns: ['created_by'];
+            foreignKeyName: "meetings_created_by_fkey";
+            columns: ["created_by"];
             isOneToOne: false;
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -2478,7 +2478,7 @@ export type Database = {
           p_article_id: string;
           p_current_user_id: string;
         };
-        Returns: Database['public']['CompositeTypes']['article_comment_tile_data'][];
+        Returns: Database["public"]["CompositeTypes"]["article_comment_tile_data"][];
       };
       article_get_liked_users: {
         Args: {
@@ -2500,14 +2500,14 @@ export type Database = {
           article_ids: string[];
           current_user_id: string;
         };
-        Returns: Database['public']['CompositeTypes']['article_tile_data'][];
+        Returns: Database["public"]["CompositeTypes"]["article_tile_data"][];
       };
       article_get_single_tile_data: {
         Args: {
           article_id: string;
           current_user_id: string;
         };
-        Returns: Database['public']['CompositeTypes']['article_tile_data'];
+        Returns: Database["public"]["CompositeTypes"]["article_tile_data"];
       };
       article_get_unblocked_comment_count: {
         Args: {
@@ -3247,7 +3247,7 @@ export type Database = {
       };
       update_habits_order: {
         Args: {
-          p_orders: Database['public']['CompositeTypes']['habit_order_update'][];
+          p_orders: Database["public"]["CompositeTypes"]["habit_order_update"][];
         };
         Returns: undefined;
       };
@@ -3257,8 +3257,8 @@ export type Database = {
       };
     };
     Enums: {
-      qw_exercise_type: 'read' | 'write' | 'emotion';
-      sp_exercise_type: 'read' | 'write' | 'emotion';
+      qw_exercise_type: "read" | "write" | "emotion";
+      sp_exercise_type: "read" | "write" | "emotion";
     };
     CompositeTypes: {
       article_comment_tile_data: {
@@ -3285,25 +3285,25 @@ export type Database = {
   };
 };
 
-type PublicSchema = Database[Extract<keyof Database, 'public'>];
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R;
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] & PublicSchema['Views'])
-    ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R
@@ -3311,18 +3311,18 @@ export type Tables<
     : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I;
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I;
       }
       ? I
@@ -3330,18 +3330,18 @@ export type TablesInsert<
     : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U;
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U;
       }
       ? U
@@ -3349,27 +3349,27 @@ export type TablesUpdate<
     : never;
 
 export type Enums<
-  PublicEnumNameOrOptions extends keyof PublicSchema['Enums'] | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof PublicSchema["Enums"] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
-    ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema['CompositeTypes']
+    | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database;
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema['CompositeTypes']
-    ? PublicSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never;

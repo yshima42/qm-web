@@ -147,9 +147,7 @@ export function getAllPostSlugs(locale: string): string[] {
 /**
  * 記事が他の言語でも存在するかチェック
  */
-export function getAlternateLanguageVersions(
-  slug: string,
-): Record<string, boolean> {
+export function getAlternateLanguageVersions(slug: string): Record<string, boolean> {
   const languages = ["en", "ja"];
   const result: Record<string, boolean> = {};
 
