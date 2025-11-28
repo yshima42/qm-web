@@ -18,6 +18,7 @@ export type HeaderProps = {
   };
   icon?: React.ReactNode;
   currentUserProfile?: ProfileTileDto | null;
+  hideHeader?: boolean;
 };
 
 export function Header({
@@ -29,7 +30,13 @@ export function Header({
   hideTitle,
   icon,
   currentUserProfile,
+  hideHeader,
 }: HeaderProps) {
+  // ヘッダーを完全に非表示にする場合
+  if (hideHeader) {
+    return null;
+  }
+
   // ログイン中でデスクトップサイズの場合はヘッダーを非表示（戻るボタンがある場合は除く）
   const isLoggedIn = !!currentUserProfile;
   const hideOnDesktop = isLoggedIn && !showBackButton;
