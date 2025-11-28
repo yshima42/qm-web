@@ -22,14 +22,11 @@ export function useInfiniteCommentedStories(userId: string) {
         data: { user },
       } = await supabase.auth.getUser();
 
-      if (!user) {
-        return { stories: [], hasMore: false };
-      }
-
       // RPC関数でコメント済みストーリーIDを取得（muteユーザーを除外）
+      // 未ログイン時は user_id に null を渡す
       const { data: storyIdsData, error: rpcError } = await supabase.rpc("get_commented_stories", {
         commenter_id: userId,
-        user_id: user.id,
+        user_id: user?.id ?? null,
         from_pos: from,
         to_pos: to,
         before_timestamp: boundaryTimeRef.current,
@@ -61,9 +58,9 @@ export function useInfiniteCommentedStories(userId: string) {
 
       const storyList = orderedStories as StoryTileDto[];
 
-      // いいね状態を取得
+      // いいね状態を取得（ログイン時のみ）
       let storiesWithLikes = storyList;
-      if (storyList.length > 0) {
+      if (user && storyList.length > 0) {
         const fetchedStoryIds = storyList.map((s) => s.id);
         const { data: likeData } = await supabase.rpc("get_has_liked_by_story_ids", {
           p_story_ids: fetchedStoryIds,
