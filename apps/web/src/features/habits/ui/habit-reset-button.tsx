@@ -1,37 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@quitmate/ui";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
-import { resetTrial } from "@/features/habits/data/actions";
+import { HabitTileDto } from "@/lib/types";
+import { HabitResetDialog } from "./habit-reset-dialog";
 
 type Props = {
-  habitId: string;
-  trialId: string;
-  habitName: string;
+  habit: HabitTileDto;
 };
 
-export function HabitResetButton({ habitId, trialId, habitName }: Props) {
-  const router = useRouter();
+export function HabitResetButton({ habit }: Props) {
+  const t = useTranslations("habit-reset");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const currentTrial = habit.trials?.find((t) => !t.ended_at);
 
-  const handleReset = async () => {
-    if (!confirm(`「${habitName}」の継続時間をリセットしますか？この操作は取り消せません。`)) {
-      return;
-    }
-
-    const { error } = await resetTrial(habitId, trialId);
-
-    if (error) {
-      alert(`エラーが発生しました: ${error.message}`);
-      return;
-    }
-
-    router.refresh();
-  };
+  if (!currentTrial) {
+    return null;
+  }
 
   return (
-    <Button variant="outline" size="sm" onClick={handleReset}>
-      リセット
-    </Button>
+    <>
+      <Button variant="outline" size="sm" onClick={() => setDialogOpen(true)}>
+        {t("reset")}
+      </Button>
+      <HabitResetDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        habit={habit}
+        trialId={currentTrial.id}
+      />
+    </>
   );
 }

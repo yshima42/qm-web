@@ -1,4 +1,4 @@
-import { AppDownloadSection } from "@quitmate/ui";
+import { TranslatedAppDownloadSectionServer } from "@/components/ui/translated-app-download-section-server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -170,7 +170,7 @@ export default async function Page({
           />
 
           {/* App download section */}
-          <AppDownloadSection />
+          <TranslatedAppDownloadSectionServer />
         </main>
       </Suspense>
     </>

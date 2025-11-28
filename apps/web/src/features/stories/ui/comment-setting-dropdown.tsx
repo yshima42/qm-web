@@ -14,9 +14,14 @@ export type CommentSetting = "enabled" | "disabled";
 type CommentSettingDropdownProps = {
   value: CommentSetting;
   onChange: (value: CommentSetting) => void;
+  disabled?: boolean;
 };
 
-export function CommentSettingDropdown({ value, onChange }: CommentSettingDropdownProps) {
+export function CommentSettingDropdown({
+  value,
+  onChange,
+  disabled = false,
+}: CommentSettingDropdownProps) {
   const tCommentSetting = useTranslations("comment-setting");
 
   return (
@@ -24,7 +29,8 @@ export function CommentSettingDropdown({ value, onChange }: CommentSettingDropdo
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="text-primary hover:bg-primary/10 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors"
+          disabled={disabled}
+          className="text-primary hover:bg-primary/10 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50"
         >
           {value === "enabled" ? <Globe className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
           <span>{tCommentSetting(value)}</span>

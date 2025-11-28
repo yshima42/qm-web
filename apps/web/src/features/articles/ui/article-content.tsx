@@ -1,6 +1,6 @@
 "use client";
 
-import { CommentIcon, ArticleLikeIcon, ShareButton, AppDownloadSection } from "@quitmate/ui";
+import { CommentIcon, ArticleLikeIcon, ShareButton } from "@quitmate/ui";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
@@ -21,6 +21,7 @@ import { toggleArticleLike, deleteArticle } from "@/features/articles/data/actio
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { ReportDialog } from "@/features/reports/ui/report-dialog";
 import { ReportType } from "@/features/reports/domain/report-dto";
+import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { CategoryTag } from "@/features/common/ui/category-tag";
 import {
@@ -278,7 +279,9 @@ export function ArticleContent({
           </div>
         </div>
 
-        <AppDownloadSection message={`Follow ${article.profiles.display_name} on the app`} />
+        <TranslatedAppDownloadSection
+          customMessage={`${t("preFollowMessage")}${article.profiles.display_name}${t("postFollowMessage")}`}
+        />
       </div>
 
       {/* 削除成功スナックバー */}

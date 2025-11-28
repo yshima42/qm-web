@@ -171,3 +171,183 @@ export async function resetTrial(
   console.log("Trial reset successfully");
   return { error: null };
 }
+
+export type ResetTrialAndPostStoryDTO = {
+  habitId: string;
+  trialId: string;
+  storyContent: string | null;
+  commentSetting?: "enabled" | "disabled";
+  languageCode?: "ja" | "en";
+  habitCategoryId: string;
+  customHabitName: string | null;
+  trialStartedAt: string;
+};
+
+/**
+ * タグを取得または作成する
+ */
+async function getOrCreateTag(
+  supabase: SupabaseClient,
+  tagName: string,
+): Promise<{ tagId: string | null; error: Error | null }> {
+  // 既存のタグを取得
+  const { data: existingTag, error: tagFetchError } = await supabase
+    .from("tags")
+    .select("id")
+    .eq("name", tagName)
+    .maybeSingle();
+
+  if (tagFetchError) {
+    console.error(`[getOrCreateTag] Error fetching tag "${tagName}":`, tagFetchError);
+    return { tagId: null, error: new Error(`タグの取得に失敗しました: ${tagName}`) };
+  }
+
+  if (existingTag) {
+    return { tagId: existingTag.id, error: null };
+  }
+
+  // タグが存在しない場合は作成
+  const { data: newTag, error: tagCreateError } = await supabase
+    .from("tags")
+    .insert({ name: tagName })
+    .select("id")
+    .single();
+
+  if (tagCreateError || !newTag) {
+    console.error(`[getOrCreateTag] Error creating tag "${tagName}":`, tagCreateError);
+    return { tagId: null, error: new Error(`タグの作成に失敗しました: ${tagName}`) };
+  }
+
+  return { tagId: newTag.id, error: null };
+}
+
+/**
+ * ストーリーにタグを追加する
+ */
+async function addTagToStory(
+  supabase: SupabaseClient,
+  storyId: string,
+  tagName: string,
+): Promise<{ error: Error | null }> {
+  const { tagId, error: tagError } = await getOrCreateTag(supabase, tagName);
+
+  if (tagError || !tagId) {
+    // タグの取得/作成に失敗してもストーリーは作成されているので、エラーを返さない
+    console.error(`[addTagToStory] Failed to get or create tag "${tagName}"`);
+    return { error: null };
+  }
+
+  const { error: storyTagError } = await supabase.from("story_tags").insert({
+    story_id: storyId,
+    tag_id: tagId,
+  });
+
+  if (storyTagError) {
+    console.error(`[addTagToStory] Error linking tag "${tagName}" to story:`, storyTagError);
+    // タグのリンクに失敗してもストーリーは作成されているので、エラーを返さない
+  }
+
+  return { error: null };
+}
+
+/**
+ * リセット後の新しいアクティブなtrialを取得する
+ */
+async function getNewActiveTrialAfterReset(
+  supabase: SupabaseClient,
+  habitId: string,
+): Promise<{ trial: { id: string; started_at: string } | null; error: Error | null }> {
+  const { data: habitData, error: fetchError } = await supabase
+    .from("habits")
+    .select("trials(id, started_at, ended_at)")
+    .eq("id", habitId)
+    .maybeSingle();
+
+  if (fetchError || !habitData) {
+    console.error("[getNewActiveTrialAfterReset] Error fetching habit:", fetchError);
+    return { trial: null, error: new Error("習慣の取得に失敗しました") };
+  }
+
+  const newActiveTrial = habitData.trials?.find((t) => !t.ended_at);
+  if (!newActiveTrial) {
+    console.error("[getNewActiveTrialAfterReset] No active trial found after reset");
+    return { trial: null, error: new Error("リセット後のtrialが見つかりませんでした") };
+  }
+
+  return { trial: { id: newActiveTrial.id, started_at: newActiveTrial.started_at }, error: null };
+}
+
+/**
+ * リセットと同時にストーリーを投稿する
+ */
+export async function resetTrialAndPostStory(
+  dto: ResetTrialAndPostStoryDTO,
+): Promise<{ error: Error | null }> {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: new Error("User not authenticated") };
+  }
+
+  // リセットを実行
+  const { error: resetError } = await supabase.rpc("habit_restart_trial", {
+    p_habit_id: dto.habitId,
+    p_trial_id: dto.trialId,
+  });
+
+  if (resetError) {
+    console.error("[resetTrialAndPostStory] Error resetting trial:", resetError);
+    return { error: new Error(resetError.message) };
+  }
+
+  // 投稿内容がない場合はここで終了
+  if (!dto.storyContent || !dto.storyContent.trim()) {
+    return { error: null };
+  }
+
+  // 新しいアクティブなtrialを取得
+  const { trial: newActiveTrial, error: trialError } = await getNewActiveTrialAfterReset(
+    supabase,
+    dto.habitId,
+  );
+
+  if (trialError || !newActiveTrial) {
+    return { error: trialError || new Error("リセット後のtrialが見つかりませんでした") };
+  }
+
+  // リセット前の継続日数を計算（リセット前のtrial開始日から現在までの日数）
+  const previousTrialStartedAt = new Date(dto.trialStartedAt);
+  const now = new Date();
+  const trialElapsedDays = differenceInDays(now, previousTrialStartedAt);
+
+  // ストーリーを作成
+  const { data: storyData, error: storyError } = await supabase
+    .from("stories")
+    .insert({
+      content: dto.storyContent.trim(),
+      user_id: user.id,
+      habit_category_id: dto.habitCategoryId,
+      custom_habit_name: dto.customHabitName,
+      trial_started_at: newActiveTrial.started_at,
+      trial_elapsed_days: trialElapsedDays, // リセット前の継続日数
+      comment_setting: dto.commentSetting || "enabled",
+      is_reason: false,
+      language_code: dto.languageCode || "ja",
+    })
+    .select("id")
+    .single();
+
+  if (storyError || !storyData) {
+    console.error("[resetTrialAndPostStory] Error creating story:", storyError);
+    return { error: new Error("ストーリーの作成に失敗しました") };
+  }
+
+  // resetタグを追加
+  await addTagToStory(supabase, storyData.id, "reset");
+
+  return { error: null };
+}

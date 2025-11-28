@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { AppDownloadSection } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
+
+import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -27,8 +28,16 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
   });
 
   // クライアントサイドでデータを取得（Xと同様のパターン）
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
-    useInfiniteStories(category);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    resetAndRefetch,
+    addStoryToTimeline,
+  } = useInfiniteStories(category);
 
   // スクロールで次のページを読み込み
   useEffect(() => {
@@ -50,7 +59,13 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
 
   return (
     <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
+      {habits && habits.length > 0 && (
+        <StoryInlineForm
+          habits={habits}
+          onStoryCreated={resetAndRefetch}
+          onStoryCreatedWithId={addStoryToTimeline}
+        />
+      )}
 
       {stories.map((story) => (
         <StoryTile
@@ -81,7 +96,7 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
       </div>
 
       <div className="mt-8">
-        <AppDownloadSection />
+        <TranslatedAppDownloadSection />
       </div>
     </div>
   );

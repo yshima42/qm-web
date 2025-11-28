@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { createStory } from "../data/actions";
 import { Loader2 } from "lucide-react";
@@ -11,6 +12,7 @@ import { CharacterCountIndicator } from "@/features/common/components/character-
 import { CommentSettingDropdown, type CommentSetting } from "./comment-setting-dropdown";
 import { HabitSelectDropdown } from "./habit-select-dropdown";
 import { getActiveHabits } from "../utils/habit-utils";
+import { useLocale } from "next-intl";
 
 type StoryCreateFormProps = {
   habits: HabitTileDto[];
@@ -18,6 +20,8 @@ type StoryCreateFormProps = {
 
 export function StoryCreateForm({ habits }: StoryCreateFormProps) {
   const t = useTranslations("story-post");
+  const locale = useLocale();
+  const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
@@ -41,18 +45,24 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
       return;
     }
 
-    // 選択された習慣IDとコメント設定を設定
+    // 選択された習慣ID、コメント設定、言語コードを設定
     formData.set("habit_id", selectedHabitId);
     formData.set("comment_setting", commentSetting);
+    // タイムラインの言語設定を使用（現在のロケール）
+    formData.set("language_code", (locale as "ja" | "en") || "ja");
 
     startTransition(async () => {
       try {
-        await createStory(formData);
-      } catch (e) {
-        // Ignore NEXT_REDIRECT errors as they are not actual errors
-        if (e instanceof Error && e.message.includes("NEXT_REDIRECT")) {
-          return;
+        const result = await createStory(formData);
+        if (result?.success) {
+          // フォームをクリア
+          setContent("");
+          // タイムラインを更新（React Queryのキャッシュを無効化）
+          queryClient.invalidateQueries({
+            queryKey: ["stories"],
+          });
         }
+      } catch (e) {
         setError(e instanceof Error ? e.message : t("createFailed"));
       }
     });
@@ -101,7 +111,7 @@ export function StoryCreateForm({ habits }: StoryCreateFormProps) {
         </div>
       )}
 
-      {/* フッター（文字数カウントと投稿ボタン） */}
+      {/* フッター（文字数カウント、投稿ボタン） */}
       <div className="px-4 py-3">
         <div className="flex items-center justify-between">
           <CharacterCountIndicator

@@ -48,7 +48,9 @@ export type StoryTileDto = Story & {
   habit_categories: StoryHabitCategory;
   likes: { count: number }[];
   comments: { count: number }[];
+  story_tags?: { tags: { name: string } }[];
   isLikedByMe?: boolean;
+  language_code?: string;
 };
 
 // 返信先の親コメント情報（最小限の情報）

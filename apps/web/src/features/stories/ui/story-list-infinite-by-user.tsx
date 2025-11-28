@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { AppDownloadSection } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
+
+import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
@@ -80,7 +81,7 @@ export function StoryListInfiniteByUser({
       </div>
 
       <div className="mt-8">
-        <AppDownloadSection />
+        <TranslatedAppDownloadSection />
       </div>
     </div>
   );

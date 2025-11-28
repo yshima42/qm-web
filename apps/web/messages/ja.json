@@ -117,6 +117,17 @@
     "register": "登録&投稿",
     "registering": "登録中..."
   },
+  "habit-reset": {
+    "reset": "リセット",
+    "resetTitle": "日数をリセット",
+    "resetAndPost": "リセット & 投稿",
+    "resetConfirmationContent": "開始日を今日にリセットします。",
+    "resetErrorMessage": "エラー：リセット及びストーリーの追加に失敗しました",
+    "storyContentLabel": "投稿内容（任意）",
+    "storyContentPlaceholder": "リセットについての気持ちをシェアしよう...",
+    "contentTooLong": "文字数が上限を超えています",
+    "cancel": "キャンセル"
+  },
   "app-download-dialog": {
     "title": "依存克服SNS QuitMate",
     "description": "「やめたくても、やめられない」のは、あなただけじゃない。",
@@ -144,7 +155,8 @@
   },
   "category-tag": {
     "days": "日",
-    "reasonTag": "やめる理由"
+    "reasonTag": "やめる理由",
+    "resetTag": "リセット"
   },
   "sidebar": {
     "home": "ホーム",

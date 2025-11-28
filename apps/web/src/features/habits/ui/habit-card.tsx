@@ -158,11 +158,7 @@ export function HabitCard({ habit }: Props) {
         {/* リセットボタン（中央揃え） */}
         {currentTrial && (
           <div className="mt-4 flex justify-center">
-            <HabitResetButton
-              habitId={habit.id}
-              trialId={currentTrial.id}
-              habitName={displayName}
-            />
+            <HabitResetButton habit={habit} />
           </div>
         )}
       </CardContent>
