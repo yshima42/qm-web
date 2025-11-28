@@ -48,6 +48,7 @@ export type StoryTileDto = Story & {
   habit_categories: StoryHabitCategory;
   likes: { count: number }[];
   comments: { count: number }[];
+  story_tags?: { tags: { name: string } }[];
   isLikedByMe?: boolean;
 };
 

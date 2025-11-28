@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Target } from "lucide-react";
+import { Home, ClipboardCheck } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -43,7 +43,7 @@ export function MobileBottomNav({ currentUserUsername }: MobileBottomNavProps) {
               isHabitsActive ? "text-primary-light dark:text-primary-dark" : "text-muted-foreground"
             }`}
           >
-            <Target className={`size-6 ${isHabitsActive ? "fill-current" : ""}`} />
+            <ClipboardCheck className={`size-6 ${isHabitsActive ? "fill-current" : ""}`} />
             <span className="text-xs font-medium">{t("habits")}</span>
           </Link>
         )}

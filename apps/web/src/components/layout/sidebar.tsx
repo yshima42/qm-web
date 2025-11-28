@@ -3,7 +3,7 @@
 import { Button, CategoryIcon, SidebarIcon, AppDownloadDialogTrigger } from "@quitmate/ui";
 import {
   BookOpen,
-  Target,
+  ClipboardCheck,
   Pen,
   ChevronDown,
   ChevronRight,
@@ -111,7 +111,7 @@ export function SidebarContent({
         )}
         {currentUserUsername && (
           <SidebarIcon
-            icon={Target}
+            icon={ClipboardCheck}
             label={t("habits")}
             href="/habits"
             active={pathname === "/habits"}

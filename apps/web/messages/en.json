@@ -157,6 +157,17 @@
     "register": "Register & Post",
     "registering": "Registering..."
   },
+  "habit-reset": {
+    "reset": "Reset",
+    "resetTitle": "Reset Days",
+    "resetAndPost": "Reset & Post",
+    "resetConfirmationContent": "This will reset the start date to today.",
+    "resetErrorMessage": "Error: Failed to reset and post story.",
+    "storyContentLabel": "Story content (optional)",
+    "storyContentPlaceholder": "Share your feelings about the reset...",
+    "contentTooLong": "Content exceeds character limit",
+    "cancel": "Cancel"
+  },
   "app-download-dialog": {
     "title": "Addiction Recovery SNS QuitMate",
     "description": "You're not alone in wanting to quit but not being able to.",
@@ -166,7 +177,8 @@
   },
   "category-tag": {
     "days": " days",
-    "reasonTag": "Reason to quit"
+    "reasonTag": "Reason to quit",
+    "resetTag": "Reset"
   },
   "sidebar": {
     "home": "Home",
