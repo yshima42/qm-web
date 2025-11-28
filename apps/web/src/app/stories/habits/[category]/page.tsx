@@ -4,13 +4,11 @@ import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { HabitsProvider } from "@/features/habits/providers/habits-provider";
 
 import { createClient } from "@/lib/supabase/server";
-import { HabitCategoryName, HabitTileDto } from "@/lib/types";
+import { HabitCategoryName } from "@/lib/types";
 
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
-import { StoryModalProvider } from "@/features/stories/ui/story-modal-provider";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
 import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
 
@@ -44,34 +42,19 @@ type PageProps = {
 };
 
 export default async function Page(props: PageProps) {
-  // Fetch user and habits for modal
-  const { getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
-
-  const habits = await getCurrentUserHabits();
-
   return (
-    <HabitsProvider habits={habits}>
-      <StoryModalProvider habits={habits}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <CategoryPageContent
-            params={props.params}
-            searchParams={props.searchParams}
-            habits={habits}
-          />
-        </Suspense>
-      </StoryModalProvider>
-    </HabitsProvider>
+    <Suspense fallback={<LoadingSpinner />}>
+      <CategoryPageContent params={props.params} searchParams={props.searchParams} />
+    </Suspense>
   );
 }
 
 async function CategoryPageContent({
   params,
   searchParams,
-  habits,
 }: {
   params: Promise<{ category: string }>;
   searchParams: Promise<{ tab?: string }>;
-  habits: HabitTileDto[];
 }) {
   const { category } = await params;
   const { tab } = await searchParams;
@@ -99,8 +82,9 @@ async function CategoryPageContent({
   const categoryDisplayName = tCategory(habitCategory);
 
   // 現在のユーザーのプロフィール情報を取得
-  const { getCurrentUserProfile } = await import("@/lib/utils/page-helpers");
+  const { getCurrentUserProfile, getCurrentUserHabits } = await import("@/lib/utils/page-helpers");
   const currentUserProfile = await getCurrentUserProfile();
+  const habits = await getCurrentUserHabits();
 
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
