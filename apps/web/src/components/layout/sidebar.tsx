@@ -121,7 +121,7 @@ export function SidebarContent({
         </div>
       )}
 
-      <div className="mb-6 min-h-0 flex-1 space-y-1 overflow-y-auto pr-2">
+      <div className="scrollbar-hide mb-6 min-h-0 flex-1 space-y-1 overflow-y-auto">
         {currentUserUsername && (
           <SidebarIcon
             icon={User}
@@ -159,11 +159,11 @@ export function SidebarContent({
               } text-muted-foreground`}
               title={!compact ? t("myCommunity") : undefined}
             >
-              <Users size={18} strokeWidth={2} className="transition-all" />
+              <Users size={compact ? 24 : 18} strokeWidth={2} className="transition-all" />
               {!compact && <span>{t("myCommunity")}</span>}
             </div>
             {/* マイコミュニティのカテゴリー */}
-            <div className="pl-4">
+            <div className={compact ? "" : "pl-4"}>
               {/* 「すべて」を一番上に表示 */}
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
@@ -202,10 +202,10 @@ export function SidebarContent({
               } text-muted-foreground`}
               title={!compact ? t("communities") : undefined}
             >
-              <Compass size={18} strokeWidth={2} className="transition-all" />
+              <Compass size={compact ? 24 : 18} strokeWidth={2} className="transition-all" />
               {!compact && <span>{t("communities")}</span>}
             </div>
-            <div className="pl-4">
+            <div className={compact ? "" : "pl-4"}>
               {/* 「すべて」を一番上に表示 */}
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
@@ -244,28 +244,32 @@ export function SidebarContent({
             <button
               type="button"
               onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
-              className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
-                !compact ? "w-full justify-between" : "justify-center px-2"
+              className={`flex items-center rounded-md py-2 transition-colors ${
+                !compact ? "w-full justify-between gap-4 px-4" : "w-full justify-center px-2"
               } text-muted-foreground hover:bg-primary-light/10 hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark hover:font-medium`}
               title={!compact ? t("otherCommunity") : undefined}
             >
-              <div className="flex min-w-0 items-center gap-4">
-                <Compass size={18} strokeWidth={2} className="shrink-0 transition-all" />
-                {!compact && <span className="truncate">{t("otherCommunity")}</span>}
-              </div>
-              {!compact && (
-                <div className="shrink-0">
-                  {isOtherCommunityOpen ? (
-                    <ChevronDown className="size-4" />
-                  ) : (
-                    <ChevronRight className="size-4" />
-                  )}
-                </div>
+              {compact ? (
+                <Compass size={24} strokeWidth={2} className="transition-all" />
+              ) : (
+                <>
+                  <div className="flex min-w-0 items-center gap-4">
+                    <Compass size={18} strokeWidth={2} className="shrink-0 transition-all" />
+                    <span className="truncate">{t("otherCommunity")}</span>
+                  </div>
+                  <div className="shrink-0">
+                    {isOtherCommunityOpen ? (
+                      <ChevronDown className="size-4" />
+                    ) : (
+                      <ChevronRight className="size-4" />
+                    )}
+                  </div>
+                </>
               )}
             </button>
             {/* その他コミュニティのカテゴリー（開いた時のみ表示） */}
             {isOtherCommunityOpen && (
-              <div className="pl-4">
+              <div className={compact ? "" : "pl-4"}>
                 {otherCategories.map((category) => {
                   const href = getCategoryUrl(category);
                   const Icon = CATEGORY_ICONS[category];
@@ -301,7 +305,7 @@ export function SidebarContent({
             } text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer`}
             title={!compact ? t("app") : undefined}
           >
-            <Smartphone size={18} strokeWidth={2} className="transition-all" />
+            <Smartphone size={compact ? 24 : 18} strokeWidth={2} className="transition-all" />
             {!compact && <span>{t("app")}</span>}
           </div>
         </AppDownloadDialogTrigger>
@@ -322,16 +326,16 @@ export function SidebarContent({
       {currentUserUsername && (
         <div className="shrink-0">
           {compact ? (
-            <div className="pr-2">
+            <div className="px-2">
               <button
-                className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-4 py-2 transition-colors"
+                className="text-muted-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center justify-center rounded-md px-2 py-2 transition-colors"
                 onClick={() => {
                   window.dispatchEvent(new CustomEvent("openStoryModal"));
                   handleLinkClick();
                 }}
                 aria-label={t("postStory")}
               >
-                <Pen className="size-5" />
+                <Pen size={24} strokeWidth={2} />
               </button>
             </div>
           ) : (

@@ -32,7 +32,7 @@ export function SidebarIcon({
       title={label}
       onClick={onClick}
     >
-      <Icon size={18} strokeWidth={active ? 2.5 : 2} className="transition-all" />
+      <Icon size={showLabel ? 18 : 24} strokeWidth={active ? 2.5 : 2} className="transition-all" />
       {showLabel && <span>{label}</span>}
     </Link>
   );
