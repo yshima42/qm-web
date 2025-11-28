@@ -177,6 +177,7 @@ export type ResetTrialAndPostStoryDTO = {
   trialId: string;
   storyContent: string | null;
   commentSetting?: "enabled" | "disabled";
+  languageCode?: "ja" | "en";
   habitCategoryId: string;
   customHabitName: string | null;
   trialStartedAt: string;
@@ -335,6 +336,7 @@ export async function resetTrialAndPostStory(
       trial_elapsed_days: trialElapsedDays, // リセット前の継続日数
       comment_setting: dto.commentSetting || "enabled",
       is_reason: false,
+      language_code: dto.languageCode || "ja",
     })
     .select("id")
     .single();

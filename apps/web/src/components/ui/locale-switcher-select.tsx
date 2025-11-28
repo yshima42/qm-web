@@ -1,6 +1,7 @@
 "use client";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@quitmate/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import { GlobeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -17,11 +18,17 @@ type Props = {
 export default function LocaleSwitcherSelect({ defaultValue, items, label }: Props) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   function onChange(value: string) {
     const locale = value as Locale;
     startTransition(async () => {
       await setUserLocale(locale);
+      // ストーリーのキャッシュを無効化して、新しい言語で再取得
+      queryClient.invalidateQueries({
+        queryKey: ["stories"],
+      });
+      // ページをリフレッシュして、新しいロケールを反映
       router.refresh();
     });
   }

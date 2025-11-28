@@ -2,7 +2,6 @@
 
 import { differenceInDays } from "date-fns";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -13,6 +12,7 @@ import { fetchHabits } from "@/features/habits/data/data";
 export async function createStory(formData: FormData) {
   const content = formData.get("content") as string;
   const commentSetting = (formData.get("comment_setting") as string) || "enabled";
+  const languageCode = (formData.get("language_code") as string) || "ja";
 
   if (!content || content.trim() === "") {
     throw new Error("Content is required");
@@ -21,6 +21,11 @@ export async function createStory(formData: FormData) {
   // comment_settingのバリデーション
   if (commentSetting !== "enabled" && commentSetting !== "disabled") {
     throw new Error("Invalid comment setting");
+  }
+
+  // language_codeのバリデーション
+  if (languageCode !== "ja" && languageCode !== "en") {
+    throw new Error("Invalid language code");
   }
 
   const supabase = await createClient();
@@ -79,6 +84,7 @@ export async function createStory(formData: FormData) {
     trial_elapsed_days: trialElapsedDays,
     comment_setting: commentSetting,
     is_reason: false,
+    language_code: languageCode,
   });
 
   if (error) {
@@ -86,14 +92,14 @@ export async function createStory(formData: FormData) {
     throw new Error("Failed to create story");
   }
 
-  // Get the habit category name for redirect
+  // Get the habit category name for revalidation
   const categoryName = activeHabit.habit_categories?.habit_category_name;
   const categoryPath = categoryName
     ? `/stories/habits/${categoryName.toLowerCase().replace(/\s+/g, "-")}`
     : "/stories";
 
   revalidatePath(categoryPath);
-  redirect(categoryPath);
+  return { success: true };
 }
 
 export async function toggleStoryLike(storyId: string, shouldLike: boolean) {

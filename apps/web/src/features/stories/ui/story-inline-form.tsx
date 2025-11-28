@@ -3,6 +3,7 @@
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition, useEffect, useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 
@@ -14,13 +15,17 @@ import { createStory } from "@/features/stories/data/actions";
 import { CommentSettingDropdown, type CommentSetting } from "./comment-setting-dropdown";
 import { HabitSelectDropdown } from "./habit-select-dropdown";
 import { getActiveHabits } from "../utils/habit-utils";
+import { useLocale } from "next-intl";
 
 type StoryInlineFormProps = {
   habits: HabitTileDto[];
+  onStoryCreated?: () => void;
 };
 
-export function StoryInlineForm({ habits }: StoryInlineFormProps) {
+export function StoryInlineForm({ habits, onStoryCreated }: StoryInlineFormProps) {
   const t = useTranslations("story-post");
+  const locale = useLocale();
+  const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
@@ -63,19 +68,32 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
 
     const formData = new FormData(e.currentTarget);
 
-    // 選択された習慣IDとコメント設定を設定
+    // 選択された習慣ID、コメント設定、言語コードを設定
     formData.set("habit_id", selectedHabitId);
     formData.set("comment_setting", commentSetting);
+    // タイムラインの言語設定を使用（現在のロケール）
+    formData.set("language_code", (locale as "ja" | "en") || "ja");
 
     startTransition(async () => {
       try {
-        await createStory(formData);
-        setContent(""); // Clear the form on success
-      } catch (err) {
-        // Ignore NEXT_REDIRECT errors as they are not actual errors
-        if (err instanceof Error && err.message.includes("NEXT_REDIRECT")) {
-          return;
+        const result = await createStory(formData);
+        if (result?.success) {
+          // フォームをクリア
+          setContent("");
+          // タイムラインを更新（boundaryTimeをリセットして再取得）
+          if (onStoryCreated) {
+            onStoryCreated();
+          } else {
+            // フォールバック: onStoryCreatedが提供されていない場合
+            queryClient.invalidateQueries({
+              queryKey: ["stories"],
+            });
+            queryClient.resetQueries({
+              queryKey: ["stories"],
+            });
+          }
         }
+      } catch (err) {
         setError(err instanceof Error ? err.message : t("createFailed"));
       }
     });
@@ -127,7 +145,7 @@ export function StoryInlineForm({ habits }: StoryInlineFormProps) {
           </div>
         )}
 
-        {/* フッター（文字数カウントと投稿ボタン） */}
+        {/* フッター（文字数カウント、投稿ボタン） */}
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <CharacterCountIndicator

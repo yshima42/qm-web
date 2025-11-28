@@ -88,7 +88,7 @@ export default async function RootLayout({
     <html lang={locale} className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground" suppressHydrationWarning>
         {gaId && <GoogleAnalytics measurementId={gaId} />}
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale}>
           <QueryProvider>
             <ThemeProvider
               attribute="class"

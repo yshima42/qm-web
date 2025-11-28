@@ -50,6 +50,7 @@ export type StoryTileDto = Story & {
   comments: { count: number }[];
   story_tags?: { tags: { name: string } }[];
   isLikedByMe?: boolean;
+  language_code?: string;
 };
 
 // 返信先の親コメント情報（最小限の情報）

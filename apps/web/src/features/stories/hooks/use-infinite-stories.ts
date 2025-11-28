@@ -1,17 +1,45 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useRef, useEffect } from "react";
+import { useLocale } from "next-intl";
 
 import { createClient } from "@/lib/supabase/client";
 import { HabitCategoryName, StoryTileDto } from "@/lib/types";
 import { STORY_SELECT_QUERY, PAGE_SIZE } from "../data/constants";
 
 export function useInfiniteStories(category: HabitCategoryName) {
+  const locale = useLocale();
+  const queryClient = useQueryClient();
   const boundaryTimeRef = useRef(new Date().toISOString());
+  const prevLocaleRef = useRef(locale);
 
-  return useInfiniteQuery({
-    queryKey: ["stories", "category", category],
+  // 言語が切り替わったときにboundaryTimeをリセットし、キャッシュを無効化
+  useEffect(() => {
+    if (prevLocaleRef.current !== locale) {
+      boundaryTimeRef.current = new Date().toISOString();
+      prevLocaleRef.current = locale;
+      // 言語が変わったときに、該当するクエリのキャッシュを無効化して再取得
+      queryClient.invalidateQueries({
+        queryKey: ["stories", "category", category],
+      });
+      queryClient.resetQueries({
+        queryKey: ["stories", "category", category, locale],
+      });
+    }
+  }, [locale, category, queryClient]);
+
+  // 投稿後にタイムラインを更新するための関数をエクスポート
+  // この関数は外部から呼び出して、boundaryTimeをリセットし、クエリをリセットできる
+  const resetAndRefetch = () => {
+    boundaryTimeRef.current = new Date().toISOString();
+    queryClient.resetQueries({
+      queryKey: ["stories", "category", category, locale],
+    });
+  };
+
+  const query = useInfiniteQuery({
+    queryKey: ["stories", "category", category, locale],
     queryFn: async ({ pageParam }) => {
       const supabase = createClient();
       const from = pageParam * PAGE_SIZE;
@@ -22,7 +50,9 @@ export function useInfiniteStories(category: HabitCategoryName) {
         data: { user },
       } = await supabase.auth.getUser();
 
-      // RPC関数でストーリーIDを取得（muteユーザーを除外）
+      const languageCode = locale === "ja" || locale === "en" ? locale : "ja";
+
+      // RPC関数でストーリーIDを取得（muteユーザーを除外、言語コードでフィルタリング）
       const { data: storyIdsData, error: rpcError } = await supabase.rpc(
         "get_ranged_stories_by_habit_including_official_with_language",
         {
@@ -30,12 +60,14 @@ export function useInfiniteStories(category: HabitCategoryName) {
           from_pos: from,
           to_pos: to,
           before_timestamp: boundaryTimeRef.current,
-          input_language_code: null,
+          input_language_code: languageCode,
         },
       );
 
       if (rpcError || !storyIdsData || storyIdsData.length === 0) {
-        if (rpcError) console.error("[useInfiniteStories] RPC error", rpcError);
+        if (rpcError) {
+          console.error("[useInfiniteStories] RPC error", rpcError);
+        }
         return { stories: [], hasMore: false };
       }
 
@@ -92,4 +124,10 @@ export function useInfiniteStories(category: HabitCategoryName) {
     gcTime: 0,
     refetchOnWindowFocus: false,
   });
+
+  // resetAndRefetchをqueryオブジェクトに追加
+  return {
+    ...query,
+    resetAndRefetch,
+  };
 }

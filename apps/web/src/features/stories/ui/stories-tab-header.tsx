@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
 import { Button } from "@quitmate/ui";
+import { TimelineLanguageSelector } from "@/components/layout/timeline-language-selector";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;
@@ -79,17 +80,22 @@ export function StoriesTabHeader({
           })}
         </div>
 
-        {/* 未ログイン時はログインボタンを表示 */}
-        {!isLoggedIn && (
-          <div className="flex items-center gap-2 px-4">
-            <Button asChild size="sm" variant="outline">
-              <Link href="/auth/login">{tLogin("login")}</Link>
-            </Button>
-            <Button asChild size="sm" variant="default">
-              <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
-            </Button>
-          </div>
-        )}
+        {/* 言語設定とログインボタン */}
+        <div className="flex items-center gap-2 px-4">
+          {/* タイムライン言語設定 */}
+          <TimelineLanguageSelector compact={true} />
+          {/* 未ログイン時はログインボタンを表示 */}
+          {!isLoggedIn && (
+            <>
+              <Button asChild size="sm" variant="outline">
+                <Link href="/auth/login">{tLogin("login")}</Link>
+              </Button>
+              <Button asChild size="sm" variant="default">
+                <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

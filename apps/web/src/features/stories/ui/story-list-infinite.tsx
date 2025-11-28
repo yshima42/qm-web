@@ -28,8 +28,15 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
   });
 
   // クライアントサイドでデータを取得（Xと同様のパターン）
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
-    useInfiniteStories(category);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    resetAndRefetch,
+  } = useInfiniteStories(category);
 
   // スクロールで次のページを読み込み
   useEffect(() => {
@@ -51,7 +58,9 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
 
   return (
     <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
+      {habits && habits.length > 0 && (
+        <StoryInlineForm habits={habits} onStoryCreated={resetAndRefetch} />
+      )}
 
       {stories.map((story) => (
         <StoryTile

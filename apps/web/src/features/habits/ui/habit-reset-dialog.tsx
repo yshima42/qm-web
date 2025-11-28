@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
@@ -24,6 +24,10 @@ import {
   CommentSettingDropdown,
   type CommentSetting,
 } from "@/features/stories/ui/comment-setting-dropdown";
+import {
+  LanguageSelectDropdown,
+  type LanguageCode,
+} from "@/features/stories/ui/language-select-dropdown";
 
 type Props = {
   open: boolean;
@@ -34,10 +38,12 @@ type Props = {
 
 export function HabitResetDialog({ open, onOpenChange, habit, trialId }: Props) {
   const t = useTranslations("habit-reset");
+  const locale = useLocale();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [content, setContent] = useState("");
   const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
+  const [languageCode, setLanguageCode] = useState<LanguageCode>((locale as LanguageCode) || "ja");
   const [error, setError] = useState<string | null>(null);
 
   const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
@@ -57,6 +63,7 @@ export function HabitResetDialog({ open, onOpenChange, habit, trialId }: Props) 
         trialId,
         storyContent: hasContent ? content.trim() : null,
         commentSetting: hasContent ? commentSetting : undefined,
+        languageCode: hasContent ? languageCode : undefined,
         habitCategoryId: habit.habit_category_id,
         customHabitName: habit.custom_habit_name,
         trialStartedAt:
@@ -104,18 +111,26 @@ export function HabitResetDialog({ open, onOpenChange, habit, trialId }: Props) 
               disabled={isPending}
             />
             {hasContent && (
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <CharacterCountIndicator
                   remaining={remaining}
                   isOverLimit={isOverLimit}
                   showCount={showCount}
                   progress={progress}
                 />
-                <CommentSettingDropdown
-                  value={commentSetting}
-                  onChange={setCommentSetting}
-                  disabled={isPending}
-                />
+                <div className="flex items-center gap-2">
+                  <LanguageSelectDropdown
+                    value={languageCode}
+                    onChange={setLanguageCode}
+                    disabled={isPending}
+                    updateTimelineFilter={false}
+                  />
+                  <CommentSettingDropdown
+                    value={commentSetting}
+                    onChange={setCommentSetting}
+                    disabled={isPending}
+                  />
+                </div>
               </div>
             )}
           </div>
