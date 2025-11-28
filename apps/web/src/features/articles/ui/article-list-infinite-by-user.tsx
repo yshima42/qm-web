@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { AppDownloadSection } from "@quitmate/ui";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRef } from "react";
+
+import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { createClient } from "@/lib/supabase/client";
 import { ArticleTileDto } from "@/lib/types";
@@ -119,7 +120,7 @@ export function ArticleListInfiniteByUser({ userId, isLoggedIn }: Props) {
       </div>
 
       <div className="mt-8">
-        <AppDownloadSection />
+        <TranslatedAppDownloadSection />
       </div>
     </div>
   );

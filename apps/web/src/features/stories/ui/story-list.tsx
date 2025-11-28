@@ -1,4 +1,4 @@
-import { AppDownloadSection } from "@quitmate/ui";
+import { TranslatedAppDownloadSectionServer } from "@/components/ui/translated-app-download-section-server";
 
 import { StoryTileDto, HabitTileDto } from "@/lib/types";
 import { createClient } from "@/lib/supabase/server";
@@ -35,7 +35,7 @@ export async function StoryList({ fetchStoriesFunc, habits }: StoryListProps) {
       ))}
 
       <div className="mt-8">
-        <AppDownloadSection />
+        <TranslatedAppDownloadSectionServer />
       </div>
     </div>
   );
