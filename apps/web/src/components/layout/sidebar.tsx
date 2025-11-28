@@ -2,11 +2,6 @@
 
 import {
   Button,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-  SheetTitle,
   ThemeSwitcher,
   CategoryIcon,
   SidebarIcon,
@@ -14,7 +9,6 @@ import {
 } from "@quitmate/ui";
 import {
   BookOpen,
-  Menu,
   Target,
   Pen,
   ChevronDown,
@@ -34,6 +28,7 @@ import { useState, useEffect, useMemo } from "react";
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 import { useHabits } from "@/features/habits/providers/habits-provider";
+import { categorizeHabitCategories } from "./sidebar-utils";
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
@@ -66,24 +61,12 @@ export function SidebarContent({
 
   // 登録済みカテゴリーとその他カテゴリーを分ける
   const { myCategories, otherCategories } = useMemo(() => {
-    // 習慣の順番（display_order）でカテゴリーを取得（重複を除去）
-    const myCategoryNames = new Set<HabitCategoryName>();
-    const myCatsOrdered: HabitCategoryName[] = [];
-
-    // 習慣の順番でカテゴリーを追加（重複は無視）
-    habits.forEach((habit) => {
-      const categoryName = habit.habit_categories.habit_category_name as HabitCategoryName;
-      if (!myCategoryNames.has(categoryName)) {
-        myCategoryNames.add(categoryName);
-        myCatsOrdered.push(categoryName);
-      }
-    });
-
-    // "Official"は除外して、登録済み以外のカテゴリーを取得
+    const categorized = categorizeHabitCategories(habits);
+    // habitCategoriesから"Official"を除外して、登録済み以外のカテゴリーを取得
     const filteredCategories = habitCategories.filter((cat) => cat !== "Official");
-    const otherCats = filteredCategories.filter((cat) => !myCategoryNames.has(cat));
+    const otherCats = filteredCategories.filter((cat) => !categorized.myCategories.includes(cat));
 
-    return { myCategories: myCatsOrdered, otherCategories: otherCats };
+    return { myCategories: categorized.myCategories, otherCategories: otherCats };
   }, [habits, habitCategories]);
 
   // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
@@ -367,28 +350,6 @@ type SidebarProps = {
 };
 
 export function Sidebar({ currentUserUsername }: SidebarProps) {
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const t = useTranslations("sidebar");
-
-  // クライアント側でのみマウントする（ハイドレーションエラーを防ぐため）
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // 画面サイズが大きくなったときにモバイル用サイドバーを閉じる
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        // md breakpoint以上になったら閉じる
-        setSheetOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <>
       <aside className="border-border sticky top-0 hidden h-screen w-64 shrink-0 border-r pt-4 lg:block">
@@ -405,64 +366,6 @@ export function Sidebar({ currentUserUsername }: SidebarProps) {
           currentUserUsername={currentUserUsername}
         />
       </aside>
-
-      <div className="fixed left-4 top-[7px] z-50 md:hidden">
-        {mounted ? (
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <Button
-                size="icon"
-                variant="outline"
-                className="rounded-full shadow-md"
-                aria-label={t("openMenu")}
-              >
-                <Menu className="size-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-64 sm:max-w-xs">
-              <SheetHeader className="pb-2">
-                <SheetTitle className="sr-only">{t("navigationMenu")}</SheetTitle>
-                <Link
-                  href="/"
-                  className="flex items-end gap-1"
-                  onClick={() => {
-                    setSheetOpen(false);
-                  }}
-                >
-                  <Image
-                    src="/images/icon-web.png"
-                    alt="QuitMate Logo"
-                    width={24}
-                    height={24}
-                    className="h-8 w-auto"
-                  />
-                  <span className="text-2xl font-medium leading-tight">QuitMate</span>
-                </Link>
-              </SheetHeader>
-              <div className="pt-4">
-                <SidebarContent
-                  habitCategories={HABIT_CATEGORIES}
-                  onLinkClick={() => {
-                    setSheetOpen(false);
-                  }}
-                  skipLogo
-                  currentUserUsername={currentUserUsername}
-                />
-              </div>
-            </SheetContent>
-          </Sheet>
-        ) : (
-          <Button
-            size="icon"
-            variant="outline"
-            className="rounded-full shadow-md"
-            aria-label={t("openMenu")}
-            disabled
-          >
-            <Menu className="size-5" />
-          </Button>
-        )}
-      </div>
     </>
   );
 }

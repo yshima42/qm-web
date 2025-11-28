@@ -2,6 +2,9 @@ import clsx from "clsx";
 
 import { AuthButton } from "@/components/auth-button";
 import { BackButton } from "@/components/layout/back-button";
+import { MobileHeaderSidebar } from "@/components/layout/mobile-header-sidebar";
+
+import type { ProfileTileDto } from "@/lib/types";
 
 export type HeaderProps = {
   title?: string;
@@ -14,6 +17,7 @@ export type HeaderProps = {
     desktop?: boolean;
   };
   icon?: React.ReactNode;
+  currentUserProfile?: ProfileTileDto | null;
 };
 
 export function Header({
@@ -24,7 +28,12 @@ export function Header({
   rightElement,
   hideTitle,
   icon,
+  currentUserProfile,
 }: HeaderProps) {
+  // ログイン中でデスクトップサイズの場合はヘッダーを非表示（戻るボタンがある場合は除く）
+  const isLoggedIn = !!currentUserProfile;
+  const hideOnDesktop = isLoggedIn && !showBackButton;
+
   // 戻るボタン + タイトル左寄せレイアウト
   if (showBackButton) {
     return (
@@ -46,9 +55,15 @@ export function Header({
 
   // 通常の中央寄せレイアウト
   return (
-    <header className="border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm">
+    <header
+      className={`border-border bg-background/80 sticky top-0 z-20 border-b backdrop-blur-sm ${
+        hideOnDesktop ? "md:hidden" : ""
+      }`}
+    >
       <div className="relative flex h-14 items-center justify-between px-4">
-        <div className="w-24" />
+        <div className="flex w-24 items-center">
+          <MobileHeaderSidebar currentUserProfile={currentUserProfile} />
+        </div>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           {titleElement ? (
