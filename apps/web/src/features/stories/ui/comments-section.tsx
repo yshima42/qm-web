@@ -12,9 +12,16 @@ type Props = {
   comments: CommentTileDto[] | null;
   isLoggedIn: boolean;
   canComment: boolean;
+  currentUserId?: string;
 };
 
-export function CommentsSection({ storyId, comments, isLoggedIn, canComment }: Props) {
+export function CommentsSection({
+  storyId,
+  comments,
+  isLoggedIn,
+  canComment,
+  currentUserId,
+}: Props) {
   const [replyTarget, setReplyTarget] = useState<ParentCommentInfo | null>(null);
 
   const handleReply = (comment: CommentTileDto) => {
@@ -49,6 +56,7 @@ export function CommentsSection({ storyId, comments, isLoggedIn, canComment }: P
               onReply={handleReply}
               isLoggedIn={isLoggedIn}
               canComment={canComment}
+              currentUserId={currentUserId}
             />
           ))}
         </div>

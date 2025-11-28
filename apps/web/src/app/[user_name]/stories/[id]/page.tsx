@@ -111,12 +111,8 @@ export default async function Page({
   const resolvedParams = await params;
   const id = resolvedParams.id;
 
-  // 並列でデータ取得
-  const [story, comments, supabase] = await Promise.all([
-    fetchStoryById(id),
-    fetchCommentsByStoryId(id),
-    createClient(),
-  ]);
+  // 並列でデータ取得（ストーリーと認証）
+  const [story, supabase] = await Promise.all([fetchStoryById(id), createClient()]);
 
   if (!story) notFound();
 
@@ -126,8 +122,11 @@ export default async function Page({
   } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
 
-  // いいね状態を取得（ログイン時のみ）
-  const isLikedByMe = isLoggedIn ? await checkIsLikedByMe(id) : false;
+  // コメントといいね状態を取得（コメントはミュートユーザー除外のためuserIdを渡す）
+  const [comments, isLikedByMe] = await Promise.all([
+    fetchCommentsByStoryId(id, user?.id),
+    isLoggedIn ? checkIsLikedByMe(id) : Promise.resolve(false),
+  ]);
 
   // 翻訳を取得
   const t = await getTranslations("page");
@@ -167,6 +166,7 @@ export default async function Page({
               comments={comments}
               isLoggedIn={isLoggedIn}
               canComment={canComment}
+              currentUserId={user?.id}
             />
 
             {/* App download section */}

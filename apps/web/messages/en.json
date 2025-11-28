@@ -157,6 +157,8 @@
     "subtitle": "Manage your account settings and app preferences",
     "account": "Account",
     "accountDescription": "Manage your account information and security settings",
+    "mutedAccounts": "Muted Accounts",
+    "mutedAccountsDescription": "Manage users you have muted",
     "language": "Language",
     "accountPageDescription": "You can check your account information, download data archives, and view details about account suspension options",
     "accountInfo": "Account Information",
@@ -262,5 +264,14 @@
   },
   "page": {
     "post": "Post"
+  },
+  "mute": {
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "confirmContent": "Do you want to mute this user?",
+    "success": "User muted",
+    "unmuteSuccess": "User unmuted",
+    "error": "An error occurred",
+    "emptyMessage": "You haven't muted anyone"
   }
 }

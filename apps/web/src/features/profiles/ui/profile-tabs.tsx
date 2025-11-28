@@ -8,9 +8,11 @@ import { StoryListInfiniteCommented } from "@/features/stories/ui/story-list-inf
 type Props = {
   profile: Profile | ProfileTileDto;
   isLoggedIn: boolean;
+  /** プロフィールのユーザーがミュートされているかどうか */
+  isMuted?: boolean;
 };
 
-export function ProfileTabs({ profile, isLoggedIn }: Props) {
+export function ProfileTabs({ profile, isLoggedIn, isMuted = false }: Props) {
   return (
     <Tabs defaultValue="posts" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -18,7 +20,11 @@ export function ProfileTabs({ profile, isLoggedIn }: Props) {
         <TabsTrigger value="comments">Comments</TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
-        <StoryListInfiniteByUser userId={profile.id} isLoggedIn={isLoggedIn} />
+        <StoryListInfiniteByUser
+          userId={profile.id}
+          isLoggedIn={isLoggedIn}
+          isMutedOwner={isMuted}
+        />
       </TabsContent>
       <TabsContent value="comments">
         <StoryListInfiniteCommented userId={profile.id} isLoggedIn={isLoggedIn} />

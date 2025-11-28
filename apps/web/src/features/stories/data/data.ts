@@ -49,8 +49,45 @@ export async function fetchCommentedStoriesByUserId(userId: string) {
   return stories;
 }
 
-export async function fetchCommentsByStoryId(storyId: string) {
-  const supabase = createAnonServerClient();
+export async function fetchCommentsByStoryId(storyId: string, currentUserId?: string) {
+  // const supabase = createAnonServerClient();
+  const supabase = await createClient();
+
+  // ログイン中の場合はRPCでミュートユーザーを除外してコメントIDを取得
+  if (currentUserId) {
+    const { data: rpcData, error } = await supabase.rpc("get_comments_by_story", {
+      p_story_id: storyId,
+      p_user_id: currentUserId,
+    });
+
+    if (error) {
+      console.error("[fetchCommentsByStoryId] RPC error", error);
+      return null;
+    }
+
+    if (!rpcData || rpcData.length === 0) {
+      return null;
+    }
+
+    const commentIds = (rpcData as { id: string }[]).map((c) => c.id);
+
+    // コメント詳細を取得（ミュートユーザー除外済み）
+    const { data } = await supabase
+      .from("comments")
+      .select(
+        `*, 
+         profiles!comments_user_id_fkey(user_name, display_name, avatar_url), 
+         comment_likes(count)`,
+      )
+      .in("id", commentIds)
+      .order("created_at", { ascending: true });
+
+    if (!data) return null;
+
+    return enrichCommentsWithParent(data);
+  }
+
+  // 未ログイン時は全コメント取得
   const { data } = await supabase
     .from("comments")
     .select(
@@ -63,10 +100,13 @@ export async function fetchCommentsByStoryId(storyId: string) {
 
   if (!data) return null;
 
-  // コメントをMapに変換してIDで簡単にアクセスできるようにする（Flutterと同じアプローチ）
+  return enrichCommentsWithParent(data);
+}
+
+// ヘルパー関数（重複コード削減）
+function enrichCommentsWithParent(data: CommentTileDto[]): CommentTileDto[] {
   const commentMap = new Map(data.map((c) => [c.id, c]));
 
-  // parent_comment_idがあるコメントに親コメント情報を付与
   const commentsWithParent = data.map((comment) => {
     if (!comment.parent_comment_id) {
       return { ...comment, parent_comment: null };

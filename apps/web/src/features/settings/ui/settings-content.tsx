@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { User, Globe, FileText, Shield, Mail, LogOut, ChevronRight } from "lucide-react";
+import { User, Globe, FileText, Shield, Mail, LogOut, ChevronRight, VolumeX } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
@@ -24,6 +24,13 @@ export function SettingsContent() {
       label: t("account"),
       href: "/settings/account",
       description: t("accountDescription"),
+    },
+    {
+      id: "mutedAccounts",
+      icon: VolumeX,
+      label: t("mutedAccounts"),
+      href: "/settings/muted-accounts",
+      description: t("mutedAccountsDescription"),
     },
     {
       id: "language",

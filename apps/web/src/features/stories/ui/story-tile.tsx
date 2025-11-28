@@ -6,7 +6,9 @@ import { ja } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
+import { MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { StoryTileDto } from "@/lib/types";
 
@@ -14,12 +16,23 @@ import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
 import { CategoryTag } from "@/features/common/ui/category-tag";
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { toggleStoryLike } from "@/features/stories/data/actions";
+import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   story: StoryTileDto;
   disableLink?: boolean;
   showFullContent?: boolean;
   isLoggedIn?: boolean;
+  currentUserId?: string;
+  /** ストーリー投稿者がミュートされているかどうか（プロフィールページなどで使用） */
+  isMutedOwner?: boolean;
 };
 
 export function StoryTile({
@@ -27,13 +40,55 @@ export function StoryTile({
   disableLink = false,
   showFullContent = false,
   isLoggedIn = false,
+  currentUserId,
+  isMutedOwner = false,
 }: Props) {
   const router = useRouter();
+  const t = useTranslations("mute");
 
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(story.isLikedByMe ?? false);
   const [likesCount, setLikesCount] = useState(story.likes[0]?.count ?? 0);
   const [isPending, startTransition] = useTransition();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showMuteSuccess, setShowMuteSuccess] = useState(false);
+  const [isMuted, setIsMuted] = useState(isMutedOwner);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // propsが変わったらstateを同期
+  useEffect(() => {
+    setIsMuted(isMutedOwner);
+  }, [isMutedOwner]);
+
+  const isMyStory = currentUserId === story.user_id;
+
+  const handleMute = () => {
+    startTransition(async () => {
+      const result = await muteUser(story.user_id);
+      if (result.success) {
+        setIsMuted(true);
+        setSuccessMessage(t("success"));
+        setShowMuteSuccess(true);
+        setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
+
+  const handleUnmute = () => {
+    startTransition(async () => {
+      const result = await unmuteUser(story.user_id);
+      if (result.success) {
+        setIsMuted(false);
+        setSuccessMessage(t("unmuteSuccess"));
+        setShowMuteSuccess(true);
+        setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
 
   const handleLike = () => {
     const shouldLike = !isLiked;
@@ -127,19 +182,53 @@ export function StoryTile({
         <div className="flex-1">
           {/* ヘッダー */}
           <div
-            className="mb-1 flex items-center gap-2"
+            className="mb-1 flex items-center justify-between"
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="text-foreground font-bold">{story.profiles.display_name}</span>
-            </Link>
-            <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-              <span className="text-muted-foreground text-sm">@{story.profiles.user_name}</span>
-            </Link>
-            <span className="text-muted-foreground text-sm"> </span>
-            <span className="text-muted-foreground text-sm">{createdAt}</span>
+            <div className="flex items-center gap-2">
+              <Link href={`/${story.profiles.user_name}`} className="hover:underline">
+                <span className="text-foreground font-bold">{story.profiles.display_name}</span>
+              </Link>
+              <Link href={`/${story.profiles.user_name}`} className="hover:underline">
+                <span className="text-muted-foreground text-sm">@{story.profiles.user_name}</span>
+              </Link>
+              <span className="text-muted-foreground text-sm"> </span>
+              <span className="text-muted-foreground text-sm">{createdAt}</span>
+            </div>
+
+            {/* 三点リーダーメニュー */}
+            {isLoggedIn && !isMyStory && (
+              <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="size-8">
+                    <MoreHorizontal className="size-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {isMuted ? (
+                    <DropdownMenuItem
+                      onClick={handleUnmute}
+                      disabled={isPending}
+                      className="cursor-pointer"
+                    >
+                      <Volume2 className="mr-2 size-4" />
+                      {t("unmute")}
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem
+                      onClick={handleMute}
+                      disabled={isPending}
+                      className="cursor-pointer"
+                    >
+                      <VolumeX className="mr-2 size-4" />
+                      {t("mute")}
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
@@ -204,6 +293,13 @@ export function StoryTile({
           </div>
         </div>
       </div>
+
+      {/* ミュート成功スナックバー */}
+      {showMuteSuccess && (
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 }

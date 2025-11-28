@@ -131,6 +131,8 @@
     "subtitle": "アカウント設定やアプリの設定を変更できます",
     "account": "アカウント",
     "accountDescription": "アカウント情報やセキュリティ設定を管理します",
+    "mutedAccounts": "ミュートしたアカウント",
+    "mutedAccountsDescription": "ミュートしているユーザーを管理します",
     "language": "言語設定",
     "accountPageDescription": "アカウントについての情報を確認したり、データのアーカイブをダウンロード停止オプションの詳細を確認したりできます",
     "accountInfo": "アカウント情報",
@@ -236,5 +238,14 @@
   },
   "page": {
     "post": "投稿"
+  },
+  "mute": {
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "confirmContent": "このユーザーをミュートしますか？",
+    "success": "ミュートしました",
+    "unmuteSuccess": "ミュートを解除しました",
+    "error": "エラーが発生しました",
+    "emptyMessage": "ミュートしているユーザーはいません"
   }
 }

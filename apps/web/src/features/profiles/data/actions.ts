@@ -517,3 +517,88 @@ export async function unfollowUser(targetUserId: string): Promise<UnfollowResult
 
   return { success: true };
 }
+
+// =====================
+// ミュート関連アクション
+// =====================
+
+export type MuteResult = {
+  success: boolean;
+  errorCode?: "notLoggedIn" | "cannotMuteSelf" | "alreadyMuted" | "muteFailed" | "generic";
+};
+
+export type UnmuteResult = {
+  success: boolean;
+  errorCode?: "notLoggedIn" | "unmuteFailed" | "generic";
+};
+
+/**
+ * ユーザーをミュートする
+ */
+export async function muteUser(targetUserId: string): Promise<MuteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { success: false, errorCode: "notLoggedIn" };
+  }
+
+  if (user.id === targetUserId) {
+    return { success: false, errorCode: "cannotMuteSelf" };
+  }
+
+  // 既にミュートしているかチェック
+  const { data: existingMute } = await supabase
+    .from("blocked_users")
+    .select("blocker_id")
+    .eq("blocker_id", user.id)
+    .eq("blocked_id", targetUserId)
+    .maybeSingle();
+
+  if (existingMute) {
+    return { success: false, errorCode: "alreadyMuted" };
+  }
+
+  const { error: insertError } = await supabase.from("blocked_users").insert({
+    blocker_id: user.id,
+    blocked_id: targetUserId,
+  });
+
+  if (insertError) {
+    console.error("[muteUser] insert error", insertError);
+    return { success: false, errorCode: "muteFailed" };
+  }
+
+  return { success: true };
+}
+
+/**
+ * ユーザーのミュートを解除する
+ */
+export async function unmuteUser(targetUserId: string): Promise<UnmuteResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { success: false, errorCode: "notLoggedIn" };
+  }
+
+  const { error: deleteError } = await supabase
+    .from("blocked_users")
+    .delete()
+    .eq("blocker_id", user.id)
+    .eq("blocked_id", targetUserId);
+
+  if (deleteError) {
+    console.error("[unmuteUser] delete error", deleteError);
+    return { success: false, errorCode: "unmuteFailed" };
+  }
+
+  return { success: true };
+}

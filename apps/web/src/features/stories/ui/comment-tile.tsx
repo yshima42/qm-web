@@ -4,21 +4,85 @@ import { AppDownloadDialogTrigger } from "@quitmate/ui";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, MoreHorizontal, VolumeX, Volume2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useTransition, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import { CommentTileDto } from "@/lib/types";
 
 import { UserAvatar } from "@/features/profiles/ui/user-avatar";
+import { muteUser, unmuteUser } from "@/features/profiles/data/actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   comment: CommentTileDto;
   onReply?: (comment: CommentTileDto) => void;
   isLoggedIn?: boolean;
   canComment?: boolean;
+  currentUserId?: string;
+  /** コメント投稿者がミュートされているかどうか */
+  isMutedOwner?: boolean;
 };
 
-export function CommentTile({ comment, onReply, isLoggedIn, canComment }: Props) {
+export function CommentTile({
+  comment,
+  onReply,
+  isLoggedIn,
+  canComment,
+  currentUserId,
+  isMutedOwner = false,
+}: Props) {
+  const router = useRouter();
+  const t = useTranslations("mute");
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [showMuteSuccess, setShowMuteSuccess] = useState(false);
+  const [isMuted, setIsMuted] = useState(isMutedOwner);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const isMyComment = currentUserId === comment.user_id;
+
+  // propsが変わったらstateを同期
+  useEffect(() => {
+    setIsMuted(isMutedOwner);
+  }, [isMutedOwner]);
+
+  const handleMute = () => {
+    startTransition(async () => {
+      const result = await muteUser(comment.user_id);
+      if (result.success) {
+        setIsMuted(true);
+        setSuccessMessage(t("success"));
+        setShowMuteSuccess(true);
+        setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
+
+  const handleUnmute = () => {
+    startTransition(async () => {
+      const result = await unmuteUser(comment.user_id);
+      if (result.success) {
+        setIsMuted(false);
+        setSuccessMessage(t("unmuteSuccess"));
+        setShowMuteSuccess(true);
+        setTimeout(() => setShowMuteSuccess(false), 3000);
+        router.refresh();
+      }
+      setMenuOpen(false);
+    });
+  };
   // コメント日時を東京時間に変換
   const commentDate = toZonedTime(new Date(comment.created_at), "Asia/Tokyo");
 
@@ -60,17 +124,51 @@ export function CommentTile({ comment, onReply, isLoggedIn, canComment }: Props)
 
       {/* コメント本文 */}
       <div className="flex-1">
-        <div className="mb-0.5 flex items-center gap-1.5">
-          <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-foreground text-sm font-bold">
-              {comment.profiles.display_name}
-            </span>
-          </Link>
-          <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
-            <span className="text-muted-foreground text-xs">@{comment.profiles.user_name}</span>
-          </Link>
-          <span className="text-muted-foreground text-xs">・</span>
-          <span className="text-muted-foreground text-xs">{createdAt}</span>
+        <div className="mb-0.5 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
+              <span className="text-foreground text-sm font-bold">
+                {comment.profiles.display_name}
+              </span>
+            </Link>
+            <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
+              <span className="text-muted-foreground text-xs">@{comment.profiles.user_name}</span>
+            </Link>
+            <span className="text-muted-foreground text-xs">・</span>
+            <span className="text-muted-foreground text-xs">{createdAt}</span>
+          </div>
+
+          {/* 三点リーダーメニュー */}
+          {isLoggedIn && !isMyComment && (
+            <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="size-6">
+                  <MoreHorizontal className="size-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {isMuted ? (
+                  <DropdownMenuItem
+                    onClick={handleUnmute}
+                    disabled={isPending}
+                    className="cursor-pointer"
+                  >
+                    <Volume2 className="mr-2 size-4" />
+                    {t("unmute")}
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    onClick={handleMute}
+                    disabled={isPending}
+                    className="cursor-pointer"
+                  >
+                    <VolumeX className="mr-2 size-4" />
+                    {t("mute")}
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
 
         <p className="text-foreground whitespace-pre-wrap text-sm">
@@ -112,6 +210,13 @@ export function CommentTile({ comment, onReply, isLoggedIn, canComment }: Props)
           </AppDownloadDialogTrigger>
         </div>
       </div>
+
+      {/* ミュート成功スナックバー */}
+      {showMuteSuccess && (
+        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 }

@@ -17,34 +17,56 @@ export function useInfiniteCommentedStories(userId: string) {
       const from = pageParam * PAGE_SIZE;
       const to = (pageParam + 1) * PAGE_SIZE - 1;
 
-      // コメント済みストーリー取得
-      const { data, error } = await supabase
-        .from("distinct_user_story_comments")
-        .select(`*, stories(${STORY_SELECT_QUERY})`)
-        .eq("user_id", userId)
-        .lte("created_at", boundaryTimeRef.current)
-        .order("created_at", { ascending: false })
-        .order("id", { ascending: false })
-        .range(from, to);
-
-      if (error) {
-        throw new Error("Failed to fetch commented stories");
-      }
-
-      const storyList =
-        (data?.map((comment: { stories: StoryTileDto }) => comment.stories) as StoryTileDto[]) ??
-        [];
-
-      // いいね状態を取得
+      // ユーザー認証確認
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
+      if (!user) {
+        return { stories: [], hasMore: false };
+      }
+
+      // RPC関数でコメント済みストーリーIDを取得（muteユーザーを除外）
+      const { data: storyIdsData, error: rpcError } = await supabase.rpc("get_commented_stories", {
+        commenter_id: userId,
+        user_id: user.id,
+        from_pos: from,
+        to_pos: to,
+        before_timestamp: boundaryTimeRef.current,
+      });
+
+      if (rpcError || !storyIdsData || storyIdsData.length === 0) {
+        if (rpcError) console.error("[useInfiniteCommentedStories] RPC error", rpcError);
+        return { stories: [], hasMore: false };
+      }
+
+      const storyIds = (storyIdsData as { id: string }[]).map((item) => item.id);
+
+      // ストーリーの詳細を取得
+      const { data: stories, error: storiesError } = await supabase
+        .from("stories")
+        .select(STORY_SELECT_QUERY)
+        .in("id", storyIds);
+
+      if (storiesError || !stories) {
+        console.error("[useInfiniteCommentedStories] stories fetch error", storiesError);
+        return { stories: [], hasMore: false };
+      }
+
+      // 元の順序を保持するためにIDでマッピング（コメント順を維持）
+      const storyMap = new Map(stories.map((s) => [s.id, s]));
+      const orderedStories = storyIds
+        .map((id) => storyMap.get(id))
+        .filter((s): s is NonNullable<typeof s> => s !== undefined);
+
+      const storyList = orderedStories as StoryTileDto[];
+
+      // いいね状態を取得
       let storiesWithLikes = storyList;
-      if (user && storyList.length > 0) {
-        const storyIds = storyList.map((s) => s.id);
+      if (storyList.length > 0) {
+        const fetchedStoryIds = storyList.map((s) => s.id);
         const { data: likeData } = await supabase.rpc("get_has_liked_by_story_ids", {
-          p_story_ids: storyIds,
+          p_story_ids: fetchedStoryIds,
           p_user_id: user.id,
         });
 
@@ -63,7 +85,7 @@ export function useInfiniteCommentedStories(userId: string) {
 
       return {
         stories: storiesWithLikes,
-        hasMore: (data?.length ?? 0) === PAGE_SIZE,
+        hasMore: storyIdsData.length === PAGE_SIZE,
       };
     },
     getNextPageParam: (lastPage, allPages) => (lastPage.hasMore ? allPages.length : undefined),
