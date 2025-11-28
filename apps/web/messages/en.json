@@ -117,11 +117,17 @@
     "shareTitleSuffix": "'s Profile",
     "shareTextSuffix": "'s Profile",
     "following": "Following",
-    "followers": "Followers"
+    "followers": "Followers",
+    "edit": "Edit"
   },
   "profile-page": {
     "posts": "Posts",
     "comments": "Comments"
+  },
+  "profile-edit": {
+    "avatarAlt": "Profile image",
+    "displayNameLabel": "Nickname *",
+    "displayNamePlaceholder": "Enter nickname"
   },
   "app-download-section": {
     "title": "Addiction Recovery SNS QuitMate",
@@ -133,6 +139,7 @@
   "sidebar": {
     "home": "Home",
     "profile": "Profile",
+    "habits": "Habits",
     "articles": "Articles",
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
@@ -140,6 +147,8 @@
     "communities": "Communities",
     "noHabitsRegistered": "No habits registered",
     "settings": "Settings",
+    "registerHabit": "Register habit",
+    "habitList": "Habit list",
     "deleteAccount": "Delete Account",
     "language": "Language",
     "termsOfService": "Terms of Service",

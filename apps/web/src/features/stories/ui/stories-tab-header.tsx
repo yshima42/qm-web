@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
+import { Button } from "@/components/ui/button";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;
@@ -46,6 +47,24 @@ export function StoriesTabHeader({
         ]
       : []),
   ];
+
+  const tLogin = useTranslations("login-prompt");
+
+  // ログアウト時はタブを表示せず、サインイン・サインアップボタンのみ表示
+  if (!isLoggedIn) {
+    return (
+      <div className="border-border bg-card sticky top-0 z-10 border-b">
+        <div className="flex items-center justify-end gap-2 px-4 py-3">
+          <Button asChild size="sm" variant="outline">
+            <Link href="/auth/login">{tLogin("login")}</Link>
+          </Button>
+          <Button asChild size="sm" variant="default">
+            <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="border-border bg-card sticky top-0 z-10 border-b">

@@ -107,6 +107,7 @@
   "sidebar": {
     "home": "ホーム",
     "profile": "プロフィール",
+    "habits": "習慣",
     "articles": "記事",
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
@@ -114,6 +115,8 @@
     "communities": "コミュニティ",
     "noHabitsRegistered": "習慣が登録されていません",
     "settings": "設定",
+    "registerHabit": "習慣を登録",
+    "habitList": "習慣一覧",
     "deleteAccount": "アカウント削除",
     "language": "言語設定",
     "termsOfService": "利用規約",
@@ -259,5 +262,22 @@
     "confirmComment": "このコメントを削除しますか？この操作は取り消せません。",
     "success": "削除しました",
     "error": "削除に失敗しました"
+  },
+  "profile-header": {
+    "shareDialogTitle": "プロフィールをシェア",
+    "shareTitleSuffix": "のプロフィール",
+    "shareTextSuffix": "のプロフィール",
+    "following": "フォロー中",
+    "followers": "フォロワー",
+    "edit": "編集"
+  },
+  "profile-page": {
+    "posts": "投稿",
+    "comments": "コメント"
+  },
+  "profile-edit": {
+    "avatarAlt": "プロフィール画像",
+    "displayNameLabel": "ニックネーム *",
+    "displayNamePlaceholder": "ニックネームを入力"
   }
 }

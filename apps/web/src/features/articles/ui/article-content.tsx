@@ -43,6 +43,7 @@ export function ArticleContent({
   currentUserId,
 }: ArticleContentProps) {
   const router = useRouter();
+  const t = useTranslations("articles-page");
   const tDelete = useTranslations("delete");
   // いいね状態の管理（楽観的更新）
   const [isLiked, setIsLiked] = useState(article.isLikedByMe ?? false);
@@ -163,7 +164,7 @@ export function ArticleContent({
                 url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
                 title={article.title}
                 text={`${article.title} | ${article.profiles.display_name}`}
-                dialogTitle="Share Article"
+                dialogTitle={t("articles-page.shareDialogTitle")}
                 className="p-0"
               />
             </div>
@@ -231,7 +232,7 @@ export function ArticleContent({
               url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
               title={article.title}
               text={`${article.title} | ${article.profiles.display_name}`}
-              dialogTitle="Share Article"
+              dialogTitle={t("articles-page.shareDialogTitle")}
             />
           </div>
         </div>

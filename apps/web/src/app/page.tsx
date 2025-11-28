@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
-export default function Home() {
-  redirect("/stories/habits/alcohol");
+export default async function Home() {
+  const defaultPath = await getDefaultCommunityPath();
+  redirect(defaultPath);
 }

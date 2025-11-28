@@ -1,6 +1,7 @@
 import { AutoLinkText, DefaultAvatar, AppDownloadDialogTrigger, ShareButton } from "@quitmate/ui";
 import Image from "next/image";
 import { Pencil } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { ProfileTileDto } from "@/lib/types";
 import { ProfileEditDialog } from "./profile-edit-dialog";
@@ -22,6 +23,8 @@ export function ProfileHeader({
   isFollowing = false,
   isMuted = false,
 }: Props) {
+  const t = useTranslations("profile-header");
+
   return (
     <div className="border-border bg-card relative mb-6 rounded-lg border p-6 shadow-sm">
       <div className="absolute right-4 top-4 flex items-center gap-2">
@@ -29,7 +32,7 @@ export function ProfileHeader({
           <ProfileEditDialog profile={profile}>
             <button
               className="text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-1 rounded-md p-2 transition-colors"
-              title="編集"
+              title={t("edit")}
             >
               <Pencil className="size-4" />
             </button>
@@ -43,9 +46,9 @@ export function ProfileHeader({
         )}
         <div className="[&_button]:size-8 [&_svg]:size-4">
           <ShareButton
-            title={`${profile.display_name}'s Profile`}
-            text={`${profile.display_name}'s Profile`}
-            dialogTitle="Share Profile"
+            title={`${profile.display_name}${t("shareTitleSuffix")}`}
+            text={`${profile.display_name}${t("shareTextSuffix")}`}
+            dialogTitle={t("shareDialogTitle")}
           />
         </div>
       </div>

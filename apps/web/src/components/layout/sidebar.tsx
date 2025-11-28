@@ -31,7 +31,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect, useMemo } from "react";
 
-import { CATEGORY_ICONS, HABIT_CATEGORIES } from "@/lib/categories";
+import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 import { useHabits } from "@/features/habits/providers/habits-provider";
 
@@ -65,31 +65,34 @@ export function SidebarContent({
 
   // 登録済みカテゴリーとその他カテゴリーを分ける
   const { myCategories, otherCategories } = useMemo(() => {
-    const myCategoryNames = new Set<HabitCategoryName>(
-      habits.map((habit) => habit.habit_categories.habit_category_name as HabitCategoryName),
-    );
-    // "Official"は除外
-    const filteredCategories = habitCategories.filter((cat) => cat !== "Official");
-    const myCats: HabitCategoryName[] = [];
-    const otherCats: HabitCategoryName[] = [];
+    // 習慣の順番（display_order）でカテゴリーを取得（重複を除去）
+    const myCategoryNames = new Set<HabitCategoryName>();
+    const myCatsOrdered: HabitCategoryName[] = [];
 
-    filteredCategories.forEach((cat) => {
-      if (myCategoryNames.has(cat)) {
-        myCats.push(cat);
-      } else {
-        otherCats.push(cat);
+    // 習慣の順番でカテゴリーを追加（重複は無視）
+    habits.forEach((habit) => {
+      const categoryName = habit.habit_categories.habit_category_name as HabitCategoryName;
+      if (!myCategoryNames.has(categoryName)) {
+        myCategoryNames.add(categoryName);
+        myCatsOrdered.push(categoryName);
       }
     });
 
-    return { myCategories: myCats, otherCategories: otherCats };
+    // "Official"は除外して、登録済み以外のカテゴリーを取得
+    const filteredCategories = habitCategories.filter((cat) => cat !== "Official");
+    const otherCats = filteredCategories.filter((cat) => !myCategoryNames.has(cat));
+
+    return { myCategories: myCatsOrdered, otherCategories: otherCats };
   }, [habits, habitCategories]);
 
   // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
   useEffect(() => {
-    const currentCategory = habitCategories.find((cat) => {
-      const href = `/stories/habits/${cat.toLowerCase().replace(/\s+/g, "-")}`;
-      return pathname === href;
-    });
+    const currentCategory = habitCategories
+      .filter((cat) => cat !== "Official") // "Official"は除外
+      .find((cat) => {
+        const href = getCategoryUrl(cat);
+        return pathname === href;
+      });
     if (currentCategory && otherCategories.includes(currentCategory)) {
       setIsOtherCommunityOpen(true);
     }
@@ -139,7 +142,7 @@ export function SidebarContent({
         {currentUserUsername && (
           <SidebarIcon
             icon={Target}
-            label="Habits"
+            label={t("habits")}
             href="/habits"
             active={pathname === "/habits"}
             showLabel={!compact}
@@ -178,7 +181,7 @@ export function SidebarContent({
                 onClick={handleLinkClick}
               />
               {myCategories.map((category) => {
-                const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                const href = getCategoryUrl(category);
                 const Icon = CATEGORY_ICONS[category];
                 const displayName = tCategory(category);
 
@@ -223,7 +226,7 @@ export function SidebarContent({
               {habitCategories
                 .filter((cat) => cat !== "Official")
                 .map((category) => {
-                  const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                  const href = getCategoryUrl(category);
                   const Icon = CATEGORY_ICONS[category];
                   const displayName = tCategory(category);
 
@@ -271,7 +274,7 @@ export function SidebarContent({
             {isOtherCommunityOpen && (
               <div className="pl-4">
                 {otherCategories.map((category) => {
-                  const href = `/stories/habits/${category.toLowerCase().replace(/\s+/g, "-")}`;
+                  const href = getCategoryUrl(category);
                   const Icon = CATEGORY_ICONS[category];
                   const displayName = tCategory(category);
 

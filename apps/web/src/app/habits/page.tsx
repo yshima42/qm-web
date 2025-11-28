@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import { PageWithSidebar } from "@/components/layout/page-with-sidebar";
 import { HabitsProvider } from "@/features/habits/providers/habits-provider";
@@ -18,12 +19,13 @@ export default async function HabitsPage() {
   }
 
   const habits = await fetchHabits(user.id);
+  const t = await getTranslations("sidebar");
 
   return (
     <HabitsProvider habits={habits}>
       <PageWithSidebar
         headerProps={{
-          title: "習慣",
+          title: t("habits"),
         }}
         className="bg-background min-h-screen"
       >

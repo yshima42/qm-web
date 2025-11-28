@@ -4,6 +4,7 @@ import { ProfileOnboardingForm } from "@/features/profiles/ui/onboarding-form";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
 type OnboardingPageProps = {
   searchParams?: Promise<{ next?: string }>;
@@ -22,7 +23,8 @@ export default async function OnboardingPage({ searchParams }: OnboardingPagePro
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const nextParam = resolvedSearchParams?.next;
-  const nextPath = nextParam && nextParam.startsWith("/") ? nextParam : "/stories/habits/alcohol";
+  const defaultPath = await getDefaultCommunityPath();
+  const nextPath = nextParam && nextParam.startsWith("/") ? nextParam : defaultPath;
 
   const { data: profile } = await supabase
     .from("profiles")
