@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DefaultAvatar } from "@quitmate/ui";
 
-import { HabitTileDto } from "@/lib/types";
+import { HabitTileDto, HabitCategoryName } from "@/lib/types";
 
 import { useCharacterCount } from "@/features/common/hooks/use-character-count";
 import { CharacterCountIndicator } from "@/features/common/components/character-count-indicator";
@@ -31,9 +31,14 @@ type StoryInlineFormProps = {
     display_name: string;
     avatar_url: string | null;
   } | null;
+  defaultCategory?: HabitCategoryName;
 };
 
-export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormProps) {
+export function StoryInlineForm({
+  habits,
+  currentUserProfile,
+  defaultCategory,
+}: StoryInlineFormProps) {
   const t = useTranslations("story-post");
   const tCategory = useTranslations("categories");
   const tCommentSetting = useTranslations("comment-setting");
@@ -53,6 +58,14 @@ export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormP
 
   const hasActiveHabit = activeHabits.length > 0;
   const isSingleHabit = activeHabits.length === 1;
+
+  // デフォルトカテゴリに一致する習慣を見つける
+  const defaultHabitId =
+    defaultCategory && defaultCategory !== "All"
+      ? activeHabits.find(
+          (habit) => habit.habit_categories?.habit_category_name === defaultCategory,
+        )?.id
+      : undefined;
 
   // Calculate character count and remaining
   const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
@@ -123,6 +136,7 @@ export function StoryInlineForm({ habits, currentUserProfile }: StoryInlineFormP
               name="habit_id"
               required
               disabled={isSingleHabit}
+              defaultValue={defaultHabitId || activeHabits[0]?.id}
               className={cn(
                 "border-input focus-visible:ring-ring w-full rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1",
                 isSingleHabit && "cursor-not-allowed opacity-60",

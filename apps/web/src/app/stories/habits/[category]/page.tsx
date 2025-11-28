@@ -84,7 +84,11 @@ export default async function Page(props: PageProps) {
         {/* インライン投稿フォーム - Suspenseの外側、再描画されない */}
         {isLoggedIn && habits && habits.length > 0 && (
           <div className="mx-auto max-w-2xl">
-            <StoryInlineForm habits={habits} currentUserProfile={currentUserProfile} />
+            <StoryInlineForm
+              habits={habits}
+              currentUserProfile={currentUserProfile}
+              defaultCategory={habitCategory !== "All" ? habitCategory : undefined}
+            />
           </div>
         )}
 
