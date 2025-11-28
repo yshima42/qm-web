@@ -50,10 +50,40 @@ export function StoriesTabHeader({
 
   const tLogin = useTranslations("login-prompt");
 
+  // 未ログイン時はシンプルなヘッダー表示（記事ページと同じレイアウト）
+  if (!isLoggedIn) {
+    return (
+      <div className="border-border bg-card sticky top-0 z-10 border-b">
+        <div className="relative flex h-14 items-center px-4">
+          {/* 左スペーサー */}
+          <div className="w-24" />
+
+          {/* 中央：カテゴリアイコン + 名前 */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="flex items-center gap-2">
+              {CategoryIcon && <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />}
+              <span className="font-medium">{categoryDisplayName}</span>
+            </div>
+          </div>
+
+          {/* 右：ログインボタン */}
+          <div className="ml-auto flex items-center gap-2">
+            <Button asChild size="sm" variant="outline">
+              <Link href="/auth/login">{tLogin("login")}</Link>
+            </Button>
+            <Button asChild size="sm" variant="default">
+              <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ログイン時はタブ表示
   return (
     <div className="border-border bg-card sticky top-0 z-10 border-b">
       <div className="flex items-center">
-        {/* タブ部分 */}
         <div className="flex flex-1">
           {tabs.map((tab) => {
             const isActive = tab.id === currentTab;
@@ -78,18 +108,6 @@ export function StoriesTabHeader({
             );
           })}
         </div>
-
-        {/* 未ログイン時はログインボタンを表示 */}
-        {!isLoggedIn && (
-          <div className="flex items-center gap-2 px-4">
-            <Button asChild size="sm" variant="outline">
-              <Link href="/auth/login">{tLogin("login")}</Link>
-            </Button>
-            <Button asChild size="sm" variant="default">
-              <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );
