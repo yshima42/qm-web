@@ -83,6 +83,28 @@
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
+  "habit-register": {
+    "title": "習慣を登録",
+    "description": "新しい習慣を登録します",
+    "categoryLabel": "カテゴリ *",
+    "categoryPlaceholder": "カテゴリを選択",
+    "customHabitNameLabel": "カスタム習慣名 *",
+    "customHabitNamePlaceholder": "習慣名を入力",
+    "startedAtLabel": "開始日時 *",
+    "durationMonthsLabel": "期間（月数）",
+    "durationMonthsPlaceholder": "例: 3",
+    "frequencyPerWeekLabel": "週の頻度",
+    "frequencyPerWeekPlaceholder": "例: 3",
+    "reasonLabel": "理由（任意）",
+    "reasonPlaceholder": "この習慣をやめたい理由",
+    "categoryRequired": "カテゴリを選択してください",
+    "customHabitNameRequired": "カスタム習慣名を入力してください",
+    "maxHabitsReached": "最大{max}つまでしか習慣を登録できません",
+    "noRegisterableCategories": "登録可能なカテゴリがありません",
+    "cancel": "キャンセル",
+    "register": "登録",
+    "registering": "登録中..."
+  },
   "app-download-dialog": {
     "title": "依存克服SNS QuitMate",
     "description": "「やめたくても、やめられない」のは、あなただけじゃない。",

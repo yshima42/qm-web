@@ -133,6 +133,28 @@
     "title": "Addiction Recovery SNS QuitMate",
     "message": "To read more stories, download the app"
   },
+  "habit-register": {
+    "title": "Register Habit",
+    "description": "Register a new habit",
+    "categoryLabel": "Category *",
+    "categoryPlaceholder": "Select category",
+    "customHabitNameLabel": "Custom Habit Name *",
+    "customHabitNamePlaceholder": "Enter habit name",
+    "startedAtLabel": "Start Date & Time *",
+    "durationMonthsLabel": "Duration (months)",
+    "durationMonthsPlaceholder": "e.g., 3",
+    "frequencyPerWeekLabel": "Frequency per week",
+    "frequencyPerWeekPlaceholder": "e.g., 3",
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "Reason for wanting to quit this habit",
+    "categoryRequired": "Please select a category",
+    "customHabitNameRequired": "Please enter a custom habit name",
+    "maxHabitsReached": "You can only register up to {max} habits",
+    "noRegisterableCategories": "No registerable categories available",
+    "cancel": "Cancel",
+    "register": "Register",
+    "registering": "Registering..."
+  },
   "app-download-dialog": {
     "title": "Addiction Recovery SNS QuitMate",
     "description": "You're not alone in wanting to quit but not being able to.",
