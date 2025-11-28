@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
-import { Button } from "@quitmate/ui";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;
@@ -29,6 +28,11 @@ export function StoriesTabHeader({
   // Client Component内でアイコンを取得
   const CategoryIcon = CATEGORY_ICONS[categoryName];
 
+  // 未ログイン時はHeaderで表示するため、このコンポーネントは表示しない
+  if (!isLoggedIn) {
+    return null;
+  }
+
   const tabs = [
     {
       id: "category",
@@ -36,24 +40,18 @@ export function StoriesTabHeader({
       hasIcon: true,
       href: categoryPath,
     },
-    ...(isLoggedIn
-      ? [
-          {
-            id: "following",
-            label: t("following"),
-            hasIcon: false,
-            href: `${categoryPath}?tab=following`,
-          },
-        ]
-      : []),
+    {
+      id: "following",
+      label: t("following"),
+      hasIcon: false,
+      href: `${categoryPath}?tab=following`,
+    },
   ];
 
-  const tLogin = useTranslations("login-prompt");
-
+  // ログイン時はタブ表示
   return (
     <div className="border-border bg-card sticky top-0 z-10 border-b">
       <div className="flex items-center">
-        {/* タブ部分 */}
         <div className="flex flex-1">
           {tabs.map((tab) => {
             const isActive = tab.id === currentTab;
@@ -78,18 +76,6 @@ export function StoriesTabHeader({
             );
           })}
         </div>
-
-        {/* 未ログイン時はログインボタンを表示 */}
-        {!isLoggedIn && (
-          <div className="flex items-center gap-2 px-4">
-            <Button asChild size="sm" variant="outline">
-              <Link href="/auth/login">{tLogin("login")}</Link>
-            </Button>
-            <Button asChild size="sm" variant="default">
-              <Link href="/auth/sign-up">{tLogin("sign-up")}</Link>
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );

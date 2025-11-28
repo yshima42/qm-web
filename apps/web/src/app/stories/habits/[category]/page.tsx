@@ -7,6 +7,7 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { createClient } from "@/lib/supabase/server";
 import { HabitCategoryName } from "@/lib/types";
+import { CATEGORY_ICONS } from "@/lib/categories";
 
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
@@ -67,12 +68,23 @@ export default async function Page(props: PageProps) {
 
   const categoryPath = `/stories/habits/${category.toLowerCase()}`;
 
+  // カテゴリアイコンを取得
+  const CategoryIcon = CATEGORY_ICONS[habitCategory];
+
   return (
     <PageWithSidebar
       headerProps={
         !isLoggedIn
           ? {
-              hideHeader: true, // 未ログイン時はヘッダーを非表示（StoriesTabHeaderが表示されるため）
+              // 未ログイン時はHeaderにカテゴリを表示
+              titleElement: (
+                <div className="flex items-center gap-2">
+                  {CategoryIcon && (
+                    <CategoryIcon className="size-4 stroke-[2.5px] text-green-800" />
+                  )}
+                  <span className="font-medium">{categoryDisplayName}</span>
+                </div>
+              ),
             }
           : undefined
       }
