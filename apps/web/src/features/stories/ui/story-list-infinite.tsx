@@ -10,8 +10,10 @@ import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { useInfiniteStories } from "../hooks/use-infinite-stories";
+import { usePullToRefresh } from "../hooks/use-pull-to-refresh";
 import { StoryTile } from "./story-tile";
 import { StoryInlineForm } from "./story-inline-form";
+import { PullToRefreshIndicator } from "./pull-to-refresh-indicator";
 
 type Props = {
   category: HabitCategoryName;
@@ -39,6 +41,12 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
     addStoryToTimeline,
   } = useInfiniteStories(category);
 
+  // プルトゥリフレッシュ
+  const { isRefreshing, pullProgress, shouldShowIndicator } = usePullToRefresh({
+    onRefresh: resetAndRefetch,
+    enabled: true,
+  });
+
   // スクロールで次のページを読み込み
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -58,46 +66,53 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      {habits && habits.length > 0 && (
-        <StoryInlineForm
-          habits={habits}
-          onStoryCreated={resetAndRefetch}
-          onStoryCreatedWithId={addStoryToTimeline}
-        />
-      )}
+    <>
+      <PullToRefreshIndicator
+        isRefreshing={isRefreshing || isLoading}
+        pullProgress={pullProgress}
+        shouldShow={shouldShowIndicator}
+      />
+      <div className="mx-auto max-w-2xl">
+        {habits && habits.length > 0 && (
+          <StoryInlineForm
+            habits={habits}
+            onStoryCreated={resetAndRefetch}
+            onStoryCreatedWithId={addStoryToTimeline}
+          />
+        )}
 
-      {stories.map((story) => (
-        <StoryTile
-          key={story.id}
-          story={story}
-          isLoggedIn={isLoggedIn}
-          currentUserId={currentUserId}
-        />
-      ))}
+        {stories.map((story) => (
+          <StoryTile
+            key={story.id}
+            story={story}
+            isLoggedIn={isLoggedIn}
+            currentUserId={currentUserId}
+          />
+        ))}
 
-      {/* ローディング & 読み込みトリガー */}
-      <div ref={ref} className="py-4">
-        {(isLoading || isFetchingNextPage) && (
-          <div className="flex justify-center">
-            <LoadingSpinner />
-          </div>
-        )}
-        {!hasNextPage && stories.length > 0 && (
-          <p className="text-muted-foreground py-4 text-center text-sm">
-            {t("noMoreStories", { defaultValue: "すべてのストーリーを読み込みました" })}
-          </p>
-        )}
-        {stories.length === 0 && !isLoading && (
-          <p className="text-muted-foreground py-8 text-center text-sm">
-            {t("noStories", { defaultValue: "まだストーリーがありません" })}
-          </p>
-        )}
+        {/* ローディング & 読み込みトリガー */}
+        <div ref={ref} className="py-4">
+          {(isLoading || isFetchingNextPage) && (
+            <div className="flex justify-center">
+              <LoadingSpinner />
+            </div>
+          )}
+          {!hasNextPage && stories.length > 0 && (
+            <p className="text-muted-foreground py-4 text-center text-sm">
+              {t("noMoreStories", { defaultValue: "すべてのストーリーを読み込みました" })}
+            </p>
+          )}
+          {stories.length === 0 && !isLoading && (
+            <p className="text-muted-foreground py-8 text-center text-sm">
+              {t("noStories", { defaultValue: "まだストーリーがありません" })}
+            </p>
+          )}
+        </div>
+
+        <div className="mt-8">
+          <TranslatedAppDownloadSection />
+        </div>
       </div>
-
-      <div className="mt-8">
-        <TranslatedAppDownloadSection />
-      </div>
-    </div>
+    </>
   );
 }

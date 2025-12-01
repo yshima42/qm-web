@@ -340,7 +340,9 @@
     "errorLoading": "Failed to load stories",
     "noMoreStories": "All stories loaded",
     "noStories": "No stories yet",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "pullToRefresh": "Release to refresh",
+    "refreshing": "Refreshing..."
   },
   "follow": {
     "follow": "Follow",

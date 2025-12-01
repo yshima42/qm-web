@@ -318,7 +318,9 @@
     "errorLoading": "ストーリーの読み込みに失敗しました",
     "noMoreStories": "すべてのストーリーを読み込みました",
     "noStories": "まだストーリーがありません",
-    "showMore": "もっと見る"
+    "showMore": "もっと見る",
+    "pullToRefresh": "離して更新",
+    "refreshing": "更新中..."
   },
   "follow": {
     "follow": "フォロー",
