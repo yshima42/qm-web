@@ -272,7 +272,7 @@ export function StoryCreateForm({ habits, onSuccess }: StoryCreateFormProps) {
 
       {/* フッター（文字数カウント、投稿ボタン） */}
       <div className="px-4 py-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-end gap-3">
           <CharacterCountIndicator
             remaining={remaining}
             isOverLimit={isOverLimit}
