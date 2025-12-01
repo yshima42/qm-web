@@ -89,6 +89,10 @@
     "notFound": "The specified article does not exist.",
     "linkText": "Back to articles"
   },
+  "pull-to-refresh": {
+    "pullToRefresh": "Release to refresh",
+    "refreshing": "Refreshing..."
+  },
   "categories": {
     "All": "All",
     "Game": "Game",

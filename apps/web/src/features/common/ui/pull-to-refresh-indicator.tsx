@@ -1,21 +1,22 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 type PullToRefreshIndicatorProps = {
   isRefreshing: boolean;
   pullProgress: number;
   shouldShow: boolean;
+  idleLabel: string;
+  refreshingLabel: string;
 };
 
 export function PullToRefreshIndicator({
   isRefreshing,
   pullProgress,
   shouldShow,
+  idleLabel,
+  refreshingLabel,
 }: PullToRefreshIndicatorProps) {
-  const t = useTranslations("stories");
-
   if (!shouldShow) return null;
 
   return (
@@ -30,7 +31,7 @@ export function PullToRefreshIndicator({
           }}
         />
         <span className="text-muted-foreground text-sm">
-          {isRefreshing ? t("refreshing") : t("pullToRefresh")}
+          {isRefreshing ? refreshingLabel : idleLabel}
         </span>
       </div>
     </div>

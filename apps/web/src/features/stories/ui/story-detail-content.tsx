@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { usePullToRefresh } from "../hooks/use-pull-to-refresh";
-import { PullToRefreshIndicator } from "./pull-to-refresh-indicator";
+import { useTranslations } from "next-intl";
+import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
+import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
 import { CommentsSection } from "./comments-section";
 import { DisabledCommentNotice } from "./disabled-comment-notice";
 import { StoryTile } from "./story-tile";
@@ -27,6 +28,7 @@ export function StoryDetailContent({
   currentUserId,
 }: StoryDetailContentProps) {
   const router = useRouter();
+  const tPull = useTranslations("pull-to-refresh");
 
   const { isRefreshing, pullProgress, shouldShowIndicator } = usePullToRefresh({
     onRefresh: () => router.refresh(),
@@ -39,26 +41,30 @@ export function StoryDetailContent({
         isRefreshing={isRefreshing}
         pullProgress={pullProgress}
         shouldShow={shouldShowIndicator}
+        idleLabel={tPull("pullToRefresh")}
+        refreshingLabel={tPull("refreshing")}
       />
-      <StoryTile
-        story={story}
-        disableLink
-        showFullContent
-        isLoggedIn={isLoggedIn}
-        currentUserId={currentUserId}
-      />
+      <div className="mx-auto max-w-2xl space-y-6">
+        <StoryTile
+          story={story}
+          disableLink
+          showFullContent
+          isLoggedIn={isLoggedIn}
+          currentUserId={currentUserId}
+        />
 
-      {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
+        {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
 
-      <CommentsSection
-        storyId={story.id}
-        comments={comments}
-        isLoggedIn={isLoggedIn}
-        canComment={canComment}
-        currentUserId={currentUserId}
-      />
+        <CommentsSection
+          storyId={story.id}
+          comments={comments}
+          isLoggedIn={isLoggedIn}
+          canComment={canComment}
+          currentUserId={currentUserId}
+        />
 
-      <TranslatedAppDownloadSection />
+        <TranslatedAppDownloadSection />
+      </div>
     </>
   );
 }

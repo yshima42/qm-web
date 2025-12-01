@@ -71,13 +71,13 @@ export function AppDownloadDialog({
     <Dialog>
       <DialogContent className="w-full max-w-none p-0 sm:max-w-md">
         <div className="px-4 py-6">
-          <AppDownloadDialogContent
-            title={title}
-            description={description}
-            qrCodeLabel={qrCodeLabel}
-            qrCodeAlt={qrCodeAlt}
-            storeLabel={storeLabel}
-          />
+        <AppDownloadDialogContent
+          title={title}
+          description={description}
+          qrCodeLabel={qrCodeLabel}
+          qrCodeAlt={qrCodeAlt}
+          storeLabel={storeLabel}
+        />
         </div>
       </DialogContent>
     </Dialog>
