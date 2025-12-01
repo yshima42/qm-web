@@ -134,7 +134,7 @@ export function StoryInlineForm({
         )}
 
         {/* フッター（文字数カウント、投稿ボタン） */}
-        <div className="flex items-center justify-between px-4 pb-3 pt-2">
+        <div className="flex items-center justify-end gap-3 px-4 pb-3 pt-2">
           <CharacterCountIndicator
             remaining={remaining}
             isOverLimit={isOverLimit}

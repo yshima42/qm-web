@@ -7,12 +7,7 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
-  const defaultPath = await getDefaultCommunityPath();
-  let next = searchParams.get("next") ?? defaultPath;
-  if (!next.startsWith("/")) {
-    // if "next" is not a relative URL, use the default
-    next = defaultPath;
-  }
+  const next = searchParams.get("next");
 
   if (code) {
     const supabase = await createClient();
@@ -38,13 +33,19 @@ export async function GET(request: Request) {
         if (profileError) {
           console.error("[oauth] failed to verify profile", profileError);
         } else if (!existingProfile) {
+          // オンボーディングが必要な場合、ログイン後にデフォルトパスを取得
+          const defaultPath = await getDefaultCommunityPath();
+          const onboardingNext = next && next.startsWith("/") ? next : defaultPath;
           const onboardingUrl = new URL("/auth/onboarding", finalOrigin);
-          onboardingUrl.searchParams.set("next", next);
+          onboardingUrl.searchParams.set("next", onboardingNext);
           return NextResponse.redirect(onboardingUrl);
         }
       }
 
-      return NextResponse.redirect(`${finalOrigin}${next}`);
+      // ログイン後にデフォルトパスを取得（習慣データが正しく取得できる）
+      const defaultPath = await getDefaultCommunityPath();
+      const redirectPath = next && next.startsWith("/") ? next : defaultPath;
+      return NextResponse.redirect(`${finalOrigin}${redirectPath}`);
     }
   }
 

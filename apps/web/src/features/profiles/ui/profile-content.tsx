@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { usePullToRefresh } from "@/features/stories/hooks/use-pull-to-refresh";
-import { PullToRefreshIndicator } from "@/features/stories/ui/pull-to-refresh-indicator";
+import { useTranslations } from "next-intl";
+import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
+import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
 import { ProfileHeader } from "./profile-header";
 import { ProfileTabs } from "./profile-tabs";
 import type { ProfileTileDto } from "@/lib/types";
@@ -25,6 +26,7 @@ export function ProfileContent({
   currentUserId,
 }: ProfileContentProps) {
   const router = useRouter();
+  const tPull = useTranslations("pull-to-refresh");
 
   const { isRefreshing, pullProgress, shouldShowIndicator } = usePullToRefresh({
     onRefresh: () => router.refresh(),
@@ -37,6 +39,8 @@ export function ProfileContent({
         isRefreshing={isRefreshing}
         pullProgress={pullProgress}
         shouldShow={shouldShowIndicator}
+        idleLabel={tPull("pullToRefresh")}
+        refreshingLabel={tPull("refreshing")}
       />
       <ProfileHeader
         profile={profile}

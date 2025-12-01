@@ -24,6 +24,8 @@ import { ReportType } from "@/features/reports/domain/report-dto";
 import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { CategoryTag } from "@/features/common/ui/category-tag";
+import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
+import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +49,7 @@ export function ArticleContent({
 }: ArticleContentProps) {
   const router = useRouter();
   const t = useTranslations("articles-page");
+  const tPull = useTranslations("pull-to-refresh");
   const tDelete = useTranslations("delete");
   const tReport = useTranslations("report");
   // いいね状態の管理（楽観的更新）
@@ -101,204 +104,225 @@ export function ArticleContent({
   const dateFormat = articleYear === currentYear ? "M/d H:mm" : "yyyy/M/d H:mm";
   const createdAt = format(articleDate, dateFormat, { locale: enUS });
 
+  const { isRefreshing, pullProgress, shouldShowIndicator } = usePullToRefresh({
+    onRefresh: async () => {
+      router.refresh();
+    },
+  });
+
   return (
-    <main className="p-3 sm:p-5">
-      <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-        {/* Article header */}
-        <div className="mb-8">
-          <h1 className="mb-6 text-2xl font-bold text-gray-900 sm:hidden dark:text-white">
-            {article.title}
-          </h1>
-          <div className="mb-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CategoryTag
-                category={article.habit_categories?.habit_category_name ?? "General"}
-                customHabitName={article.custom_habit_name}
-              />
-              <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
+    <>
+      <PullToRefreshIndicator
+        isRefreshing={isRefreshing}
+        pullProgress={pullProgress}
+        shouldShow={shouldShowIndicator}
+        idleLabel={tPull("pullToRefresh")}
+        refreshingLabel={tPull("refreshing")}
+      />
+      <main className="p-3 sm:p-5">
+        <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+          {/* Article header */}
+          <div className="mb-8">
+            <h1 className="mb-6 text-2xl font-bold text-gray-900 sm:hidden dark:text-white">
+              {article.title}
+            </h1>
+            <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CategoryTag
+                  category={article.habit_categories?.habit_category_name ?? "General"}
+                  customHabitName={article.custom_habit_name}
+                />
+                <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
+              </div>
+
+              <div className="flex items-center gap-4">
+                {isLoggedIn ? (
+                  <button
+                    onClick={handleLike}
+                    disabled={isPending}
+                    className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+                  >
+                    <ArticleLikeIcon
+                      className={`size-5 transition-colors ${
+                        isLiked
+                          ? "fill-green-600 text-green-600"
+                          : "text-gray-500 dark:text-gray-400"
+                      }`}
+                    />
+                    <span
+                      className={`text-sm ${isLiked ? "text-green-600" : "text-gray-500 dark:text-gray-400"}`}
+                    >
+                      {likesCount}
+                    </span>
+                  </button>
+                ) : (
+                  <LoginPromptDialog className="cursor-pointer" type="article">
+                    <div className="flex items-center gap-1">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{likesCount}</span>
+                    </div>
+                  </LoginPromptDialog>
+                )}
+
+                {isLoggedIn && (
+                  <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon" className="size-8">
+                        <MoreHorizontal className="size-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      {isMyArticle ? (
+                        <DropdownMenuItem
+                          onClick={handleDelete}
+                          disabled={isPending}
+                          className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
+                        >
+                          <Trash2 className="mr-2 size-4" />
+                          {tDelete("deleteArticle")}
+                        </DropdownMenuItem>
+                      ) : (
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setReportDialogOpen(true);
+                            setMenuOpen(false);
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <Flag className="mr-2 size-4" />
+                          {tReport("report")}
+                        </DropdownMenuItem>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
+
+                <ShareButton
+                  url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
+                  title={article.title}
+                  text={`${article.title} | ${article.profiles.display_name}`}
+                  dialogTitle={t("shareDialogTitle")}
+                  className="p-0"
+                />
+              </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              {isLoggedIn ? (
-                <button
-                  onClick={handleLike}
-                  disabled={isPending}
-                  className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
-                >
-                  <ArticleLikeIcon
-                    className={`size-5 transition-colors ${
-                      isLiked ? "fill-green-600 text-green-600" : "text-gray-500 dark:text-gray-400"
-                    }`}
-                  />
-                  <span
-                    className={`text-sm ${isLiked ? "text-green-600" : "text-gray-500 dark:text-gray-400"}`}
-                  >
-                    {likesCount}
-                  </span>
-                </button>
-              ) : (
-                <LoginPromptDialog className="cursor-pointer" type="article">
-                  <div className="flex items-center gap-1">
-                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{likesCount}</span>
-                  </div>
-                </LoginPromptDialog>
-              )}
+            <div className="mb-8 flex items-center gap-3">
+              <UserAvatar
+                username={article.profiles.user_name}
+                displayName={article.profiles.display_name}
+                avatarUrl={article.profiles.avatar_url}
+                size="md"
+              />
+              <div>
+                <Link href={`/${article.profiles.user_name}`} className="hover:underline">
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    {article.profiles.display_name}
+                  </p>
+                </Link>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  @{article.profiles.user_name}
+                </p>
+              </div>
+            </div>
+          </div>
 
-              {isLoggedIn && (
-                <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="size-8">
-                      <MoreHorizontal className="size-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {isMyArticle ? (
-                      <DropdownMenuItem
-                        onClick={handleDelete}
-                        disabled={isPending}
-                        className="cursor-pointer text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
-                      >
-                        <Trash2 className="mr-2 size-4" />
-                        {tDelete("deleteArticle")}
-                      </DropdownMenuItem>
-                    ) : (
-                      <DropdownMenuItem
-                        onClick={() => {
-                          setReportDialogOpen(true);
-                          setMenuOpen(false);
-                        }}
-                        className="cursor-pointer"
-                      >
-                        <Flag className="mr-2 size-4" />
-                        {tReport("report")}
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
+          <article className="prose dark:prose-invert lg:prose-lg max-w-none overflow-x-hidden break-words">
+            <MarkdownRenderer content={article.content} />
+          </article>
+
+          <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                {isLoggedIn ? (
+                  <button
+                    onClick={handleLike}
+                    disabled={isPending}
+                    className="flex cursor-pointer items-center gap-2 transition-colors disabled:opacity-50"
+                  >
+                    <ArticleLikeIcon
+                      className={`size-5 transition-colors ${
+                        isLiked
+                          ? "fill-green-600 text-green-600"
+                          : "text-gray-500 dark:text-gray-400"
+                      }`}
+                    />
+                    <span
+                      className={isLiked ? "text-green-600" : "text-gray-700 dark:text-gray-300"}
+                    >
+                      {likesCount}
+                    </span>
+                  </button>
+                ) : (
+                  <LoginPromptDialog className="cursor-pointer" type="article">
+                    <div className="flex items-center gap-2">
+                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-700 dark:text-gray-300">{likesCount}</span>
+                    </div>
+                  </LoginPromptDialog>
+                )}
+                <div className="flex items-center gap-2">
+                  <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {article.article_comments[0]?.count ?? 0}
+                  </span>
+                </div>
+              </div>
 
               <ShareButton
                 url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
                 title={article.title}
                 text={`${article.title} | ${article.profiles.display_name}`}
                 dialogTitle={t("shareDialogTitle")}
-                className="p-0"
               />
             </div>
           </div>
 
-          <div className="mb-8 flex items-center gap-3">
-            <UserAvatar
-              username={article.profiles.user_name}
-              displayName={article.profiles.display_name}
-              avatarUrl={article.profiles.avatar_url}
-              size="md"
-            />
-            <div>
-              <Link href={`/${article.profiles.user_name}`} className="hover:underline">
-                <p className="font-medium text-gray-900 dark:text-white">
-                  {article.profiles.display_name}
-                </p>
-              </Link>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                @{article.profiles.user_name}
-              </p>
-            </div>
-          </div>
-        </div>
+          <div className="mt-8">
+            <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+              Comments ({article.article_comments[0]?.count ?? 0})
+            </h2>
 
-        <article className="prose dark:prose-invert lg:prose-lg max-w-none">
-          <MarkdownRenderer content={article.content} />
-        </article>
+            {/* コメントフォーム（ログイン時のみ表示） */}
+            {isLoggedIn && <ArticleCommentForm articleId={article.id} />}
 
-        <div className="mt-8 border-t border-gray-200 pt-6 dark:border-gray-800">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              {isLoggedIn ? (
-                <button
-                  onClick={handleLike}
-                  disabled={isPending}
-                  className="flex cursor-pointer items-center gap-2 transition-colors disabled:opacity-50"
-                >
-                  <ArticleLikeIcon
-                    className={`size-5 transition-colors ${
-                      isLiked ? "fill-green-600 text-green-600" : "text-gray-500 dark:text-gray-400"
-                    }`}
+            <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
+              {comments && comments.length > 0 ? (
+                comments.map((comment) => (
+                  <ArticleCommentTile
+                    key={comment.id}
+                    comment={comment}
+                    isLoggedIn={isLoggedIn}
+                    currentUserId={currentUserId}
                   />
-                  <span className={isLiked ? "text-green-600" : "text-gray-700 dark:text-gray-300"}>
-                    {likesCount}
-                  </span>
-                </button>
+                ))
               ) : (
-                <LoginPromptDialog className="cursor-pointer" type="article">
-                  <div className="flex items-center gap-2">
-                    <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                    <span className="text-gray-700 dark:text-gray-300">{likesCount}</span>
-                  </div>
-                </LoginPromptDialog>
+                <p className="py-4 text-center text-gray-500 dark:text-gray-400">No comments yet</p>
               )}
-              <div className="flex items-center gap-2">
-                <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                <span className="text-gray-700 dark:text-gray-300">
-                  {article.article_comments[0]?.count ?? 0}
-                </span>
-              </div>
             </div>
-
-            <ShareButton
-              url={`${process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.quitmate.app"}/${article.profiles.user_name}/articles/${article.id}`}
-              title={article.title}
-              text={`${article.title} | ${article.profiles.display_name}`}
-              dialogTitle={t("shareDialogTitle")}
-            />
           </div>
+
+          <TranslatedAppDownloadSection
+            customMessage={`${t("preFollowMessage")}${article.profiles.display_name}${t("postFollowMessage")}`}
+          />
         </div>
 
-        <div className="mt-8">
-          <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
-            Comments ({article.article_comments[0]?.count ?? 0})
-          </h2>
-
-          {/* コメントフォーム（ログイン時のみ表示） */}
-          {isLoggedIn && <ArticleCommentForm articleId={article.id} />}
-
-          <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
-            {comments && comments.length > 0 ? (
-              comments.map((comment) => (
-                <ArticleCommentTile
-                  key={comment.id}
-                  comment={comment}
-                  isLoggedIn={isLoggedIn}
-                  currentUserId={currentUserId}
-                />
-              ))
-            ) : (
-              <p className="py-4 text-center text-gray-500 dark:text-gray-400">No comments yet</p>
-            )}
+        {/* 削除成功スナックバー */}
+        {showDeleteSuccess && (
+          <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
+            {tDelete("success")}
           </div>
-        </div>
+        )}
 
-        <TranslatedAppDownloadSection
-          customMessage={`${t("preFollowMessage")}${article.profiles.display_name}${t("postFollowMessage")}`}
-        />
-      </div>
-
-      {/* 削除成功スナックバー */}
-      {showDeleteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {tDelete("success")}
-        </div>
-      )}
-
-      {/* 報告ダイアログ */}
-      {!isMyArticle && (
-        <ReportDialog
-          open={reportDialogOpen}
-          onOpenChange={setReportDialogOpen}
-          reportDTO={{ type: ReportType.article, itemId: article.id }}
-        />
-      )}
-    </main>
+        {/* 報告ダイアログ */}
+        {!isMyArticle && (
+          <ReportDialog
+            open={reportDialogOpen}
+            onOpenChange={setReportDialogOpen}
+            reportDTO={{ type: ReportType.article, itemId: article.id }}
+          />
+        )}
+      </main>
+    </>
   );
 }
