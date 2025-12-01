@@ -1,4 +1,3 @@
-import { TranslatedAppDownloadSectionServer } from "@/components/ui/translated-app-download-section-server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -18,9 +17,7 @@ import {
   checkIsLikedByMe,
 } from "@/features/stories/data/data";
 
-import { CommentsSection } from "@/features/stories/ui/comments-section";
-import { DisabledCommentNotice } from "@/features/stories/ui/disabled-comment-notice";
-import { StoryTile } from "@/features/stories/ui/story-tile";
+import { StoryDetailContent } from "@/features/stories/ui/story-detail-content";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -111,34 +108,25 @@ export default async function Page({
   const resolvedParams = await params;
   const id = resolvedParams.id;
 
-  // 並列でデータ取得（ストーリーと認証）
   const [story, supabase] = await Promise.all([fetchStoryById(id), createClient()]);
 
   if (!story) notFound();
 
-  // ログイン状態を取得
   const {
     data: { user },
   } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
 
-  // コメントといいね状態を取得（コメントはミュートユーザー除外のためuserIdを渡す）
   const [comments, isLikedByMe] = await Promise.all([
     fetchCommentsByStoryId(id, user?.id),
     isLoggedIn ? checkIsLikedByMe(id) : Promise.resolve(false),
   ]);
 
-  // 翻訳を取得
   const t = await getTranslations("page");
-
-  // storyにisLikedByMeを付与
   const storyWithLikeStatus = { ...story, isLikedByMe };
-
-  // コメント可否判定（自分の投稿またはコメント有効の場合）
   const isMyStory = user?.id === story.user_id;
   const canComment = story.comment_setting === "enabled" || isMyStory;
 
-  // ヘッダー用のプロフィール情報
   const currentUserUsername = await getCurrentUserUsername();
   const currentUserProfile = currentUserUsername
     ? await fetchProfileByUsername(currentUserUsername)
@@ -149,28 +137,14 @@ export default async function Page({
       <Header title={t("post")} showBackButton currentUserProfile={currentUserProfile} />
       <Suspense fallback={<LoadingSpinner />}>
         <main className="p-3 sm:p-5">
-          <StoryTile
+          <StoryDetailContent
             story={storyWithLikeStatus}
-            disableLink
-            showFullContent
-            isLoggedIn={isLoggedIn}
-            currentUserId={user?.id}
-          />
-
-          {/* コメント無効通知（コメント無効かつ自分の投稿でない場合） */}
-          {story.comment_setting === "disabled" && !isMyStory && <DisabledCommentNotice />}
-
-          {/* コメントセクション（フォーム + 一覧、返信状態を管理） */}
-          <CommentsSection
-            storyId={id}
             comments={comments}
             isLoggedIn={isLoggedIn}
             canComment={canComment}
+            isMyStory={isMyStory}
             currentUserId={user?.id}
           />
-
-          {/* App download section */}
-          <TranslatedAppDownloadSectionServer />
         </main>
       </Suspense>
     </>

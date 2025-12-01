@@ -1,4 +1,4 @@
-import { HABIT_CATEGORIES } from "@/lib/categories";
+import { HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 
 /**
@@ -28,4 +28,35 @@ export function categorizeHabitCategories(habits: HabitTileDto[]): {
   const otherCats = filteredCategories.filter((cat) => !myCategoryNames.has(cat));
 
   return { myCategories: myCatsOrdered, otherCategories: otherCats };
+}
+
+/**
+ * 最初の習慣のコミュニティURLを取得する
+ * @param habits ユーザーの習慣データ
+ * @returns 最初の習慣のカテゴリーURL、習慣がない場合は"All"カテゴリーのURL
+ */
+export function getFirstHabitCommunityUrl(habits: HabitTileDto[]): string {
+  if (habits.length === 0) {
+    return getCategoryUrl("All");
+  }
+  const firstHabitCategory = habits[0].habit_categories.habit_category_name as HabitCategoryName;
+  return getCategoryUrl(firstHabitCategory);
+}
+
+/**
+ * マイコミュニティリンクがアクティブかどうかを判定する
+ * @param pathname 現在のパス名
+ * @param habits ユーザーの習慣データ
+ * @returns アクティブかどうか
+ */
+export function isMyCommunityLinkActive(pathname: string, habits: HabitTileDto[]): boolean {
+  const allCategoryUrl = getCategoryUrl("All");
+  if (pathname === allCategoryUrl) {
+    return true;
+  }
+  if (habits.length === 0) {
+    return false;
+  }
+  const firstHabitCategory = habits[0].habit_categories.habit_category_name as HabitCategoryName;
+  return pathname === getCategoryUrl(firstHabitCategory);
 }

@@ -18,7 +18,7 @@ export function StoryPostModal({ open, onOpenChange, habits }: StoryPostModalPro
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0 sm:max-w-[600px]" showCloseButton={false}>
         <DialogTitle className="sr-only">{t("modalTitle")}</DialogTitle>
-        <StoryCreateForm habits={habits} />
+        <StoryCreateForm habits={habits} onSuccess={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>
   );

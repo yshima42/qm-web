@@ -12,6 +12,7 @@ import {
   type FormEvent,
 } from "react";
 import { useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,7 @@ type ProfileEditFormProps = {
 
 export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const t = useTranslations("profile-edit");
   const [displayName, setDisplayName] = useState(profile.display_name);
   const [userName, setUserName] = useState(profile.user_name);
@@ -125,6 +127,13 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
           }
           return;
         }
+
+        // プロフィール画像が更新された場合、すべてのストーリークエリのキャッシュを無効化
+        // これにより、投稿に表示されるプロフィール画像が更新される
+        if (avatarFile) {
+          queryClient.invalidateQueries({ queryKey: ["stories"] });
+        }
+
         // 成功したらモーダルを閉じて、プロフィールページをリフレッシュ
         if (onClose) {
           onClose();
@@ -165,7 +174,7 @@ export function ProfileEditForm({ profile, onClose }: ProfileEditFormProps) {
               <>
                 <Image
                   src={previewUrl}
-                  alt={t("profile-edit.avatarAlt")}
+                  alt={t("avatarAlt")}
                   width={96}
                   height={96}
                   className="size-full object-cover"
