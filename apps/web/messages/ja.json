@@ -257,6 +257,35 @@
     "comments": "コメント",
     "articles": "記事"
   },
+  "auth": {
+    "login": {
+      "title": "ようこそ！",
+      "subtitle": "依存克服SNS",
+      "description": "アカウントにサインインして続ける",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "パスワード",
+      "forgotPassword": "パスワードを忘れた場合",
+      "next": "次へ",
+      "login": "ログイン",
+      "loggingIn": "ログイン中...",
+      "noAccount": "アカウントをお持ちでない場合",
+      "signUp": "アカウント作成",
+      "or": "または",
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithApple": "Appleで続ける"
+    },
+    "signUp": {
+      "title": "アカウント作成",
+      "subtitle": "依存克服SNS",
+      "description": "新しいアカウントを作成",
+      "alreadyHaveAccount": "すでにアカウントをお持ちの場合",
+      "login": "ログイン",
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithApple": "Appleで続ける",
+      "signingUp": "登録中..."
+    }
+  },
   "login-prompt": {
     "story-title": "共感した投稿、応援したい投稿に「応援」しましょう。",
     "story-description": "アカウントを作成すると、投稿を「応援」できます。",

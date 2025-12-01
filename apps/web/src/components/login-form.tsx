@@ -3,19 +3,16 @@
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button_mail";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card_mail";
+import { Card, CardContent } from "@/components/ui/card_mail";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { SocialLoginButtons } from "@/components/social-login-buttons";
+import { AuthFormHeader } from "@/components/auth/auth-form-header";
+import { AuthFormDivider } from "@/components/auth/auth-form-divider";
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
@@ -24,6 +21,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const t = useTranslations("auth.login");
 
   const handleEmailNext = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,10 +56,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Welcome!</CardTitle>
-          <CardDescription>Sign in to your account to continue</CardDescription>
-        </CardHeader>
+        <AuthFormHeader subtitleKey="login" descriptionKey="login" />
         <CardContent>
           <div className="flex flex-col gap-4">
             {/* ソーシャルログインボタン */}
@@ -69,30 +64,27 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
               isLoading={isLoading}
               onError={setError}
               loadingText={{
-                google: "Logging in...",
-                apple: "Logging in...",
+                google: t("loggingIn"),
+                apple: t("loggingIn"),
+              }}
+              buttonText={{
+                google: t("continueWithGoogle"),
+                apple: t("continueWithApple"),
               }}
             />
 
             {/* 区切り線 */}
-            <div className="relative my-2">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background text-muted-foreground px-2">または</span>
-              </div>
-            </div>
+            <AuthFormDivider translationKey="login" />
 
             {/* メールログインフォーム */}
             <form onSubmit={handleEmailNext}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("emailLabel")}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder={t("emailPlaceholder")}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -102,12 +94,12 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 {showPassword && (
                   <div className="grid gap-2">
                     <div className="flex items-center">
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password">{t("passwordLabel")}</Label>
                       <Link
                         href="/auth/forgot-password"
                         className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                       >
-                        Forgot your password?
+                        {t("forgotPassword")}
                       </Link>
                     </div>
                     <Input
@@ -122,13 +114,13 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Logging in..." : showPassword ? "Login" : "Next"}
+                  {isLoading ? t("loggingIn") : showPassword ? t("login") : t("next")}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
+                <div>{t("noAccount")}</div>
                 <Link href="/auth/sign-up" className="underline underline-offset-4">
-                  Sign up
+                  {t("signUp")}
                 </Link>
               </div>
             </form>

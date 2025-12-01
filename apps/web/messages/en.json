@@ -279,6 +279,35 @@
     "comments": "Comments",
     "articles": "Articles"
   },
+  "auth": {
+    "login": {
+      "title": "Welcome!",
+      "subtitle": "Addiction Recovery SNS",
+      "description": "Sign in to your account to continue",
+      "emailLabel": "Email",
+      "emailPlaceholder": "m@example.com",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot your password?",
+      "next": "Next",
+      "login": "Login",
+      "loggingIn": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "or": "or",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithApple": "Continue with Apple"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "subtitle": "Addiction Recovery SNS",
+      "description": "Create a new account",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithApple": "Continue with Apple",
+      "signingUp": "Signing up..."
+    }
+  },
   "login-prompt": {
     "story-title": "Support posts you relate to or want to cheer on.",
     "story-description": "Create an account to support posts.",
