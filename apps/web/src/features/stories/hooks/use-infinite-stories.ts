@@ -8,16 +8,37 @@ import { createClient } from "@/lib/supabase/client";
 import { HabitCategoryName, StoryTileDto } from "@/lib/types";
 import { STORY_SELECT_QUERY, PAGE_SIZE } from "../data/constants";
 
+// boundaryTimeのキャッシュキー
+const getBoundaryTimeKey = (category: HabitCategoryName, locale: string) =>
+  ["stories", "boundaryTime", category, locale] as const;
+
 export function useInfiniteStories(category: HabitCategoryName) {
   const locale = useLocale();
   const queryClient = useQueryClient();
-  const boundaryTimeRef = useRef(new Date().toISOString());
   const prevLocaleRef = useRef(locale);
+
+  // boundaryTimeをキャッシュから取得、なければ新規作成
+  const getBoundaryTime = (): string => {
+    const cached = queryClient.getQueryData<string>(getBoundaryTimeKey(category, locale));
+    if (cached) {
+      return cached;
+    }
+    const newTime = new Date().toISOString();
+    queryClient.setQueryData(getBoundaryTimeKey(category, locale), newTime);
+    return newTime;
+  };
+
+  // boundaryTimeをリセットする関数
+  const resetBoundaryTime = () => {
+    const newTime = new Date().toISOString();
+    queryClient.setQueryData(getBoundaryTimeKey(category, locale), newTime);
+    return newTime;
+  };
 
   // 言語が切り替わったときにboundaryTimeをリセットし、キャッシュを無効化
   useEffect(() => {
     if (prevLocaleRef.current !== locale) {
-      boundaryTimeRef.current = new Date().toISOString();
+      resetBoundaryTime();
       prevLocaleRef.current = locale;
       // 言語が変わったときに、該当するクエリのキャッシュを無効化して再取得
       queryClient.invalidateQueries({
@@ -32,7 +53,7 @@ export function useInfiniteStories(category: HabitCategoryName) {
   // 投稿後にタイムラインを更新するための関数をエクスポート
   // この関数は外部から呼び出して、boundaryTimeをリセットし、クエリをリセットできる
   const resetAndRefetch = async () => {
-    boundaryTimeRef.current = new Date().toISOString();
+    resetBoundaryTime();
     await queryClient.resetQueries({
       queryKey: ["stories", "category", category, locale],
     });
@@ -142,7 +163,7 @@ export function useInfiniteStories(category: HabitCategoryName) {
     );
 
     // boundaryTimeを更新（新しいストーリーが追加されたので、現在時刻に更新）
-    boundaryTimeRef.current = new Date().toISOString();
+    resetBoundaryTime();
   };
 
   const query = useInfiniteQuery({
@@ -151,6 +172,9 @@ export function useInfiniteStories(category: HabitCategoryName) {
       const supabase = createClient();
       const from = pageParam * PAGE_SIZE;
       const to = (pageParam + 1) * PAGE_SIZE - 1;
+
+      // boundaryTimeをキャッシュから取得
+      const boundaryTime = getBoundaryTime();
 
       // ユーザー認証確認
       const {
@@ -166,7 +190,7 @@ export function useInfiniteStories(category: HabitCategoryName) {
           input_habit_category_name: category === "All" ? null : category,
           from_pos: from,
           to_pos: to,
-          before_timestamp: boundaryTimeRef.current,
+          before_timestamp: boundaryTime,
           input_language_code: languageCode,
         },
       );
@@ -228,7 +252,8 @@ export function useInfiniteStories(category: HabitCategoryName) {
     },
     getNextPageParam: (lastPage, allPages) => (lastPage.hasMore ? allPages.length : undefined),
     initialPageParam: 0,
-    gcTime: 0,
+    staleTime: Infinity, // ユーザーがリフレッシュするまで再フェッチしない
+    gcTime: 60 * 60 * 1000, // 1時間キャッシュを保持
     refetchOnWindowFocus: false,
   });
 
