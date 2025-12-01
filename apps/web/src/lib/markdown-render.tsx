@@ -13,7 +13,7 @@ export function MarkdownRenderer({
   variant = "default",
 }: MarkdownRendererProps) {
   return (
-    <div className={`prose dark:prose-invert max-w-none ${className}`}>
+    <div className={`prose dark:prose-invert max-w-none break-words ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={
@@ -28,7 +28,7 @@ export function MarkdownRenderer({
             h3: (props) => <h3 className="mb-3 mt-6 text-xl font-semibold" {...props} />,
             p: (props) => (
               <p
-                className={`${variant === "compact" ? "my-1" : "my-3"} whitespace-pre-line text-lg leading-relaxed`}
+                className={`${variant === "compact" ? "my-1" : "my-3"} whitespace-pre-line text-base leading-relaxed sm:text-lg`}
                 {...props}
               />
             ),
@@ -46,7 +46,13 @@ export function MarkdownRenderer({
             ),
             pre: (props) => (
               <pre
-                className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-lg text-gray-800 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                className="overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-4 text-base text-gray-800 shadow-sm sm:text-lg dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                {...props}
+              />
+            ),
+            code: (props) => (
+              <code
+                className="rounded bg-gray-100 px-1.5 py-0.5 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-100"
                 {...props}
               />
             ),
