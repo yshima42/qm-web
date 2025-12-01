@@ -123,31 +123,37 @@ export function SidebarContent({
             title={t("profile")}
             onClick={handleLinkClick}
           >
-            <div className="shrink-0">
-              {currentUserProfile?.avatar_url ? (
-                <Image
-                  src={currentUserProfile.avatar_url}
-                  alt={currentUserProfile.display_name}
-                  width={compact ? 28 : 24}
-                  height={compact ? 28 : 24}
-                  className={cn("rounded-full object-cover", compact ? "size-7" : "size-6")}
+            {currentUserProfile?.avatar_url ? (
+              <Image
+                src={currentUserProfile.avatar_url}
+                alt={currentUserProfile.display_name}
+                width={compact ? 28 : 24}
+                height={compact ? 28 : 24}
+                className={cn("shrink-0 rounded-full object-cover", compact ? "size-7" : "size-6")}
+              />
+            ) : (
+              <div
+                className={cn(
+                  "flex shrink-0 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700",
+                  compact ? "size-7" : "size-6",
+                )}
+              >
+                <UserRound
+                  size={compact ? 18 : 16}
+                  className="text-white"
+                  strokeWidth={pathname === `/${currentUserUsername}` ? 2.5 : 2}
                 />
-              ) : (
-                <div
-                  className={cn(
-                    "flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700",
-                    compact ? "size-7" : "size-6",
-                  )}
-                >
-                  <UserRound
-                    size={compact ? 18 : 16}
-                    className="text-white"
-                    strokeWidth={pathname === `/${currentUserUsername}` ? 2.5 : 2}
-                  />
-                </div>
-              )}
-            </div>
-            {!compact && <span className="text-sm font-medium">{t("profile")}</span>}
+              </div>
+            )}
+            {!compact && (
+              <span
+                className={cn(
+                  pathname === `/${currentUserUsername}` ? "font-semibold" : "font-medium",
+                )}
+              >
+                {t("profile")}
+              </span>
+            )}
           </Link>
         )}
         {currentUserUsername && (
