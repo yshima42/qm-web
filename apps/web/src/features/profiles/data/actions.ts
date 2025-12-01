@@ -2,10 +2,14 @@
 
 import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
+import { revalidatePath } from "next/cache";
+import { differenceInDays } from "date-fns";
 import sharp from "sharp";
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getCategoryUrl } from "@/lib/categories";
+import { HabitCategoryName } from "@/lib/types";
 import {
   generateUserName,
   normalizeUserNameInput,
@@ -65,42 +69,71 @@ function sanitizeNextPath(next?: string | null) {
  * - 400x400px にリサイズ
  * - 圧縮率 70% で圧縮
  * - 最大ファイルサイズ 256KB
+ * - 透明がある場合はPNG、ない場合はJPEGで保存
  */
-async function resizeAndCompressAvatar(imageBuffer: Buffer): Promise<Buffer> {
+async function resizeAndCompressAvatar(
+  imageBuffer: Buffer,
+): Promise<{ buffer: Buffer; format: "png" | "jpeg" }> {
   const metadata = await sharp(imageBuffer).metadata();
+  const hasAlpha = metadata.hasAlpha;
 
   const minDimension = Math.min(metadata.width || 0, metadata.height || 0);
   const left = Math.floor(((metadata.width || 0) - minDimension) / 2);
   const top = Math.floor(((metadata.height || 0) - minDimension) / 2);
 
-  let quality = AVATAR_QUALITY;
   let processedBuffer: Buffer;
 
-  do {
-    processedBuffer = await sharp(imageBuffer)
-      .extract({
-        left,
-        top,
-        width: minDimension,
-        height: minDimension,
-      })
-      .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
-        fit: "cover",
-        position: "center",
-      })
-      .jpeg({ quality })
-      .toBuffer();
+  if (hasAlpha) {
+    // 透明がある場合はPNGで保存（圧縮レベルを調整）
+    let compressionLevel = 9; // 最大圧縮
+    do {
+      processedBuffer = await sharp(imageBuffer)
+        .extract({
+          left,
+          top,
+          width: minDimension,
+          height: minDimension,
+        })
+        .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
+          fit: "cover",
+          position: "center",
+        })
+        .png({ compressionLevel })
+        .toBuffer();
 
-    if (processedBuffer.length > AVATAR_MAX_SIZE) {
-      quality -= 10; // 圧縮率を10%下げる
-    }
-  } while (processedBuffer.length > AVATAR_MAX_SIZE && quality > 10);
+      if (processedBuffer.length > AVATAR_MAX_SIZE && compressionLevel > 0) {
+        compressionLevel -= 1; // 圧縮レベルを下げる（ファイルサイズは大きくなるが圧縮が弱くなる）
+      }
+    } while (processedBuffer.length > AVATAR_MAX_SIZE && compressionLevel > 0);
+  } else {
+    // 透明がない場合はJPEGで保存
+    let quality = AVATAR_QUALITY;
+    do {
+      processedBuffer = await sharp(imageBuffer)
+        .extract({
+          left,
+          top,
+          width: minDimension,
+          height: minDimension,
+        })
+        .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
+          fit: "cover",
+          position: "center",
+        })
+        .jpeg({ quality })
+        .toBuffer();
+
+      if (processedBuffer.length > AVATAR_MAX_SIZE) {
+        quality -= 10; // 圧縮率を10%下げる
+      }
+    } while (processedBuffer.length > AVATAR_MAX_SIZE && quality > 10);
+  }
 
   if (processedBuffer.length > AVATAR_MAX_SIZE) {
     throw new Error("Image too large after compression");
   }
 
-  return processedBuffer;
+  return { buffer: processedBuffer, format: hasAlpha ? "png" : "jpeg" };
 }
 
 async function uploadAvatar(
@@ -114,18 +147,20 @@ async function uploadAvatar(
 
   try {
     const fileBuffer = Buffer.from(await file.arrayBuffer());
-    const processedBuffer = await resizeAndCompressAvatar(fileBuffer);
+    const { buffer: processedBuffer, format } = await resizeAndCompressAvatar(fileBuffer);
 
     if (processedBuffer.length > AVATAR_MAX_SIZE) {
       return { errorCode: "avatarTooLarge" as OnboardingErrorCode };
     }
 
-    const storagePath = `${userId}/${randomUUID()}.jpg`;
+    const fileExtension = format === "png" ? "png" : "jpg";
+    const storagePath = `${userId}/${randomUUID()}.${fileExtension}`;
+    const contentType = format === "png" ? "image/png" : "image/jpeg";
 
     const { error: uploadError } = await supabase.storage
       .from(AVATAR_BUCKET)
       .upload(storagePath, processedBuffer, {
-        contentType: "image/jpeg",
+        contentType,
       });
 
     if (uploadError) {
@@ -273,7 +308,73 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
       console.error("[onboarding] habit creation error", habitError);
       return { errorCode: "habitCreateFailed" };
     }
+
+    // 理由がある場合は自動でストーリーに投稿
+    if (habitReason.trim()) {
+      try {
+        // 作成された習慣を取得（最新の習慣を取得）
+        const { data: habitsData, error: fetchError } = await supabase
+          .from("habits")
+          .select(
+            `
+            id,
+            habit_category_id,
+            custom_habit_name,
+            habit_categories!inner(habit_category_name),
+            trials(id, started_at, ended_at)
+          `,
+          )
+          .eq("user_id", user.id)
+          .eq("habit_categories.habit_category_name", habitCategory)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (!fetchError && habitsData) {
+          // アクティブなtrialを取得
+          const activeTrial = habitsData.trials?.find((t) => !t.ended_at);
+          if (activeTrial) {
+            // 経過日数を計算
+            const trialStartedAt = new Date(activeTrial.started_at);
+            const now = new Date();
+            const trialElapsedDays = differenceInDays(now, trialStartedAt);
+
+            // ストーリーを作成
+            const { error: storyError } = await supabase.from("stories").insert({
+              content: habitReason.trim(),
+              user_id: user.id,
+              habit_category_id: habitsData.habit_category_id,
+              custom_habit_name: habitsData.custom_habit_name,
+              trial_started_at: activeTrial.started_at,
+              trial_elapsed_days: trialElapsedDays,
+              comment_setting: "enabled",
+              is_reason: true,
+            });
+
+            if (storyError) {
+              console.error("[onboarding] Error creating story:", storyError);
+              // ストーリー作成の失敗は習慣登録を失敗させない
+            }
+          }
+        }
+      } catch (err) {
+        console.error("[onboarding] Error posting reason to story:", err);
+        // ストーリー作成の失敗は習慣登録を失敗させない
+      }
+    }
+
+    // 習慣を登録した場合は、登録した習慣のカテゴリーのURLを返す
+    const habitCategoryUrl = getCategoryUrl(habitCategory as HabitCategoryName);
+
+    // キャッシュを無効化して最新のデータを取得できるようにする
+    revalidatePath("/", "layout");
+
+    return { redirectTo: habitCategoryUrl };
   }
+
+  // 習慣を登録しなかった場合
+  // キャッシュを無効化して最新のデータを取得できるようにする
+  revalidatePath("/", "layout");
 
   return { redirectTo: nextPath };
 }

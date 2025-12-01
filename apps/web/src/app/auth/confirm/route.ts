@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // ユーザーの最初の習慣のコミュニティにリダイレクト
+      // ログイン後にユーザーの最初の習慣のコミュニティにリダイレクト
       const defaultPath = await getDefaultCommunityPath();
       redirect(defaultPath);
     } else {
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
         case "email_change":
         case "email":
         default:
-          // ユーザーの最初の習慣のコミュニティにリダイレクト
+          // ログイン後にユーザーの最初の習慣のコミュニティにリダイレクト
           redirectPath = await getDefaultCommunityPath();
           break;
       }

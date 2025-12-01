@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Camera, Check, Loader2 } from "lucide-react";
+import { Camera, Check, Loader2, CheckCircle2 } from "lucide-react";
 import {
   useEffect,
   useMemo,
@@ -18,7 +18,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@quitmate/ui";
 import {
   checkUserNameAvailability,
   completeProfileOnboarding,
@@ -26,7 +25,7 @@ import {
 } from "@/features/profiles/data/actions";
 import { isValidUserName, normalizeUserNameInput } from "@/features/profiles/lib/user-name";
 import { createClient } from "@/lib/supabase/client";
-import { HABIT_CATEGORIES } from "@/lib/categories";
+import { HABIT_CATEGORIES, CATEGORY_ICONS } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 
 type ProfileOnboardingFormProps = {
@@ -42,6 +41,18 @@ const steps = [
 ] as const;
 
 type StepKey = (typeof steps)[number]["key"];
+
+/**
+ * ローカル時間の日時文字列を取得（YYYY-MM-DDTHH:mm形式）
+ */
+function getLocalDateTimeString(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
 
 export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardingFormProps) {
   const router = useRouter();
@@ -60,7 +71,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
   const [habitCategory, setHabitCategory] = useState<HabitCategoryName | "">("");
   const [customHabitName, setCustomHabitName] = useState("");
   const [habitStartedAt, setHabitStartedAt] = useState(
-    new Date().toISOString().slice(0, 16), // YYYY-MM-DDTHH:mm format
+    getLocalDateTimeString(new Date()), // ローカル時間
   );
   const [habitReason, setHabitReason] = useState("");
   const [habitError, setHabitError] = useState<string | null>(null);
@@ -262,6 +273,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
         return;
       }
       router.replace(result?.redirectTo ?? "/stories/habits/alcohol");
+      router.refresh();
     });
   };
 
@@ -475,24 +487,35 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
             <Label htmlFor="habit_category" className="text-sm font-medium">
               {t("steps.habit.categoryLabel")}
             </Label>
-            <Select
-              value={habitCategory}
-              onValueChange={(value) => {
-                setHabitCategory(value as HabitCategoryName);
-                setHabitError(null);
-              }}
-            >
-              <SelectTrigger id="habit_category">
-                <SelectValue placeholder={t("steps.habit.categoryPlaceholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                {HABIT_CATEGORIES.filter((cat) => cat !== "Official").map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {tCategory(cat)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-3 gap-2">
+              {HABIT_CATEGORIES.filter(
+                (cat) => cat !== "Official" && cat !== "Cosmetic Surgery",
+              ).map((cat) => {
+                const Icon = CATEGORY_ICONS[cat];
+                const isSelected = habitCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    id={cat === habitCategory ? "habit_category" : undefined}
+                    onClick={() => {
+                      setHabitCategory(cat as HabitCategoryName);
+                      setHabitError(null);
+                    }}
+                    disabled={isSubmitting}
+                    className={`flex w-full items-center gap-2 rounded-lg border p-3 text-left transition-colors ${
+                      isSelected ? "border-primary bg-primary/5" : "border-border hover:bg-accent"
+                    } ${isSubmitting ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+                  >
+                    <div className="flex size-8 shrink-0 items-center justify-center">
+                      {Icon && <Icon className="text-primary size-5" />}
+                    </div>
+                    <div className="min-w-0 flex-1 text-sm font-medium">{tCategory(cat)}</div>
+                    {isSelected && <CheckCircle2 className="text-primary size-4 shrink-0" />}
+                  </button>
+                );
+              })}
+            </div>
             {habitCategory === "Custom" && (
               <div className="space-y-2">
                 <Label htmlFor="custom_habit_name" className="text-sm font-medium">

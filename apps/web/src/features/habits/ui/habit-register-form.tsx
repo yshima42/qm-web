@@ -25,7 +25,10 @@ function getRegisterableCategories(existingHabits: HabitTileDto[]): HabitCategor
   );
 
   return HABIT_CATEGORIES.filter(
-    (category) => !existingCategoryNames.includes(category) && category !== "Official",
+    (category) =>
+      !existingCategoryNames.includes(category) &&
+      category !== "Official" &&
+      category !== "Cosmetic Surgery",
   );
 }
 
