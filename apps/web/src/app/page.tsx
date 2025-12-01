@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+import { getDefaultCommunityPath } from "@/lib/utils/page-helpers";
 
 export default async function Home() {
-  redirect("https://about.quitmate.app/");
+  const defaultPath = await getDefaultCommunityPath();
+  redirect(defaultPath);
 }
