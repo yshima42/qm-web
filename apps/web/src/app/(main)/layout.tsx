@@ -26,11 +26,11 @@ export default async function MainLayout({ children }: MainLayoutProps) {
     <>
       <div className="flex w-full">
         <Sidebar currentUserUsername={currentUserUsername} />
-        <div className="flex flex-1 flex-col pb-16 md:pb-0">
+        <div className={`flex flex-1 flex-col ${currentUserUsername ? "pb-16" : ""} md:pb-0`}>
           <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
         </div>
       </div>
-      <MobileBottomNav currentUserUsername={currentUserUsername} />
+      {currentUserUsername && <MobileBottomNav currentUserUsername={currentUserUsername} />}
     </>
   );
 }

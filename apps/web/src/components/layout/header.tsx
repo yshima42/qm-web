@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import Image from "next/image";
+import Link from "next/link";
 
 import { AuthButton } from "@/components/auth-button";
 import { BackButton } from "@/components/layout/back-button";
@@ -73,7 +75,21 @@ export function Header({
         </div>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          {titleElement ? (
+          {isLoggedIn && !titleElement && !title && !icon ? (
+            // ログイン時、タイトルがない場合はロゴを表示（スマホのみ）
+            <Link href="/" className="md:hidden">
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/images/icon-web.png"
+                  alt="QuitMate Logo"
+                  width={20}
+                  height={20}
+                  className="h-5 w-auto"
+                />
+                <span className="text-lg font-medium leading-tight">QuitMate</span>
+              </div>
+            </Link>
+          ) : titleElement ? (
             <>
               <div
                 className={clsx(

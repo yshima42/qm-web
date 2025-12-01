@@ -90,6 +90,7 @@ export default async function Page(props: PageProps) {
             </div>
           ) : undefined
         }
+        hideTitle={!isLoggedIn ? { mobile: true } : undefined}
         currentUserProfile={currentUserProfile}
       />
 
