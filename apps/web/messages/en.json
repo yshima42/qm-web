@@ -39,16 +39,16 @@
         "previewAlt": "Selected profile image preview"
       },
       "habit": {
-        "title": "Register a habit",
+        "title": "Register a habit to quit",
         "description": "Register the habit you want to quit and start your journey.",
         "categoryLabel": "Category *",
         "categoryPlaceholder": "Select a category",
         "customHabitNameLabel": "Custom habit name *",
         "customHabitNamePlaceholder": "Enter habit name",
-        "startedAtLabel": "Start date and time *",
+        "startedAtLabel": "Last time you did this habit *",
         "reasonLabel": "Reason to quit *",
         "reasonPlaceholder": "Enter your reason for wanting to quit this habit",
-        "reasonHelper": "Clarifying your motivation will help you achieve your goal."
+        "reasonHelper": "Your reason to quit will be posted to the timeline"
       }
     },
     "buttons": {
@@ -134,7 +134,7 @@
     "message": "To read more stories, download the app"
   },
   "habit-register": {
-    "title": "Register Habit",
+    "title": "Register Habit to Quit",
     "description": "Register a new habit",
     "categoryLabel": "Category *",
     "categoryPlaceholder": "Select category",
@@ -147,7 +147,7 @@
     "frequencyPerWeekPlaceholder": "e.g., 3",
     "reasonLabel": "Reason to quit *",
     "reasonPlaceholder": "Reason for wanting to quit this habit",
-    "reasonDescription": "This reason will be posted as a story",
+    "reasonDescription": "Your reason to quit will be posted to the timeline",
     "reasonRequired": "Please enter a reason",
     "categoryRequired": "Please select a category",
     "customHabitNameRequired": "Please enter a custom habit name",
@@ -192,7 +192,7 @@
     "communities": "Communities",
     "noHabitsRegistered": "No habits registered",
     "settings": "Settings",
-    "registerHabit": "Register habit",
+    "registerHabit": "Register habit to quit",
     "habitList": "Habit list",
     "deleteAccount": "Delete Account",
     "language": "Language",

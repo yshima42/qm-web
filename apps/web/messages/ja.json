@@ -39,16 +39,16 @@
         "previewAlt": "選択したプロフィール画像のプレビュー"
       },
       "habit": {
-        "title": "習慣を登録",
+        "title": "やめる習慣を登録",
         "description": "やめたい習慣を登録して、あなたの旅を始めましょう。",
         "categoryLabel": "カテゴリ *",
         "categoryPlaceholder": "カテゴリを選択",
         "customHabitNameLabel": "カスタム習慣名 *",
         "customHabitNamePlaceholder": "習慣名を入力",
-        "startedAtLabel": "開始日時 *",
+        "startedAtLabel": "最後にその習慣をした日時 *",
         "reasonLabel": "やめたい理由 *",
         "reasonPlaceholder": "この習慣をやめたい理由を入力してください",
-        "reasonHelper": "あなたの動機を明確にすることで、目標達成に役立ちます。"
+        "reasonHelper": "やめる理由はタイムラインに投稿されます"
       }
     },
     "buttons": {
@@ -94,27 +94,27 @@
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
   "habit-register": {
-    "title": "習慣を登録",
+    "title": "やめる習慣を登録",
     "description": "新しい習慣を登録します",
     "categoryLabel": "カテゴリ *",
     "categoryPlaceholder": "カテゴリを選択",
     "customHabitNameLabel": "カスタム習慣名 *",
     "customHabitNamePlaceholder": "習慣名を入力",
-    "startedAtLabel": "開始日時 *",
+    "startedAtLabel": "最後にその習慣をした日時 *",
     "durationMonthsLabel": "期間（月数）",
     "durationMonthsPlaceholder": "例: 3",
     "frequencyPerWeekLabel": "週の頻度",
     "frequencyPerWeekPlaceholder": "例: 3",
     "reasonLabel": "やめる理由 *",
     "reasonPlaceholder": "この習慣をやめたい理由",
-    "reasonDescription": "この理由はストーリーに投稿されます",
+    "reasonDescription": "やめる理由はタイムラインに投稿されます",
     "reasonRequired": "理由を入力してください",
     "categoryRequired": "カテゴリを選択してください",
     "customHabitNameRequired": "カスタム習慣名を入力してください",
     "maxHabitsReached": "最大{max}つまでしか習慣を登録できません",
     "noRegisterableCategories": "登録可能なカテゴリがありません",
     "cancel": "キャンセル",
-    "register": "登録&投稿",
+    "register": "登録 & 投稿",
     "registering": "登録中..."
   },
   "habit-reset": {
@@ -170,7 +170,7 @@
     "communities": "コミュニティ",
     "noHabitsRegistered": "習慣が登録されていません",
     "settings": "設定",
-    "registerHabit": "習慣を登録",
+    "registerHabit": "やめる習慣を登録",
     "habitList": "習慣一覧",
     "deleteAccount": "アカウント削除",
     "language": "言語設定",

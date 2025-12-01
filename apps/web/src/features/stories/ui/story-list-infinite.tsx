@@ -26,10 +26,9 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
   const t = useTranslations("stories");
   const { ref, inView } = useInView({
     threshold: 0.1,
-    rootMargin: "100px", // 少し早めに読み込み開始
+    rootMargin: "100px",
   });
 
-  // クライアントサイドでデータを取得（Xと同様のパターン）
   const {
     data,
     fetchNextPage,
@@ -41,20 +40,17 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
     addStoryToTimeline,
   } = useInfiniteStories(category);
 
-  // プルトゥリフレッシュ
   const { isRefreshing, pullProgress, shouldShowIndicator } = usePullToRefresh({
     onRefresh: resetAndRefetch,
     enabled: true,
   });
 
-  // スクロールで次のページを読み込み
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // 全ページのストーリーをフラットに結合
   const stories = data?.pages.flatMap((page) => page.stories) ?? [];
 
   if (isError) {
@@ -90,7 +86,6 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
           />
         ))}
 
-        {/* ローディング & 読み込みトリガー */}
         <div ref={ref} className="py-4">
           {(isLoading || isFetchingNextPage) && (
             <div className="flex justify-center">
