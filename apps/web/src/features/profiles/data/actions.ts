@@ -8,6 +8,7 @@ import sharp from "sharp";
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 import {
@@ -81,25 +82,27 @@ async function resizeAndCompressAvatar(
   const left = Math.floor(((metadata.width || 0) - minDimension) / 2);
   const top = Math.floor(((metadata.height || 0) - minDimension) / 2);
 
+  // 共通の画像処理パイプライン（extract + resize）
+  const createImagePipeline = () =>
+    sharp(imageBuffer)
+      .extract({
+        left,
+        top,
+        width: minDimension,
+        height: minDimension,
+      })
+      .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
+        fit: "cover",
+        position: "center",
+      });
+
   let processedBuffer: Buffer;
 
   if (hasAlpha) {
     // 透明がある場合はPNGで保存（圧縮レベルを調整）
     let compressionLevel = 9; // 最大圧縮
     do {
-      processedBuffer = await sharp(imageBuffer)
-        .extract({
-          left,
-          top,
-          width: minDimension,
-          height: minDimension,
-        })
-        .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
-          fit: "cover",
-          position: "center",
-        })
-        .png({ compressionLevel })
-        .toBuffer();
+      processedBuffer = await createImagePipeline().png({ compressionLevel }).toBuffer();
 
       if (processedBuffer.length > AVATAR_MAX_SIZE && compressionLevel > 0) {
         compressionLevel -= 1; // 圧縮レベルを下げる（ファイルサイズは大きくなるが圧縮が弱くなる）
@@ -109,19 +112,7 @@ async function resizeAndCompressAvatar(
     // 透明がない場合はJPEGで保存
     let quality = AVATAR_QUALITY;
     do {
-      processedBuffer = await sharp(imageBuffer)
-        .extract({
-          left,
-          top,
-          width: minDimension,
-          height: minDimension,
-        })
-        .resize(AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT, {
-          fit: "cover",
-          position: "center",
-        })
-        .jpeg({ quality })
-        .toBuffer();
+      processedBuffer = await createImagePipeline().jpeg({ quality }).toBuffer();
 
       if (processedBuffer.length > AVATAR_MAX_SIZE) {
         quality -= 10; // 圧縮率を10%下げる
@@ -134,6 +125,72 @@ async function resizeAndCompressAvatar(
   }
 
   return { buffer: processedBuffer, format: hasAlpha ? "png" : "jpeg" };
+}
+
+/**
+ * 理由をストーリーとして投稿する
+ * エラーが発生しても習慣登録を失敗させない
+ */
+async function postReasonAsStory(
+  supabase: SupabaseClient,
+  userId: string,
+  habitCategoryName: string,
+  reason: string,
+): Promise<void> {
+  try {
+    // 作成された習慣を取得（最新の習慣を取得）
+    const { data: habitsData, error: fetchError } = await supabase
+      .from("habits")
+      .select(
+        `
+        id,
+        habit_category_id,
+        custom_habit_name,
+        habit_categories!inner(habit_category_name),
+        trials(id, started_at, ended_at)
+      `,
+      )
+      .eq("user_id", userId)
+      .eq("habit_categories.habit_category_name", habitCategoryName)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (fetchError || !habitsData) {
+      console.error("[postReasonAsStory] Error fetching created habit:", fetchError);
+      return;
+    }
+
+    // アクティブなtrialを取得
+    const activeTrial = habitsData.trials?.find((t) => !t.ended_at);
+    if (!activeTrial) {
+      console.error("[postReasonAsStory] No active trial found");
+      return;
+    }
+
+    // 経過日数を計算
+    const trialStartedAt = new Date(activeTrial.started_at);
+    const now = new Date();
+    const trialElapsedDays = differenceInDays(now, trialStartedAt);
+
+    // ストーリーを作成
+    const { error: storyError } = await supabase.from("stories").insert({
+      content: reason,
+      user_id: userId,
+      habit_category_id: habitsData.habit_category_id,
+      custom_habit_name: habitsData.custom_habit_name,
+      trial_started_at: activeTrial.started_at,
+      trial_elapsed_days: trialElapsedDays,
+      comment_setting: "enabled",
+      is_reason: true,
+    });
+
+    if (storyError) {
+      console.error("[postReasonAsStory] Error creating story:", storyError);
+    }
+  } catch (err) {
+    console.error("[postReasonAsStory] Error posting reason to story:", err);
+  }
 }
 
 async function uploadAvatar(
@@ -311,56 +368,7 @@ export async function completeProfileOnboarding(formData: FormData): Promise<Onb
 
     // 理由がある場合は自動でストーリーに投稿
     if (habitReason.trim()) {
-      try {
-        // 作成された習慣を取得（最新の習慣を取得）
-        const { data: habitsData, error: fetchError } = await supabase
-          .from("habits")
-          .select(
-            `
-            id,
-            habit_category_id,
-            custom_habit_name,
-            habit_categories!inner(habit_category_name),
-            trials(id, started_at, ended_at)
-          `,
-          )
-          .eq("user_id", user.id)
-          .eq("habit_categories.habit_category_name", habitCategory)
-          .order("created_at", { ascending: false })
-          .limit(1)
-          .maybeSingle();
-
-        if (!fetchError && habitsData) {
-          // アクティブなtrialを取得
-          const activeTrial = habitsData.trials?.find((t) => !t.ended_at);
-          if (activeTrial) {
-            // 経過日数を計算
-            const trialStartedAt = new Date(activeTrial.started_at);
-            const now = new Date();
-            const trialElapsedDays = differenceInDays(now, trialStartedAt);
-
-            // ストーリーを作成
-            const { error: storyError } = await supabase.from("stories").insert({
-              content: habitReason.trim(),
-              user_id: user.id,
-              habit_category_id: habitsData.habit_category_id,
-              custom_habit_name: habitsData.custom_habit_name,
-              trial_started_at: activeTrial.started_at,
-              trial_elapsed_days: trialElapsedDays,
-              comment_setting: "enabled",
-              is_reason: true,
-            });
-
-            if (storyError) {
-              console.error("[onboarding] Error creating story:", storyError);
-              // ストーリー作成の失敗は習慣登録を失敗させない
-            }
-          }
-        }
-      } catch (err) {
-        console.error("[onboarding] Error posting reason to story:", err);
-        // ストーリー作成の失敗は習慣登録を失敗させない
-      }
+      await postReasonAsStory(supabase, user.id, habitCategory, habitReason.trim());
     }
 
     // 習慣を登録した場合は、登録した習慣のカテゴリーのURLを返す
