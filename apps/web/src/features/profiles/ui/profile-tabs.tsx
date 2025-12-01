@@ -1,14 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
-import { Profile, ProfileTileDto } from "@/lib/types";
+import { ProfileTileDto } from "@/lib/types";
 
 import { StoryListInfiniteByUser } from "@/features/stories/ui/story-list-infinite-by-user";
 import { StoryListInfiniteCommented } from "@/features/stories/ui/story-list-infinite-commented";
 import { ArticleListInfiniteByUser } from "@/features/articles/ui/article-list-infinite-by-user";
 
 type Props = {
-  profile: Profile | ProfileTileDto;
+  profile: ProfileTileDto;
   isLoggedIn: boolean;
   /** プロフィールのユーザーがミュートされているかどうか */
   isMuted?: boolean;

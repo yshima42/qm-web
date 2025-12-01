@@ -10,19 +10,24 @@ import {
   Users,
   Compass,
   Settings,
-  User,
   Smartphone,
+  UserRound,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect, useMemo } from "react";
+import { cn } from "@/lib/utils";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
 import { useHabits } from "@/features/habits/providers/habits-provider";
-import { categorizeHabitCategories } from "./sidebar-utils";
+import {
+  categorizeHabitCategories,
+  getFirstHabitCommunityUrl,
+  isMyCommunityLinkActive,
+} from "./sidebar-utils";
 
 type SidebarContentProps = {
   habitCategories: HabitCategoryName[];
@@ -30,6 +35,11 @@ type SidebarContentProps = {
   onLinkClick?: () => void;
   skipLogo?: boolean;
   currentUserUsername?: string | null;
+  currentUserProfile?: {
+    user_name: string;
+    display_name: string;
+    avatar_url: string | null;
+  } | null;
 };
 
 export function SidebarContent({
@@ -38,6 +48,7 @@ export function SidebarContent({
   onLinkClick,
   skipLogo = false,
   currentUserUsername,
+  currentUserProfile,
 }: SidebarContentProps) {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
@@ -100,14 +111,44 @@ export function SidebarContent({
 
       <div className="scrollbar-hide mb-6 min-h-0 flex-1 space-y-1 overflow-y-auto">
         {currentUserUsername && (
-          <SidebarIcon
-            icon={User}
-            label={t("profile")}
+          <Link
             href={`/${currentUserUsername}`}
-            active={pathname === `/${currentUserUsername}`}
-            showLabel={!compact}
+            className={cn(
+              "flex items-center gap-4 rounded-lg px-4 py-3 transition-colors",
+              pathname === `/${currentUserUsername}`
+                ? "bg-accent text-foreground font-semibold"
+                : "text-muted-foreground hover:bg-accent hover:text-foreground",
+              compact && "justify-center px-2",
+            )}
+            title={t("profile")}
             onClick={handleLinkClick}
-          />
+          >
+            <div className="shrink-0">
+              {currentUserProfile?.avatar_url ? (
+                <Image
+                  src={currentUserProfile.avatar_url}
+                  alt={currentUserProfile.display_name}
+                  width={compact ? 28 : 24}
+                  height={compact ? 28 : 24}
+                  className={cn("rounded-full object-cover", compact ? "size-7" : "size-6")}
+                />
+              ) : (
+                <div
+                  className={cn(
+                    "flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700",
+                    compact ? "size-7" : "size-6",
+                  )}
+                >
+                  <UserRound
+                    size={compact ? 18 : 16}
+                    className="text-white"
+                    strokeWidth={pathname === `/${currentUserUsername}` ? 2.5 : 2}
+                  />
+                </div>
+              )}
+            </div>
+            {!compact && <span className="text-sm font-medium">{t("profile")}</span>}
+          </Link>
         )}
         {currentUserUsername && (
           <SidebarIcon
@@ -119,34 +160,42 @@ export function SidebarContent({
             onClick={handleLinkClick}
           />
         )}
-        <SidebarIcon
-          icon={BookOpen}
-          label={t("articles")}
-          href="/articles"
-          active={pathname === "/articles"}
-          showLabel={!compact}
-          onClick={handleLinkClick}
-        />
         {/* マイコミュニティ */}
         {myCategories.length > 0 && (
           <>
-            <div
-              className={`flex items-center gap-4 rounded-md px-4 py-2 transition-colors ${
-                !compact ? "" : "justify-center px-2"
-              } text-muted-foreground`}
-              title={!compact ? t("myCommunity") : undefined}
-            >
-              <Users size={compact ? 24 : 18} strokeWidth={2} className="transition-all" />
-              {!compact && <span>{t("myCommunity")}</span>}
-            </div>
+            {compact ? (
+              // コンパクトモード（中間サイズ）の時はリンクとして機能
+              <Link
+                href={getFirstHabitCommunityUrl(habits)}
+                onClick={handleLinkClick}
+                className={cn(
+                  "flex items-center justify-center gap-4 rounded-md px-2 py-2 transition-colors",
+                  isMyCommunityLinkActive(pathname, habits)
+                    ? "bg-accent text-foreground font-semibold"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                )}
+                title={t("myCommunity")}
+              >
+                <Users size={24} strokeWidth={2} className="transition-all" />
+              </Link>
+            ) : (
+              // PCサイズの時はリンクではなく、通常のdivとして表示
+              <div
+                className="text-muted-foreground flex items-center gap-4 rounded-md px-4 py-2"
+                title={t("myCommunity")}
+              >
+                <Users size={18} strokeWidth={2} className="transition-all" />
+                <span>{t("myCommunity")}</span>
+              </div>
+            )}
             {/* マイコミュニティのカテゴリー */}
             <div className={compact ? "" : "pl-4"}>
               {/* 「すべて」を一番上に表示 */}
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
                 label={tCategory("All")}
-                href="/stories/habits/all"
-                active={pathname === "/stories/habits/all"}
+                href={getCategoryUrl("All")}
+                active={pathname === getCategoryUrl("All")}
                 showLabel={!compact}
                 onClick={handleLinkClick}
               />
@@ -187,8 +236,8 @@ export function SidebarContent({
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
                 label={tCategory("All")}
-                href="/stories/habits/all"
-                active={pathname === "/stories/habits/all"}
+                href={getCategoryUrl("All")}
+                active={pathname === getCategoryUrl("All")}
                 showLabel={!compact}
                 onClick={handleLinkClick}
               />
@@ -268,6 +317,15 @@ export function SidebarContent({
             )}
           </>
         )}
+        {/* 記事 */}
+        <SidebarIcon
+          icon={BookOpen}
+          label={t("articles")}
+          href="/articles"
+          active={pathname === "/articles"}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
         {/* アプリ */}
         <AppDownloadDialogTrigger
           title={tAppDownload("title")}
@@ -335,15 +393,21 @@ export function SidebarContent({
 
 type SidebarProps = {
   currentUserUsername?: string | null;
+  currentUserProfile?: {
+    user_name: string;
+    display_name: string;
+    avatar_url: string | null;
+  } | null;
 };
 
-export function Sidebar({ currentUserUsername }: SidebarProps) {
+export function Sidebar({ currentUserUsername, currentUserProfile }: SidebarProps) {
   return (
     <>
       <aside className="border-border sticky top-0 hidden h-screen w-64 shrink-0 border-r pt-4 lg:block">
         <SidebarContent
           habitCategories={HABIT_CATEGORIES}
           currentUserUsername={currentUserUsername}
+          currentUserProfile={currentUserProfile}
         />
       </aside>
 
@@ -352,6 +416,7 @@ export function Sidebar({ currentUserUsername }: SidebarProps) {
           habitCategories={HABIT_CATEGORIES}
           compact
           currentUserUsername={currentUserUsername}
+          currentUserProfile={currentUserProfile}
         />
       </aside>
     </>

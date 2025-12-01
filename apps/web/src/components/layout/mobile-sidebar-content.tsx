@@ -10,13 +10,19 @@ import {
   Smartphone,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
+import { cn } from "@/lib/utils";
 import { useHabits } from "@/features/habits/providers/habits-provider";
-import { categorizeHabitCategories } from "./sidebar-utils";
+import {
+  categorizeHabitCategories,
+  getFirstHabitCommunityUrl,
+  isMyCommunityLinkActive,
+} from "./sidebar-utils";
 
 type MobileSidebarContentProps = {
   onLinkClick?: () => void;
@@ -61,31 +67,30 @@ export function MobileSidebarContent({
   return (
     <div className="flex h-full flex-col">
       <div className="scrollbar-hide min-h-0 flex-1 space-y-0.5 overflow-y-auto px-2">
-        {/* 記事 */}
-        <SidebarIcon
-          icon={BookOpen}
-          label={t("articles")}
-          href="/articles"
-          active={pathname === "/articles"}
-          showLabel
-          onClick={handleLinkClick}
-        />
-
         {/* マイコミュニティ */}
         {myCategories.length > 0 && (
           <>
-            <div className="text-muted-foreground flex items-center gap-4 rounded-lg px-4 py-3 text-sm font-medium">
+            <Link
+              href={getFirstHabitCommunityUrl(habits)}
+              onClick={handleLinkClick}
+              className={cn(
+                "flex items-center gap-4 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                isMyCommunityLinkActive(pathname, habits)
+                  ? "bg-accent text-foreground font-semibold"
+                  : "text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
+            >
               <Users size={20} strokeWidth={2} className="transition-all" />
               <span>{t("myCommunity")}</span>
-            </div>
+            </Link>
             {/* マイコミュニティのカテゴリー */}
             <div className="pl-2">
               {/* 「すべて」を一番上に表示 */}
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
                 label={tCategory("All")}
-                href="/stories/habits/all"
-                active={pathname === "/stories/habits/all"}
+                href={getCategoryUrl("All")}
+                active={pathname === getCategoryUrl("All")}
                 showLabel
                 onClick={handleLinkClick}
               />
@@ -122,8 +127,8 @@ export function MobileSidebarContent({
               <CategoryIcon
                 icon={CATEGORY_ICONS["All"]}
                 label={tCategory("All")}
-                href="/stories/habits/all"
-                active={pathname === "/stories/habits/all"}
+                href={getCategoryUrl("All")}
+                active={pathname === getCategoryUrl("All")}
                 showLabel
                 onClick={handleLinkClick}
               />
@@ -193,6 +198,16 @@ export function MobileSidebarContent({
             )}
           </>
         )}
+
+        {/* 記事 */}
+        <SidebarIcon
+          icon={BookOpen}
+          label={t("articles")}
+          href="/articles"
+          active={pathname === "/articles"}
+          showLabel
+          onClick={handleLinkClick}
+        />
 
         {/* アプリ */}
         <AppDownloadDialogTrigger

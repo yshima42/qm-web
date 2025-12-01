@@ -3,7 +3,11 @@ import { ReactNode } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { StoryModalProvider } from "@/features/stories/ui/story-modal-provider";
-import { getCurrentUserUsername, getCurrentUserHabits } from "@/lib/utils/page-helpers";
+import {
+  getCurrentUserUsername,
+  getCurrentUserHabits,
+  getCurrentUserProfile,
+} from "@/lib/utils/page-helpers";
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -17,15 +21,19 @@ type MainLayoutProps = {
  */
 export default async function MainLayout({ children }: MainLayoutProps) {
   // ユーザー情報を並列でフェッチ
-  const [currentUserUsername, habits] = await Promise.all([
+  const [currentUserUsername, habits, currentUserProfile] = await Promise.all([
     getCurrentUserUsername(),
     getCurrentUserHabits(),
+    getCurrentUserProfile(),
   ]);
 
   return (
     <>
       <div className="flex w-full">
-        <Sidebar currentUserUsername={currentUserUsername} />
+        <Sidebar
+          currentUserUsername={currentUserUsername}
+          currentUserProfile={currentUserProfile}
+        />
         <div className={`flex flex-1 flex-col ${currentUserUsername ? "pb-16" : ""} md:pb-0`}>
           <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
         </div>

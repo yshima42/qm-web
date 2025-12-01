@@ -14,8 +14,7 @@ import {
   checkIsMuted,
 } from "@/features/profiles/data/data";
 
-import { ProfileHeader } from "@/features/profiles/ui/profile-header";
-import { ProfileTabs } from "@/features/profiles/ui/profile-tabs";
+import { ProfileContent } from "@/features/profiles/ui/profile-content";
 
 type Props = {
   params: Promise<{ user_name: string }>;
@@ -108,16 +107,11 @@ export default async function Page(props: { params: Promise<{ user_name: string 
       <Header title={profile.display_name} showBackButton currentUserProfile={currentUserProfile} />
       <Suspense fallback={<LoadingSpinner fullHeight />}>
         <main className="p-3 sm:p-5">
-          <ProfileHeader
+          <ProfileContent
             profile={profile}
             isMyProfile={isMyProfile}
             isLoggedIn={isLoggedIn}
             isFollowing={isFollowing}
-            isMuted={isMuted}
-          />
-          <ProfileTabs
-            profile={profile}
-            isLoggedIn={isLoggedIn}
             isMuted={isMuted}
             currentUserId={user?.id}
           />
