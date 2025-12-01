@@ -67,21 +67,18 @@ export function SidebarContent({
   // 登録済みカテゴリーとその他カテゴリーを分ける
   const { myCategories, otherCategories } = useMemo(() => {
     const categorized = categorizeHabitCategories(habits);
-    // habitCategoriesから"Official"を除外して、登録済み以外のカテゴリーを取得
-    const filteredCategories = habitCategories.filter((cat) => cat !== "Official");
-    const otherCats = filteredCategories.filter((cat) => !categorized.myCategories.includes(cat));
+    // 登録済み以外のカテゴリーを取得（Officialは含める）
+    const otherCats = habitCategories.filter((cat) => !categorized.myCategories.includes(cat));
 
     return { myCategories: categorized.myCategories, otherCategories: otherCats };
   }, [habits, habitCategories]);
 
   // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
   useEffect(() => {
-    const currentCategory = habitCategories
-      .filter((cat) => cat !== "Official") // "Official"は除外
-      .find((cat) => {
-        const href = getCategoryUrl(cat);
-        return pathname === href;
-      });
+    const currentCategory = habitCategories.find((cat) => {
+      const href = getCategoryUrl(cat);
+      return pathname === href;
+    });
     if (currentCategory && otherCategories.includes(currentCategory)) {
       setIsOtherCommunityOpen(true);
     }
@@ -247,26 +244,24 @@ export function SidebarContent({
                 showLabel={!compact}
                 onClick={handleLinkClick}
               />
-              {/* 全カテゴリを表示（Officialを除く） */}
-              {habitCategories
-                .filter((cat) => cat !== "Official")
-                .map((category) => {
-                  const href = getCategoryUrl(category);
-                  const Icon = CATEGORY_ICONS[category];
-                  const displayName = tCategory(category);
+              {/* 全カテゴリを表示 */}
+              {habitCategories.map((category) => {
+                const href = getCategoryUrl(category);
+                const Icon = CATEGORY_ICONS[category];
+                const displayName = tCategory(category);
 
-                  return (
-                    <CategoryIcon
-                      key={category}
-                      icon={Icon}
-                      label={displayName}
-                      href={href}
-                      active={pathname === href}
-                      showLabel={!compact}
-                      onClick={handleLinkClick}
-                    />
-                  );
-                })}
+                return (
+                  <CategoryIcon
+                    key={category}
+                    icon={Icon}
+                    label={displayName}
+                    href={href}
+                    active={pathname === href}
+                    showLabel={!compact}
+                    onClick={handleLinkClick}
+                  />
+                );
+              })}
             </div>
           </>
         )}
