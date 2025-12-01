@@ -28,16 +28,16 @@ export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserI
           {t("posts")}
         </TabsTrigger>
         <TabsTrigger
-          value="comments"
-          className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
-        >
-          {t("comments")}
-        </TabsTrigger>
-        <TabsTrigger
           value="articles"
           className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
         >
           {t("articles")}
+        </TabsTrigger>
+        <TabsTrigger
+          value="comments"
+          className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:border-b-2 data-[state=active]:font-semibold"
+        >
+          {t("comments")}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
@@ -48,15 +48,15 @@ export function ProfileTabs({ profile, isLoggedIn, isMuted = false, currentUserI
           currentUserId={currentUserId}
         />
       </TabsContent>
+      <TabsContent value="articles">
+        <ArticleListInfiniteByUser userId={profile.id} isLoggedIn={isLoggedIn} />
+      </TabsContent>
       <TabsContent value="comments">
         <StoryListInfiniteCommented
           userId={profile.id}
           isLoggedIn={isLoggedIn}
           currentUserId={currentUserId}
         />
-      </TabsContent>
-      <TabsContent value="articles">
-        <ArticleListInfiniteByUser userId={profile.id} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   );
