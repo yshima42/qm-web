@@ -44,6 +44,8 @@ export function StoryInlineForm({
     activeHabits.length > 0 ? activeHabits[0].id : "",
   );
 
+  const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
+
   // ハイドレーションミスマッチを防ぐため、マウント後にのみ表示
   useEffect(() => {
     setIsMounted(true);
@@ -58,9 +60,6 @@ export function StoryInlineForm({
     }
   }, [content]);
 
-  // Calculate character count and remaining
-  const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -71,34 +70,22 @@ export function StoryInlineForm({
     }
 
     const formData = new FormData(e.currentTarget);
-
-    // 選択された習慣ID、コメント設定、言語コードを設定
     formData.set("habit_id", selectedHabitId);
     formData.set("comment_setting", commentSetting);
-    // タイムラインの言語設定を使用（現在のロケール）
     formData.set("language_code", (locale as "ja" | "en") || "ja");
 
     startTransition(async () => {
       try {
         const result = await createStory(formData);
         if (result?.success) {
-          // フォームをクリア
           setContent("");
-          // タイムラインを更新（オプティミスティックアップデート）
           if (result.storyId && onStoryCreatedWithId) {
-            // 新しいストーリーをタイムラインの先頭に追加（ローディングインジケーターなし）
             onStoryCreatedWithId(result.storyId);
           } else if (onStoryCreated) {
-            // フォールバック: 従来の方法（リセットして再取得）
             onStoryCreated();
           } else {
-            // フォールバック: onStoryCreatedが提供されていない場合
-            queryClient.invalidateQueries({
-              queryKey: ["stories"],
-            });
-            queryClient.resetQueries({
-              queryKey: ["stories"],
-            });
+            queryClient.invalidateQueries({ queryKey: ["stories"] });
+            queryClient.resetQueries({ queryKey: ["stories"] });
           }
         }
       } catch (err) {
@@ -107,12 +94,7 @@ export function StoryInlineForm({
     });
   };
 
-  if (!hasActiveHabit) {
-    return null; // Don't show the form if no active habits
-  }
-
-  // ハイドレーション完了まで何も表示しない
-  if (!isMounted) {
+  if (!hasActiveHabit || !isMounted) {
     return null;
   }
 
@@ -120,20 +102,18 @@ export function StoryInlineForm({
     <div className="border-border bg-card border-b">
       <form onSubmit={handleSubmit} className="flex flex-col">
         {/* 習慣選択とコメント設定 */}
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            <HabitSelectDropdown
-              habits={activeHabits}
-              selectedHabitId={selectedHabitId}
-              onSelect={setSelectedHabitId}
-              showDropdown={showHabitSelect}
-            />
-            <CommentSettingDropdown value={commentSetting} onChange={setCommentSetting} />
-          </div>
+        <div className="flex items-center gap-2 px-4 pb-2 pt-3">
+          <HabitSelectDropdown
+            habits={activeHabits}
+            selectedHabitId={selectedHabitId}
+            onSelect={setSelectedHabitId}
+            showDropdown={showHabitSelect}
+          />
+          <CommentSettingDropdown value={commentSetting} onChange={setCommentSetting} />
         </div>
 
         {/* テキストエリア */}
-        <div className="flex-1 px-4 py-3">
+        <div className="px-4 py-2">
           <textarea
             ref={textareaRef}
             name="content"
@@ -141,7 +121,7 @@ export function StoryInlineForm({
             onChange={(e) => setContent(e.target.value)}
             required
             rows={1}
-            className="placeholder:text-muted-foreground w-full resize-none overflow-hidden border-0 bg-transparent text-lg focus:outline-none"
+            className="placeholder:text-muted-foreground w-full resize-none overflow-hidden border-0 bg-transparent text-base focus:outline-none"
             placeholder={t("sharePlaceholder")}
             style={{ minHeight: "1.5rem", maxHeight: "20rem" }}
           />
@@ -154,23 +134,21 @@ export function StoryInlineForm({
         )}
 
         {/* フッター（文字数カウント、投稿ボタン） */}
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            <CharacterCountIndicator
-              remaining={remaining}
-              isOverLimit={isOverLimit}
-              showCount={showCount}
-              progress={progress}
-            />
+        <div className="flex items-center justify-between px-4 pb-3 pt-2">
+          <CharacterCountIndicator
+            remaining={remaining}
+            isOverLimit={isOverLimit}
+            showCount={showCount}
+            progress={progress}
+          />
 
-            <Button
-              type="submit"
-              disabled={isPending || !content.trim() || isOverLimit}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold disabled:opacity-50"
-            >
-              {t("postButton")}
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            disabled={isPending || !content.trim() || isOverLimit}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 py-2 text-sm font-semibold disabled:opacity-50"
+          >
+            {t("postButton")}
+          </Button>
         </div>
       </form>
     </div>

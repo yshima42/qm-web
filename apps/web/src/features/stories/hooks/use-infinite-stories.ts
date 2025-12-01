@@ -31,9 +31,13 @@ export function useInfiniteStories(category: HabitCategoryName) {
 
   // 投稿後にタイムラインを更新するための関数をエクスポート
   // この関数は外部から呼び出して、boundaryTimeをリセットし、クエリをリセットできる
-  const resetAndRefetch = () => {
+  const resetAndRefetch = async () => {
     boundaryTimeRef.current = new Date().toISOString();
-    queryClient.resetQueries({
+    await queryClient.resetQueries({
+      queryKey: ["stories", "category", category, locale],
+    });
+    // リセット後に再取得を実行
+    await queryClient.refetchQueries({
       queryKey: ["stories", "category", category, locale],
     });
   };

@@ -19,6 +19,11 @@ type HabitSelectDropdownProps = {
   showDropdown: boolean;
 };
 
+const HABIT_BUTTON_CLASSES =
+  "border-border bg-muted/50 text-foreground flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors";
+
+const HABIT_DROPDOWN_CONTENT_CLASSES = "w-56";
+
 export function HabitSelectDropdown({
   habits,
   selectedHabitId,
@@ -30,22 +35,25 @@ export function HabitSelectDropdown({
   const selectedHabitName = getHabitDisplayName(selectedHabit, tCategory);
   const selectedHabitElapsedDays = getElapsedDays(selectedHabit);
 
+  const habitDisplay = (
+    <>
+      {selectedHabitName}
+      {selectedHabitElapsedDays != null && (
+        <span className="text-xs">- {selectedHabitElapsedDays}日</span>
+      )}
+    </>
+  );
+
   if (showDropdown) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="border-border text-primary hover:bg-accent flex items-center gap-1 rounded-full border bg-transparent px-3 py-1.5 text-sm font-semibold transition-colors"
-          >
-            {selectedHabitName}
-            {selectedHabitElapsedDays != null && (
-              <span className="text-xs">- {selectedHabitElapsedDays}日</span>
-            )}
-            <ChevronDown className="h-4 w-4" />
+          <button type="button" className={`${HABIT_BUTTON_CLASSES} hover:bg-muted`}>
+            {habitDisplay}
+            <ChevronDown className="h-3.5 w-3.5" />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-56">
+        <DropdownMenuContent align="start" className={HABIT_DROPDOWN_CONTENT_CLASSES}>
           <DropdownMenuRadioGroup value={selectedHabitId} onValueChange={onSelect}>
             {habits.map((habit) => {
               const habitName = getHabitDisplayName(habit, tCategory);
@@ -63,12 +71,5 @@ export function HabitSelectDropdown({
     );
   }
 
-  return (
-    <div className="border-border text-primary flex items-center gap-1 rounded-full border bg-transparent px-3 py-1.5 text-sm font-semibold">
-      {selectedHabitName}
-      {selectedHabitElapsedDays != null && (
-        <span className="text-xs">- {selectedHabitElapsedDays}日</span>
-      )}
-    </div>
-  );
+  return <div className={HABIT_BUTTON_CLASSES}>{habitDisplay}</div>;
 }

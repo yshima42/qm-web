@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
+import { TimelineLanguageSelector } from "@/components/layout/timeline-language-selector";
 
 type StoriesTabHeaderProps = {
   categoryName: HabitCategoryName;
@@ -75,6 +76,11 @@ export function StoriesTabHeader({
               </Link>
             );
           })}
+        </div>
+
+        {/* 言語設定（デスクトップのみ表示） */}
+        <div className="hidden items-center px-4 md:flex">
+          <TimelineLanguageSelector compact={true} />
         </div>
       </div>
     </div>

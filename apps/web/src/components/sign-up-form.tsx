@@ -1,36 +1,35 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card_mail";
+import { Card, CardContent } from "@/components/ui/card_mail";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { SocialLoginButtons } from "@/components/social-login-buttons";
+import { AuthFormHeader } from "@/components/auth/auth-form-header";
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+  const t = useTranslations("auth.signUp");
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
-        </CardHeader>
+        <AuthFormHeader subtitleKey="signUp" descriptionKey="signUp" />
         <CardContent>
           <div className="flex flex-col gap-4">
             <SocialLoginButtons
               loadingText={{
-                google: "Signing up...",
-                apple: "Signing up...",
+                google: t("signingUp"),
+                apple: t("signingUp"),
+              }}
+              buttonText={{
+                google: t("continueWithGoogle"),
+                apple: t("continueWithApple"),
               }}
             />
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              <div>{t("alreadyHaveAccount")}</div>
               <Link href="/auth/login" className="underline underline-offset-4">
-                Login
+                {t("login")}
               </Link>
             </div>
           </div>
