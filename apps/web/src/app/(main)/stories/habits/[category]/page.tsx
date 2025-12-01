@@ -15,6 +15,7 @@ import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
 import { FollowingStoryList } from "@/features/stories/ui/following-story-list";
+import { TimelineLanguageSelectorWrapper } from "@/components/layout/timeline-language-selector-wrapper";
 
 // pathの[category]は小文字で保存されているので、元の形式に変換する関数
 function capitalizeCategory(category: string): HabitCategoryName {
@@ -92,6 +93,13 @@ export default async function Page(props: PageProps) {
         }
         hideTitle={!isLoggedIn ? { mobile: true } : undefined}
         currentUserProfile={currentUserProfile}
+        rightElement={
+          isLoggedIn ? (
+            <div className="md:hidden">
+              <TimelineLanguageSelectorWrapper />
+            </div>
+          ) : undefined
+        }
       />
 
       {/* タブヘッダー */}
