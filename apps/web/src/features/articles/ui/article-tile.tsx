@@ -62,15 +62,15 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
-      <div className="p-4">
+      <div className="p-3 md:p-4">
         <Link href={articleUrl} className="block">
           {/* Title */}
-          <h2 className="mb-1 line-clamp-2 text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="mb-1.5 line-clamp-2 text-lg font-bold text-gray-900 md:mb-1 md:text-xl dark:text-white">
             {article.title}
           </h2>
 
           {/* Category tag and date */}
-          <div className="mb-1 flex items-center justify-between">
+          <div className="mb-1.5 flex items-center justify-between md:mb-1">
             <CategoryTag
               category={article.habit_categories?.habit_category_name ?? "General"}
               customHabitName={article.custom_habit_name}
@@ -80,7 +80,7 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
         </Link>
 
         {/* Article description (Markdown) */}
-        <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-4 line-clamp-3 text-gray-700 dark:text-gray-300">
+        <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-2.5 line-clamp-3 text-gray-700 md:mb-4 dark:text-gray-300">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -104,10 +104,10 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
         {/* Actions and user info */}
         <div className="flex items-center justify-between">
           {/* Comments and likes */}
-          <div className="flex gap-4 text-gray-500 dark:text-gray-400">
+          <div className="flex gap-4 text-gray-500 md:gap-6 dark:text-gray-400">
             <div className="flex items-center gap-1">
-              <CommentIcon />
-              <span className="text-sm">{article.article_comments[0]?.count ?? 0}</span>
+              <CommentIcon className="size-4 md:size-5" />
+              <span className="text-xs md:text-sm">{article.article_comments[0]?.count ?? 0}</span>
             </div>
             {isLoggedIn ? (
               <button
@@ -116,15 +116,17 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
                 className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
               >
                 <ArticleLikeIcon
-                  className={`size-4 transition-colors ${isLiked ? "fill-green-600 text-green-600" : ""}`}
+                  className={`size-4 transition-colors md:size-5 ${isLiked ? "fill-green-600 text-green-600" : ""}`}
                 />
-                <span className={`text-sm ${isLiked ? "text-green-600" : ""}`}>{likesCount}</span>
+                <span className={`text-xs md:text-sm ${isLiked ? "text-green-600" : ""}`}>
+                  {likesCount}
+                </span>
               </button>
             ) : (
               <LoginPromptDialog className="cursor-pointer" type="article">
                 <div className="flex items-center gap-1">
-                  <ArticleLikeIcon className="size-4" />
-                  <span className="text-sm">{likesCount}</span>
+                  <ArticleLikeIcon className="size-4 md:size-5" />
+                  <span className="text-xs md:text-sm">{likesCount}</span>
                 </div>
               </LoginPromptDialog>
             )}
@@ -146,7 +148,7 @@ export function ArticleTile({ article, isLoggedIn = false }: Props) {
                   <DefaultAvatar size="sm" className="size-full bg-gray-200 dark:bg-gray-700" />
                 )}
               </div>
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
+              <span className="text-xs font-medium text-gray-900 md:text-sm dark:text-white">
                 {article.profiles.display_name}
               </span>
             </div>
