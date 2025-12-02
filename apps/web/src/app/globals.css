@@ -67,6 +67,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* モバイル表示時はフォントサイズを少し小さく */
+    @apply text-sm md:text-base;
   }
 }
 
@@ -77,5 +79,15 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
+  }
+
+  /**
+   * iOSやAndroidのホームインジケーター上にボトムナビを自然に載せる
+   * デファクトな手法としてsafe-area-insetを考慮する
+   */
+  .with-safe-area-bottom {
+    padding-bottom: 0.75rem;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 0.75rem);
   }
 }

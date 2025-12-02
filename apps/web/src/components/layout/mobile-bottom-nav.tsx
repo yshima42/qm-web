@@ -22,29 +22,34 @@ export function MobileBottomNav({ currentUserUsername }: MobileBottomNavProps) {
   const isHabitsActive = pathname === habitsPath;
 
   return (
-    <nav className="border-border bg-background fixed bottom-0 left-0 right-0 z-50 border-t md:hidden">
-      <div className="flex h-16 items-center justify-around">
+    <nav
+      aria-label="モバイルボトムナビゲーション"
+      className="border-border/80 bg-background/95 supports-[backdrop-filter]:bg-background/80 with-safe-area-bottom fixed inset-x-0 bottom-0 z-50 border-t backdrop-blur-md md:hidden"
+    >
+      <div className="mx-auto flex h-14 max-w-md flex-1 items-center justify-around px-2">
         {/* ホーム */}
         <Link
           href={homePath}
-          className={`flex flex-col items-center justify-center gap-1 px-4 py-2 transition-colors ${
+          aria-current={isHomeActive ? "page" : undefined}
+          className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 text-[10px] font-medium transition-colors ${
             isHomeActive ? "text-primary-light dark:text-primary-dark" : "text-muted-foreground"
           }`}
         >
-          <Home className={`size-6 ${isHomeActive ? "fill-current" : ""}`} />
-          <span className="text-xs font-medium">{t("home")}</span>
+          <Home className={`size-5 ${isHomeActive ? "fill-current" : ""}`} />
+          <span>{t("home")}</span>
         </Link>
 
         {/* 習慣 */}
         {currentUserUsername && (
           <Link
             href={habitsPath}
-            className={`flex flex-col items-center justify-center gap-1 px-4 py-2 transition-colors ${
+            aria-current={isHabitsActive ? "page" : undefined}
+            className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 text-[10px] font-medium transition-colors ${
               isHabitsActive ? "text-primary-light dark:text-primary-dark" : "text-muted-foreground"
             }`}
           >
-            <ClipboardCheck className={`size-6 ${isHabitsActive ? "fill-current" : ""}`} />
-            <span className="text-xs font-medium">{t("habits")}</span>
+            <ClipboardCheck className={`size-5 ${isHabitsActive ? "fill-current" : ""}`} />
+            <span>{t("habits")}</span>
           </Link>
         )}
       </div>

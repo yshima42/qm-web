@@ -34,7 +34,7 @@ export default async function MainLayout({ children }: MainLayoutProps) {
           currentUserUsername={currentUserUsername}
           currentUserProfile={currentUserProfile}
         />
-        <div className={`flex flex-1 flex-col ${currentUserUsername ? "pb-16" : ""} md:pb-0`}>
+        <div className={`flex flex-1 flex-col ${currentUserUsername ? "pb-14" : ""} md:pb-0`}>
           <StoryModalProvider habits={habits}>{children}</StoryModalProvider>
         </div>
       </div>

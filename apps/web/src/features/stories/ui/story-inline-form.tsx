@@ -102,7 +102,7 @@ export function StoryInlineForm({
     <div className="border-border bg-card border-b">
       <form onSubmit={handleSubmit} className="flex flex-col">
         {/* 習慣選択とコメント設定 */}
-        <div className="flex items-center gap-2 px-4 pb-2 pt-3">
+        <div className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 md:gap-2 md:px-4 md:pb-2 md:pt-3">
           <HabitSelectDropdown
             habits={activeHabits}
             selectedHabitId={selectedHabitId}
@@ -113,7 +113,7 @@ export function StoryInlineForm({
         </div>
 
         {/* テキストエリア */}
-        <div className="px-4 py-2">
+        <div className="px-3 py-1.5 md:px-4 md:py-2">
           <textarea
             ref={textareaRef}
             name="content"
@@ -121,20 +121,20 @@ export function StoryInlineForm({
             onChange={(e) => setContent(e.target.value)}
             required
             rows={1}
-            className="placeholder:text-muted-foreground w-full resize-none overflow-hidden border-0 bg-transparent text-base focus:outline-none"
+            className="placeholder:text-muted-foreground w-full resize-none overflow-hidden border-0 bg-transparent text-sm focus:outline-none md:text-base"
             placeholder={t("sharePlaceholder")}
             style={{ minHeight: "1.5rem", maxHeight: "20rem" }}
           />
         </div>
 
         {error && (
-          <div className="px-4 pb-2">
-            <p className="text-sm text-red-500">{error}</p>
+          <div className="px-3 pb-1.5 md:px-4 md:pb-2">
+            <p className="text-xs text-red-500 md:text-sm">{error}</p>
           </div>
         )}
 
         {/* フッター（文字数カウント、投稿ボタン） */}
-        <div className="flex items-center justify-end gap-3 px-4 pb-3 pt-2">
+        <div className="flex items-center justify-end gap-2 px-3 pb-2 pt-1.5 md:gap-3 md:px-4 md:pb-3 md:pt-2">
           <CharacterCountIndicator
             remaining={remaining}
             isOverLimit={isOverLimit}
@@ -145,7 +145,7 @@ export function StoryInlineForm({
           <Button
             type="submit"
             disabled={isPending || !content.trim() || isOverLimit}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 py-2 text-sm font-semibold disabled:opacity-50"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-1.5 text-xs font-semibold disabled:opacity-50 md:px-6 md:py-2 md:text-sm"
           >
             {t("postButton")}
           </Button>

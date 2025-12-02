@@ -33,15 +33,15 @@ export function MobileHeaderSidebar({ currentUserProfile }: MobileHeaderSidebarP
             <Image
               src={currentUserProfile.avatar_url}
               alt={currentUserProfile.display_name}
-              width={32}
-              height={32}
-              className="size-8 rounded-full object-cover"
+              width={24}
+              height={24}
+              className="size-6 rounded-full object-cover"
             />
           ) : (
-            <DefaultAvatar size="sm" className="size-8" />
+            <DefaultAvatar size="sm" className="size-6" />
           )
         ) : (
-          <Menu className="size-6" />
+          <Menu className="size-5" />
         )}
       </button>
 
