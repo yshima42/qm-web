@@ -20,7 +20,7 @@ type HabitSelectDropdownProps = {
 };
 
 const HABIT_BUTTON_CLASSES =
-  "border-border bg-muted/50 text-foreground flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors";
+  "border-border bg-muted/50 text-foreground flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium transition-colors md:px-3 md:py-1.5 md:text-sm";
 
 const HABIT_DROPDOWN_CONTENT_CLASSES = "w-56";
 
@@ -39,7 +39,7 @@ export function HabitSelectDropdown({
     <>
       {selectedHabitName}
       {selectedHabitElapsedDays != null && (
-        <span className="text-xs">- {selectedHabitElapsedDays}日</span>
+        <span className="text-[10px] md:text-xs">- {selectedHabitElapsedDays}日</span>
       )}
     </>
   );
@@ -50,7 +50,7 @@ export function HabitSelectDropdown({
         <DropdownMenuTrigger asChild>
           <button type="button" className={`${HABIT_BUTTON_CLASSES} hover:bg-muted`}>
             {habitDisplay}
-            <ChevronDown className="h-3.5 w-3.5" />
+            <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className={HABIT_DROPDOWN_CONTENT_CLASSES}>
@@ -61,7 +61,9 @@ export function HabitSelectDropdown({
               return (
                 <DropdownMenuRadioItem key={habit.id} value={habit.id}>
                   {habitName}
-                  {elapsedDays != null && <span className="ml-1 text-xs">- {elapsedDays}日</span>}
+                  {elapsedDays != null && (
+                    <span className="ml-1 text-[10px] md:text-xs">- {elapsedDays}日</span>
+                  )}
                 </DropdownMenuRadioItem>
               );
             })}

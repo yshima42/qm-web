@@ -30,14 +30,14 @@ export function CommentSettingDropdown({
         <button
           type="button"
           disabled={disabled}
-          className="text-muted-foreground hover:bg-muted flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          className="text-muted-foreground hover:bg-muted flex items-center gap-1 rounded-full px-2 py-1 text-[10px] transition-colors disabled:cursor-not-allowed disabled:opacity-50 md:gap-1.5 md:px-3 md:py-1.5 md:text-xs"
         >
           {value === "enabled" ? (
-            <Globe className="h-3.5 w-3.5" />
+            <Globe className="h-3 w-3 md:h-3.5 md:w-3.5" />
           ) : (
-            <Lock className="h-3.5 w-3.5" />
+            <Lock className="h-3 w-3 md:h-3.5 md:w-3.5" />
           )}
-          <span className="text-xs">{tCommentSetting(value)}</span>
+          <span className="text-[10px] md:text-xs">{tCommentSetting(value)}</span>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

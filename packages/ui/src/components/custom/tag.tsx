@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../../utils/src/lib/utils';
 
 const tagVariants = cva(
-  'inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition-colors',
+  'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium transition-colors md:px-3 md:py-1 md:text-sm',
   {
     variants: {
       variant: {

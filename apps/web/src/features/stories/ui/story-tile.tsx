@@ -188,19 +188,29 @@ export function StoryTile({
       <div className="flex px-0 py-4">
         {/* アバター部分 */}
         <div
-          className="mr-3"
+          className="mr-2 md:mr-3"
           onClick={(e) => {
             e.stopPropagation();
             // ここでプロフィールページに遷移
             router.push(`/${story.profiles.user_name}`);
           }}
         >
-          <UserAvatar
-            username={story.profiles.user_name}
-            displayName={story.profiles.display_name}
-            avatarUrl={story.profiles.avatar_url}
-            size="md"
-          />
+          <div className="md:hidden">
+            <UserAvatar
+              username={story.profiles.user_name}
+              displayName={story.profiles.display_name}
+              avatarUrl={story.profiles.avatar_url}
+              size="sm"
+            />
+          </div>
+          <div className="hidden md:block">
+            <UserAvatar
+              username={story.profiles.user_name}
+              displayName={story.profiles.display_name}
+              avatarUrl={story.profiles.avatar_url}
+              size="md"
+            />
+          </div>
         </div>
 
         {/* メインコンテンツ */}
@@ -212,15 +222,19 @@ export function StoryTile({
               e.stopPropagation();
             }}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 md:gap-2">
               <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-                <span className="text-foreground font-bold">{story.profiles.display_name}</span>
+                <span className="text-foreground text-sm font-bold md:text-base">
+                  {story.profiles.display_name}
+                </span>
               </Link>
               <Link href={`/${story.profiles.user_name}`} className="hover:underline">
-                <span className="text-muted-foreground text-sm">@{story.profiles.user_name}</span>
+                <span className="text-muted-foreground text-xs md:text-sm">
+                  @{story.profiles.user_name}
+                </span>
               </Link>
-              <span className="text-muted-foreground text-sm"> </span>
-              <span className="text-muted-foreground text-sm">{createdAt}</span>
+              <span className="text-muted-foreground text-xs md:text-sm"> </span>
+              <span className="text-muted-foreground text-xs md:text-sm">{createdAt}</span>
             </div>
 
             {/* 三点リーダーメニュー */}
@@ -282,7 +296,7 @@ export function StoryTile({
           {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
           <div>
             {/* 習慣カテゴリーとカウント */}
-            <div className="mb-2 flex items-center gap-2">
+            <div className="mb-1.5 flex items-center gap-1.5 md:mb-2 md:gap-2">
               <CategoryTag
                 category={story.habit_categories.habit_category_name}
                 customHabitName={story.custom_habit_name}
@@ -293,10 +307,13 @@ export function StoryTile({
             </div>
 
             {/* 本文 - AutoLinkTextを使用 */}
-            <div className="text-foreground mb-3 whitespace-pre-wrap" onClick={handleContentClick}>
+            <div
+              className="text-foreground mb-2.5 whitespace-pre-wrap text-sm md:mb-3 md:text-base"
+              onClick={handleContentClick}
+            >
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
-                <span className="ml-1 cursor-pointer text-sm font-medium text-green-800 dark:text-green-500">
+                <span className="ml-1 cursor-pointer text-xs font-medium text-green-800 md:text-sm dark:text-green-500">
                   {tStories("showMore")}
                 </span>
               )}
@@ -304,7 +321,7 @@ export function StoryTile({
           </div>
 
           {/* アクション */}
-          <div className="text-muted-foreground flex gap-6">
+          <div className="text-muted-foreground flex gap-4 md:gap-6">
             <div
               onClick={(e) => {
                 e.stopPropagation();
@@ -312,8 +329,8 @@ export function StoryTile({
               className="inline-flex"
             >
               <div className="flex items-center gap-1">
-                <CommentIcon className="size-5" />
-                <span className="text-sm">{story.comments[0]?.count ?? 0}</span>
+                <CommentIcon className="size-4 md:size-5" />
+                <span className="text-xs md:text-sm">{story.comments[0]?.count ?? 0}</span>
               </div>
             </div>
 
@@ -325,17 +342,19 @@ export function StoryTile({
                   className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
                 >
                   <StoryLikeIcon
-                    className={`size-5 transition-colors ${
+                    className={`size-4 transition-colors md:size-5 ${
                       isLiked ? "fill-green-600 text-green-600" : ""
                     }`}
                   />
-                  <span className={`text-sm ${isLiked ? "text-green-600" : ""}`}>{likesCount}</span>
+                  <span className={`text-xs md:text-sm ${isLiked ? "text-green-600" : ""}`}>
+                    {likesCount}
+                  </span>
                 </button>
               ) : (
                 <LoginPromptDialog className="cursor-pointer">
                   <div className="flex items-center gap-1">
-                    <StoryLikeIcon className="size-5" />
-                    <span className="text-sm">{likesCount}</span>
+                    <StoryLikeIcon className="size-4 md:size-5" />
+                    <span className="text-xs md:text-sm">{likesCount}</span>
                   </div>
                 </LoginPromptDialog>
               )}

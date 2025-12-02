@@ -119,8 +119,8 @@ export function ArticleContent({
         idleLabel={tPull("pullToRefresh")}
         refreshingLabel={tPull("refreshing")}
       />
-      <main className="p-3 sm:p-5">
-        <div className="mx-auto max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <main className="w-full p-3 sm:p-5">
+        <div className="mx-auto w-full max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
           {/* Article header */}
           <div className="mb-8">
             <h1 className="mb-6 text-2xl font-bold text-gray-900 sm:hidden dark:text-white">
