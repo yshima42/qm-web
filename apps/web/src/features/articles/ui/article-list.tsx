@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 
 import { enrichArticlesWithLikeStatus } from "@/features/articles/data/data";
 
-import { ArticleTile } from "./article-tile";
+import { ArticleListContent } from "./article-list-content";
 
 type ArticleListProps = {
   fetchArticlesFunc: () => Promise<ArticleTileDto[]>;
@@ -23,11 +23,5 @@ export async function ArticleList({ fetchArticlesFunc }: ArticleListProps) {
     ? await enrichArticlesWithLikeStatus(articles)
     : articles;
 
-  return (
-    <div className="mx-auto max-w-2xl space-y-2">
-      {articlesWithLikeStatus.map((article) => (
-        <ArticleTile key={article.id} article={article} isLoggedIn={isLoggedIn} />
-      ))}
-    </div>
-  );
+  return <ArticleListContent initialArticles={articlesWithLikeStatus} isLoggedIn={isLoggedIn} />;
 }

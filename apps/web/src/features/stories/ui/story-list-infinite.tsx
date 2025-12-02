@@ -10,10 +10,10 @@ import { HabitCategoryName, HabitTileDto } from "@/lib/types";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 import { useInfiniteStories } from "../hooks/use-infinite-stories";
-import { usePullToRefresh } from "../hooks/use-pull-to-refresh";
+import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
 import { StoryTile } from "./story-tile";
 import { StoryInlineForm } from "./story-inline-form";
-import { PullToRefreshIndicator } from "./pull-to-refresh-indicator";
+import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
 
 type Props = {
   category: HabitCategoryName;
@@ -24,6 +24,7 @@ type Props = {
 
 export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId }: Props) {
   const t = useTranslations("stories");
+  const tPull = useTranslations("pull-to-refresh");
   const { ref, inView } = useInView({
     threshold: 0.1,
     rootMargin: "100px",
@@ -67,6 +68,8 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
         isRefreshing={isRefreshing || isLoading}
         pullProgress={pullProgress}
         shouldShow={shouldShowIndicator}
+        idleLabel={tPull("pullToRefresh")}
+        refreshingLabel={tPull("refreshing")}
       />
       <div className="mx-auto max-w-2xl">
         {habits && habits.length > 0 && (

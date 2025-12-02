@@ -38,7 +38,7 @@ export default async function OnboardingPage({ searchParams }: OnboardingPagePro
 
   return (
     <div className="bg-muted/30 flex min-h-svh items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-[600px]">
         <div className="flex justify-end pb-4">
           <LocaleSwitcher />
         </div>

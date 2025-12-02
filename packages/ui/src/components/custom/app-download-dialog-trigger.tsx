@@ -91,7 +91,8 @@ export function AppDownloadDialogTrigger({
           {children}
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-full max-w-none p-0 sm:max-w-md">
+        <div className="px-4 py-6">
         <AppDownloadDialogContent
           title={title}
           description={description}
@@ -99,6 +100,7 @@ export function AppDownloadDialogTrigger({
           qrCodeAlt={qrCodeAlt}
           storeLabel={storeLabel}
         />
+        </div>
       </DialogContent>
     </Dialog>
   );

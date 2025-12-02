@@ -132,8 +132,8 @@ export function MobileSidebarContent({
                 showLabel
                 onClick={handleLinkClick}
               />
-              {/* 全カテゴリを表示（Officialを除く） */}
-              {HABIT_CATEGORIES.filter((cat) => cat !== "Official").map((category) => {
+              {/* 全カテゴリを表示 */}
+              {HABIT_CATEGORIES.map((category) => {
                 const href = getCategoryUrl(category);
                 const Icon = CATEGORY_ICONS[category];
                 const displayName = tCategory(category);

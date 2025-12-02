@@ -23,9 +23,8 @@ export function categorizeHabitCategories(habits: HabitTileDto[]): {
     }
   });
 
-  // "Official"は除外して、登録済み以外のカテゴリーを取得
-  const filteredCategories = HABIT_CATEGORIES.filter((cat) => cat !== "Official");
-  const otherCats = filteredCategories.filter((cat) => !myCategoryNames.has(cat));
+  // 登録済み以外のカテゴリーを取得（Officialは含める）
+  const otherCats = HABIT_CATEGORIES.filter((cat) => !myCategoryNames.has(cat));
 
   return { myCategories: myCatsOrdered, otherCategories: otherCats };
 }
