@@ -12,7 +12,7 @@ type FooterProps = {
 export const Footer = ({ namespace = "" }: FooterProps = {}) => {
   const pathname = usePathname();
   // パスからnamespaceを自動判定（明示的に渡されていない場合）
-  const detectedNamespace = namespace || (pathname?.includes("/alcohol") ? "alcohol" : "");
+  const detectedNamespace = namespace || (pathname.includes("/alcohol") ? "alcohol" : "");
   const translationKey = detectedNamespace ? `${detectedNamespace}.footer` : "footer";
   const t = useTranslations(translationKey);
   const tConfig = useTranslations("config");

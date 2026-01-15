@@ -42,7 +42,7 @@ export default function AlcoholPrivacyPage() {
 
   return (
     <DocumentLayout title={t("title")} namespace="alcohol">
-      <MarkdownContent content={fileContent} namespace="alcohol" />
+      <MarkdownContent content={fileContent} />
     </DocumentLayout>
   );
 }

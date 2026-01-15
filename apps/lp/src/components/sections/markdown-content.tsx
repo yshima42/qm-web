@@ -10,7 +10,7 @@ type MarkdownContentProps = {
   namespace?: string;
 };
 
-export function MarkdownContent({ content, namespace = "" }: MarkdownContentProps) {
+export function MarkdownContent({ content }: MarkdownContentProps) {
   const headingColor = "text-gray-900";
   const textColor = "text-gray-800";
   const linkColor = "text-green-600";

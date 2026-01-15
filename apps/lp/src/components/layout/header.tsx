@@ -16,7 +16,7 @@ type HeaderProps = {
 export const Header = ({ namespace = "" }: HeaderProps = {}) => {
   const pathname = usePathname();
   // パスからnamespaceを自動判定（明示的に渡されていない場合）
-  const detectedNamespace = namespace || (pathname?.includes("/alcohol") ? "alcohol" : "");
+  const detectedNamespace = namespace || (pathname.includes("/alcohol") ? "alcohol" : "");
   const translationKey = detectedNamespace ? `${detectedNamespace}.header` : "header";
   const t = useTranslations(translationKey);
   // ブログリンク用には通常のheader翻訳を使用
