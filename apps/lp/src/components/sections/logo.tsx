@@ -21,7 +21,7 @@ export const Logo = ({ xl = false, namespace = "" }: LogoProps) => {
   return (
     <Link href={href} className="flex items-center">
       <div className="flex items-center">
-        <Image src={iconSrc} alt={siteName} width={size} height={size} className="mr-1" />
+        <Image src={iconSrc} alt={siteName} width={size} height={size} className="mr-3" />
         <span
           className={`${fontStyle} font-medium text-gray-800`}
           style={{
