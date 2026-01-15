@@ -5,19 +5,25 @@ import { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
+import { APP_IDS } from "@/apps";
 import { DocumentLayout } from "@/components/layout/document-layout";
 import { MarkdownContent } from "@/components/sections/markdown-content";
 
 import { routing } from "@/i18n/routing";
 
-// SSG対応
+// SSG対応: 各アプリ×各ロケールの組み合わせを生成
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  const params: { app: string; locale: string }[] = [];
+  for (const app of APP_IDS) {
+    for (const locale of routing.locales) {
+      params.push({ app, locale });
+    }
+  }
+  return params;
 }
 
-// ビルド時にのみ実行される
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("terms");
+  const t = await getTranslations("privacy");
   const tConfig = await getTranslations("config");
 
   return {
@@ -27,8 +33,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function TermsPage() {
-  const t = useTranslations("terms");
+export default function PrivacyPage() {
+  const t = useTranslations("privacy");
   const config = useTranslations("config");
   // ビルド時にファイルを読み込む
   const filePath = path.join(
@@ -36,7 +42,7 @@ export default function TermsPage() {
     "public",
     "documents",
     config("language-code"),
-    "terms.md",
+    "privacy.md",
   );
   const fileContent = fs.readFileSync(filePath, "utf8");
 

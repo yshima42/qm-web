@@ -3,20 +3,22 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { cache } from "react";
 
+import { APP_IDS } from "@/apps";
 import { MarkdownContent } from "@/components/sections/markdown-content";
 
 import { Link, routing } from "@/i18n/routing";
 import { getAllPostSlugs, getPostBySlug, getAlternateLanguageVersions } from "@/utils/blog";
 
-// SSG対応
+// SSG対応: 各アプリ×各ロケール×各スラッグの組み合わせを生成
 export function generateStaticParams() {
-  // すべての対応言語に対してスラッグを生成
-  const params: { locale: string; slug: string }[] = [];
+  const params: { app: string; locale: string; slug: string }[] = [];
 
-  for (const locale of routing.locales) {
-    const slugs = getAllPostSlugs(locale);
-    for (const slug of slugs) {
-      params.push({ locale, slug });
+  for (const app of APP_IDS) {
+    for (const locale of routing.locales) {
+      const slugs = getAllPostSlugs(locale);
+      for (const slug of slugs) {
+        params.push({ app, locale, slug });
+      }
     }
   }
 
@@ -25,7 +27,7 @@ export function generateStaticParams() {
 
 // Next.jsはparamsにPromiseを期待しているため、型を修正
 type Props = {
-  params: Promise<{ slug: string; locale: string }>;
+  params: Promise<{ app: string; slug: string; locale: string }>;
 };
 
 // 翻訳の取得を事前に行う関数（キャッシュ対応）

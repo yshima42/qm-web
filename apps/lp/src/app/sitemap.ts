@@ -1,86 +1,64 @@
 import type { MetadataRoute } from "next";
 
+import { appConfigs, APP_IDS } from "@/apps";
+import { routing } from "@/i18n/routing";
 import { getAllPosts } from "@/utils/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const url = "https://about.quitmate.app";
+  const sitemapEntries: MetadataRoute.Sitemap = [];
 
-  // 静的なページのサイトマップエントリー
-  const defaultPages: MetadataRoute.Sitemap = [
-    {
-      url: url,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${url}/en/blog`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${url}/ja/blog`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${url}/en/terms`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${url}/ja/terms`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${url}/en/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${url}/ja/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${url}/en/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${url}/ja/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-  ];
+  // 各アプリ×各ロケールの組み合わせでサイトマップを生成
+  for (const appId of APP_IDS) {
+    const config = appConfigs[appId];
+    const baseUrl = config.metadataBase;
 
-  // 英語のブログ記事を取得
-  const enPosts = await Promise.resolve(getAllPosts("en"));
-  const enBlogPages = enPosts.map((post) => ({
-    url: `${url}/en/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+    for (const locale of routing.locales) {
+      const appPath = `/${appId}/${locale}`;
 
-  // 日本語のブログ記事を取得
-  const jaPosts = await Promise.resolve(getAllPosts("ja"));
-  const jaBlogPages = jaPosts.map((post) => ({
-    url: `${url}/ja/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+      // ホームページ
+      sitemapEntries.push({
+        url: `${baseUrl}${appPath}`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: 1,
+      });
 
-  // すべてのページを結合して返す
-  return [...defaultPages, ...enBlogPages, ...jaBlogPages];
+      // ブログページ
+      sitemapEntries.push({
+        url: `${baseUrl}${appPath}/blog`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: 0.8,
+      });
+
+      // ブログ記事
+      const posts = await Promise.resolve(getAllPosts(locale));
+      for (const post of posts) {
+        sitemapEntries.push({
+          url: `${baseUrl}${appPath}/blog/${post.slug}`,
+          lastModified: new Date(post.date),
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+        });
+      }
+
+      // その他の静的ページ
+      const staticPages = [
+        { path: "/terms", priority: 0.5 },
+        { path: "/privacy", priority: 0.5 },
+        { path: "/contact", priority: 0.5 },
+      ];
+
+      for (const page of staticPages) {
+        sitemapEntries.push({
+          url: `${baseUrl}${appPath}${page.path}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly" as const,
+          priority: page.priority,
+        });
+      }
+    }
+  }
+
+  return sitemapEntries;
 }

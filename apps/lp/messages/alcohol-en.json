@@ -1,0 +1,96 @@
+{
+  "config": {
+    "language-code": "en"
+  },
+  "common": {
+    "title": "Alcohol-Free Week | 7-Day Challenge",
+    "description": "Start a healthy lifestyle with a 7-day alcohol-free challenge. Alcohol-Free Week is an app that supports your journey to sobriety."
+  },
+  "hero": {
+    "title": "Meet a new you in 7 days",
+    "description": "Alcohol-Free Week is an app that helps you develop healthy habits through a 7-day alcohol-free challenge.",
+    "screenshot-stories-alt": "Alcohol-Free Week app screen",
+    "screenshot-categories-alt": "Alcohol-Free Week app category screen",
+    "screenshot-program-alt": "Alcohol-Free Week app program screen",
+    "screenshot-habits-alt": "Alcohol-Free Week app habits screen"
+  },
+  "intro": {
+    "title": "7-Day Alcohol-Free Challenge",
+    "description": "Want to quit drinking but can't do it alone? Alcohol-Free Week supports you with a 7-day challenge. Build healthy habits together with others who share the same goal."
+  },
+  "features": {
+    "title": "3 Key Features",
+    "feature1": {
+      "title": "7-Day Challenge",
+      "description": "Build the habit of staying alcohol-free in just 7 days. The short duration makes it easy to start and maintain, giving you a sense of achievement."
+    },
+    "feature2": {
+      "title": "Track and Visualize Progress",
+      "description": "Record your daily progress and visualize it with charts. Building on small successes helps maintain your motivation."
+    },
+    "feature3": {
+      "title": "Community Support",
+      "description": "Encourage each other and exchange advice with others who share the same goal. What you can't do alone becomes possible with a community."
+    }
+  },
+  "testimonials": {
+    "title": "What Our Users Say",
+    "testimonial1": {
+      "name": "30s Male",
+      "title": "My habits changed in 7 days",
+      "message": "I thought 7 days would be impossible at first, but with the app's support and community encouragement, I successfully completed the 7 days. Now I only drink on weekends."
+    },
+    "testimonial2": {
+      "name": "40s Female",
+      "title": "First step to a healthy lifestyle",
+      "message": "Alcohol-Free Week made me more conscious of healthy habits. The short 7-day period made it easy to start."
+    },
+    "testimonial3": {
+      "name": "20s Male",
+      "title": "I can keep going with friends",
+      "message": "I definitely couldn't have done it alone. The encouragement from the community and progress visualization greatly helped maintain my motivation."
+    }
+  },
+  "final-cta": {
+    "title": "Start your 7-day challenge",
+    "description": "Take the first step toward a healthy lifestyle with Alcohol-Free Week.",
+    "store-badges": {
+      "title": "App Store",
+      "description": "Rated 4.5+ stars on the App Store."
+    }
+  },
+  "footer": {
+    "links": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "contact": "Contact Us"
+    }
+  },
+  "header": {
+    "links": {
+      "blog": "Blog",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "contact": "Contact Us"
+    },
+    "label": {
+      "menu": "Menu"
+    }
+  },
+  "not-found": {
+    "message": "Oops! This page doesn't exist.",
+    "link-text": "Back to homepage"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Get in touch with the Alcohol-Free Week team here."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "Read Alcohol-Free Week's privacy policy."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "description": "Read Alcohol-Free Week's terms of service."
+  }
+}

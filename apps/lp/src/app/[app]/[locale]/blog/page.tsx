@@ -3,12 +3,19 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
+import { APP_IDS } from "@/apps";
 import { Link, routing } from "@/i18n/routing";
 import { getAllPosts } from "@/utils/blog";
 
-// SSG対応
+// SSG対応: 各アプリ×各ロケールの組み合わせを生成
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  const params: { app: string; locale: string }[] = [];
+  for (const app of APP_IDS) {
+    for (const locale of routing.locales) {
+      params.push({ app, locale });
+    }
+  }
+  return params;
 }
 
 // ビルド時に実行される

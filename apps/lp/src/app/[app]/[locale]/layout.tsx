@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
+import { getAppConfig } from "@/apps";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 
@@ -26,25 +27,37 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ app: string; locale: string }>;
+}): Promise<Metadata> {
+  const { app, locale } = await params;
+
+  // アプリ設定を取得
+  const appConfig = getAppConfig(app as "quitmate" | "alcohol");
+  if (!appConfig) {
+    return {};
+  }
+
   const t = await getTranslations("common");
   const tConfig = await getTranslations("config");
 
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL("https://about.quitmate.app"),
+    metadataBase: new URL(appConfig.metadataBase),
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `https://about.quitmate.app/${tConfig("language-code")}`,
-      siteName: "QuitMate",
+      url: `${appConfig.metadataBase}/${app}/${locale}`,
+      siteName: appConfig.siteName,
       images: [
         {
-          url: `/images/${tConfig("language-code")}/ogp.png`,
+          url: appConfig.ogpImage[locale as "ja" | "en"],
           width: 1200,
           height: 630,
-          alt: "QuitMate OGP Image",
+          alt: `${appConfig.siteName} OGP Image`,
         },
       ],
       type: "website",
@@ -53,8 +66,8 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: [`/images/${tConfig("language-code")}/ogp.png`],
-      creator: "@QuitMate_JP",
+      images: [appConfig.ogpImage[locale as "ja" | "en"]],
+      creator: appConfig.twitter?.creator,
     },
     icons: {
       icon: "/favicon.ico",
@@ -67,9 +80,15 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ app: string; locale: string }>;
 }>) {
-  const { locale } = await params;
+  const { app, locale } = await params;
+
+  // アプリ設定を取得
+  const appConfig = getAppConfig(app as "quitmate" | "alcohol");
+  if (!appConfig) {
+    notFound();
+  }
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -77,8 +96,12 @@ export default async function RootLayout({
 
   // SSG対応
   setRequestLocale(locale);
-  // 言語ファイルの読み込み
-  const messages = await getMessages();
+  // アプリに応じた言語ファイルの読み込み
+  const messages =
+    app === "alcohol"
+      ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        (await import(`../../../../messages/alcohol-${locale}.json`)).default
+      : await getMessages();
 
   // Google Analytics測定IDを環境変数から取得
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
