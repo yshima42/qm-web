@@ -105,5 +105,93 @@
         "read-article": "Read article",
         "back-to-blog": "Back to blog",
         "share": "Share:"
+    },
+    "alcohol": {
+        "common": {
+            "title": "Alcohol-Free Week | Try going alcohol-free for one week",
+            "description": "Alcohol-Free Week is an app to help you seriously challenge yourself to quit or abstain from alcohol for just one week."
+        },
+        "hero": {
+            "title": "Try going alcohol-free for one week",
+            "description": "An app to help you seriously challenge yourself to quit or abstain from alcohol for just one week. Review your daily alcohol intake and support your 7-day journey to reset your mind and body.",
+            "screenshot-stories-alt": "Alcohol-Free Week app story screen",
+            "screenshot-categories-alt": "Alcohol-Free Week app category screen",
+            "screenshot-program-alt": "Alcohol-Free Week app program screen",
+            "screenshot-habits-alt": "Alcohol-Free Week app habits screen"
+        },
+        "intro": {
+            "title": "Challenge yourself to quit alcohol for just one week",
+            "description": "Deciding to never drink alcohol again is tough, but doesn't 'just one week' sound more manageable? Review your daily alcohol intake and support your 7-day journey to reset your mind and body."
+        },
+        "features": {
+            "title": "Key Features of Alcohol-Free Week",
+            "feature1": {
+                "title": "One-week alcohol-free program",
+                "description": "Having a clear goal makes it easier to stay motivated. Start by completing your first week. By building small successes, you'll find yourself able to stay alcohol-free for longer. Your progress is visualized through the habit tracker feature."
+            },
+            "feature2": {
+                "title": "Daily support articles",
+                "description": "Receive one daily tip from 'alcohol-free experts' about changes in your body during abstinence and strategies to resist cravings. Control your alcohol cravings through knowledge."
+            },
+            "feature3": {
+                "title": "Connect with others in the same situation",
+                "description": "Connect with people who started their alcohol-free journey on the same day, users with similar progress, and experienced users who have maintained long-term sobriety. Realizing 'I'm not alone in this struggle' is the fastest path to success. Share your challenges and successes, and support each other."
+            }
+        },
+        "testimonials": {
+            "title": "What our users say",
+            "testimonial1": {
+                "name": "Sobriety Community",
+                "title": "This app changed everything",
+                "message": "I started my journey to quit drinking and found this app. The support from others with similar experiences has made a huge difference. I'm so thankful."
+            },
+            "testimonial2": {
+                "name": "Sobriety Community",
+                "title": "Support even after relapse",
+                "message": "Such a great app. Some people here have been sober for over 100 days. We support each other, share ideas, and keep moving forward together."
+            },
+            "testimonial3": {
+                "name": "Sobriety Community",
+                "title": "I wish I found it sooner",
+                "message": "I really wish I had discovered this app earlier. But even now, finding it feels like such a gift. I'm so glad I did."
+            }
+        },
+        "final-cta": {
+            "title": "Start your alcohol-free challenge today to regain your best health!",
+            "description": "What matters for protecting your health is not temporary restraint, but 'changing your habits.' This app is more than just a tracking tool—it creates an opportunity to change how you relate to alcohol.",
+            "store-badges": {
+                "title": "App Store",
+                "description": "Rated 4.9+ stars on the App Store."
+            }
+        },
+        "header": {
+            "links": {
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            },
+            "label": {
+                "menu": "Menu"
+            }
+        },
+        "footer": {
+            "links": {
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            }
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "description": "Read Alcohol-Free Week's terms of service."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "description": "Read Alcohol-Free Week's privacy policy."
+        },
+        "contact": {
+            "title": "Contact Us",
+            "description": "Get in touch with the Alcohol-Free Week team here."
+        }
     }
   }

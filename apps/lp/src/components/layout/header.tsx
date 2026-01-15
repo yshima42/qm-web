@@ -4,13 +4,24 @@ import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 
 import { LanguageSetting } from "../sections/language-setting";
 import { Logo } from "../sections/logo";
 
-export const Header = () => {
-  const t = useTranslations("header");
+type HeaderProps = {
+  namespace?: string;
+};
+
+export const Header = ({ namespace = "" }: HeaderProps = {}) => {
+  const pathname = usePathname();
+  // パスからnamespaceを自動判定（明示的に渡されていない場合）
+  const detectedNamespace = namespace || (pathname?.includes("/alcohol") ? "alcohol" : "");
+  const translationKey = detectedNamespace ? `${detectedNamespace}.header` : "header";
+  const t = useTranslations(translationKey);
+  // ブログリンク用には通常のheader翻訳を使用
+  const tBlog = useTranslations("header");
+  const basePath = detectedNamespace === "alcohol" ? "/alcohol" : "";
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -21,21 +32,29 @@ export const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between p-4">
-        <Logo />
+        <Logo namespace={detectedNamespace} />
 
         {/* デスクトップ用ナビゲーション */}
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
-            <Link href="/blog" className="hover:text-primary-light transition-colors">
-              {t("links.blog")}
-            </Link>
-            <Link href="/terms" className="hover:text-primary-light transition-colors">
+            {!detectedNamespace && (
+              <Link href="/blog" className="hover:text-primary-light transition-colors">
+                {tBlog("links.blog")}
+              </Link>
+            )}
+            <Link href={`${basePath}/terms`} className="hover:text-primary-light transition-colors">
               {t("links.terms")}
             </Link>
-            <Link href="/privacy" className="hover:text-primary-light transition-colors">
+            <Link
+              href={`${basePath}/privacy`}
+              className="hover:text-primary-light transition-colors"
+            >
               {t("links.privacy")}
             </Link>
-            <Link href="/contact" className="hover:text-primary-light transition-colors">
+            <Link
+              href={`${basePath}/contact`}
+              className="hover:text-primary-light transition-colors"
+            >
               {t("links.contact")}
             </Link>
           </nav>
@@ -55,17 +74,19 @@ export const Header = () => {
       {isMenuOpen && (
         <div className="absolute z-50 w-full bg-white px-6 py-4 shadow-lg md:hidden">
           <nav className="flex flex-col space-y-4">
+            {!detectedNamespace && (
+              <Link
+                href="/blog"
+                className="hover:text-primary-light text-gray-600 transition-colors"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+              >
+                {tBlog("links.blog")}
+              </Link>
+            )}
             <Link
-              href="/blog"
-              className="hover:text-primary-light text-gray-600 transition-colors"
-              onClick={() => {
-                setIsMenuOpen(false);
-              }}
-            >
-              {t("links.blog")}
-            </Link>
-            <Link
-              href="/terms"
+              href={`${basePath}/terms`}
               className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
@@ -74,7 +95,7 @@ export const Header = () => {
               {t("links.terms")}
             </Link>
             <Link
-              href="/privacy"
+              href={`${basePath}/privacy`}
               className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
@@ -83,7 +104,7 @@ export const Header = () => {
               {t("links.privacy")}
             </Link>
             <Link
-              href="/contact"
+              href={`${basePath}/contact`}
               className="hover:text-primary-light text-gray-600 transition-colors"
               onClick={() => {
                 setIsMenuOpen(false);
