@@ -6,6 +6,7 @@ export const alcoholConfig: AppConfig = {
   siteName: "禁酒ウィーク",
   domain: "quitmate.app",
   metadataBase: "https://quitmate.app",
+  logoImage: "/images/kinshu_icon.png", // 禁酒ウィーク用のロゴ画像
   twitter: {
     creator: "@QuitMate_JP",
   },

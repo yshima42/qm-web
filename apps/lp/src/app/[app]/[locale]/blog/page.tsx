@@ -4,7 +4,8 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import { APP_IDS } from "@/apps";
-import { Link, routing } from "@/i18n/routing";
+import { AppLink } from "@/components/app-link";
+import { routing } from "@/i18n/routing";
 import { getAllPosts } from "@/utils/blog";
 
 // SSG対応: 各アプリ×各ロケールの組み合わせを生成
@@ -80,7 +81,7 @@ export default function BlogPage() {
             {/* 特集記事 - 最新の記事を特集として表示 */}
             {posts.length > 0 && (
               <div className="relative">
-                <Link href={`/blog/${posts[0].slug}`} className="group block">
+                <AppLink href={`/blog/${posts[0].slug}`} className="group block">
                   <div className="relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl lg:flex-row">
                     {/* 画像部分（スマホでは上に表示） */}
                     <div className="order-first flex items-center justify-center bg-gray-100 p-6 lg:w-1/2 lg:p-12">
@@ -152,7 +153,7 @@ export default function BlogPage() {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </AppLink>
               </div>
             )}
 
@@ -165,7 +166,7 @@ export default function BlogPage() {
                     key={post.slug}
                     className="flex flex-col overflow-hidden rounded-xl bg-white transition-all duration-300 hover:shadow-lg"
                   >
-                    <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
+                    <AppLink href={`/blog/${post.slug}`} className="flex h-full flex-col">
                       <div className="p-1">
                         <div className="h-40 overflow-hidden rounded-lg">
                           {post.coverImage ? (
@@ -233,7 +234,7 @@ export default function BlogPage() {
                           </svg>
                         </div>
                       </div>
-                    </Link>
+                    </AppLink>
                   </div>
                 ))}
               </div>

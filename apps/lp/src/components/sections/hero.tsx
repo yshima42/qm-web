@@ -2,12 +2,20 @@
 
 import { useTranslations } from "next-intl";
 
+import { useApp } from "@/components/providers/app-provider";
 import { StoreBadges } from "./store-badge";
 import { ScreenshotViewer } from "../sections/screenshot-viewer";
 
 export const Hero = () => {
   const t = useTranslations("hero");
   const tConfig = useTranslations("config");
+  const appId = useApp();
+
+  // 禁酒ウィークの場合は薄い緑系の背景色を使用
+  const bgGradient =
+    appId === "alcohol"
+      ? "bg-gradient-to-b from-green-50 to-white"
+      : "bg-gradient-to-b from-[#f8fbf7] to-white";
 
   const screenshots = [
     {
@@ -29,7 +37,7 @@ export const Hero = () => {
   ];
 
   return (
-    <section className="flex items-center justify-center bg-gradient-to-b from-[#f8fbf7] to-white p-8 py-12 md:py-16">
+    <section className={`flex items-center justify-center ${bgGradient} p-8 py-12 md:py-16`}>
       <div className="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
         <div className="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
           <h1 className="mb-2 text-3xl font-semibold leading-tight text-gray-800 md:mb-4 md:text-4xl md:font-bold lg:text-4xl">

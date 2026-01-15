@@ -8,7 +8,7 @@ import {
   Button,
 } from "@quitmate/ui";
 import { Globe } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useLocale } from "next-intl";
 
 import { routing } from "@/i18n/routing";
@@ -16,6 +16,8 @@ import { routing } from "@/i18n/routing";
 export const LanguageSetting = () => {
   const locale = useLocale();
   const router = useRouter();
+  const params = useParams();
+  const app = params?.app as string | undefined;
 
   return (
     <DropdownMenu>
@@ -38,7 +40,10 @@ export const LanguageSetting = () => {
             <DropdownMenuItem
               key={loc}
               onClick={() => {
-                router.push(`/${loc}`);
+                // アプリIDを考慮したパスを生成
+                // クライアントサイドナビゲーションが正しく動作するように、/[app]/[locale] 形式を使用
+                const newPath = app ? `/${app}/${loc}` : `/${loc}`;
+                router.push(newPath);
               }}
               className="flex items-center justify-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:bg-gray-100 data-[highlighted]:bg-gray-100"
             >

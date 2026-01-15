@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../[app]/[locale]/globals.css";
 import { GoogleAnalytics } from "@quitmate/analytics";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
@@ -10,7 +10,6 @@ import { getAppConfig } from "@/apps";
 import { AppProvider } from "@/components/providers/app-provider";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
-import { UrlMask } from "@/components/url-mask";
 
 import { routing } from "@/i18n/routing";
 
@@ -32,15 +31,12 @@ const inter = Inter({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ app: string; locale: string }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { app, locale } = await params;
+  const { locale } = await params;
 
-  // アプリ設定を取得
-  const appConfig = getAppConfig(app as "quitmate" | "alcohol");
-  if (!appConfig) {
-    return {};
-  }
+  // QuitMateアプリの設定を取得
+  const appConfig = getAppConfig("quitmate");
 
   const t = await getTranslations("common");
   const tConfig = await getTranslations("config");
@@ -52,7 +48,7 @@ export async function generateMetadata({
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${appConfig.metadataBase}/${app}/${locale}`,
+      url: `${appConfig.metadataBase}/${locale}`,
       siteName: appConfig.siteName,
       images: [
         {
@@ -82,15 +78,9 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ app: string; locale: string }>;
+  params: Promise<{ locale: string }>;
 }>) {
-  const { app, locale } = await params;
-
-  // アプリ設定を取得
-  const appConfig = getAppConfig(app as "quitmate" | "alcohol");
-  if (!appConfig) {
-    notFound();
-  }
+  const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -98,12 +88,8 @@ export default async function RootLayout({
 
   // SSG対応
   setRequestLocale(locale);
-  // アプリに応じた言語ファイルの読み込み
-  const messages =
-    app === "alcohol"
-      ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        (await import(`../../../../messages/alcohol-${locale}.json`)).default
-      : await getMessages();
+  // QuitMateアプリのメッセージを読み込み
+  const messages = await getMessages();
 
   // Google Analytics測定IDを環境変数から取得
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
@@ -114,8 +100,7 @@ export default async function RootLayout({
         {/* Google Analyticsコンポーネントを追加 */}
         {gaId && <GoogleAnalytics measurementId={gaId} />}
         <NextIntlClientProvider messages={messages}>
-          <AppProvider>
-            <UrlMask />
+          <AppProvider appId="quitmate">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

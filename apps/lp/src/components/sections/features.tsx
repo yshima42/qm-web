@@ -1,9 +1,17 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@quitmate/ui";
-import { Users, MessageSquare, TimerReset } from "lucide-react"; // 仮アイコン
+import { Users, MessageSquare, TimerReset } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+import { useApp } from "@/components/providers/app-provider";
 
 export const Features = () => {
   const t = useTranslations("features");
+  const appId = useApp();
+
+  // 禁酒ウィークの場合は薄い緑系のアイコンカラーを使用
+  const iconColor = appId === "alcohol" ? "text-green-500" : "text-[#2E6C28]";
 
   const features = [
     {
@@ -35,7 +43,7 @@ export const Features = () => {
             className="h-full border-none bg-white shadow-md transition-shadow hover:shadow-lg"
           >
             <CardHeader className="flex flex-col items-center gap-2 pb-4">
-              <div className="p-2 text-[#2E6C28]">
+              <div className={`p-2 ${iconColor}`}>
                 <Icon size={48} strokeWidth={1.5} />
               </div>
               <CardTitle className="text-lg font-bold text-gray-800 md:text-xl">{title}</CardTitle>

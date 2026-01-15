@@ -4,9 +4,10 @@ import { getTranslations } from "next-intl/server";
 import { cache } from "react";
 
 import { APP_IDS } from "@/apps";
+import { AppLink } from "@/components/app-link";
 import { MarkdownContent } from "@/components/sections/markdown-content";
 
-import { Link, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { getAllPostSlugs, getPostBySlug, getAlternateLanguageVersions } from "@/utils/blog";
 
 // SSG対応: 各アプリ×各ロケール×各スラッグの組み合わせを生成
@@ -115,7 +116,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // 共通のBackLinkコンポーネント
 const BackLink = ({ text }: { text: string }) => (
-  <Link
+  <AppLink
     href="/blog"
     className="inline-flex items-center text-sm text-gray-600 transition-colors hover:text-green-700"
   >
@@ -127,7 +128,7 @@ const BackLink = ({ text }: { text: string }) => (
       />
     </svg>
     <span>{text}</span>
-  </Link>
+  </AppLink>
 );
 
 // 投稿タイプの定義
@@ -159,7 +160,7 @@ const BlogPostHeader = ({ post, locale, alternateVersions, slug }: BlogPostHeade
             if (lang === locale || !exists) return null;
 
             return (
-              <Link
+              <AppLink
                 key={lang}
                 href={`/blog/${slug}`}
                 locale={lang}
@@ -173,7 +174,7 @@ const BlogPostHeader = ({ post, locale, alternateVersions, slug }: BlogPostHeade
                   />
                 </svg>
                 {lang === "ja" ? "日本語で読む" : "Read in English"}
-              </Link>
+              </AppLink>
             );
           })}
         </div>
@@ -284,7 +285,7 @@ const BlogPostFooter = ({ locale, slug, post, backText, shareText }: BlogPostFoo
 
   return (
     <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-      <Link
+      <AppLink
         href="/blog"
         className="group inline-flex items-center text-sm font-medium text-green-700 transition-colors hover:text-green-800"
       >
@@ -300,7 +301,7 @@ const BlogPostFooter = ({ locale, slug, post, backText, shareText }: BlogPostFoo
           />
         </svg>
         {backText}
-      </Link>
+      </AppLink>
       <ShareLinks shareText={shareText} postUrl={postUrl} postTitle={post.title} />
     </div>
   );

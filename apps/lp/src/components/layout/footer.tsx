@@ -1,36 +1,40 @@
+"use client";
+
 // apps/lp/src/components/layout/Footer.tsx
 import { X, PenLine } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/routing";
+import { AppLink } from "@/components/app-link";
+import { useApp } from "@/components/providers/app-provider";
 
 export const Footer = () => {
   const t = useTranslations("footer");
   const tConfig = useTranslations("config");
+  const appId = useApp();
+
+  // 禁酒ウィークの場合は薄い緑系のホバーカラーを使用
+  const hoverColor = appId === "alcohol" ? "hover:text-green-500" : "hover:text-green-700";
 
   return (
     <footer className="border-t border-gray-200 bg-white text-base text-gray-600">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8">
         {/* リンクエリア */}
         <div className="flex flex-wrap justify-center gap-6">
-          <Link
-            href="/terms"
-            className="hover:text-primary-light text-sm transition-colors md:text-base"
-          >
+          <AppLink href="/terms" className={`${hoverColor} text-sm transition-colors md:text-base`}>
             {t("links.terms")}
-          </Link>
-          <Link
+          </AppLink>
+          <AppLink
             href="/privacy"
-            className="hover:text-primary-light text-sm transition-colors md:text-base"
+            className={`${hoverColor} text-sm transition-colors md:text-base`}
           >
             {t("links.privacy")}
-          </Link>
-          <Link
+          </AppLink>
+          <AppLink
             href="/contact"
-            className="hover:text-primary-light text-sm transition-colors md:text-base"
+            className={`${hoverColor} text-sm transition-colors md:text-base`}
           >
             {t("links.contact")}
-          </Link>
+          </AppLink>
         </div>
 
         {/* ソーシャルエリア */}
@@ -40,7 +44,7 @@ export const Footer = () => {
               href="https://x.com/QuitMate_JP"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary-light transition-colors"
+              className={`${hoverColor} transition-colors`}
             >
               <X size={22} />
             </a>
@@ -48,7 +52,7 @@ export const Footer = () => {
               href="https://note.com/quitmate"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary-light transition-colors"
+              className={`${hoverColor} transition-colors`}
             >
               <PenLine size={22} />
             </a>

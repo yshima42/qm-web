@@ -39,13 +39,16 @@ export default function middleware(request: NextRequest) {
       return intlMiddleware(request);
     }
 
-    // /[locale] または / の場合は /[app]/[locale] にリライト
-    const localeMatch = pathname.match(/^\/(en|ja)(\/|$)/);
+    // QuitMateアプリの場合、/[locale] 形式のパスを /[app]/[locale] にリライト（内部的に）
+    // 初回ロード時のみ有効（サーバーサイド）
+    const localeMatch = pathname.match(/^\/(en|ja)(\/.*|$)/);
     if (localeMatch) {
       const locale = localeMatch[1];
       const restPath = pathname.slice(localeMatch[0].length);
+      // restPathが空の場合は空文字列のまま（ルートパス）
       const newPath = `/${appId}/${locale}${restPath}`;
-      return NextResponse.rewrite(new URL(newPath, request.url));
+      const url = new URL(newPath, request.url);
+      return NextResponse.rewrite(url);
     }
 
     // ルートパスの場合はデフォルトロケールでリライト

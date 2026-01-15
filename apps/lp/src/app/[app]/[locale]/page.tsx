@@ -3,7 +3,9 @@ import { Features } from "@/components/sections/features";
 import { FinalCTA } from "@/components/sections/final-cta";
 import { Hero } from "@/components/sections/hero";
 import { Intro } from "@/components/sections/intro";
+import { Recommended } from "@/components/sections/recommended";
 import { Testimonials } from "@/components/sections/testimonials";
+import { Why } from "@/components/sections/why";
 
 import { routing } from "@/i18n/routing";
 
@@ -23,7 +25,9 @@ export default function HomePage() {
     <main>
       <Hero />
       <Intro />
+      <Recommended />
       <Features />
+      <Why />
       <Testimonials />
       <FinalCTA />
     </main>

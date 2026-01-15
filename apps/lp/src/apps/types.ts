@@ -4,6 +4,7 @@ export interface AppConfig {
   siteName: string;
   domain: string;
   metadataBase: string;
+  logoImage?: string; // ロゴ画像のパス（オプション）
   twitter?: {
     creator?: string;
   };

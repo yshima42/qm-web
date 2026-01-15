@@ -1,9 +1,17 @@
+"use client";
+
 // apps/lp/src/components/sections/Testimonials.tsx
 import { Card, CardContent } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
+import { useApp } from "@/components/providers/app-provider";
+
 export const Testimonials = () => {
   const t = useTranslations("testimonials");
+  const appId = useApp();
+
+  // 禁酒ウィークの場合は薄い緑系の背景色を使用
+  const bgColor = appId === "alcohol" ? "bg-green-50" : "bg-[#f8fbf7]";
 
   const testimonials = [
     {
@@ -24,7 +32,7 @@ export const Testimonials = () => {
   ];
 
   return (
-    <section className="bg-[#f8fbf7] px-6 py-20 text-center">
+    <section className={`${bgColor} px-6 py-20 text-center`}>
       <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">{t("title")}</h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (

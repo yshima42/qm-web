@@ -4,15 +4,20 @@ import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { Link } from "@/i18n/routing";
+import { AppLink } from "@/components/app-link";
+import { useApp } from "@/components/providers/app-provider";
 
 import { LanguageSetting } from "../sections/language-setting";
 import { Logo } from "../sections/logo";
 
 export const Header = () => {
   const t = useTranslations("header");
+  const appId = useApp();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // 禁酒ウィークの場合は薄い緑系のホバーカラーを使用
+  const hoverColor = appId === "alcohol" ? "hover:text-green-500" : "hover:text-green-700";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,18 +31,18 @@ export const Header = () => {
         {/* デスクトップ用ナビゲーション */}
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
-            <Link href="/blog" className="hover:text-primary-light transition-colors">
+            <AppLink href="/blog" className={`${hoverColor} transition-colors`}>
               {t("links.blog")}
-            </Link>
-            <Link href="/terms" className="hover:text-primary-light transition-colors">
+            </AppLink>
+            <AppLink href="/terms" className={`${hoverColor} transition-colors`}>
               {t("links.terms")}
-            </Link>
-            <Link href="/privacy" className="hover:text-primary-light transition-colors">
+            </AppLink>
+            <AppLink href="/privacy" className={`${hoverColor} transition-colors`}>
               {t("links.privacy")}
-            </Link>
-            <Link href="/contact" className="hover:text-primary-light transition-colors">
+            </AppLink>
+            <AppLink href="/contact" className={`${hoverColor} transition-colors`}>
               {t("links.contact")}
-            </Link>
+            </AppLink>
           </nav>
           <LanguageSetting />
         </div>
@@ -55,42 +60,42 @@ export const Header = () => {
       {isMenuOpen && (
         <div className="absolute z-50 w-full bg-white px-6 py-4 shadow-lg md:hidden">
           <nav className="flex flex-col space-y-4">
-            <Link
+            <AppLink
               href="/blog"
-              className="hover:text-primary-light text-gray-600 transition-colors"
+              className={`${hoverColor} text-gray-600 transition-colors`}
               onClick={() => {
                 setIsMenuOpen(false);
               }}
             >
               {t("links.blog")}
-            </Link>
-            <Link
+            </AppLink>
+            <AppLink
               href="/terms"
-              className="hover:text-primary-light text-gray-600 transition-colors"
+              className={`${hoverColor} text-gray-600 transition-colors`}
               onClick={() => {
                 setIsMenuOpen(false);
               }}
             >
               {t("links.terms")}
-            </Link>
-            <Link
+            </AppLink>
+            <AppLink
               href="/privacy"
-              className="hover:text-primary-light text-gray-600 transition-colors"
+              className={`${hoverColor} text-gray-600 transition-colors`}
               onClick={() => {
                 setIsMenuOpen(false);
               }}
             >
               {t("links.privacy")}
-            </Link>
-            <Link
+            </AppLink>
+            <AppLink
               href="/contact"
-              className="hover:text-primary-light text-gray-600 transition-colors"
+              className={`${hoverColor} text-gray-600 transition-colors`}
               onClick={() => {
                 setIsMenuOpen(false);
               }}
             >
               {t("links.contact")}
-            </Link>
+            </AppLink>
           </nav>
         </div>
       )}

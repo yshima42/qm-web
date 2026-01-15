@@ -6,6 +6,7 @@ export const quitmateConfig: AppConfig = {
   siteName: "QuitMate",
   domain: "about.quitmate.app",
   metadataBase: "https://about.quitmate.app",
+  logoImage: "/images/icon-web.png",
   twitter: {
     creator: "@QuitMate_JP",
   },

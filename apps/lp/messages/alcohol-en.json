@@ -7,31 +7,45 @@
     "description": "Start a healthy lifestyle with a 7-day alcohol-free challenge. Alcohol-Free Week is an app that supports your journey to sobriety."
   },
   "hero": {
-    "title": "Meet a new you in 7 days",
-    "description": "Alcohol-Free Week is an app that helps you develop healthy habits through a 7-day alcohol-free challenge.",
+    "title": "Why not try going alcohol-free for a week?",
+    "description": "Deciding to 'never drink alcohol again' is difficult, but don't you think you can manage 'just one week'?",
     "screenshot-stories-alt": "Alcohol-Free Week app screen",
     "screenshot-categories-alt": "Alcohol-Free Week app category screen",
     "screenshot-program-alt": "Alcohol-Free Week app program screen",
     "screenshot-habits-alt": "Alcohol-Free Week app habits screen"
   },
   "intro": {
-    "title": "7-Day Alcohol-Free Challenge",
-    "description": "Want to quit drinking but can't do it alone? Alcohol-Free Week supports you with a 7-day challenge. Build healthy habits together with others who share the same goal."
+    "title": "About Alcohol-Free Week",
+    "description": "Alcohol-Free Week is an app for seriously challenging yourself to quit drinking for just one week. Deciding to 'never drink alcohol again' is difficult, but don't you think you can manage 'just one week'? We support you through 7 days of reviewing your daily alcohol intake and resetting your mind and body."
   },
   "features": {
-    "title": "3 Key Features",
+    "title": "Key Features",
     "feature1": {
-      "title": "7-Day Challenge",
-      "description": "Build the habit of staying alcohol-free in just 7 days. The short duration makes it easy to start and maintain, giving you a sense of achievement."
+      "title": "1-Week Alcohol-Free Program",
+      "description": "Having a clear goal makes it easier to stay motivated. Start by achieving your first week. By accumulating small successes, you'll find yourself staying alcohol-free for longer. Your progress is visualized through the habit tracker feature."
     },
     "feature2": {
-      "title": "Track and Visualize Progress",
-      "description": "Record your daily progress and visualize it with charts. Building on small successes helps maintain your motivation."
+      "title": "Daily Support Articles",
+      "description": "Receive one piece of advice per day from 'alcohol-free experts' about changes in your body during abstinence and tips for resisting alcohol. Control your alcohol cravings through knowledge."
     },
     "feature3": {
-      "title": "Community Support",
-      "description": "Encourage each other and exchange advice with others who share the same goal. What you can't do alone becomes possible with a community."
+      "title": "Connect with People in Similar Situations",
+      "description": "Connect with users who started their alcohol-free journey on the same day, users with similar progress, and experienced users who have maintained long-term sobriety. Realizing that 'you're not alone in this struggle' is the key to success. Share your struggles and successes, and support each other."
     }
+  },
+  "recommended": {
+    "title": "Recommended for",
+    "items": [
+      "Those who want to give their liver a break after many drinking parties",
+      "Those who can't quit drinking alone",
+      "Those who want to quit drinking but lack confidence for long-term abstinence",
+      "Those who want to feel daily achievement through habit tracking",
+      "Those who want to break free from constantly worrying about alcohol checker numbers"
+    ]
+  },
+  "why": {
+    "title": "Why \"Alcohol-Free Week\"?",
+    "description": "What's important for protecting your health is not temporary restraint, but 'habit transformation.' However, setting big goals from the start makes it easy to give up. This app is not just a recording tool, but a catalyst for changing your relationship with alcohol."
   },
   "testimonials": {
     "title": "What Our Users Say",
@@ -52,7 +66,7 @@
     }
   },
   "final-cta": {
-    "title": "Start your 7-day challenge",
+    "title": "Start your alcohol-free challenge today to regain your best health!",
     "description": "Take the first step toward a healthy lifestyle with Alcohol-Free Week.",
     "store-badges": {
       "title": "App Store",

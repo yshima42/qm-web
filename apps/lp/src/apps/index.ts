@@ -9,6 +9,9 @@ export const appConfigs: Record<AppId, AppConfig> = {
 
 export const APP_IDS = ["quitmate", "alcohol"] as const;
 
+// 型をエクスポート
+export type { AppConfig, AppId } from "./types";
+
 export function getAppConfig(appId: AppId): AppConfig {
   return appConfigs[appId];
 }
