@@ -114,10 +114,11 @@
         "hero": {
             "title": "Try going alcohol-free for one week",
             "description": "An app to help you seriously challenge yourself to quit or abstain from alcohol for just one week. Review your daily alcohol intake and support your 7-day journey to reset your mind and body.",
-            "screenshot-stories-alt": "Alcohol-Free Week app story screen",
-            "screenshot-categories-alt": "Alcohol-Free Week app category screen",
-            "screenshot-program-alt": "Alcohol-Free Week app program screen",
-            "screenshot-habits-alt": "Alcohol-Free Week app habits screen"
+            "screenshot-home-alt": "Alcohol-Free Week app home screen",
+            "screenshot-timeline-alt": "Alcohol-Free Week app timeline screen",
+            "screenshot-profile-alt": "Alcohol-Free Week app profile screen",
+            "screenshot-diagnosis-alt": "Alcohol-Free Week app diagnosis screen",
+            "screenshot-roadmap-alt": "Alcohol-Free Week app roadmap screen"
         },
         "intro": {
             "title": "Challenge yourself to quit alcohol for just one week",

@@ -114,10 +114,11 @@
         "hero": {
             "title": "まずは1週間、禁酒してみませんか？",
             "description": "まずは一週間だけ本気で禁酒・断酒に挑戦するための禁酒アプリです。日々のアルコール摂取を見直し、心と体をリセットする7日間をサポートします。",
-            "screenshot-stories-alt": "禁酒ウィークアプリのストーリー画面",
-            "screenshot-categories-alt": "禁酒ウィークアプリのカテゴリ画面",
-            "screenshot-program-alt": "禁酒ウィークアプリのプログラム画面",
-            "screenshot-habits-alt": "禁酒ウィークアプリの習慣画面"
+            "screenshot-home-alt": "禁酒ウィークアプリのホーム画面",
+            "screenshot-timeline-alt": "禁酒ウィークアプリのタイムライン画面",
+            "screenshot-profile-alt": "禁酒ウィークアプリのプロフィール画面",
+            "screenshot-diagnosis-alt": "禁酒ウィークアプリの診断画面",
+            "screenshot-roadmap-alt": "禁酒ウィークアプリのロードマップ画面"
         },
         "intro": {
             "title": "まずは一週間だけ、本気で禁酒に挑戦",

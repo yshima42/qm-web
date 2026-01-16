@@ -14,26 +14,49 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
   const t = useTranslations(translationKey);
   const tConfig = useTranslations("config");
 
-  const screenshots = [
-    {
-      src: `/images/${tConfig("language-code")}/screenshot-stories.png`,
-      alt: t("screenshot-stories-alt"),
-    },
-    {
-      src: `/images/${tConfig("language-code")}/screenshot-categories.png`,
-      alt: t("screenshot-categories-alt"),
-    },
-    {
-      src: `/images/${tConfig("language-code")}/screenshot-program.png`,
-      alt: t("screenshot-program-alt"),
-    },
-    {
-      src: `/images/${tConfig("language-code")}/screenshot-habits.png`,
-      alt: t("screenshot-habits-alt"),
-    },
-  ];
-
   const isAlcohol = namespace === "alcohol";
+  const screenshots = isAlcohol
+    ? [
+        {
+          src: `/images/${tConfig("language-code")}/k-screenshot-home.png`,
+          alt: t("screenshot-home-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/k-screenshot-timeline.png`,
+          alt: t("screenshot-timeline-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/k-screenshot-profile.png`,
+          alt: t("screenshot-profile-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/k-screenshot-diagnosis.png`,
+          alt: t("screenshot-diagnosis-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/k-screenshot-roadmap.png`,
+          alt: t("screenshot-roadmap-alt"),
+        },
+      ]
+    : [
+        {
+          src: `/images/${tConfig("language-code")}/screenshot-stories.png`,
+          alt: t("screenshot-stories-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/screenshot-categories.png`,
+          alt: t("screenshot-categories-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/screenshot-program.png`,
+          alt: t("screenshot-program-alt"),
+        },
+        {
+          src: `/images/${tConfig("language-code")}/screenshot-habits.png`,
+          alt: t("screenshot-habits-alt"),
+        },
+      ];
+
   const bgGradient = isAlcohol
     ? "bg-gradient-to-b from-[#d8e8d4] to-white"
     : "bg-gradient-to-b from-[#f8fbf7] to-white";
