@@ -38,8 +38,21 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
         <div className="hidden items-center gap-6 text-base text-gray-600 md:flex">
           <nav className="flex gap-6">
             {!detectedNamespace && (
-              <Link href="/blog" className="hover:text-primary-light transition-colors">
-                {tBlog("links.blog")}
+              <>
+                <Link
+                  href="/alcohol"
+                  className="hover:text-primary-light font-bold transition-colors"
+                >
+                  {tBlog("links.alcoholWeek")}
+                </Link>
+                <Link href="/blog" className="hover:text-primary-light transition-colors">
+                  {tBlog("links.blog")}
+                </Link>
+              </>
+            )}
+            {detectedNamespace === "alcohol" && (
+              <Link href="/" className="hover:text-primary-light font-bold transition-colors">
+                {t("links.otherDependencies")}
               </Link>
             )}
             <Link href={`${basePath}/terms`} className="hover:text-primary-light transition-colors">
@@ -75,14 +88,36 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
         <div className="absolute z-50 w-full bg-white px-6 py-4 shadow-lg md:hidden">
           <nav className="flex flex-col space-y-4">
             {!detectedNamespace && (
+              <>
+                <Link
+                  href="/alcohol"
+                  className="hover:text-primary-light font-bold text-gray-600 transition-colors"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {tBlog("links.alcoholWeek")}
+                </Link>
+                <Link
+                  href="/blog"
+                  className="hover:text-primary-light text-gray-600 transition-colors"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {tBlog("links.blog")}
+                </Link>
+              </>
+            )}
+            {detectedNamespace === "alcohol" && (
               <Link
-                href="/blog"
-                className="hover:text-primary-light text-gray-600 transition-colors"
+                href="/"
+                className="hover:text-primary-light font-bold text-gray-600 transition-colors"
                 onClick={() => {
                   setIsMenuOpen(false);
                 }}
               >
-                {tBlog("links.blog")}
+                {t("links.otherDependencies")}
               </Link>
             )}
             <Link

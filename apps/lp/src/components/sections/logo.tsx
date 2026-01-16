@@ -12,7 +12,7 @@ type LogoProps = {
 
 export const Logo = ({ xl = false, namespace = "" }: LogoProps) => {
   const size = xl ? 56 : 42;
-  const fontStyle = xl ? "text-4xl" : "text-3xl";
+  const fontStyle = xl ? "text-4xl" : "text-[28px]";
   const t = useTranslations(namespace ? `${namespace}.common` : "common");
   const siteName = namespace ? t("title").split("|")[0].trim() : AppConfig.site_name;
   const href = namespace === "alcohol" ? "/alcohol" : "/";

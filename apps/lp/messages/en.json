@@ -69,6 +69,7 @@
     "header": {
       "links": {
         "blog": "Blog",
+        "alcoholWeek": "Alcohol-Free Week",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "contact": "Contact Us"
@@ -167,6 +168,7 @@
         },
         "header": {
             "links": {
+                "otherDependencies": "Other Dependencies",
                 "terms": "Terms of Service",
                 "privacy": "Privacy Policy",
                 "contact": "Contact Us"

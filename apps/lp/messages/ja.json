@@ -69,6 +69,7 @@
     "header": {
         "links": {
             "blog": "ブログ",
+            "alcoholWeek": "禁酒ウィーク",
             "terms": "利用規約",
             "privacy": "プライバシーポリシー",
             "contact": "お問い合わせ"
@@ -167,6 +168,7 @@
         },
         "header": {
             "links": {
+                "otherDependencies": "その他の依存",
                 "terms": "利用規約",
                 "privacy": "プライバシーポリシー",
                 "contact": "お問い合わせ"
