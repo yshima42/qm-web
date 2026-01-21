@@ -68,7 +68,7 @@ export const Footer = ({ namespace = "" }: FooterProps = {}) => {
         {/* コピーライト */}
         <div className="mt-4 w-full border-t border-gray-200 pt-4 text-center text-xs text-gray-500">
           &copy; {new Date().getFullYear()}{" "}
-          {detectedNamespace === "alcohol" ? "禁酒ウィーク" : "QuitMate"}. All rights reserved.
+          {detectedNamespace === "alcohol" ? "禁酒チャレンジ" : "QuitMate"}. All rights reserved.
         </div>
       </div>
     </footer>

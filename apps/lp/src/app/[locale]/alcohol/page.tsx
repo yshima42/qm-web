@@ -26,13 +26,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title: t("title"),
       description: t("description"),
       url: `https://about.quitmate.app/${tConfig("language-code")}/alcohol`,
-      siteName: "禁酒ウィーク",
+      siteName: "禁酒チャレンジ",
       images: [
         {
           url: `/images/${tConfig("language-code")}/ogp.png`,
           width: 1200,
           height: 630,
-          alt: "禁酒ウィーク OGP Image",
+          alt: "禁酒チャレンジ OGP Image",
         },
       ],
       type: "website",
