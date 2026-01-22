@@ -2,8 +2,13 @@
 import { Card, CardContent } from "@quitmate/ui";
 import { useTranslations } from "next-intl";
 
-export const Testimonials = () => {
-  const t = useTranslations("testimonials");
+type TestimonialsProps = {
+  namespace?: string;
+};
+
+export const Testimonials = ({ namespace = "" }: TestimonialsProps = {}) => {
+  const translationKey = namespace ? `${namespace}.testimonials` : "testimonials";
+  const t = useTranslations(translationKey);
 
   const testimonials = [
     {
@@ -23,9 +28,13 @@ export const Testimonials = () => {
     },
   ];
 
+  const isAlcohol = namespace === "alcohol";
+  const bgColor = isAlcohol ? "bg-[#d8e8d4]" : "bg-[#f8fbf7]";
+  const textColor = "text-gray-800";
+
   return (
-    <section className="bg-[#f8fbf7] px-6 py-20 text-center">
-      <h2 className="mb-12 text-3xl font-semibold text-gray-800 md:text-4xl">{t("title")}</h2>
+    <section className={`${bgColor} px-6 py-20 text-center`}>
+      <h2 className={`mb-12 text-3xl font-semibold ${textColor} md:text-4xl`}>{t("title")}</h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
           <Card key={index} className="h-full border-none bg-white text-left shadow-md">

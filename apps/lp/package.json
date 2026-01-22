@@ -11,14 +11,13 @@
     "lint:verbose": "eslint --format stylish .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write './**/*.{js,ts,tsx,scss}'",
-    "postinstall": "husky",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
   "dependencies": {
     "framer-motion": "^12.6.2",
     "gray-matter": "^4.0.3",
-    "next": "15.2.4",
+    "next": "15.2.6",
     "next-intl": "^4.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -35,7 +34,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.4",
+    "eslint-config-next": "15.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
