@@ -1,12 +1,22 @@
 // apps/lp/src/components/layout/Footer.tsx
+"use client";
 import { X, PenLine } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 
-export const Footer = () => {
-  const t = useTranslations("footer");
+type FooterProps = {
+  namespace?: string;
+};
+
+export const Footer = ({ namespace = "" }: FooterProps = {}) => {
+  const pathname = usePathname();
+  // パスからnamespaceを自動判定（明示的に渡されていない場合）
+  const detectedNamespace = namespace || (pathname.includes("/alcohol") ? "alcohol" : "");
+  const translationKey = detectedNamespace ? `${detectedNamespace}.footer` : "footer";
+  const t = useTranslations(translationKey);
   const tConfig = useTranslations("config");
+  const basePath = detectedNamespace === "alcohol" ? "/alcohol" : "";
 
   return (
     <footer className="border-t border-gray-200 bg-white text-base text-gray-600">
@@ -14,19 +24,19 @@ export const Footer = () => {
         {/* リンクエリア */}
         <div className="flex flex-wrap justify-center gap-6">
           <Link
-            href="/terms"
+            href={`${basePath}/terms`}
             className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.terms")}
           </Link>
           <Link
-            href="/privacy"
+            href={`${basePath}/privacy`}
             className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.privacy")}
           </Link>
           <Link
-            href="/contact"
+            href={`${basePath}/contact`}
             className="hover:text-primary-light text-sm transition-colors md:text-base"
           >
             {t("links.contact")}
@@ -57,7 +67,8 @@ export const Footer = () => {
 
         {/* コピーライト */}
         <div className="mt-4 w-full border-t border-gray-200 pt-4 text-center text-xs text-gray-500">
-          &copy; {new Date().getFullYear()} QuitMate. All rights reserved.
+          &copy; {new Date().getFullYear()}{" "}
+          {detectedNamespace === "alcohol" ? "禁酒チャレンジ" : "QuitMate"}. All rights reserved.
         </div>
       </div>
     </footer>

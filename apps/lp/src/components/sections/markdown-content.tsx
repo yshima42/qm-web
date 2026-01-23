@@ -7,9 +7,22 @@ import remarkGfm from "remark-gfm";
 
 type MarkdownContentProps = {
   content: string;
+  namespace?: string;
 };
 
 export function MarkdownContent({ content }: MarkdownContentProps) {
+  const headingColor = "text-gray-900";
+  const textColor = "text-gray-800";
+  const linkColor = "text-green-600";
+  const strongColor = "text-gray-900";
+  const blockquoteColor = "text-gray-700";
+  const blockquoteBorder = "border-gray-300";
+  const codeBg = "bg-gray-100";
+  const codeColor = "text-gray-900";
+  const tableBg = "bg-gray-100";
+  const tableBorder = "border-gray-400";
+  const tableText = "text-gray-800";
+
   return (
     <div className="prose prose-2xl max-w-none">
       <ReactMarkdown
@@ -18,63 +31,63 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         components={{
           h1: ({ ...props }) => (
             <h1
-              className="mb-8 mt-12 text-[2.75rem] font-bold leading-tight text-gray-900"
+              className={`mb-8 mt-12 text-[2.75rem] font-bold leading-tight ${headingColor}`}
               {...props}
             />
           ),
           h2: ({ ...props }) => (
             <h2
-              className="mb-6 mt-14 text-[1.75rem] font-bold leading-tight text-gray-900"
+              className={`mb-6 mt-14 text-[1.75rem] font-bold leading-tight ${headingColor}`}
               {...props}
             />
           ),
           h3: ({ ...props }) => (
             <h3
-              className="mb-4 mt-8 text-[1.375rem] font-semibold leading-tight text-gray-900"
+              className={`mb-4 mt-8 text-[1.375rem] font-semibold leading-tight ${headingColor}`}
               {...props}
             />
           ),
           p: ({ ...props }) => (
-            <p className="mb-6 text-[1.185rem] leading-relaxed text-gray-800" {...props} />
+            <p className={`mb-6 text-[1.185rem] leading-relaxed ${textColor}`} {...props} />
           ),
           ul: ({ ...props }) => (
-            <ul className="mb-6 list-disc pl-8 text-[1.185rem] text-gray-800" {...props} />
+            <ul className={`mb-6 list-disc pl-8 text-[1.185rem] ${textColor}`} {...props} />
           ),
           ol: ({ ...props }) => (
-            <ol className="mb-6 list-decimal pl-8 text-[1.185rem] text-gray-800" {...props} />
+            <ol className={`mb-6 list-decimal pl-8 text-[1.185rem] ${textColor}`} {...props} />
           ),
           li: ({ ...props }) => <li className="mb-3 text-[1.185rem]" {...props} />,
           a: ({ ...props }) => (
-            <a className="font-medium text-green-600 hover:underline" {...props} />
+            <a className={`font-medium ${linkColor} hover:underline`} {...props} />
           ),
-          strong: ({ ...props }) => <strong className="font-bold text-gray-900" {...props} />,
-          em: ({ ...props }) => <em className="italic text-gray-800" {...props} />,
+          strong: ({ ...props }) => <strong className={`font-bold ${strongColor}`} {...props} />,
+          em: ({ ...props }) => <em className={`italic ${textColor}`} {...props} />,
           blockquote: ({ ...props }) => (
             <blockquote
-              className="my-8 border-l-4 border-gray-300 pl-8 text-xl italic text-gray-700"
+              className={`my-8 border-l-4 ${blockquoteBorder} pl-8 text-xl italic ${blockquoteColor}`}
               {...props}
             />
           ),
           code: ({ ...props }) => (
             <code
-              className="rounded bg-gray-100 px-1 py-0.5 font-mono text-base text-gray-900"
+              className={`rounded ${codeBg} px-1 py-0.5 font-mono text-base ${codeColor}`}
               {...props}
             />
           ),
           table: ({ ...props }) => (
-            <table className="my-8 w-full border-collapse text-xl text-gray-800" {...props} />
+            <table className={`my-8 w-full border-collapse text-xl ${tableText}`} {...props} />
           ),
-          thead: ({ ...props }) => <thead className="bg-gray-100" {...props} />,
+          thead: ({ ...props }) => <thead className={tableBg} {...props} />,
           tbody: ({ ...props }) => <tbody {...props} />,
-          tr: ({ ...props }) => <tr className="border-b border-gray-100" {...props} />,
+          tr: ({ ...props }) => <tr className={`border-b ${tableBorder}`} {...props} />,
           th: ({ ...props }) => (
             <th
-              className="border border-gray-400 px-4 py-2 text-left font-semibold text-gray-900"
+              className={`border ${tableBorder} px-4 py-2 text-left font-semibold ${headingColor}`}
               {...props}
             />
           ),
           td: ({ ...props }) => (
-            <td className="border border-gray-400 px-4 py-2 text-gray-800" {...props} />
+            <td className={`border ${tableBorder} px-4 py-2 ${tableText}`} {...props} />
           ),
           img: ({ src, alt }) => {
             // 画像パスの処理
