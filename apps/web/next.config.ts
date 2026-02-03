@@ -20,6 +20,8 @@ const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-i
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
+    // Vercel Image Optimization の無料枠超過対策（変換数を抑える）
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
