@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     domains: [],
-    // 静的ページのビルド時に画像を最適化する場合はfalseに設定
-    unoptimized: false,
+    // Vercel Image Optimization の無料枠超過対策（変換数を抑える）
+    unoptimized: true,
     // 外部画像の最適化を有効にする場合は、ここにドメインを追加
     remotePatterns: [
       {
