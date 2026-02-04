@@ -10,13 +10,25 @@ type StoreBadgeProps = {
   store: "apple" | "google";
   className?: string;
   size?: "small" | "medium" | "large" | "xl";
+  /** 禁酒チャレンジLPの場合は "alcohol" を指定 */
+  namespace?: string;
 };
 
-// ストアごとのURL
-const storeUrls = {
+// QuitMate（デフォルト）のストアURL
+const defaultStoreUrls = {
   apple: "https://apps.apple.com/jp/app/id6462843097",
   google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
 };
+
+// 禁酒チャレンジ用のストアURL
+const alcoholStoreUrls = {
+  apple: "https://apps.apple.com/jp/app/id6756336624",
+  google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+};
+
+function getStoreUrls(namespace?: string) {
+  return namespace === "alcohol" ? alcoholStoreUrls : defaultStoreUrls;
+}
 
 // サイズごとの高さと幅のマッピング
 const sizeMapping = {
@@ -38,8 +50,9 @@ const sizeMapping = {
   },
 };
 
-export function StoreBadge({ store, className = "", size = "medium" }: StoreBadgeProps) {
+export function StoreBadge({ store, className = "", size = "medium", namespace }: StoreBadgeProps) {
   const t = useTranslations("config");
+  const storeUrls = getStoreUrls(namespace);
 
   // ストアごとの画像パス
   const storeBadgeImages = {
@@ -74,19 +87,22 @@ type StoreBadgesProps = {
   direction?: "row" | "column";
   size?: "small" | "medium" | "large" | "xl";
   className?: string;
+  /** 禁酒チャレンジLPの場合は "alcohol" を指定 */
+  namespace?: string;
 };
 
 export function StoreBadges({
   direction = "row",
   size = "medium",
   className = "",
+  namespace,
 }: StoreBadgesProps) {
   return (
     <div
       className={`flex items-center justify-center gap-3 md:gap-4 ${direction === "column" ? "flex-col" : "flex-row"} ${className}`}
     >
-      <StoreBadge store="apple" size={size} />
-      <StoreBadge store="google" size={size} />
+      <StoreBadge store="apple" size={size} namespace={namespace} />
+      <StoreBadge store="google" size={size} namespace={namespace} />
     </div>
   );
 }
