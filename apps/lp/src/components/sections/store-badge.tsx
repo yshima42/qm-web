@@ -6,74 +6,64 @@ import React from "react";
 
 import { Link } from "@/i18n/routing";
 
+type StoreType = "apple" | "google";
+type BadgeSize = "small" | "medium" | "large" | "xl";
+
 type StoreBadgeProps = {
-  store: "apple" | "google";
+  store: StoreType;
   className?: string;
-  size?: "small" | "medium" | "large" | "xl";
+  size?: BadgeSize;
   /** 禁酒チャレンジLPの場合は "alcohol" を指定 */
   namespace?: string;
 };
 
-// QuitMate（デフォルト）のストアURL
-const defaultStoreUrls = {
-  apple: "https://apps.apple.com/jp/app/id6462843097",
-  google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
-};
+const STORE_URLS = {
+  default: {
+    apple: "https://apps.apple.com/jp/app/id6462843097",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
+  },
+  alcohol: {
+    apple: "https://apps.apple.com/jp/app/id6756336624",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+  },
+} as const;
 
-// 禁酒チャレンジ用のストアURL
-const alcoholStoreUrls = {
-  apple: "https://apps.apple.com/jp/app/id6756336624",
-  google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+const SIZE_MAPPING: Record<BadgeSize, { height: number; width: Record<StoreType, number> }> = {
+  small: { height: 40, width: { apple: 120, google: 135 } },
+  medium: { height: 50, width: { apple: 150, google: 168 } },
+  large: { height: 60, width: { apple: 180, google: 200 } },
+  xl: { height: 70, width: { apple: 210, google: 230 } },
 };
 
 function getStoreUrls(namespace?: string) {
-  return namespace === "alcohol" ? alcoholStoreUrls : defaultStoreUrls;
+  return namespace === "alcohol" ? STORE_URLS.alcohol : STORE_URLS.default;
 }
 
-// サイズごとの高さと幅のマッピング
-const sizeMapping = {
-  small: {
-    height: 40,
-    width: { apple: 120, google: 135 },
-  },
-  medium: {
-    height: 50,
-    width: { apple: 150, google: 168 },
-  },
-  large: {
-    height: 60,
-    width: { apple: 180, google: 200 },
-  },
-  xl: {
-    height: 70,
-    width: { apple: 210, google: 230 },
-  },
+const STORE_ALT: Record<StoreType, string> = {
+  apple: "App Store",
+  google: "Google Play",
+};
+
+const BADGE_IMAGE: Record<StoreType, string> = {
+  apple: "apple-store-badge.png",
+  google: "google-play-badge.png",
 };
 
 export function StoreBadge({ store, className = "", size = "medium", namespace }: StoreBadgeProps) {
   const t = useTranslations("config");
+  const lang = t("language-code");
   const storeUrls = getStoreUrls(namespace);
-
-  // ストアごとの画像パス
-  const storeBadgeImages = {
-    apple: `/images/${t("language-code")}/apple-store-badge.png`,
-    google: `/images/${t("language-code")}/google-play-badge.png`,
-  };
-
-  const { height } = sizeMapping[size];
-  const width = sizeMapping[size].width[store];
-  const imageAltText = store === "apple" ? "App Store" : "Google Play";
-
-  // 数値を明示的に文字列に変換
-  const heightStyle = { height: `${String(height)}px` };
+  const { height, width } = SIZE_MAPPING[size];
+  const widthPx = width[store];
+  const badgeSrc = `/images/${lang}/${BADGE_IMAGE[store]}`;
 
   return (
     <Link href={storeUrls[store]} target="_blank">
-      <div className={`flex items-center ${className}`} style={heightStyle}>
+      <div className={`flex items-center ${className}`} style={{ height: `${String(height)}px` }}>
         <Image
-          src={storeBadgeImages[store]}
-          alt={imageAltText}
-          width={width}
+          src={badgeSrc}
+          alt={STORE_ALT[store]}
+          width={widthPx}
           height={height}
           className="h-full w-auto object-contain"
         />
@@ -82,10 +72,9 @@ export function StoreBadge({ store, className = "", size = "medium", namespace }
   );
 }
 
-// 両方のバッジを表示するコンポーネント
 type StoreBadgesProps = {
   direction?: "row" | "column";
-  size?: "small" | "medium" | "large" | "xl";
+  size?: BadgeSize;
   className?: string;
   /** 禁酒チャレンジLPの場合は "alcohol" を指定 */
   namespace?: string;
