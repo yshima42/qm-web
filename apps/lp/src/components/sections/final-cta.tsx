@@ -23,7 +23,7 @@ export const FinalCTA = ({ namespace = "" }: FinalCTAProps = {}) => {
     <section className={`${bgGradient} px-6 py-20 text-center`}>
       <h2 className={`mb-4 text-3xl font-bold ${textColor} md:text-4xl`}>{t("title")}</h2>
       <p className={`mx-auto mb-8 max-w-xl text-lg ${descColor}`}>{t("description")}</p>
-      <StoreBadges size="medium" />
+      <StoreBadges size="medium" namespace={namespace} />
     </section>
   );
 };
