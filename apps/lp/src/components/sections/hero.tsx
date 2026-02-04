@@ -3,11 +3,27 @@
 import { useTranslations } from "next-intl";
 
 import { StoreBadges } from "./store-badge";
-import { ScreenshotViewer } from "../sections/screenshot-viewer";
+import { ScreenshotViewer } from "./screenshot-viewer";
 
 type HeroProps = {
   namespace?: string;
 };
+
+const SCREENSHOT_CONFIG = {
+  alcohol: [
+    { image: "k-screenshot-home.png", altKey: "screenshot-home-alt" },
+    { image: "k-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
+    { image: "k-screenshot-profile.png", altKey: "screenshot-profile-alt" },
+    { image: "k-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
+    { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+  ],
+  default: [
+    { image: "screenshot-stories.png", altKey: "screenshot-stories-alt" },
+    { image: "screenshot-categories.png", altKey: "screenshot-categories-alt" },
+    { image: "screenshot-program.png", altKey: "screenshot-program-alt" },
+    { image: "screenshot-habits.png", altKey: "screenshot-habits-alt" },
+  ],
+} as const;
 
 export const Hero = ({ namespace = "" }: HeroProps = {}) => {
   const translationKey = namespace ? `${namespace}.hero` : "hero";
@@ -15,47 +31,12 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
   const tConfig = useTranslations("config");
 
   const isAlcohol = namespace === "alcohol";
-  const screenshots = isAlcohol
-    ? [
-        {
-          src: `/images/${tConfig("language-code")}/k-screenshot-home.png`,
-          alt: t("screenshot-home-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/k-screenshot-timeline.png`,
-          alt: t("screenshot-timeline-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/k-screenshot-profile.png`,
-          alt: t("screenshot-profile-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/k-screenshot-diagnosis.png`,
-          alt: t("screenshot-diagnosis-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/k-screenshot-roadmap.png`,
-          alt: t("screenshot-roadmap-alt"),
-        },
-      ]
-    : [
-        {
-          src: `/images/${tConfig("language-code")}/screenshot-stories.png`,
-          alt: t("screenshot-stories-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/screenshot-categories.png`,
-          alt: t("screenshot-categories-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/screenshot-program.png`,
-          alt: t("screenshot-program-alt"),
-        },
-        {
-          src: `/images/${tConfig("language-code")}/screenshot-habits.png`,
-          alt: t("screenshot-habits-alt"),
-        },
-      ];
+  const config = SCREENSHOT_CONFIG[isAlcohol ? "alcohol" : "default"];
+  const lang = tConfig("language-code");
+  const screenshots = config.map(({ image, altKey }) => ({
+    src: `/images/${lang}/${image}`,
+    alt: t(altKey),
+  }));
 
   const bgGradient = isAlcohol
     ? "bg-gradient-to-b from-[#d8e8d4] to-white"
