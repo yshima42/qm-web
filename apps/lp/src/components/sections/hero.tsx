@@ -76,10 +76,10 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
             {t("description")}
           </p>
           <div className="hidden md:block">
-            <StoreBadges size="xl" />
+            <StoreBadges size="xl" namespace={namespace} />
           </div>
           <div className="block md:hidden">
-            <StoreBadges size="medium" />
+            <StoreBadges size="medium" namespace={namespace} />
           </div>
         </div>
 
