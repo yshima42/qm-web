@@ -18,13 +18,6 @@ const ANIMATION_DURATION_MS = 300;
 const MIN_SWIPE_DISTANCE = 50;
 const MOBILE_BREAKPOINT = 768;
 
-function clearTimer(ref: React.MutableRefObject<ReturnType<typeof setInterval> | null>) {
-  if (ref.current) {
-    clearInterval(ref.current);
-    ref.current = null;
-  }
-}
-
 type NavButtonProps = {
   direction: "prev" | "next";
   isMobile: boolean;
@@ -74,7 +67,12 @@ export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotView
   const [isAnimating, setIsAnimating] = useState(false);
   const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const clearAutoPlayTimer = useCallback(() => clearTimer(autoPlayTimerRef), []);
+  const clearAutoPlayTimer = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+      autoPlayTimerRef.current = null;
+    }
+  }, []);
 
   const resetAutoPlayTimer = useCallback(() => {
     clearAutoPlayTimer();
@@ -86,14 +84,20 @@ export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotView
 
   useEffect(() => {
     resetAutoPlayTimer();
-    return () => clearAutoPlayTimer();
+    return () => {
+      clearAutoPlayTimer();
+    };
   }, [resetAutoPlayTimer, clearAutoPlayTimer]);
 
   useEffect(() => {
-    const checkIfMobile = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    };
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
-    return () => window.removeEventListener("resize", checkIfMobile);
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
   }, []);
 
   const nextScreenshot = () => {
@@ -101,7 +105,9 @@ export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotView
     setIsAnimating(true);
     setCurrentScreenshot((prev) => (prev + 1) % screenshots.length);
     resetAutoPlayTimer();
-    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, ANIMATION_DURATION_MS);
   };
 
   const prevScreenshot = () => {
@@ -109,11 +115,17 @@ export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotView
     setIsAnimating(true);
     setCurrentScreenshot((prev) => (prev - 1 + screenshots.length) % screenshots.length);
     resetAutoPlayTimer();
-    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, ANIMATION_DURATION_MS);
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX);
-  const handleTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;

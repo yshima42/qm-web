@@ -59,7 +59,7 @@ export function StoreBadge({ store, className = "", size = "medium", namespace }
 
   return (
     <Link href={storeUrls[store]} target="_blank">
-      <div className={`flex items-center ${className}`} style={{ height: `${height}px` }}>
+      <div className={`flex items-center ${className}`} style={{ height: `${String(height)}px` }}>
         <Image
           src={badgeSrc}
           alt={STORE_ALT[store]}

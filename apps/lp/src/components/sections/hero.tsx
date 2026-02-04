@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 
-import { StoreBadges } from "./store-badge";
 import { ScreenshotViewer } from "./screenshot-viewer";
+import { StoreBadges } from "./store-badge";
 
 type HeroProps = {
   namespace?: string;
