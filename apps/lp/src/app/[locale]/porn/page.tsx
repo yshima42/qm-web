@@ -14,7 +14,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("kinshu.common");
+  const t = await getTranslations("porn.common");
   const tConfig = await getTranslations("config");
 
   return {
@@ -24,14 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `https://about.quitmate.app/${tConfig("language-code")}/alcohol`,
-      siteName: "禁酒メイト",
+      url: `https://about.quitmate.app/${tConfig("language-code")}/porn`,
+      siteName: "禁欲メイト",
       images: [
         {
           url: `/images/${tConfig("language-code")}/ogp.png`,
           width: 1200,
           height: 630,
-          alt: "禁酒メイト OGP Image",
+          alt: "禁欲メイト OGP Image",
         },
       ],
       type: "website",
@@ -44,19 +44,19 @@ export async function generateMetadata(): Promise<Metadata> {
       creator: "@QuitMate_JP",
     },
     icons: {
-      icon: "/images/kinshu_icon.png",
+      icon: "/images/porn_icon.png",
     },
   };
 }
 
-export default function AlcoholPage() {
+export default function PornPage() {
   return (
     <>
-      <Hero namespace="kinshu" />
-      <Intro namespace="kinshu" />
-      <Features namespace="kinshu" />
-      <Testimonials namespace="kinshu" />
-      <FinalCTA namespace="kinshu" />
+      <Hero namespace="porn" />
+      <Intro namespace="porn" />
+      <Features namespace="porn" />
+      <Testimonials namespace="porn" />
+      <FinalCTA namespace="porn" />
     </>
   );
 }

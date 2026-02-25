@@ -17,6 +17,27 @@ const SCREENSHOT_CONFIG = {
     { image: "k-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
     { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
   ],
+  kinshu: [
+    { image: "k-screenshot-home.png", altKey: "screenshot-home-alt" },
+    { image: "k-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
+    { image: "k-screenshot-profile.png", altKey: "screenshot-profile-alt" },
+    { image: "k-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
+    { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+  ],
+  porn: [
+    { image: "p-screenshot-home.png", altKey: "screenshot-home-alt" },
+    { image: "p-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
+    { image: "p-screenshot-profile.png", altKey: "screenshot-profile-alt" },
+    { image: "p-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
+    { image: "p-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+  ],
+  tobacco: [
+    { image: "t-screenshot-home.png", altKey: "screenshot-home-alt" },
+    { image: "t-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
+    { image: "t-screenshot-profile.png", altKey: "screenshot-profile-alt" },
+    { image: "t-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
+    { image: "t-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+  ],
   default: [
     { image: "screenshot-stories.png", altKey: "screenshot-stories-alt" },
     { image: "screenshot-categories.png", altKey: "screenshot-categories-alt" },
@@ -30,19 +51,44 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
   const t = useTranslations(translationKey);
   const tConfig = useTranslations("config");
 
-  const isAlcohol = namespace === "alcohol";
-  const config = SCREENSHOT_CONFIG[isAlcohol ? "alcohol" : "default"];
+  const config =
+    namespace === "alcohol"
+      ? SCREENSHOT_CONFIG.alcohol
+      : namespace === "kinshu"
+        ? SCREENSHOT_CONFIG.kinshu
+        : namespace === "porn"
+          ? SCREENSHOT_CONFIG.porn
+          : namespace === "tobacco"
+            ? SCREENSHOT_CONFIG.tobacco
+            : SCREENSHOT_CONFIG.default;
   const lang = tConfig("language-code");
   const screenshots = config.map(({ image, altKey }) => ({
     src: `/images/${lang}/${image}`,
     alt: t(altKey),
   }));
 
-  const bgGradient = isAlcohol
-    ? "bg-gradient-to-b from-[#d8e8d4] to-white"
-    : "bg-gradient-to-b from-[#f8fbf7] to-white";
-  const titleColor = "text-gray-800";
-  const descColor = "text-gray-600";
+  const bgGradient =
+    namespace === "porn"
+      ? "bg-gradient-to-b from-[#1a0a1f] via-[#2d1b4e] to-[#1a0a1f]"
+      : namespace === "tobacco"
+        ? "bg-gradient-to-b from-[#e8f5e9] to-white"
+        : namespace === "kinshu"
+          ? "bg-gradient-to-b from-[#e8eaf6] to-white"
+          : namespace === "alcohol"
+            ? "bg-gradient-to-b from-[#d8e8d4] to-white"
+            : "bg-gradient-to-b from-[#f8fbf7] to-white";
+  const titleColor =
+    namespace === "porn"
+      ? "text-white"
+      : namespace === "kinshu"
+        ? "text-[#1a237e]"
+        : "text-gray-800";
+  const descColor =
+    namespace === "porn"
+      ? "text-purple-200"
+      : namespace === "kinshu"
+        ? "text-[#3949ab]"
+        : "text-gray-600";
 
   return (
     <section className={`flex items-center justify-center ${bgGradient} p-8 py-12 md:py-16`}>

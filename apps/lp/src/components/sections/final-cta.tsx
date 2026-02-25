@@ -12,12 +12,28 @@ export const FinalCTA = ({ namespace = "" }: FinalCTAProps = {}) => {
   const translationKey = namespace ? `${namespace}.final-cta` : "final-cta";
   const t = useTranslations(translationKey);
 
-  const isAlcohol = namespace === "alcohol";
-  const bgGradient = isAlcohol
-    ? "bg-gradient-to-b from-[#d8e8d4] to-white"
-    : "bg-gradient-to-b from-[#f8fbf7] to-white";
-  const textColor = "text-gray-800";
-  const descColor = "text-gray-600";
+  const bgGradient =
+    namespace === "porn"
+      ? "bg-gradient-to-b from-[#2d1b4e] to-[#1a0a1f]"
+      : namespace === "tobacco"
+        ? "bg-gradient-to-b from-[#e8f5e9] to-white"
+        : namespace === "kinshu"
+          ? "bg-gradient-to-b from-[#c5cae9] to-white"
+          : namespace === "alcohol"
+            ? "bg-gradient-to-b from-[#d8e8d4] to-white"
+            : "bg-gradient-to-b from-[#f8fbf7] to-white";
+  const textColor =
+    namespace === "porn"
+      ? "text-white"
+      : namespace === "kinshu"
+        ? "text-[#1a237e]"
+        : "text-gray-800";
+  const descColor =
+    namespace === "porn"
+      ? "text-purple-200"
+      : namespace === "kinshu"
+        ? "text-[#3949ab]"
+        : "text-gray-600";
 
   return (
     <section className={`${bgGradient} px-6 py-20 text-center`}>

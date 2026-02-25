@@ -10,14 +10,12 @@ import { MarkdownContent } from "@/components/sections/markdown-content";
 
 import { routing } from "@/i18n/routing";
 
-// SSG対応
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// ビルド時にのみ実行される
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("alcohol.contact");
+  const t = await getTranslations("kinshu.contact");
   const tConfig = await getTranslations("config");
 
   return {
@@ -28,21 +26,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function AlcoholContactPage() {
-  const t = useTranslations("alcohol.contact");
+  const t = useTranslations("kinshu.contact");
   const config = useTranslations("config");
-  // ビルド時にファイルを読み込む
   const filePath = path.join(
     process.cwd(),
     "public",
     "documents",
-    "alcohol",
+    "kinshu",
     config("language-code"),
     "contact.md",
   );
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   return (
-    <DocumentLayout title={t("title")} namespace="alcohol">
+    <DocumentLayout title={t("title")} namespace="kinshu">
       <MarkdownContent content={fileContent} />
     </DocumentLayout>
   );

@@ -10,36 +10,39 @@ import { MarkdownContent } from "@/components/sections/markdown-content";
 
 import { routing } from "@/i18n/routing";
 
+// SSG対応
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// ビルド時にのみ実行される
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("kinshu.privacy");
+  const t = await getTranslations("alcohol.terms");
   const tConfig = await getTranslations("config");
 
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL(`https://about.quitmate.app/${tConfig("language-code")}/alcohol`),
+    metadataBase: new URL(`https://about.quitmate.app/${tConfig("language-code")}/challenge`),
   };
 }
 
-export default function AlcoholPrivacyPage() {
-  const t = useTranslations("kinshu.privacy");
+export default function ChallengeTermsPage() {
+  const t = useTranslations("alcohol.terms");
   const config = useTranslations("config");
+  // ビルド時にファイルを読み込む
   const filePath = path.join(
     process.cwd(),
     "public",
     "documents",
-    "kinshu",
+    "alcohol",
     config("language-code"),
-    "privacy.md",
+    "terms.md",
   );
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   return (
-    <DocumentLayout title={t("title")} namespace="kinshu">
+    <DocumentLayout title={t("title")} namespace="alcohol">
       <MarkdownContent content={fileContent} />
     </DocumentLayout>
   );

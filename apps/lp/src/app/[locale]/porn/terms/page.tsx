@@ -15,31 +15,31 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("kinshu.privacy");
+  const t = await getTranslations("porn.terms");
   const tConfig = await getTranslations("config");
 
   return {
     title: t("title"),
     description: t("description"),
-    metadataBase: new URL(`https://about.quitmate.app/${tConfig("language-code")}/alcohol`),
+    metadataBase: new URL(`https://about.quitmate.app/${tConfig("language-code")}/porn`),
   };
 }
 
-export default function AlcoholPrivacyPage() {
-  const t = useTranslations("kinshu.privacy");
+export default function PornTermsPage() {
+  const t = useTranslations("porn.terms");
   const config = useTranslations("config");
   const filePath = path.join(
     process.cwd(),
     "public",
     "documents",
-    "kinshu",
+    "porn",
     config("language-code"),
-    "privacy.md",
+    "terms.md",
   );
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   return (
-    <DocumentLayout title={t("title")} namespace="kinshu">
+    <DocumentLayout title={t("title")} namespace="porn">
       <MarkdownContent content={fileContent} />
     </DocumentLayout>
   );

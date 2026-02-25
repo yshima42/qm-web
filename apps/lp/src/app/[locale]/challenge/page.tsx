@@ -9,12 +9,13 @@ import { Testimonials } from "@/components/sections/testimonials";
 
 import { routing } from "@/i18n/routing";
 
+// SSG対応
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("kinshu.common");
+  const t = await getTranslations("alcohol.common");
   const tConfig = await getTranslations("config");
 
   return {
@@ -24,14 +25,14 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `https://about.quitmate.app/${tConfig("language-code")}/alcohol`,
-      siteName: "禁酒メイト",
+      url: `https://about.quitmate.app/${tConfig("language-code")}/challenge`,
+      siteName: "禁酒チャレンジ",
       images: [
         {
           url: `/images/${tConfig("language-code")}/ogp.png`,
           width: 1200,
           height: 630,
-          alt: "禁酒メイト OGP Image",
+          alt: "禁酒チャレンジ OGP Image",
         },
       ],
       type: "website",
@@ -49,14 +50,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function AlcoholPage() {
+export default function ChallengePage() {
   return (
     <>
-      <Hero namespace="kinshu" />
-      <Intro namespace="kinshu" />
-      <Features namespace="kinshu" />
-      <Testimonials namespace="kinshu" />
-      <FinalCTA namespace="kinshu" />
+      <Hero namespace="alcohol" />
+      <Intro namespace="alcohol" />
+      <Features namespace="alcohol" />
+      <Testimonials namespace="alcohol" />
+      <FinalCTA namespace="alcohol" />
     </>
   );
 }

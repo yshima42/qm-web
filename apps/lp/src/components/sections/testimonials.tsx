@@ -28,16 +28,34 @@ export const Testimonials = ({ namespace = "" }: TestimonialsProps = {}) => {
     },
   ];
 
-  const isAlcohol = namespace === "alcohol";
-  const bgColor = isAlcohol ? "bg-[#d8e8d4]" : "bg-[#f8fbf7]";
-  const textColor = "text-gray-800";
+  const bgColor =
+    namespace === "porn"
+      ? "bg-[#1a0a1f]"
+      : namespace === "tobacco"
+        ? "bg-[#e8f5e9]"
+        : namespace === "kinshu"
+          ? "bg-[#e8eaf6]"
+          : namespace === "alcohol"
+            ? "bg-[#d8e8d4]"
+            : "bg-[#f8fbf7]";
+  const textColor =
+    namespace === "porn"
+      ? "text-white"
+      : namespace === "kinshu"
+        ? "text-[#1a237e]"
+        : "text-gray-800";
 
   return (
     <section className={`${bgColor} px-6 py-20 text-center`}>
       <h2 className={`mb-12 text-3xl font-semibold ${textColor} md:text-4xl`}>{t("title")}</h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map((item, index) => (
-          <Card key={index} className="h-full border-none bg-white text-left shadow-md">
+          <Card
+            key={index}
+            className={`h-full border-none text-left shadow-md ${
+              namespace === "porn" ? "bg-[#2d1b4e]/90" : "bg-white"
+            }`}
+          >
             <CardContent className="p-6">
               <div className="mb-4 flex justify-center">
                 {[...Array(5)].map((_, i) => (
@@ -51,9 +69,27 @@ export const Testimonials = ({ namespace = "" }: TestimonialsProps = {}) => {
                   </svg>
                 ))}
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-800">{item.title}</h3>
-              <p className="mb-4 text-sm text-gray-600">&quot;{item.message}&quot;</p>
-              <p className="text-right text-sm font-semibold text-gray-700">— {item.name}</p>
+              <h3
+                className={`mb-2 text-lg font-semibold ${
+                  namespace === "porn" ? "text-white" : "text-gray-800"
+                }`}
+              >
+                {item.title}
+              </h3>
+              <p
+                className={`mb-4 text-sm ${
+                  namespace === "porn" ? "text-purple-200" : "text-gray-600"
+                }`}
+              >
+                &quot;{item.message}&quot;
+              </p>
+              <p
+                className={`text-right text-sm font-semibold ${
+                  namespace === "porn" ? "text-purple-300" : "text-gray-700"
+                }`}
+              >
+                — {item.name}
+              </p>
             </CardContent>
           </Card>
         ))}

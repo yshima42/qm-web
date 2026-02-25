@@ -28,9 +28,22 @@ export const Features = ({ namespace = "" }: FeaturesProps = {}) => {
     },
   ];
 
-  const isAlcohol = namespace === "alcohol";
-  const bgColor = isAlcohol ? "bg-[#e8f0e6]" : "bg-white";
-  const textColor = "text-gray-800";
+  const bgColor =
+    namespace === "porn"
+      ? "bg-[#2d1b4e]"
+      : namespace === "tobacco"
+        ? "bg-[#c8e6c9]"
+        : namespace === "kinshu"
+          ? "bg-[#c5cae9]"
+          : namespace === "alcohol"
+            ? "bg-[#e8f0e6]"
+            : "bg-white";
+  const textColor =
+    namespace === "porn"
+      ? "text-white"
+      : namespace === "kinshu"
+        ? "text-[#1a237e]"
+        : "text-gray-800";
 
   return (
     <section className={`${bgColor} px-6 py-12 md:py-20`}>
@@ -39,10 +52,32 @@ export const Features = ({ namespace = "" }: FeaturesProps = {}) => {
       </h2>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
         {features.map(({ title, icon: Icon, description }) => {
-          const iconColor = "text-[#2E6C28]";
-          const cardBg = "bg-white";
-          const titleColor = "text-gray-800";
-          const descColor = "text-gray-600";
+          const iconColor =
+            namespace === "porn"
+              ? "text-purple-400"
+              : namespace === "kinshu"
+                ? "text-[#3949ab]"
+                : namespace === "tobacco"
+                  ? "text-green-700"
+                  : "text-[#2E6C28]";
+          const cardBg =
+            namespace === "porn"
+              ? "bg-[#1a0a1f]/80"
+              : namespace === "kinshu"
+                ? "bg-white"
+                : "bg-white";
+          const titleColor =
+            namespace === "porn"
+              ? "text-white"
+              : namespace === "kinshu"
+                ? "text-[#1a237e]"
+                : "text-gray-800";
+          const descColor =
+            namespace === "porn"
+              ? "text-purple-200"
+              : namespace === "kinshu"
+                ? "text-[#3949ab]"
+                : "text-gray-600";
 
           return (
             <Card
