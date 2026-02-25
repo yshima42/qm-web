@@ -18,25 +18,16 @@ const SCREENSHOT_CONFIG = {
     { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
   ],
   kinshu: [
-    { image: "k-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "k-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
-    { image: "k-screenshot-profile.png", altKey: "screenshot-profile-alt" },
-    { image: "k-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
-    { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+    { image: "a-screenshot-home.png", altKey: "screenshot-home-alt" },
+    { image: "a-screenshot-habits.png", altKey: "screenshot-habits-alt" },
   ],
   porn: [
     { image: "p-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "p-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
-    { image: "p-screenshot-profile.png", altKey: "screenshot-profile-alt" },
-    { image: "p-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
-    { image: "p-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+    { image: "p-screenshot-habits.png", altKey: "screenshot-habits-alt" },
   ],
   tobacco: [
     { image: "t-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "t-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
-    { image: "t-screenshot-profile.png", altKey: "screenshot-profile-alt" },
-    { image: "t-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
-    { image: "t-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+    { image: "t-screenshot-habits.png", altKey: "screenshot-habits-alt" },
   ],
   default: [
     { image: "screenshot-stories.png", altKey: "screenshot-stories-alt" },
@@ -80,15 +71,26 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
   const titleColor =
     namespace === "porn"
       ? "text-white"
-      : namespace === "kinshu"
-        ? "text-[#1a237e]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-900"
         : "text-gray-800";
   const descColor =
     namespace === "porn"
       ? "text-purple-200"
-      : namespace === "kinshu"
-        ? "text-[#3949ab]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-700"
         : "text-gray-600";
+
+  const indicatorColor =
+    namespace === "porn"
+      ? "bg-purple-400"
+      : namespace === "kinshu"
+        ? "bg-[#3949ab]"
+        : namespace === "tobacco"
+          ? "bg-green-600"
+          : namespace === "alcohol"
+            ? "bg-green-700"
+            : "bg-[#2E6C28]";
 
   return (
     <section className={`flex items-center justify-center ${bgGradient} p-8 py-12 md:py-16`}>
@@ -111,7 +113,7 @@ export const Hero = ({ namespace = "" }: HeroProps = {}) => {
         </div>
 
         <div className="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
-          <ScreenshotViewer screenshots={screenshots} />
+          <ScreenshotViewer screenshots={screenshots} indicatorActiveClassName={indicatorColor} />
         </div>
       </div>
     </section>

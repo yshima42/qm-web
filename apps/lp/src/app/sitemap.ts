@@ -61,6 +61,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${url}/en/apps`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${url}/ja/apps`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 
   // LP: 禁酒チャレンジ(/challenge), 禁酒メイト(/alcohol), porn, tobacco（各 locale のトップ + terms / privacy / contact）

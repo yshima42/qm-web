@@ -69,10 +69,7 @@
     "header": {
         "links": {
             "blog": "ブログ",
-            "alcoholWeek": "禁酒チャレンジ",
-            "kinshuMate": "禁酒メイト",
-            "pornMate": "禁欲メイト",
-            "tobaccoMate": "禁煙メイト",
+            "otherApps": "その他アプリ",
             "terms": "利用規約",
             "privacy": "プライバシーポリシー",
             "contact": "お問い合わせ"
@@ -109,6 +106,32 @@
         "read-article": "読む",
         "back-to-blog": "ブログに戻る",
         "share": "共有:"
+    },
+    "apps": {
+        "title": "その他アプリ | QuitMate",
+        "description": "QuitMateが提供する依存症克服アプリ一覧。禁酒チャレンジ、禁酒メイト、禁欲メイト、禁煙メイトなど。",
+        "heading": "その他アプリ",
+        "subheading": "依存の種類に合わせたアプリをご用意しています。",
+        "challenge": {
+            "name": "禁酒チャレンジ",
+            "description": "禁酒・断酒を記録し、仲間と続ける。7日間チャレンジから始めよう。",
+            "linkText": "くわしく見る"
+        },
+        "kinshu": {
+            "name": "禁酒メイト",
+            "description": "禁酒をアプリで習慣化。記録とタイムラインでお酒に頼らない毎日を。",
+            "linkText": "くわしく見る"
+        },
+        "porn": {
+            "name": "禁欲メイト",
+            "description": "禁欲・ポルノ断ちを記録し、健全な習慣を。仲間と続ける。",
+            "linkText": "くわしく見る"
+        },
+        "tobacco": {
+            "name": "禁煙メイト",
+            "description": "禁煙・卒煙を記録し、たばこに頼らない毎日を。仲間と続ける。",
+            "linkText": "くわしく見る"
+        }
     },
     "alcohol": {
         "common": {
@@ -209,10 +232,7 @@
             "title": "禁酒をアプリで習慣化",
             "description": "記録と仲間で続く。飲酒カウンターで日数を可視化し、タイムラインで励まし合える。お酒に頼らない毎日を、アプリが支えます。",
             "screenshot-home-alt": "禁酒メイトアプリのホーム画面",
-            "screenshot-timeline-alt": "禁酒メイトアプリのタイムライン画面",
-            "screenshot-profile-alt": "禁酒メイトアプリのプロフィール画面",
-            "screenshot-diagnosis-alt": "禁酒メイトアプリの診断画面",
-            "screenshot-roadmap-alt": "禁酒メイトアプリのロードマップ画面"
+            "screenshot-habits-alt": "禁酒メイトアプリの習慣画面"
         },
         "intro": {
             "title": "やめたい・減らしたいを、支える",
@@ -299,10 +319,7 @@
             "title": "禁欲をアプリで習慣化",
             "description": "記録と仲間で続く。禁欲カウンターで日数を可視化し、タイムラインで励まし合える。健全な毎日を、アプリが支えます。",
             "screenshot-home-alt": "禁欲メイトアプリのホーム画面",
-            "screenshot-timeline-alt": "禁欲メイトアプリのタイムライン画面",
-            "screenshot-profile-alt": "禁欲メイトアプリのプロフィール画面",
-            "screenshot-diagnosis-alt": "禁欲メイトアプリの診断画面",
-            "screenshot-roadmap-alt": "禁欲メイトアプリのロードマップ画面"
+            "screenshot-habits-alt": "禁欲メイトアプリの習慣画面"
         },
         "intro": {
             "title": "やめたい・変わりたいを、支える",
@@ -389,10 +406,7 @@
             "title": "禁煙をアプリで習慣化",
             "description": "記録と仲間で続く。禁煙カウンターで日数を可視化し、タイムラインで励まし合える。たばこに頼らない毎日を、アプリが支えます。",
             "screenshot-home-alt": "禁煙メイトアプリのホーム画面",
-            "screenshot-timeline-alt": "禁煙メイトアプリのタイムライン画面",
-            "screenshot-profile-alt": "禁煙メイトアプリのプロフィール画面",
-            "screenshot-diagnosis-alt": "禁煙メイトアプリの診断画面",
-            "screenshot-roadmap-alt": "禁煙メイトアプリのロードマップ画面"
+            "screenshot-habits-alt": "禁煙メイトアプリの習慣画面"
         },
         "intro": {
             "title": "やめたい・減らしたいを、支える",

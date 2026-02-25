@@ -25,14 +25,14 @@ export const FinalCTA = ({ namespace = "" }: FinalCTAProps = {}) => {
   const textColor =
     namespace === "porn"
       ? "text-white"
-      : namespace === "kinshu"
-        ? "text-[#1a237e]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-900"
         : "text-gray-800";
   const descColor =
     namespace === "porn"
       ? "text-purple-200"
-      : namespace === "kinshu"
-        ? "text-[#3949ab]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-700"
         : "text-gray-600";
 
   return (

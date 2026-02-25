@@ -16,12 +16,7 @@ export const DocumentLayout = ({ children, title, namespace = "" }: DocumentLayo
             ? "bg-[#d8e8d4]"
             : "bg-[#f8fbf7]";
   const cardBg = namespace === "porn" ? "bg-[#2d1b4e]/90" : "bg-white";
-  const titleColor =
-    namespace === "porn"
-      ? "text-white"
-      : namespace === "kinshu"
-        ? "text-[#1a237e]"
-        : "text-gray-900";
+  const titleColor = namespace === "porn" ? "text-white" : "text-gray-900";
 
   return (
     <div className={`min-h-screen ${bgColor}`}>

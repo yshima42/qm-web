@@ -42,20 +42,20 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
       : detectedNamespace === "kinshu"
         ? {
             headerBg: "bg-[#e8eaf6] shadow-sm",
-            navText: "text-[#3949ab]",
-            navHover: "hover:text-[#1a237e]",
+            navText: "text-gray-900",
+            navHover: "hover:text-gray-700",
             mobileMenuBg: "bg-[#e8eaf6]",
-            mobileLink: "text-[#3949ab] hover:text-[#1a237e]",
-            buttonColor: "text-[#3949ab] hover:text-[#1a237e]",
+            mobileLink: "text-gray-900 hover:text-gray-700",
+            buttonColor: "text-gray-900 hover:text-gray-700",
           }
         : detectedNamespace === "tobacco"
           ? {
               headerBg: "bg-[#e8f5e9] shadow-sm",
-              navText: "text-green-800",
-              navHover: "hover:text-green-900",
+              navText: "text-gray-900",
+              navHover: "hover:text-gray-700",
               mobileMenuBg: "bg-[#e8f5e9]",
-              mobileLink: "text-green-800 hover:text-green-900",
-              buttonColor: "text-green-800 hover:text-green-900",
+              mobileLink: "text-gray-900 hover:text-gray-700",
+              buttonColor: "text-gray-900 hover:text-gray-700",
             }
           : detectedNamespace === "alcohol"
             ? {
@@ -88,17 +88,8 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
           <nav className="flex gap-6">
             {!detectedNamespace && (
               <>
-                <Link href="/challenge" className={`font-bold ${linkClass}`}>
-                  {tBlog("links.alcoholWeek")}
-                </Link>
-                <Link href="/alcohol" className={`font-bold ${linkClass}`}>
-                  {tBlog("links.kinshuMate")}
-                </Link>
-                <Link href="/porn" className={`font-bold ${linkClass}`}>
-                  {tBlog("links.pornMate")}
-                </Link>
-                <Link href="/tobacco" className={`font-bold ${linkClass}`}>
-                  {tBlog("links.tobaccoMate")}
+                <Link href="/apps" className={`font-bold ${linkClass}`}>
+                  {tBlog("links.otherApps")}
                 </Link>
                 <Link href="/blog" className={linkClass}>
                   {tBlog("links.blog")}
@@ -123,12 +114,12 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
               {t("links.contact")}
             </Link>
           </nav>
-          <LanguageSetting />
+          {!detectedNamespace && <LanguageSetting />}
         </div>
 
         {/* モバイル用ハンバーガーメニュー */}
         <div className="flex items-center gap-4 md:hidden">
-          <LanguageSetting />
+          {!detectedNamespace && <LanguageSetting />}
           <button
             className={`p-2 ${headerStyles.buttonColor}`}
             onClick={toggleMenu}
@@ -148,32 +139,11 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
             {!detectedNamespace && (
               <>
                 <Link
-                  href="/challenge"
+                  href="/apps"
                   className={`font-bold ${mobileLinkClass}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {tBlog("links.alcoholWeek")}
-                </Link>
-                <Link
-                  href="/alcohol"
-                  className={`font-bold ${mobileLinkClass}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {tBlog("links.kinshuMate")}
-                </Link>
-                <Link
-                  href="/porn"
-                  className={`font-bold ${mobileLinkClass}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {tBlog("links.pornMate")}
-                </Link>
-                <Link
-                  href="/tobacco"
-                  className={`font-bold ${mobileLinkClass}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {tBlog("links.tobaccoMate")}
+                  {tBlog("links.otherApps")}
                 </Link>
                 <Link href="/blog" className={mobileLinkClass} onClick={() => setIsMenuOpen(false)}>
                   {tBlog("links.blog")}

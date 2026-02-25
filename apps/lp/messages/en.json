@@ -69,10 +69,7 @@
     "header": {
       "links": {
         "blog": "Blog",
-        "alcoholWeek": "Alcohol-Free Week",
-        "kinshuMate": "Alcohol-Free Mate",
-        "pornMate": "Porn-Free Mate",
-        "tobaccoMate": "Tobacco-Free Mate",
+        "otherApps": "Other apps",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "contact": "Contact Us"
@@ -109,6 +106,32 @@
         "read-article": "Read article",
         "back-to-blog": "Back to blog",
         "share": "Share:"
+    },
+    "apps": {
+        "title": "Other apps | QuitMate",
+        "description": "Apps by QuitMate for addiction recovery. Alcohol-Free Week, Alcohol-Free Mate, Porn-Free Mate, Tobacco-Free Mate.",
+        "heading": "Other apps",
+        "subheading": "We offer apps tailored to different types of dependency.",
+        "challenge": {
+            "name": "Alcohol-Free Week",
+            "description": "Track your sobriety and stay on track with others. Start with a 7-day challenge.",
+            "linkText": "Learn more"
+        },
+        "kinshu": {
+            "name": "Alcohol-Free Mate",
+            "description": "Build a sober habit with the app. Log and timeline support your alcohol-free life.",
+            "linkText": "Learn more"
+        },
+        "porn": {
+            "name": "Porn-Free Mate",
+            "description": "Track porn-free days and build healthier habits. Stay on track with others.",
+            "linkText": "Learn more"
+        },
+        "tobacco": {
+            "name": "Tobacco-Free Mate",
+            "description": "Track your smoke-free journey. Stay on track with others.",
+            "linkText": "Learn more"
+        }
     },
     "alcohol": {
         "common": {
@@ -209,10 +232,7 @@
             "title": "Build a sober habit with the app",
             "description": "Stay on track with logging and community. See your streak and get support on the timeline. The app supports your alcohol-free journey.",
             "screenshot-home-alt": "Alcohol-Free Mate app home screen",
-            "screenshot-timeline-alt": "Alcohol-Free Mate app timeline screen",
-            "screenshot-profile-alt": "Alcohol-Free Mate app profile screen",
-            "screenshot-diagnosis-alt": "Alcohol-Free Mate app diagnosis screen",
-            "screenshot-roadmap-alt": "Alcohol-Free Mate app roadmap screen"
+            "screenshot-habits-alt": "Alcohol-Free Mate app habits screen"
         },
         "intro": {
             "title": "We support your decision to quit",
@@ -299,10 +319,7 @@
             "title": "Build a porn-free habit with the app",
             "description": "Stay on track with logging and community. See your streak and get support on the timeline. The app supports your porn-free journey.",
             "screenshot-home-alt": "Porn-Free Mate app home screen",
-            "screenshot-timeline-alt": "Porn-Free Mate app timeline screen",
-            "screenshot-profile-alt": "Porn-Free Mate app profile screen",
-            "screenshot-diagnosis-alt": "Porn-Free Mate app diagnosis screen",
-            "screenshot-roadmap-alt": "Porn-Free Mate app roadmap screen"
+            "screenshot-habits-alt": "Porn-Free Mate app habits screen"
         },
         "intro": {
             "title": "We support your decision to quit",
@@ -389,10 +406,7 @@
             "title": "Quit smoking with the app",
             "description": "Stay on track with logging and community. See your smoke-free streak and get support on the timeline. The app supports your tobacco-free journey.",
             "screenshot-home-alt": "Tobacco-Free Mate app home screen",
-            "screenshot-timeline-alt": "Tobacco-Free Mate app timeline screen",
-            "screenshot-profile-alt": "Tobacco-Free Mate app profile screen",
-            "screenshot-diagnosis-alt": "Tobacco-Free Mate app diagnosis screen",
-            "screenshot-roadmap-alt": "Tobacco-Free Mate app roadmap screen"
+            "screenshot-habits-alt": "Tobacco-Free Mate app habits screen"
         },
         "intro": {
             "title": "We support your decision to quit",

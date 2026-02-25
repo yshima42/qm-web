@@ -41,8 +41,8 @@ export const Testimonials = ({ namespace = "" }: TestimonialsProps = {}) => {
   const textColor =
     namespace === "porn"
       ? "text-white"
-      : namespace === "kinshu"
-        ? "text-[#1a237e]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-900"
         : "text-gray-800";
 
   return (

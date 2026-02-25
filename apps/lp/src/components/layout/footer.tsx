@@ -37,17 +37,17 @@ export const Footer = ({ namespace = "" }: FooterProps = {}) => {
         ? {
             bg: "bg-[#e8eaf6]",
             border: "border-indigo-200",
-            link: "text-[#3949ab] hover:text-[#1a237e]",
-            social: "text-[#3949ab] hover:text-[#1a237e]",
-            copyright: "text-[#3949ab]/80",
+            link: "text-gray-900 hover:text-gray-700",
+            social: "text-gray-900 hover:text-gray-700",
+            copyright: "text-gray-700",
           }
         : detectedNamespace === "tobacco"
           ? {
               bg: "bg-[#e8f5e9]",
               border: "border-green-200",
-              link: "text-green-800 hover:text-green-900",
-              social: "text-green-700 hover:text-green-900",
-              copyright: "text-green-700/80",
+              link: "text-gray-900 hover:text-gray-700",
+              social: "text-gray-900 hover:text-gray-700",
+              copyright: "text-gray-700",
             }
           : detectedNamespace === "alcohol"
             ? {

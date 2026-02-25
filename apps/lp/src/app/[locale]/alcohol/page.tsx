@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       creator: "@QuitMate_JP",
     },
     icons: {
-      icon: "/images/kinshu_icon.png",
+      icon: "/images/alcohol_icon.png",
     },
   };
 }

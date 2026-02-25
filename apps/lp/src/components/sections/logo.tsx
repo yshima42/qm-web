@@ -15,7 +15,7 @@ type LogoProps = {
 
 const LOGO_ICONS: Record<Exclude<LpNamespace, "">, string> = {
   alcohol: "/images/kinshu_icon.png",
-  kinshu: "/images/kinshu_icon.png",
+  kinshu: "/images/alcohol_icon.png",
   porn: "/images/porn_icon.png",
   tobacco: "/images/tobacco_icon.png",
 };
@@ -31,14 +31,19 @@ export const Logo = ({ xl = false, namespace = "", lightText = false }: LogoProp
     namespace && namespace in LOGO_ICONS
       ? LOGO_ICONS[namespace as Exclude<LpNamespace, "">]
       : "/images/icon-web.png";
-  const textColor = lightText ? "text-white" : "text-gray-800";
+  const textColor = lightText ? "text-white" : "text-gray-900";
 
   return (
-    <Link href={href} className={`flex items-center ${lightText ? "text-white" : ""}`}>
-      <div className="flex items-center">
-        <Image src={iconSrc} alt={siteName} width={size} height={size} className="mr-3" />
+    <Link href={href} className={`inline-flex items-center ${lightText ? "text-white" : ""}`}>
+      <div className="inline-flex items-center gap-2" style={{ minHeight: size }}>
         <span
-          className={`${fontStyle} font-medium ${textColor}`}
+          className="flex shrink-0 items-center justify-center"
+          style={{ width: size, height: size }}
+        >
+          <Image src={iconSrc} alt={siteName} width={size} height={size} className="block" />
+        </span>
+        <span
+          className={`${fontStyle} font-medium leading-[1.1] ${textColor} self-center`}
           style={{
             fontWeight: 550,
             fontFamily: "'Inter', 'Noto Sans JP', sans-serif",

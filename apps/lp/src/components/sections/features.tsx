@@ -41,8 +41,8 @@ export const Features = ({ namespace = "" }: FeaturesProps = {}) => {
   const textColor =
     namespace === "porn"
       ? "text-white"
-      : namespace === "kinshu"
-        ? "text-[#1a237e]"
+      : namespace === "kinshu" || namespace === "tobacco"
+        ? "text-gray-900"
         : "text-gray-800";
 
   return (
@@ -55,28 +55,21 @@ export const Features = ({ namespace = "" }: FeaturesProps = {}) => {
           const iconColor =
             namespace === "porn"
               ? "text-purple-400"
-              : namespace === "kinshu"
-                ? "text-[#3949ab]"
-                : namespace === "tobacco"
-                  ? "text-green-700"
-                  : "text-[#2E6C28]";
-          const cardBg =
-            namespace === "porn"
-              ? "bg-[#1a0a1f]/80"
-              : namespace === "kinshu"
-                ? "bg-white"
-                : "bg-white";
+              : namespace === "kinshu" || namespace === "tobacco"
+                ? "text-gray-700"
+                : "text-[#2E6C28]";
+          const cardBg = namespace === "porn" ? "bg-[#1a0a1f]/80" : "bg-white";
           const titleColor =
             namespace === "porn"
               ? "text-white"
-              : namespace === "kinshu"
-                ? "text-[#1a237e]"
+              : namespace === "kinshu" || namespace === "tobacco"
+                ? "text-gray-900"
                 : "text-gray-800";
           const descColor =
             namespace === "porn"
               ? "text-purple-200"
-              : namespace === "kinshu"
-                ? "text-[#3949ab]"
+              : namespace === "kinshu" || namespace === "tobacco"
+                ? "text-gray-700"
                 : "text-gray-600";
 
           return (
