@@ -11,7 +11,7 @@ import { LanguageSetting } from "../sections/language-setting";
 import { Logo } from "../sections/logo";
 
 type HeaderProps = {
-  namespace?: string;
+  namespace?: LpNamespace;
 };
 
 export const Header = ({ namespace = "" }: HeaderProps = {}) => {
