@@ -11,6 +11,8 @@ type Screenshot = {
 type ScreenshotViewerProps = {
   screenshots: Screenshot[];
   className?: string;
+  /** アクティブなインジケーターの背景色（LPテーマに合わせる） */
+  indicatorActiveClassName?: string;
 };
 
 const AUTO_PLAY_INTERVAL_MS = 4000;
@@ -59,7 +61,11 @@ function NavButton({ direction, isMobile, onClick, "aria-label": ariaLabel }: Na
   );
 }
 
-export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotViewerProps) => {
+export const ScreenshotViewer = ({
+  screenshots,
+  className = "",
+  indicatorActiveClassName = "bg-green-800",
+}: ScreenshotViewerProps) => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
@@ -158,7 +164,7 @@ export const ScreenshotViewer = ({ screenshots, className = "" }: ScreenshotView
             <button
               key={index}
               className={`size-2 rounded-full shadow-sm transition-colors ${
-                index === currentScreenshot ? "bg-green-800" : "bg-gray-200"
+                index === currentScreenshot ? indicatorActiveClassName : "bg-gray-200"
               }`}
               onClick={() => {
                 setCurrentScreenshot(index);

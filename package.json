@@ -12,6 +12,7 @@
     "dev:web:dev": "turbo run dev:dev --filter=web",
     "dev:web:prod": "turbo run dev:prod --filter=web",
     "dev:lp": "turbo run dev --filter=lp",
+    "build:lp": "turbo run build --filter=lp",
     "format": "prettier --write './apps/**/**/*.{js,ts,tsx,scss}'"
   },
   "devDependencies": {

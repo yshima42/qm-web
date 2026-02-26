@@ -26,6 +26,18 @@ const STORE_URLS = {
     apple: "https://apps.apple.com/jp/app/id6756336624",
     google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
   },
+  kinshu: {
+    apple: "https://apps.apple.com/jp/app/id6756336624",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+  },
+  porn: {
+    apple: "https://apps.apple.com/jp/app/id6462843097",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
+  },
+  tobacco: {
+    apple: "https://apps.apple.com/jp/app/id6462843097",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
+  },
 } as const;
 
 const SIZE_MAPPING: Record<BadgeSize, { height: number; width: Record<StoreType, number> }> = {
@@ -36,7 +48,11 @@ const SIZE_MAPPING: Record<BadgeSize, { height: number; width: Record<StoreType,
 };
 
 function getStoreUrls(namespace?: string) {
-  return namespace === "alcohol" ? STORE_URLS.alcohol : STORE_URLS.default;
+  if (namespace === "alcohol") return STORE_URLS.alcohol;
+  if (namespace === "kinshu") return STORE_URLS.kinshu;
+  if (namespace === "porn") return STORE_URLS.porn;
+  if (namespace === "tobacco") return STORE_URLS.tobacco;
+  return STORE_URLS.default;
 }
 
 const STORE_ALT: Record<StoreType, string> = {

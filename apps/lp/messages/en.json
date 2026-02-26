@@ -69,7 +69,7 @@
     "header": {
       "links": {
         "blog": "Blog",
-        "alcoholWeek": "Alcohol-Free Week",
+        "otherApps": "Other apps",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "contact": "Contact Us"
@@ -106,6 +106,32 @@
         "read-article": "Read article",
         "back-to-blog": "Back to blog",
         "share": "Share:"
+    },
+    "apps": {
+        "title": "Other apps | QuitMate",
+        "description": "Apps by QuitMate for addiction recovery. Alcohol-Free Week, Alcohol-Free Mate, Porn-Free Mate, Tobacco-Free Mate.",
+        "heading": "Other apps",
+        "subheading": "We offer apps tailored to different types of dependency.",
+        "challenge": {
+            "name": "Alcohol-Free Week",
+            "description": "Track your sobriety and stay on track with others. Start with a 7-day challenge.",
+            "linkText": "Learn more"
+        },
+        "kinshu": {
+            "name": "Alcohol-Free Mate",
+            "description": "Build a sober habit with the app. Log and timeline support your alcohol-free life.",
+            "linkText": "Learn more"
+        },
+        "porn": {
+            "name": "Porn-Free Mate",
+            "description": "Track porn-free days and build healthier habits. Stay on track with others.",
+            "linkText": "Learn more"
+        },
+        "tobacco": {
+            "name": "Tobacco-Free Mate",
+            "description": "Track your smoke-free journey. Stay on track with others.",
+            "linkText": "Learn more"
+        }
     },
     "alcohol": {
         "common": {
@@ -195,6 +221,267 @@
         "contact": {
             "title": "Contact Us",
             "description": "Get in touch with the Alcohol-Free Week team here."
+        }
+    },
+    "kinshu": {
+        "common": {
+            "title": "Alcohol-Free Mate | Build a sober habit with the app",
+            "description": "Track your alcohol-free journey. A supportive timeline and logging help you build a sober daily life."
+        },
+        "hero": {
+            "title": "Build a sober habit with the app",
+            "description": "Stay on track with logging and community. See your streak and get support on the timeline. The app supports your alcohol-free journey.",
+            "screenshot-home-alt": "Alcohol-Free Mate app home screen",
+            "screenshot-habits-alt": "Alcohol-Free Mate app habits screen"
+        },
+        "intro": {
+            "title": "We support your decision to quit",
+            "description": "It's hard to do it alone. When you slip, learn and log with your community. Alcohol-Free Mate supports your resolve with science and community."
+        },
+        "features": {
+            "title": "Three pillars",
+            "feature1": {
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same sober journey. You can go at your own pace without anyone knowing."
+            },
+            "feature2": {
+                "title": "Timeline",
+                "description": "Share struggles and wins with others in real time. Likes and comments remind you you're not alone. Seeing others' logs keeps you motivated."
+            },
+            "feature3": {
+                "title": "Tracking",
+                "description": "Your sober streak is counted automatically. Log \"I made it today\" with a check-in and look back at your progress anytime."
+            }
+        },
+        "testimonials": {
+            "title": "What our users say",
+            "testimonial1": {
+                "name": "User",
+                "title": "Great app!",
+                "message": "I found this app when I started my sober journey. The support from people with similar experiences has made a real difference. Thank you."
+            },
+            "testimonial2": {
+                "name": "User",
+                "title": "Support even after relapse",
+                "message": "Such a helpful app. Some people here are over 100 days sober. We follow each other, share ideas, and keep going together."
+            },
+            "testimonial3": {
+                "name": "User",
+                "title": "Wish I found it sooner",
+                "message": "I really wish I had found this app earlier. But better late than never—I'm glad I found it."
+            }
+        },
+        "final-cta": {
+            "title": "Start your sober journey today",
+            "description": "For those who've tried before, or want to quit for health and family—this app is for you.",
+            "store-badges": {
+                "title": "App Store",
+                "description": "Rated 4.9+ on the App Store."
+            }
+        },
+        "header": {
+            "links": {
+                "otherDependencies": "Other Dependencies",
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            },
+            "label": {
+                "menu": "Menu"
+            }
+        },
+        "footer": {
+            "links": {
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            }
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "description": "Read Alcohol-Free Mate's terms of service."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "description": "Read Alcohol-Free Mate's privacy policy."
+        },
+        "contact": {
+            "title": "Contact Us",
+            "description": "Get in touch with the Alcohol-Free Mate team here."
+        }
+    },
+    "porn": {
+        "common": {
+            "title": "Porn-Free Mate | Build a porn-free habit with the app",
+            "description": "Track your porn-free journey. A supportive timeline and logging help you build a healthier daily life."
+        },
+        "hero": {
+            "title": "Build a porn-free habit with the app",
+            "description": "Stay on track with logging and community. See your streak and get support on the timeline. The app supports your porn-free journey.",
+            "screenshot-home-alt": "Porn-Free Mate app home screen",
+            "screenshot-habits-alt": "Porn-Free Mate app habits screen"
+        },
+        "intro": {
+            "title": "We support your decision to quit",
+            "description": "It's hard to do it alone. When you slip, learn and log with your community. Porn-Free Mate supports your resolve with science and community."
+        },
+        "features": {
+            "title": "Three pillars",
+            "feature1": {
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same porn-free journey. You can go at your own pace without anyone knowing."
+            },
+            "feature2": {
+                "title": "Timeline",
+                "description": "Share struggles and wins with others in real time. Likes and comments remind you you're not alone. Seeing others' logs keeps you motivated."
+            },
+            "feature3": {
+                "title": "Tracking",
+                "description": "Your porn-free streak is counted automatically. Log \"I made it today\" with a check-in and look back at your progress anytime."
+            }
+        },
+        "testimonials": {
+            "title": "What our users say",
+            "testimonial1": {
+                "name": "User",
+                "title": "Great app!",
+                "message": "I found this app when I started my porn-free journey. The support from people with similar experiences has made a real difference. Thank you."
+            },
+            "testimonial2": {
+                "name": "User",
+                "title": "Support even after relapse",
+                "message": "Such a helpful app. Some people here are over 100 days. We follow each other, share ideas, and keep going together."
+            },
+            "testimonial3": {
+                "name": "User",
+                "title": "Wish I found it sooner",
+                "message": "I really wish I had found this app earlier. But better late than never—I'm glad I found it."
+            }
+        },
+        "final-cta": {
+            "title": "Start your porn-free journey today",
+            "description": "For those who've tried before, or want to reclaim focus and relationships—this app is for you.",
+            "store-badges": {
+                "title": "App Store",
+                "description": "Rated 4.9+ on the App Store."
+            }
+        },
+        "header": {
+            "links": {
+                "otherDependencies": "Other Dependencies",
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            },
+            "label": {
+                "menu": "Menu"
+            }
+        },
+        "footer": {
+            "links": {
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            }
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "description": "Read Porn-Free Mate's terms of service."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "description": "Read Porn-Free Mate's privacy policy."
+        },
+        "contact": {
+            "title": "Contact Us",
+            "description": "Get in touch with the Porn-Free Mate team here."
+        }
+    },
+    "tobacco": {
+        "common": {
+            "title": "Tobacco-Free Mate | Quit smoking with the app",
+            "description": "Track your smoke-free journey. A supportive timeline and logging help you build a tobacco-free life."
+        },
+        "hero": {
+            "title": "Quit smoking with the app",
+            "description": "Stay on track with logging and community. See your smoke-free streak and get support on the timeline. The app supports your tobacco-free journey.",
+            "screenshot-home-alt": "Tobacco-Free Mate app home screen",
+            "screenshot-habits-alt": "Tobacco-Free Mate app habits screen"
+        },
+        "intro": {
+            "title": "We support your decision to quit",
+            "description": "It's hard to do it alone. When you slip, learn and log with your community. Tobacco-Free Mate supports your resolve with science and community."
+        },
+        "features": {
+            "title": "Three pillars",
+            "feature1": {
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same smoke-free journey. You can go at your own pace without anyone knowing."
+            },
+            "feature2": {
+                "title": "Timeline",
+                "description": "Share struggles and wins with others in real time. Likes and comments remind you you're not alone. Seeing others' logs keeps you motivated."
+            },
+            "feature3": {
+                "title": "Tracking",
+                "description": "Your smoke-free streak is counted automatically. Log \"I made it today\" with a check-in and look back at your progress anytime."
+            }
+        },
+        "testimonials": {
+            "title": "What our users say",
+            "testimonial1": {
+                "name": "User",
+                "title": "Great app!",
+                "message": "I found this app when I decided to quit smoking. The support from people with similar experiences has made a real difference. Thank you."
+            },
+            "testimonial2": {
+                "name": "User",
+                "title": "Support even after relapse",
+                "message": "Such a helpful app. Some people here are over 100 days smoke-free. We follow each other, share ideas, and keep going together."
+            },
+            "testimonial3": {
+                "name": "User",
+                "title": "Wish I found it sooner",
+                "message": "I really wish I had found this app earlier. But better late than never—I'm glad I found it."
+            }
+        },
+        "final-cta": {
+            "title": "Start your smoke-free journey today",
+            "description": "For those who've tried before, or want to quit for health and family—this app is for you.",
+            "store-badges": {
+                "title": "App Store",
+                "description": "Rated 4.9+ on the App Store."
+            }
+        },
+        "header": {
+            "links": {
+                "otherDependencies": "Other Dependencies",
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            },
+            "label": {
+                "menu": "Menu"
+            }
+        },
+        "footer": {
+            "links": {
+                "terms": "Terms of Service",
+                "privacy": "Privacy Policy",
+                "contact": "Contact Us"
+            }
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "description": "Read Tobacco-Free Mate's terms of service."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "description": "Read Tobacco-Free Mate's privacy policy."
+        },
+        "contact": {
+            "title": "Contact Us",
+            "description": "Get in touch with the Tobacco-Free Mate team here."
         }
     }
   }

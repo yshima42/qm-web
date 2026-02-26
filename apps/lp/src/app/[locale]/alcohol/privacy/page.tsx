@@ -10,13 +10,12 @@ import { MarkdownContent } from "@/components/sections/markdown-content";
 
 import { routing } from "@/i18n/routing";
 
-// SSG対応
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("alcohol.privacy");
+  const t = await getTranslations("kinshu.privacy");
   const tConfig = await getTranslations("config");
 
   return {
@@ -27,21 +26,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function AlcoholPrivacyPage() {
-  const t = useTranslations("alcohol.privacy");
+  const t = useTranslations("kinshu.privacy");
   const config = useTranslations("config");
-  // ビルド時にファイルを読み込む
-  const filePath = path.join(
-    process.cwd(),
-    "public",
-    "documents",
-    "alcohol",
-    config("language-code"),
-    "privacy.md",
-  );
-  const fileContent = fs.readFileSync(filePath, "utf8");
+  const lang = config("language-code");
+  const filePath = path.join(process.cwd(), "public", "documents", "alcohol", lang, "privacy.md");
+  let fileContent = fs.readFileSync(filePath, "utf8");
+
+  if (lang === "ja") {
+    fileContent = fileContent.replace(/禁酒チャレンジ/g, "禁酒メイト");
+  } else {
+    fileContent = fileContent.replace(/Alcohol-Free Week/g, "Alcohol-Free Mate");
+  }
 
   return (
-    <DocumentLayout title={t("title")} namespace="alcohol">
+    <DocumentLayout title={t("title")} namespace="kinshu">
       <MarkdownContent content={fileContent} />
     </DocumentLayout>
   );
