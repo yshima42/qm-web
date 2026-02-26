@@ -141,11 +141,19 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
                 <Link
                   href="/apps"
                   className={`font-bold ${mobileLinkClass}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
                 >
                   {tBlog("links.otherApps")}
                 </Link>
-                <Link href="/blog" className={mobileLinkClass} onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/blog"
+                  className={mobileLinkClass}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                >
                   {tBlog("links.blog")}
                 </Link>
               </>
@@ -157,7 +165,9 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
               <Link
                 href="/"
                 className={`font-bold ${mobileLinkClass}`}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
               >
                 {t("links.otherDependencies")}
               </Link>
@@ -165,21 +175,27 @@ export const Header = ({ namespace = "" }: HeaderProps = {}) => {
             <Link
               href={`${basePath}/terms`}
               className={mobileLinkClass}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             >
               {t("links.terms")}
             </Link>
             <Link
               href={`${basePath}/privacy`}
               className={mobileLinkClass}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             >
               {t("links.privacy")}
             </Link>
             <Link
               href={`${basePath}/contact`}
               className={mobileLinkClass}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             >
               {t("links.contact")}
             </Link>

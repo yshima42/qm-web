@@ -1,10 +1,8 @@
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { ArrowUpRight } from "lucide-react";
 
-import { Link } from "@/i18n/routing";
-
-import { routing } from "@/i18n/routing";
+import { Link, routing } from "@/i18n/routing";
 
 const APP_ENTRIES = [
   {
@@ -78,7 +76,7 @@ export default async function AppsPage() {
               className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:p-8 ${bgHover}`}
             >
               {/* 上部アクセントバー（各LPのテーマ色） */}
-              <div className={`absolute left-0 right-0 top-0 h-1 ${accent}`} />
+              <div className={`absolute inset-x-0 top-0 h-1 ${accent}`} />
 
               <div className="flex flex-1 flex-col">
                 <div className="flex items-start justify-between gap-4">

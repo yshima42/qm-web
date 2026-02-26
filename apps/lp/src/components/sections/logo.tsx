@@ -2,9 +2,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/routing";
+import { getBasePath, type LpNamespace } from "@/utils/namespace";
 
 import { AppConfig } from "../../app-config";
-import { getBasePath, type LpNamespace } from "@/utils/namespace";
 
 type LogoProps = {
   xl?: boolean;
