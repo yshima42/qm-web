@@ -28,19 +28,19 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function PornContactPage() {
   const t = useTranslations("porn.contact");
   const config = useTranslations("config");
-  const filePath = path.join(
-    process.cwd(),
-    "public",
-    "documents",
-    "porn",
-    config("language-code"),
-    "contact.md",
-  );
-  const fileContent = fs.readFileSync(filePath, "utf8");
+  const lang = config("language-code");
+  const filePath = path.join(process.cwd(), "public", "documents", "alcohol", lang, "contact.md");
+  let fileContent = fs.readFileSync(filePath, "utf8");
+
+  if (lang === "ja") {
+    fileContent = fileContent.replace(/禁酒チャレンジ/g, "禁欲メイト");
+  } else {
+    fileContent = fileContent.replace(/Alcohol-Free Week/g, "Porn-Free Mate");
+  }
 
   return (
     <DocumentLayout title={t("title")} namespace="porn">
-      <MarkdownContent content={fileContent} />
+      <MarkdownContent content={fileContent} namespace="porn" />
     </DocumentLayout>
   );
 }

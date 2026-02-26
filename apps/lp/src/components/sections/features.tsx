@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@quitmate/ui";
-import { Users, MessageSquare, TimerReset } from "lucide-react"; // 仮アイコン
+import { MessageSquare, Shield, TimerReset, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type FeaturesProps = {
@@ -9,11 +9,12 @@ type FeaturesProps = {
 export const Features = ({ namespace = "" }: FeaturesProps = {}) => {
   const translationKey = namespace ? `${namespace}.features` : "features";
   const t = useTranslations(translationKey);
+  const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
 
   const features = [
     {
       title: t("feature1.title"),
-      icon: Users,
+      icon: isMateLp ? Shield : Users,
       description: t("feature1.description"),
     },
     {

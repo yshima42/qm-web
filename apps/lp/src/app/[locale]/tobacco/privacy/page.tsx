@@ -28,15 +28,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function TobaccoPrivacyPage() {
   const t = useTranslations("tobacco.privacy");
   const config = useTranslations("config");
-  const filePath = path.join(
-    process.cwd(),
-    "public",
-    "documents",
-    "tobacco",
-    config("language-code"),
-    "privacy.md",
-  );
-  const fileContent = fs.readFileSync(filePath, "utf8");
+  const lang = config("language-code");
+  const filePath = path.join(process.cwd(), "public", "documents", "alcohol", lang, "privacy.md");
+  let fileContent = fs.readFileSync(filePath, "utf8");
+
+  if (lang === "ja") {
+    fileContent = fileContent.replace(/禁酒チャレンジ/g, "禁煙メイト");
+  } else {
+    fileContent = fileContent.replace(/Alcohol-Free Week/g, "Tobacco-Free Mate");
+  }
 
   return (
     <DocumentLayout title={t("title")} namespace="tobacco">

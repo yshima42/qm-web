@@ -226,7 +226,7 @@
     "kinshu": {
         "common": {
             "title": "Alcohol-Free Mate | Build a sober habit with the app",
-            "description": "Track your alcohol-free journey. Daily tasks and a supportive timeline help you build a sober daily life."
+            "description": "Track your alcohol-free journey. A supportive timeline and logging help you build a sober daily life."
         },
         "hero": {
             "title": "Build a sober habit with the app",
@@ -241,8 +241,8 @@
         "features": {
             "title": "Three pillars",
             "feature1": {
-                "title": "Daily tasks",
-                "description": "Learn, post, and log. Three steps a day help you build sober skills. Learn from science and build success with check-ins."
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same sober journey. You can go at your own pace without anyone knowing."
             },
             "feature2": {
                 "title": "Timeline",
@@ -313,7 +313,7 @@
     "porn": {
         "common": {
             "title": "Porn-Free Mate | Build a porn-free habit with the app",
-            "description": "Track your porn-free journey. Daily tasks and a supportive timeline help you build a healthier daily life."
+            "description": "Track your porn-free journey. A supportive timeline and logging help you build a healthier daily life."
         },
         "hero": {
             "title": "Build a porn-free habit with the app",
@@ -328,8 +328,8 @@
         "features": {
             "title": "Three pillars",
             "feature1": {
-                "title": "Daily tasks",
-                "description": "Learn, post, and log. Three steps a day help you build porn-free skills. Learn from science and build success with check-ins."
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same porn-free journey. You can go at your own pace without anyone knowing."
             },
             "feature2": {
                 "title": "Timeline",
@@ -400,7 +400,7 @@
     "tobacco": {
         "common": {
             "title": "Tobacco-Free Mate | Quit smoking with the app",
-            "description": "Track your smoke-free journey. Daily tasks and a supportive timeline help you build a tobacco-free life."
+            "description": "Track your smoke-free journey. A supportive timeline and logging help you build a tobacco-free life."
         },
         "hero": {
             "title": "Quit smoking with the app",
@@ -415,8 +415,8 @@
         "features": {
             "title": "Three pillars",
             "feature1": {
-                "title": "Daily tasks",
-                "description": "Learn, post, and log. Three steps a day help you build quit-smoking skills. Learn from science and build success with check-ins."
+                "title": "Anonymous & safe",
+                "description": "No real name or photo needed. Connect safely with others on the same smoke-free journey. You can go at your own pace without anyone knowing."
             },
             "feature2": {
                 "title": "Timeline",
