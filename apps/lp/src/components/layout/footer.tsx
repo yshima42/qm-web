@@ -12,7 +12,7 @@ import {
 } from "@/utils/namespace";
 
 type FooterProps = {
-  namespace?: string;
+  namespace?: LpNamespace;
 };
 
 export const Footer = ({ namespace = "" }: FooterProps = {}) => {
