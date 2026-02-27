@@ -61,7 +61,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${url}/en/apps`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${url}/ja/apps`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
+
+  // LP: 禁酒チャレンジ(/challenge), 禁酒メイト(/alcohol), porn, tobacco（各 locale のトップ + terms / privacy / contact）
+  const lpPathSlugs: Record<string, string> = {
+    alcohol: "challenge",
+    kinshu: "alcohol",
+    porn: "porn",
+    tobacco: "tobacco",
+  };
+  const lpNamespaces = ["alcohol", "kinshu", "porn", "tobacco"] as const;
+  const lpSubPaths = ["", "/terms", "/privacy", "/contact"] as const;
+  const locales = ["en", "ja"] as const;
+  const lpPages: MetadataRoute.Sitemap = [];
+  for (const lp of lpNamespaces) {
+    const slug = lpPathSlugs[lp];
+    for (const loc of locales) {
+      for (const sub of lpSubPaths) {
+        lpPages.push({
+          url: `${url}/${loc}/${slug}${sub}`,
+          lastModified: new Date(),
+          changeFrequency: sub === "" ? ("daily" as const) : ("monthly" as const),
+          priority: sub === "" ? 0.9 : 0.5,
+        });
+      }
+    }
+  }
 
   // 英語のブログ記事を取得
   const enPosts = await Promise.resolve(getAllPosts("en"));
@@ -82,5 +119,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // すべてのページを結合して返す
-  return [...defaultPages, ...enBlogPages, ...jaBlogPages];
+  return [...defaultPages, ...lpPages, ...enBlogPages, ...jaBlogPages];
 }

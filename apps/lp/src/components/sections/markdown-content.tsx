@@ -10,18 +10,19 @@ type MarkdownContentProps = {
   namespace?: string;
 };
 
-export function MarkdownContent({ content }: MarkdownContentProps) {
-  const headingColor = "text-gray-900";
-  const textColor = "text-gray-800";
-  const linkColor = "text-green-600";
-  const strongColor = "text-gray-900";
-  const blockquoteColor = "text-gray-700";
-  const blockquoteBorder = "border-gray-300";
-  const codeBg = "bg-gray-100";
-  const codeColor = "text-gray-900";
-  const tableBg = "bg-gray-100";
-  const tableBorder = "border-gray-400";
-  const tableText = "text-gray-800";
+export function MarkdownContent({ content, namespace }: MarkdownContentProps) {
+  const isDark = namespace === "porn";
+  const headingColor = isDark ? "text-white" : "text-gray-900";
+  const textColor = isDark ? "text-gray-200" : "text-gray-800";
+  const linkColor = isDark ? "text-purple-300" : "text-green-600";
+  const strongColor = isDark ? "text-white" : "text-gray-900";
+  const blockquoteColor = isDark ? "text-gray-300" : "text-gray-700";
+  const blockquoteBorder = isDark ? "border-purple-400" : "border-gray-300";
+  const codeBg = isDark ? "bg-white/10" : "bg-gray-100";
+  const codeColor = isDark ? "text-gray-200" : "text-gray-900";
+  const tableBg = isDark ? "bg-white/10" : "bg-gray-100";
+  const tableBorder = isDark ? "border-purple-400/60" : "border-gray-400";
+  const tableText = isDark ? "text-gray-200" : "text-gray-800";
 
   return (
     <div className="prose prose-2xl max-w-none">
