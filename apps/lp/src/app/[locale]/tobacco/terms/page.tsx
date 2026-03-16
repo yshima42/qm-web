@@ -29,7 +29,7 @@ export default function TobaccoTermsPage() {
   const t = useTranslations("tobacco.terms");
   const config = useTranslations("config");
   const lang = config("language-code");
-  const filePath = path.join(process.cwd(), "public", "documents", "alcohol", lang, "terms.md");
+  const filePath = path.join(process.cwd(), "public", "documents", "tobacco", lang, "terms.md");
   let fileContent = fs.readFileSync(filePath, "utf8");
 
   if (lang === "ja") {

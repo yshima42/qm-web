@@ -29,7 +29,7 @@ export default function PornPrivacyPage() {
   const t = useTranslations("porn.privacy");
   const config = useTranslations("config");
   const lang = config("language-code");
-  const filePath = path.join(process.cwd(), "public", "documents", "alcohol", lang, "privacy.md");
+  const filePath = path.join(process.cwd(), "public", "documents", "porn", lang, "privacy.md");
   let fileContent = fs.readFileSync(filePath, "utf8");
 
   if (lang === "ja") {

@@ -13,12 +13,12 @@ export function generateStaticParams() {
 
 export default function HomePage() {
   return (
-    <main>
+    <>
       <Hero />
       <Intro />
       <Features />
       <Testimonials />
       <FinalCTA />
-    </main>
+    </>
   );
 }

@@ -59,6 +59,13 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: "/favicon.ico",
     },
+    alternates: {
+      canonical: `https://about.quitmate.app/${tConfig("language-code")}`,
+      languages: {
+        en: "https://about.quitmate.app/en",
+        ja: "https://about.quitmate.app/ja",
+      },
+    },
   };
 }
 

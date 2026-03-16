@@ -46,6 +46,13 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: "/images/porn_icon.png",
     },
+    alternates: {
+      canonical: `https://about.quitmate.app/${tConfig("language-code")}/porn`,
+      languages: {
+        en: "https://about.quitmate.app/en/porn",
+        ja: "https://about.quitmate.app/ja/porn",
+      },
+    },
   };
 }
 

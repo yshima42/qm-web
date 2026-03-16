@@ -46,6 +46,13 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: "/images/tobacco_icon.png",
     },
+    alternates: {
+      canonical: `https://about.quitmate.app/${tConfig("language-code")}/tobacco`,
+      languages: {
+        en: "https://about.quitmate.app/en/tobacco",
+        ja: "https://about.quitmate.app/ja/tobacco",
+      },
+    },
   };
 }
 

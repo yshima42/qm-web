@@ -47,6 +47,13 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: "/images/kinshu_icon.png",
     },
+    alternates: {
+      canonical: `https://about.quitmate.app/${tConfig("language-code")}/challenge`,
+      languages: {
+        en: "https://about.quitmate.app/en/challenge",
+        ja: "https://about.quitmate.app/ja/challenge",
+      },
+    },
   };
 }
 
