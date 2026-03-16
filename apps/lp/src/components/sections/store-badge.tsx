@@ -23,20 +23,20 @@ const STORE_URLS = {
     google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
   },
   alcohol: {
-    apple: "https://apps.apple.com/jp/app/id6756336624",
-    google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+    apple: "https://apps.apple.com/jp/app/id6758752490",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.alcohol",
   },
   kinshu: {
     apple: "https://apps.apple.com/jp/app/id6756336624",
     google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
   },
   porn: {
-    apple: "https://apps.apple.com/jp/app/id6462843097",
-    google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
+    apple: "https://apps.apple.com/jp/app/id6759315555",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.abstinence",
   },
   tobacco: {
-    apple: "https://apps.apple.com/jp/app/id6462843097",
-    google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
+    apple: "https://apps.apple.com/jp/app/id6759312070",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.tobacco",
   },
 } as const;
 
