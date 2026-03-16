@@ -23,11 +23,11 @@ const STORE_URLS = {
     google: "https://play.google.com/store/apps/details?id=com.quitmate.quitmate",
   },
   alcohol: {
-    apple: "https://apps.apple.com/jp/app/id6758752490",
+    apple: "https://apps.apple.com/jp/app/id6756336624",
     google: "https://play.google.com/store/apps/details?id=com.quitmate.alcohol",
   },
   kinshu: {
-    apple: "https://apps.apple.com/jp/app/id6756336624",
+    apple: "https://apps.apple.com/jp/app/id6758752490",
     google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
   },
   porn: {
