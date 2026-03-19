@@ -82,6 +82,7 @@ export function StoreBadge({ store, className = "", size = "medium", namespace }
           width={widthPx}
           height={height}
           className="h-full w-auto object-contain"
+          style={{ width: "auto", height: "auto" }}
         />
       </div>
     </Link>
