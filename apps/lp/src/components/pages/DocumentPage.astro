@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import DocumentLayout from "@/components/layout/DocumentLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import { getCollection, render } from "astro:content";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  type: "terms" | "privacy" | "contact";
+  locale: Locale;
+  namespace?: string;
+};
+
+const { type, locale, namespace } = Astro.props;
+const t = useTranslations(locale, namespace);
+const title = t(`${type}.title`);
+const description = t(`${type}.description`);
+
+// Content Collections からドキュメントを取得
+const collectionName = `docs-${namespace ?? "default"}-${locale}`;
+const docs = await getCollection(collectionName as any);
+const doc = docs.find((d) => d.id === type || d.id === `${type}.md`);
+
+let Content: any = null;
+if (doc) {
+  const rendered = await render(doc);
+  Content = rendered.Content;
+}
+---
+
+<BaseLayout title={title} description={description} locale={locale} namespace={namespace}>
+  <DocumentLayout title={title} namespace={namespace}>
+    {Content ? (
+      <div class="prose max-w-none prose-headings:font-bold prose-h2:mt-8 prose-h2:text-xl prose-h3:mt-6 prose-h3:text-lg prose-p:mb-4 prose-p:leading-relaxed">
+        <Content />
+      </div>
+    ) : (
+      <p>Document not found.</p>
+    )}
+  </DocumentLayout>
+</BaseLayout>

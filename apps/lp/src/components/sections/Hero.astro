@@ -1,0 +1,50 @@
+---
+import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
+import ScreenshotViewer from "./ScreenshotViewer.tsx";
+import StoreBadges from "./StoreBadges.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: string;
+  namespace?: string;
+};
+
+const { title, description, locale, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+
+const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
+// mate LP のスクリーンショットは日本語版のみ存在するため、namespace ありの場合は ja を使う
+const screenshotLocale = namespace ? "ja" : locale;
+const screenshots = config.map(({ image, altKey }) => ({
+  src: `/images/${screenshotLocale}/${image}`,
+  alt: altKey,
+}));
+---
+
+<section class={`flex items-center justify-center ${theme.heroBg} p-8 py-12 md:py-16`}>
+  <div class="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
+    <div class="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
+      <h1 class={`mb-2 text-3xl font-semibold leading-tight ${theme.titleColor} md:mb-4 md:text-4xl md:font-bold lg:text-4xl`}>
+        {title}
+      </h1>
+      <p class={`mb-4 text-lg ${theme.descColor} md:mb-6 md:text-xl lg:text-2xl`}>
+        {description}
+      </p>
+      <div class="hidden md:block">
+        <StoreBadges locale={locale} namespace={namespace} size="xl" />
+      </div>
+      <div class="block md:hidden">
+        <StoreBadges locale={locale} namespace={namespace} size="medium" />
+      </div>
+    </div>
+
+    <div class="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
+      <ScreenshotViewer
+        client:visible
+        screenshots={screenshots}
+        indicatorActiveClassName={theme.indicatorColor}
+      />
+    </div>
+  </div>
+</section>

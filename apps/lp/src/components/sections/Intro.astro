@@ -1,0 +1,17 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Props = {
+  title: string;
+  description: string;
+  namespace?: string;
+};
+
+const { title, description, namespace } = Astro.props;
+const theme = getTheme(namespace);
+---
+
+<section class={`${theme.introBg} px-6 py-20 text-center`}>
+  <h2 class={`mb-4 text-3xl font-semibold ${theme.titleColor} md:text-4xl`}>{title}</h2>
+  <p class={`mx-auto max-w-3xl text-lg ${theme.descColor}`}>{description}</p>
+</section>

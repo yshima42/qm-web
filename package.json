@@ -12,7 +12,9 @@
     "dev:web:dev": "turbo run dev:dev --filter=web",
     "dev:web:prod": "turbo run dev:prod --filter=web",
     "dev:lp": "turbo run dev --filter=lp",
+    "dev:lp-astro": "turbo run dev --filter=lp-astro",
     "build:lp": "turbo run build --filter=lp",
+    "build:lp-astro": "turbo run build --filter=lp-astro",
     "format": "prettier --write './apps/**/**/*.{js,ts,tsx,scss}'"
   },
   "resolutions": {

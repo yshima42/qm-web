@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+
+const locale = "ja";
+const t = useTranslations(locale);
+
+const apps = [
+  { key: "challenge", path: "/ja/challenge/", icon: "/images/kinshu_icon.png" },
+  { key: "kinshu", path: "/ja/alcohol/", icon: "/images/alcohol_icon.png" },
+  { key: "porn", path: "/ja/porn/", icon: "/images/porn_icon.png" },
+  { key: "tobacco", path: "/ja/tobacco/", icon: "/images/tobacco_icon.png" },
+];
+---
+
+<BaseLayout title={t("apps.title")} description={t("apps.description")} locale={locale}>
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+      <h1 class="mb-2 text-3xl font-bold text-gray-900 sm:text-4xl">{t("apps.heading")}</h1>
+      <p class="text-lg text-gray-600">{t("apps.subheading")}</p>
+    </div>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {apps.map((app) => (
+        <a href={app.path} class="group block rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-4">
+            <img src={app.icon} alt="" width={48} height={48} class="shrink-0" />
+            <div>
+              <h2 class="text-lg font-bold text-gray-900 group-hover:text-primary-600">
+                {t(`apps.${app.key}.name`)}
+              </h2>
+              <p class="mt-1 text-sm text-gray-600">{t(`apps.${app.key}.description`)}</p>
+              <span class="mt-2 inline-block text-sm font-semibold text-primary-600">
+                {t(`apps.${app.key}.linkText`)} →
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

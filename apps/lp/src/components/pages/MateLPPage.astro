@@ -1,0 +1,64 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Intro from "@/components/sections/Intro.astro";
+import Features from "@/components/sections/Features.astro";
+import Testimonials from "@/components/sections/Testimonials.astro";
+import FinalCTA from "@/components/sections/FinalCTA.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  locale: Locale;
+  namespace: string;
+};
+
+const { locale, namespace } = Astro.props;
+const t = useTranslations(locale, namespace);
+
+const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
+const featureIcon1 = isMateLp ? "shield" as const : "users" as const;
+---
+
+<BaseLayout
+  title={t("common.title")}
+  description={t("common.description")}
+  locale={locale}
+  namespace={namespace}
+>
+  <Hero
+    title={t("hero.title")}
+    description={t("hero.description")}
+    locale={locale}
+    namespace={namespace}
+  />
+  <Intro
+    title={t("intro.title")}
+    description={t("intro.description")}
+    namespace={namespace}
+  />
+  <Features
+    title={t("features.title")}
+    namespace={namespace}
+    features={[
+      { title: t("features.feature1.title"), description: t("features.feature1.description"), icon: featureIcon1 },
+      { title: t("features.feature2.title"), description: t("features.feature2.description"), icon: "message" },
+      { title: t("features.feature3.title"), description: t("features.feature3.description"), icon: "timer" },
+    ]}
+  />
+  <Testimonials
+    title={t("testimonials.title")}
+    namespace={namespace}
+    testimonials={[
+      { name: t("testimonials.testimonial1.name"), title: t("testimonials.testimonial1.title"), message: t("testimonials.testimonial1.message") },
+      { name: t("testimonials.testimonial2.name"), title: t("testimonials.testimonial2.title"), message: t("testimonials.testimonial2.message") },
+      { name: t("testimonials.testimonial3.name"), title: t("testimonials.testimonial3.title"), message: t("testimonials.testimonial3.message") },
+    ]}
+  />
+  <FinalCTA
+    title={t("final-cta.title")}
+    description={t("final-cta.description")}
+    locale={locale}
+    namespace={namespace}
+  />
+</BaseLayout>

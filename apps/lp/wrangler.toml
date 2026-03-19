@@ -1,0 +1,9 @@
+# Cloudflare Pages 設定
+# デプロイ時は `wrangler pages deploy dist/` を実行
+# または Cloudflare Dashboard からGit連携で自動デプロイ
+
+name = "quitmate-lp"
+compatibility_date = "2026-03-19"
+
+[site]
+bucket = "./dist"

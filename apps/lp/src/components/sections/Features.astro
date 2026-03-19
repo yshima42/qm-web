@@ -1,0 +1,46 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Feature = {
+  title: string;
+  description: string;
+  icon: "users" | "message" | "timer" | "shield";
+};
+
+type Props = {
+  title: string;
+  features: Feature[];
+  namespace?: string;
+};
+
+const { title, features, namespace } = Astro.props;
+const theme = getTheme(namespace);
+
+const iconPaths: Record<Feature["icon"], string> = {
+  users: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
+  message: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z",
+  timer: "M10 2h4M12 14l3-3M12 22a8 8 0 1 0 0-16 8 8 0 0 0 0 16z",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+};
+---
+
+<section class={`${theme.featuresBg} px-6 py-12 md:py-20`}>
+  <h2 class={`mb-4 text-center text-3xl font-semibold ${theme.titleColor} md:mb-12 md:text-4xl`}>
+    {title}
+  </h2>
+  <div class="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+    {features.map((feature) => (
+      <div class={`h-full rounded-lg border-none ${theme.cardBg} p-6 shadow-md transition-shadow hover:shadow-lg`}>
+        <div class="flex flex-col items-center gap-2 pb-4">
+          <div class={`p-2 ${theme.iconColor}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d={iconPaths[feature.icon]} />
+            </svg>
+          </div>
+          <h3 class={`text-lg font-bold ${theme.titleColor} md:text-xl`}>{feature.title}</h3>
+        </div>
+        <p class={theme.descColor}>{feature.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

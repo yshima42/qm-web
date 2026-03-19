@@ -1,0 +1,20 @@
+---
+import { getTheme } from "@/config/themes";
+import StoreBadges from "./StoreBadges.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: string;
+  namespace?: string;
+};
+
+const { title, description, locale, namespace } = Astro.props;
+const theme = getTheme(namespace);
+---
+
+<section class={`${theme.finalCtaBg} px-6 py-20 text-center`}>
+  <h2 class={`mb-4 text-3xl font-bold ${theme.titleColor} md:text-4xl`}>{title}</h2>
+  <p class={`mx-auto mb-8 max-w-xl text-lg ${theme.descColor}`}>{description}</p>
+  <StoreBadges locale={locale} namespace={namespace} size="medium" />
+</section>

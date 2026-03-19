@@ -1,0 +1,91 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import { getAllPosts, extractFirstImage } from "@/utils/blog";
+
+const locale = "ja";
+const t = useTranslations(locale);
+const posts = await getAllPosts(locale);
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
+---
+
+<BaseLayout title={t("blog.title")} description={t("blog.description")} locale={locale}>
+  <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h1 class="mb-2 text-4xl font-bold text-gray-900">{t("blog.journal-title")}</h1>
+      <p class="text-lg text-gray-600">{t("blog.journal-description")}</p>
+    </div>
+
+    {posts.length === 0 ? (
+      <div class="py-20 text-center">
+        <h2 class="mb-4 text-2xl font-semibold text-gray-700">{t("blog.no-posts")}</h2>
+        <p class="text-gray-500">{t("blog.content-preparing")}</p>
+      </div>
+    ) : (
+      <>
+        {featuredPost && (
+          <a href={`/${locale}/blog/${featuredPost.id}`} class="group mb-12 block">
+            <article class="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl">
+              {extractFirstImage(featuredPost.body ?? "") && (
+                <div class="aspect-video w-full overflow-hidden">
+                  <img
+                    src={extractFirstImage(featuredPost.body ?? "")!}
+                    alt={featuredPost.data.title}
+                    class="size-full object-cover transition-transform group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-6 sm:p-8">
+                <time class="text-sm text-gray-500">{featuredPost.data.date}</time>
+                <h2 class="mt-2 text-2xl font-bold text-gray-900 group-hover:text-primary-600 sm:text-3xl">
+                  {featuredPost.data.title}
+                </h2>
+                <p class="mt-3 text-gray-600">{featuredPost.data.excerpt}</p>
+                <span class="mt-4 inline-block text-sm font-semibold text-primary-600">
+                  {t("blog.read-more")} →
+                </span>
+              </div>
+            </article>
+          </a>
+        )}
+
+        {remainingPosts.length > 0 && (
+          <>
+            <h2 class="mb-6 text-2xl font-bold text-gray-900">{t("blog.latest-articles")}</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {remainingPosts.map((post) => {
+                const slug = post.id;
+                const coverImage = extractFirstImage(post.body ?? "");
+                return (
+                  <a href={`/${locale}/blog/${slug}`} class="group block">
+                    <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
+                      {coverImage && (
+                        <div class="aspect-video w-full overflow-hidden">
+                          <img
+                            src={coverImage}
+                            alt={post.data.title}
+                            class="size-full object-cover transition-transform group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                      <div class="p-4 sm:p-5">
+                        <time class="text-xs text-gray-500">{post.data.date}</time>
+                        <h3 class="mt-1 text-lg font-semibold text-gray-900 group-hover:text-primary-600">
+                          {post.data.title}
+                        </h3>
+                        <p class="mt-2 line-clamp-2 text-sm text-gray-600">{post.data.excerpt}</p>
+                      </div>
+                    </article>
+                  </a>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </>
+    )}
+  </div>
+</BaseLayout>

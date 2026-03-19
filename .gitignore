@@ -46,3 +46,10 @@ next-env.d.ts
 
 # claude code
 .claude/
+
+# symlinks
+qm-marketing
+
+# astro
+apps/lp/.astro/
+apps/lp/dist/
