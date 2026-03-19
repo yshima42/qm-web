@@ -32,19 +32,19 @@ export function MarkdownContent({ content, namespace }: MarkdownContentProps) {
         components={{
           h1: ({ ...props }) => (
             <h1
-              className={`mb-8 mt-12 text-[2.75rem] font-bold leading-tight ${headingColor}`}
+              className={`mt-12 mb-8 text-[2.75rem] leading-tight font-bold ${headingColor}`}
               {...props}
             />
           ),
           h2: ({ ...props }) => (
             <h2
-              className={`mb-6 mt-14 text-[1.75rem] font-bold leading-tight ${headingColor}`}
+              className={`mt-14 mb-6 text-[1.75rem] leading-tight font-bold ${headingColor}`}
               {...props}
             />
           ),
           h3: ({ ...props }) => (
             <h3
-              className={`mb-4 mt-8 text-[1.375rem] font-semibold leading-tight ${headingColor}`}
+              className={`mt-8 mb-4 text-[1.375rem] leading-tight font-semibold ${headingColor}`}
               {...props}
             />
           ),
@@ -92,15 +92,16 @@ export function MarkdownContent({ content, namespace }: MarkdownContentProps) {
           ),
           img: ({ src, alt }) => {
             // 画像パスの処理
-            let imgSrc = src;
+            const srcStr = typeof src === "string" ? src : "";
+            let imgSrc = srcStr;
 
             // httpから始まる外部URL
-            if (src?.startsWith("http")) {
+            if (srcStr.startsWith("http")) {
               // 外部画像の場合は通常のimgタグを使用
               return (
                 <span className="my-8 flex justify-center">
                   <Image
-                    src={src}
+                    src={srcStr}
                     alt={alt ?? ""}
                     width={700}
                     height={400}
@@ -112,13 +113,13 @@ export function MarkdownContent({ content, namespace }: MarkdownContentProps) {
             }
 
             // すでに/で始まるパス
-            if (src?.startsWith("/")) {
-              imgSrc = src;
+            if (srcStr.startsWith("/")) {
+              imgSrc = srcStr;
             }
             // 相対パスの場合
             else {
               // ブログ関連の画像を優先的にチェック
-              const blogImagePath = `/blog/images/${src ?? ""}`;
+              const blogImagePath = `/blog/images/${srcStr}`;
               imgSrc = blogImagePath;
             }
 
@@ -142,8 +143,8 @@ export function MarkdownContent({ content, namespace }: MarkdownContentProps) {
 
               // エラーの場合は別のパスを試す
               const fallbackPath = imgSrc.includes("/blog/images/")
-                ? `/images/${src ?? ""}`
-                : `/blog/images/${src ?? ""}`;
+                ? `/images/${srcStr}`
+                : `/blog/images/${srcStr}`;
 
               try {
                 return (

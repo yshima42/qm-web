@@ -1,22 +1,15 @@
-// https://astris.design/atcl/next15-eslint9-prettier/
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
 
 import eslint from '@eslint/js';
+import nextConfig from 'eslint-config-next';
 import tseslint from 'typescript-eslint';
-import tailwind from 'eslint-plugin-tailwindcss';
-import importPlugin from 'eslint-plugin-import';
+
 import unusedImports from 'eslint-plugin-unused-imports';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-// const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
 
 export default tseslint.config(
   {
@@ -28,8 +21,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  ...compat.extends('next/core-web-vitals'),
-  ...tailwind.configs['flat/recommended'],
+  ...nextConfig,
   {
     // @typescript-eslintに関する設定
     languageOptions: {
@@ -53,21 +45,7 @@ export default tseslint.config(
     },
   },
   {
-    // tailwindcssに関する設定
-    settings: {
-      tailwindcss: {
-        whitelist: ['hidden-scrollbar', '-webkit-scrollbar'],
-      },
-    },
-    rules: {
-      'tailwindcss/classnames-order': 'off', // Tailwindのクラス順序の警告を無効化
-    },
-  },
-  {
-    // eslint-plugin-importに関する設定
-    plugins: {
-      import: importPlugin,
-    },
+    // eslint-plugin-importに関する設定（pluginはeslint-config-nextが提供）
     rules: {
       'import/order': [
         'error',
