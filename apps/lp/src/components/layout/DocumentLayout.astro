@@ -8,7 +8,11 @@ type Props = {
 
 const { title, namespace } = Astro.props;
 const theme = getTheme(namespace);
-const cardBg = namespace === "porn" ? "bg-[#2d1b4e]/90" : "bg-white";
+const isPorn = namespace === "porn";
+const cardBg = isPorn ? "bg-[#2d1b4e]/90" : "bg-white";
+const proseClass = isPorn
+  ? "prose max-w-none prose-headings:text-white prose-p:text-purple-200 prose-li:text-purple-200 prose-strong:text-white prose-a:text-purple-300"
+  : "prose max-w-none";
 ---
 
 <div class={`min-h-screen ${theme.documentBg}`}>
@@ -16,7 +20,7 @@ const cardBg = namespace === "porn" ? "bg-[#2d1b4e]/90" : "bg-white";
     <div class="mx-auto max-w-4xl">
       <div class={`rounded-lg ${cardBg} p-6 shadow-md sm:p-8`}>
         <h1 class={`mb-4 text-2xl font-bold ${theme.titleColor} sm:mb-6 sm:text-3xl`}>{title}</h1>
-        <div class={namespace === "porn" ? "prose-invert prose max-w-none" : "prose max-w-none"}>
+        <div class={proseClass}>
           <slot />
         </div>
       </div>
