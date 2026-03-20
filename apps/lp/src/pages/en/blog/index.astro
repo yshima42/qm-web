@@ -27,7 +27,7 @@ const remainingPosts = posts.slice(1);
       <>
         {/* 最新記事（フィーチャー） */}
         {featuredPost && (
-          <a href={`/${locale}/blog/${featuredPost.id}`} class="group mb-12 block">
+          <a href={`/${locale}/blog/${featuredPost.id.replace(/\.md$/, "")}`} class="group mb-12 block">
             <article class="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl">
               {extractFirstImage(featuredPost.body ?? "") && (
                 <div class="aspect-video w-full overflow-hidden">
@@ -59,7 +59,7 @@ const remainingPosts = posts.slice(1);
             <h2 class="mb-6 text-2xl font-bold text-gray-900">{t("blog.latest-articles")}</h2>
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {remainingPosts.map((post) => {
-                const slug = post.id;
+                const slug = post.id.replace(/\.md$/, "");
                 const coverImage = extractFirstImage(post.body ?? "");
                 return (
                   <a href={`/${locale}/blog/${slug}`} class="group block">
