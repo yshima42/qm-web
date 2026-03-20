@@ -43,3 +43,13 @@ next-env.d.ts
 
 # turbo
 .turbo
+
+# claude code
+.claude/
+
+# symlinks
+qm-marketing
+
+# astro
+apps/lp/.astro/
+apps/lp/dist/

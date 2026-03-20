@@ -1,0 +1,51 @@
+---
+import { STORE_URLS } from "@/config/themes";
+
+type Props = {
+  locale: string;
+  namespace?: string;
+  size?: "small" | "medium" | "large" | "xl";
+  direction?: "row" | "column";
+  className?: string;
+};
+
+const { locale, namespace = "", size = "medium", direction = "row", className = "" } = Astro.props;
+
+const SIZE_MAPPING = {
+  small: { height: 40, apple: 120, google: 135 },
+  medium: { height: 50, apple: 150, google: 168 },
+  large: { height: 60, apple: 180, google: 200 },
+  xl: { height: 70, apple: 210, google: 230 },
+} as const;
+
+const storeUrls = STORE_URLS[namespace] ?? STORE_URLS.default;
+const { height, apple: appleWidth, google: googleWidth } = SIZE_MAPPING[size];
+const dirClass = direction === "column" ? "flex-col" : "flex-row";
+---
+
+<div class={`flex items-center justify-center gap-3 md:gap-4 ${dirClass} ${className}`}>
+  <a href={storeUrls.apple} target="_blank" rel="noopener noreferrer">
+    <div class="flex items-center" style={`height: ${height}px`}>
+      <img
+        src={`/images/${locale}/apple-store-badge.png`}
+        alt="App Store"
+        width={appleWidth}
+        height={height}
+        class="h-full w-auto object-contain"
+        loading="lazy"
+      />
+    </div>
+  </a>
+  <a href={storeUrls.google} target="_blank" rel="noopener noreferrer">
+    <div class="flex items-center" style={`height: ${height}px`}>
+      <img
+        src={`/images/${locale}/google-play-badge.png`}
+        alt="Google Play"
+        width={googleWidth}
+        height={height}
+        class="h-full w-auto object-contain"
+        loading="lazy"
+      />
+    </div>
+  </a>
+</div>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Intro from "@/components/sections/Intro.astro";
+import Features from "@/components/sections/Features.astro";
+import Testimonials from "@/components/sections/Testimonials.astro";
+import FinalCTA from "@/components/sections/FinalCTA.astro";
+import { useTranslations } from "@/i18n/utils";
+
+const locale = "en";
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={t("common.title")} description={t("common.description")} locale={locale}>
+  <Hero title={t("hero.title")} description={t("hero.description")} locale={locale} />
+  <Intro title={t("intro.title")} description={t("intro.description")} />
+  <Features
+    title={t("features.title")}
+    features={[
+      { title: t("features.feature1.title"), description: t("features.feature1.description"), icon: "users" },
+      { title: t("features.feature2.title"), description: t("features.feature2.description"), icon: "message" },
+      { title: t("features.feature3.title"), description: t("features.feature3.description"), icon: "timer" },
+    ]}
+  />
+  <Testimonials
+    title={t("testimonials.title")}
+    testimonials={[
+      { name: t("testimonials.testimonial1.name"), title: t("testimonials.testimonial1.title"), message: t("testimonials.testimonial1.message") },
+      { name: t("testimonials.testimonial2.name"), title: t("testimonials.testimonial2.title"), message: t("testimonials.testimonial2.message") },
+      { name: t("testimonials.testimonial3.name"), title: t("testimonials.testimonial3.title"), message: t("testimonials.testimonial3.message") },
+    ]}
+  />
+  <FinalCTA title={t("final-cta.title")} description={t("final-cta.description")} locale={locale} />
+</BaseLayout>

@@ -1,5 +1,5 @@
 import { GoogleAnalytics } from "@quitmate/analytics";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
@@ -20,6 +20,13 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 export const metadata: Metadata = {
   title: {
     default: "QuitMate（クイットメイト） | 依存症克服SNS",
@@ -35,12 +42,6 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
   },
   metadataBase: new URL("https://quitmate.app"),
   alternates: {

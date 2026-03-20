@@ -12,8 +12,9 @@ export const size = {
 export const contentType = "image/png";
 
 // Image generation
-export default async function Image({ params }: { params: { id: string } }) {
-  const article = await fetchArticleById(params.id);
+export default async function Image({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const article = await fetchArticleById(id);
   const displayName = article?.profiles.display_name;
   const userAvatar = article?.profiles.avatar_url;
 
