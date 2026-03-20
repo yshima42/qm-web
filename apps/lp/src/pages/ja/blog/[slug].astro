@@ -9,15 +9,17 @@ const t = useTranslations(locale);
 
 export async function getStaticPaths() {
   const posts = await getAllPosts("ja");
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  return posts
+    .filter((post) => post.id)
+    .map((post) => ({
+      params: { slug: post.id.replace(/\.md$/, "") },
+      props: { post },
+    }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const slug = post.id;
+const slug = post.id.replace(/\.md$/, "");
 
 const enPosts = await getAllPosts("en");
 const hasEnVersion = enPosts.some((p) => p.id === slug);
