@@ -25,10 +25,12 @@ export type ThemeConfig = {
   indicatorColor: string;
   iconColor: string;
   lightText: boolean;
+  /** CSS値としてのアクセントカラー (style属性で使用) */
+  accentColor: string;
 };
 
 const defaultTheme: ThemeConfig = {
-  headerBg: "bg-white shadow-sm",
+  headerBg: "bg-white/80 shadow-sm",
   heroBg: "bg-gradient-to-b from-[#f8fbf7] to-white",
   introBg: "bg-[#f8fbf7]",
   featuresBg: "bg-white",
@@ -49,11 +51,12 @@ const defaultTheme: ThemeConfig = {
   indicatorColor: "bg-[#2E6C28]",
   iconColor: "text-[#2E6C28]",
   lightText: false,
+  accentColor: "#2E6C28",
 };
 
 const themes: Record<string, Partial<ThemeConfig>> = {
   alcohol: {
-    headerBg: "bg-[#d8e8d4] shadow-sm",
+    headerBg: "bg-[#d8e8d4]/80 shadow-sm",
     heroBg: "bg-gradient-to-b from-[#d8e8d4] to-white",
     introBg: "bg-[#d8e8d4]",
     featuresBg: "bg-[#e8f0e6]",
@@ -69,9 +72,10 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerSocial: "text-gray-600 hover:text-gray-800",
     footerCopyright: "text-gray-600",
     indicatorColor: "bg-green-700",
+    accentColor: "#15803d",
   },
   kinshu: {
-    headerBg: "bg-[#e8eaf6] shadow-sm",
+    headerBg: "bg-[#e8eaf6]/80 shadow-sm",
     heroBg: "bg-gradient-to-b from-[#e8eaf6] to-white",
     introBg: "bg-[#e8eaf6]",
     featuresBg: "bg-[#c5cae9]",
@@ -90,9 +94,10 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerCopyright: "text-gray-700",
     indicatorColor: "bg-[#3949ab]",
     iconColor: "text-gray-700",
+    accentColor: "#3949ab",
   },
   porn: {
-    headerBg: "bg-[#1a0a1f] shadow-none",
+    headerBg: "bg-[#1a0a1f]/80 shadow-none",
     heroBg: "bg-gradient-to-b from-[#1a0a1f] via-[#2d1b4e] to-[#1a0a1f]",
     introBg: "bg-[#1a0a1f]",
     featuresBg: "bg-[#2d1b4e]",
@@ -113,9 +118,10 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     indicatorColor: "bg-purple-400",
     iconColor: "text-purple-400",
     lightText: true,
+    accentColor: "#c084fc",
   },
   tobacco: {
-    headerBg: "bg-[#e8f5e9] shadow-sm",
+    headerBg: "bg-[#e8f5e9]/80 shadow-sm",
     heroBg: "bg-gradient-to-b from-[#e8f5e9] to-white",
     introBg: "bg-[#e8f5e9]",
     featuresBg: "bg-[#c8e6c9]",
@@ -134,6 +140,7 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerCopyright: "text-gray-700",
     indicatorColor: "bg-green-600",
     iconColor: "text-gray-700",
+    accentColor: "#16a34a",
   },
 };
 

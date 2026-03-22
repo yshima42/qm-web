@@ -7,9 +7,10 @@ type Props = {
   size?: "small" | "medium" | "large" | "xl";
   direction?: "row" | "column";
   className?: string;
+  eager?: boolean;
 };
 
-const { locale, namespace = "", size = "medium", direction = "row", className = "" } = Astro.props;
+const { locale, namespace = "", size = "medium", direction = "row", className = "", eager = false } = Astro.props;
 
 const SIZE_MAPPING = {
   small: { height: 40, apple: 120, google: 135 },
@@ -21,6 +22,7 @@ const SIZE_MAPPING = {
 const storeUrls = STORE_URLS[namespace] ?? STORE_URLS.default;
 const { height, apple: appleWidth, google: googleWidth } = SIZE_MAPPING[size];
 const dirClass = direction === "column" ? "flex-col" : "flex-row";
+const loadingAttr = eager ? "eager" : "lazy";
 ---
 
 <div class={`flex items-center justify-center gap-3 md:gap-4 ${dirClass} ${className}`}>
@@ -32,7 +34,7 @@ const dirClass = direction === "column" ? "flex-col" : "flex-row";
         width={appleWidth}
         height={height}
         class="h-full w-auto object-contain"
-        loading="lazy"
+        loading={loadingAttr}
       />
     </div>
   </a>
@@ -44,7 +46,7 @@ const dirClass = direction === "column" ? "flex-col" : "flex-row";
         width={googleWidth}
         height={height}
         class="h-full w-auto object-contain"
-        loading="lazy"
+        loading={loadingAttr}
       />
     </div>
   </a>

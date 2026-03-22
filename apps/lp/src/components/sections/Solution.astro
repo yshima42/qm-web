@@ -1,0 +1,77 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Pillar = {
+  icon: "shield" | "users" | "timer";
+  title: string;
+  description: string;
+};
+
+type Props = {
+  title: string;
+  description: string;
+  pillars: Pillar[];
+  namespace?: string;
+};
+
+const { title, description, pillars, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+
+const iconPaths: Record<string, string> = {
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+  users: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+  timer: "M12 6v6l4 2 M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z",
+};
+---
+
+<section class="relative overflow-hidden bg-white px-4 py-20 md:px-8 md:py-28">
+  <!-- ブラーオーブ -->
+  <div class="blur-orb -right-40 -top-40 h-[400px] w-[400px] opacity-20" style="background: radial-gradient(circle, rgba(62, 142, 52, 0.25) 0%, transparent 70%); filter: blur(80px);" />
+  <div class="blur-orb -bottom-32 -left-32 h-[350px] w-[350px] opacity-15" style="background: radial-gradient(circle, rgba(89, 194, 131, 0.25) 0%, transparent 70%); filter: blur(80px);" />
+
+  <div class="relative z-10 mx-auto max-w-5xl">
+    <!-- ヘッダー -->
+    <div class="animate-on-scroll mb-14 text-center md:mb-18">
+      <h2 class={`mb-4 text-2xl font-bold ${theme.titleColor} md:text-3xl lg:text-4xl`}>
+        {title}
+      </h2>
+      <p class={`mx-auto max-w-2xl text-base leading-relaxed ${theme.descColor} md:text-lg`}>
+        {description}
+      </p>
+    </div>
+
+    <!-- 3つの柱 -->
+    <div class="stagger-children grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+      {pillars.map(({ icon, title: pillarTitle, description: pillarDesc }) => (
+        <div class="glass-card card-hover-glow group flex flex-col items-center rounded-3xl px-6 py-10 text-center md:px-8 md:py-12">
+          <!-- アイコン -->
+          <div class="mb-6 flex size-16 items-center justify-center rounded-2xl bg-green-50 transition-transform duration-300 group-hover:scale-110">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-green-600"
+            >
+              {iconPaths[icon]?.split(" M").map((d, i) => (
+                <path d={i === 0 ? d : `M${d}`} />
+              ))}
+            </svg>
+          </div>
+
+          <h3 class={`mb-3 text-lg font-bold ${theme.titleColor} md:text-xl`}>
+            {pillarTitle}
+          </h3>
+          <p class={`text-sm leading-relaxed ${theme.descColor} md:text-base`}>
+            {pillarDesc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

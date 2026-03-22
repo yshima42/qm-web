@@ -8,7 +8,8 @@
     },
     "hero": {
       "title": "You don't have to quit alone",
-      "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions.",
+      "description": "A safe, anonymous community where people in recovery support each other",
+      "social-proof": "★4.8 · 200+ reviews · 7,900+ people recovering",
       "screenshot-stories-alt": "QuitMate app story screen",
       "screenshot-categories-alt": "QuitMate app category screen",
       "screenshot-program-alt": "QuitMate app program screen",
@@ -18,42 +19,146 @@
       "title": "A supportive social network for addiction recovery",
       "description": "Struggling to quit? You're not alone. QuitMate is a safe, anonymous space where people facing similar challenges come together to support each other in overcoming addictions and unhealthy habits."
     },
-    "features": {
-      "title": "Why QuitMate works",
-      "feature1": {
-        "title": "Communities focused on your struggle",
-        "description": "Connect with others going through the same thing. Choose from alcohol, gambling, binge eating, smoking, social media, gaming, plastic surgery, shopping, porn, drugs, caffeine, and codependency."
+    "solution": {
+      "title": "Three pillars that help you stay on track",
+      "description": "What's hard alone becomes possible with the right structure and support.",
+      "pillar1": {
+        "title": "Anonymous & safe",
+        "description": "No real name or photo required. Share honestly in a judgment-free space."
       },
-      "feature2": {
-        "title": "Share your journey. Get support.",
-        "description": "Post your feelings and progress openly—or privately. Get encouragement, tips, and empathy from others. No real name or photo required."
+      "pillar2": {
+        "title": "People who get it",
+        "description": "Connect with others facing the same addiction. Get real empathy and encouragement."
       },
-      "feature3": {
-        "title": "Track your clean time",
-        "description": "See how long you've stayed addiction-free. Each hour and day adds up, helping you stay motivated through small wins."
+      "pillar3": {
+        "title": "See your progress",
+        "description": "Track your clean time. Every hour and day adds up, keeping you motivated."
       }
     },
-    "testimonials": {
-      "title": "What our users say",
-      "testimonial1": {
-        "name": "Gambling Recovery",
-        "title": "This app changed everything",
-        "message": "My family member had a serious gambling problem. Therapy didn't help, and we were at a loss. But after finding this app, they suddenly stopped gambling. The support from others with similar experiences has made a huge difference. We're so thankful."
+    "features": {
+      "title": "What QuitMate offers",
+      "feature1": {
+        "title": "People who truly understand",
+        "description": "You don't have to face this alone. Connect with people who truly understand—because they're going through it too."
       },
-      "testimonial2": {
-        "name": "Alcohol Recovery",
-        "title": "Support even after relapse",
-        "message": "Such a great app. Some people here have been sober for over 100 days. We support each other, share ideas, and keep moving forward together."
+      "feature2": {
+        "title": "Anonymous and safe",
+        "description": "No real name or photo needed. A safe space to speak honestly. Slip up? Start over? You'll find warmth, not judgment."
       },
-      "testimonial3": {
-        "name": "Binge Eating Recovery",
-        "title": "I wish I found it sooner",
-        "message": "I really wish I had discovered this app earlier. But even now, finding it feels like such a gift. I'm so glad I did."
+      "feature3": {
+        "title": "See your progress",
+        "description": "Track your clean time. Each day you make it through becomes proof that you can keep going."
       }
+    },
+    "social-proof": {
+      "stats": {
+        "users": { "value": "7,900+", "label": "people recovering" },
+        "stories": { "value": "90,000+", "label": "stories shared" },
+        "likes": { "value": "1.3M+", "label": "likes exchanged" },
+        "rating": { "value": "★4.8", "label": "200+ reviews" }
+      },
+      "highlight1": {
+        "quote": "After 20+ years of addiction, I've been clean for 365 days.",
+        "author": "User",
+        "category": "Addiction Recovery"
+      },
+      "highlight2": {
+        "quote": "Therapy didn't work, but after finding this app, they stopped gambling completely. Our family is so grateful.",
+        "author": "User",
+        "category": "Gambling Recovery"
+      }
+    },
+    "reviews": {
+      "title": "What our users say",
+      "review1": {
+        "name": "User",
+        "category": "Addiction Recovery",
+        "message": "After 20+ years of addictive behavior, I've now been clean for 365 days. Everyone on the app is positive about recovery, and unlike other social media, you can keep going without worrying about others."
+      },
+      "review2": {
+        "name": "User",
+        "category": "Gambling Recovery",
+        "message": "My family member had a serious gambling addiction. Therapy had no effect, but after finding this app, they stopped gambling completely. We're so grateful as a family."
+      },
+      "review3": {
+        "name": "User",
+        "category": "Gambling Recovery",
+        "message": "I couldn't even go 2 days without slot machines, but since starting this app I've gone 10+ days gambling-free. Other users are incredibly kind, and there's an unspoken commitment to beating addiction."
+      },
+      "review4": {
+        "name": "User",
+        "category": "Alcohol Recovery",
+        "message": "Even if you slip up and start over, there's a warm, supportive atmosphere. Some people are cutting back instead of quitting completely, and that's okay too. A wonderful community."
+      },
+      "review5": {
+        "name": "User",
+        "category": "Addiction Recovery",
+        "message": "This app has a sense of safety. You can't open up unless you feel safe. In that sense, it's like an open support group."
+      },
+      "review6": {
+        "name": "User",
+        "category": "Addiction Recovery",
+        "message": "Everyone is so warm, it's hard to believe it's free. This app helped me keep going. I highly recommend giving it a try!"
+      }
+    },
+    "how-it-works": {
+      "title": "Get started in 3 steps",
+      "step1": {
+        "title": "Download the app",
+        "description": "Free on the App Store and Google Play. Sign up anonymously — no real name needed."
+      },
+      "step2": {
+        "title": "Choose your struggle",
+        "description": "Pick from 12+ categories like alcohol, gambling, binge eating, and smoking. Your clean-time counter starts automatically."
+      },
+      "step3": {
+        "title": "Recover together",
+        "description": "Share how you feel, support others, and see you're not alone. Your recovery community is waiting."
+      }
+    },
+    "problem": {
+      "title": "Sound familiar?",
+      "items": [
+        {
+          "text": "You want to stop, but you keep going back to the same habit"
+        },
+        {
+          "text": "No one around you truly understands what you're going through"
+        },
+        {
+          "text": "You've tried quitting alone and failed—and blamed yourself every time"
+        },
+        {
+          "text": "Therapy or counseling alone isn't enough to fill the daily loneliness"
+        }
+      ],
+      "closing": "You don't have to face this alone."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Is it free?",
+          "answer": "Yes. Posting, browsing the timeline, and the clean-time counter are all free. No hidden fees."
+        },
+        {
+          "question": "Can I stay anonymous?",
+          "answer": "Absolutely. No real name or photo required. Just pick a nickname and you're ready to go."
+        },
+        {
+          "question": "What addictions are supported?",
+          "answer": "We support 12+ categories including alcohol, gambling, binge eating, smoking, social media, gaming, plastic surgery, shopping, porn, drugs, caffeine, and codependency."
+        },
+        {
+          "question": "Can I take a break and come back?",
+          "answer": "Of course. Go at your own pace. You can reset your counter anytime and start fresh whenever you're ready."
+        }
+      ]
     },
     "final-cta": {
       "title": "Take the first step with others by your side",
       "description": "With QuitMate, your will to quit becomes the strength to keep going.",
+      "closing": "Scan the QR code with your phone to download",
       "store-badges": {
         "title": "App Store",
         "description": "Rated 4.9+ stars on the App Store."

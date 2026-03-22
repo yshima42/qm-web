@@ -1,0 +1,56 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Step = {
+  title: string;
+  description: string;
+};
+
+type Props = {
+  title: string;
+  steps: Step[];
+  namespace?: string;
+};
+
+const { title, steps, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+---
+
+<section class="section-alt section-base">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="animate-on-scroll mb-14 text-center md:mb-18" style={`color: ${theme.accentColor}`}>
+      {title}
+    </h2>
+
+    <div class="stagger-children relative flex flex-col gap-0">
+      {steps.map((step, index) => (
+        <div class="relative flex items-start gap-6 md:gap-8">
+          {index < steps.length - 1 && (
+            <div
+              class="absolute bottom-0 left-6 top-14 w-px md:left-7"
+              style={`background: linear-gradient(to bottom, ${theme.accentColor}30, transparent)`}
+            />
+          )}
+
+          <div class="relative z-10 flex flex-col items-center">
+            <div
+              class="flex size-12 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white shadow-md md:size-14 md:text-xl"
+              style={`background: ${theme.accentColor}`}
+            >
+              {index + 1}
+            </div>
+          </div>
+
+          <div class="flex-1 pb-12 md:pb-14">
+            <h3 class="mb-2 text-lg font-bold md:text-xl" style={`color: ${theme.accentColor}`}>
+              {step.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-[var(--sub-foreground)] md:text-base">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

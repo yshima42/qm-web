@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/sections/Hero.astro";
-import Intro from "@/components/sections/Intro.astro";
+import Problem from "@/components/sections/Problem.astro";
+import Solution from "@/components/sections/Solution.astro";
 import Features from "@/components/sections/Features.astro";
-import Testimonials from "@/components/sections/Testimonials.astro";
+import HowItWorks from "@/components/sections/HowItWorks.astro";
+import SocialProof from "@/components/sections/SocialProof.astro";
+import FAQ from "@/components/sections/FAQ.astro";
 import FinalCTA from "@/components/sections/FinalCTA.astro";
 import { useTranslations } from "@/i18n/utils";
 import type { Locale } from "@/i18n/config";
@@ -18,6 +21,11 @@ const t = useTranslations(locale, namespace);
 
 const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
 const featureIcon1 = isMateLp ? "shield" as const : "users" as const;
+
+
+// problem.items が翻訳されているか確認（キーがそのまま返ったら未翻訳）
+const problemItem0 = t("problem.items.0.text");
+const hasProblemSection = problemItem0 !== "problem.items.0.text";
 ---
 
 <BaseLayout
@@ -32,10 +40,28 @@ const featureIcon1 = isMateLp ? "shield" as const : "users" as const;
     locale={locale}
     namespace={namespace}
   />
-  <Intro
-    title={t("intro.title")}
-    description={t("intro.description")}
+  {hasProblemSection && (
+    <Problem
+      title={t("problem.title")}
+      items={[
+        { text: t("problem.items.0.text") },
+        { text: t("problem.items.1.text") },
+        { text: t("problem.items.2.text") },
+        { text: t("problem.items.3.text") },
+      ]}
+      closing={t("problem.closing")}
+      namespace={namespace}
+    />
+  )}
+  <Solution
+    title={t("solution.title")}
+    description={t("solution.description")}
     namespace={namespace}
+    pillars={[
+      { icon: "shield", title: t("solution.pillar1.title"), description: t("solution.pillar1.description") },
+      { icon: "users", title: t("solution.pillar2.title"), description: t("solution.pillar2.description") },
+      { icon: "timer", title: t("solution.pillar3.title"), description: t("solution.pillar3.description") },
+    ]}
   />
   <Features
     title={t("features.title")}
@@ -46,13 +72,39 @@ const featureIcon1 = isMateLp ? "shield" as const : "users" as const;
       { title: t("features.feature3.title"), description: t("features.feature3.description"), icon: "timer" },
     ]}
   />
-  <Testimonials
+  <HowItWorks
+    title={t("how-it-works.title")}
+    namespace={namespace}
+    steps={[
+      { title: t("how-it-works.step1.title"), description: t("how-it-works.step1.description") },
+      { title: t("how-it-works.step2.title"), description: t("how-it-works.step2.description") },
+      { title: t("how-it-works.step3.title"), description: t("how-it-works.step3.description") },
+    ]}
+  />
+  <SocialProof
     title={t("testimonials.title")}
+    locale={locale}
     namespace={namespace}
     testimonials={[
       { name: t("testimonials.testimonial1.name"), title: t("testimonials.testimonial1.title"), message: t("testimonials.testimonial1.message") },
       { name: t("testimonials.testimonial2.name"), title: t("testimonials.testimonial2.title"), message: t("testimonials.testimonial2.message") },
       { name: t("testimonials.testimonial3.name"), title: t("testimonials.testimonial3.title"), message: t("testimonials.testimonial3.message") },
+    ]}
+    stats={[
+      { value: t("social-proof.stats.rating.value"), label: t("social-proof.stats.rating.label") },
+      { value: t("social-proof.stats.reviews.value"), label: t("social-proof.stats.reviews.label") },
+      { value: t("social-proof.stats.categories.value"), label: t("social-proof.stats.categories.label") },
+      { value: t("social-proof.stats.free.value"), label: t("social-proof.stats.free.label") },
+    ]}
+  />
+  <FAQ
+    title={t("faq.title")}
+    namespace={namespace}
+    items={[
+      { question: t("faq.items.0.question"), answer: t("faq.items.0.answer") },
+      { question: t("faq.items.1.question"), answer: t("faq.items.1.answer") },
+      { question: t("faq.items.2.question"), answer: t("faq.items.2.answer") },
+      { question: t("faq.items.3.question"), answer: t("faq.items.3.answer") },
     ]}
   />
   <FinalCTA

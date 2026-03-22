@@ -30,11 +30,11 @@ function NavButton({
   const isPrev = direction === "prev";
   const positionClass = isPrev
     ? isMobile
-      ? "-left-4 size-8"
-      : "-left-1 size-10"
+      ? "left-1 size-7"
+      : "left-1 size-8"
     : isMobile
-      ? "-right-4 size-8"
-      : "-right-1 size-10";
+      ? "right-1 size-7"
+      : "right-1 size-8";
   const size = isMobile ? 16 : 20;
 
   return (
@@ -130,7 +130,7 @@ export default function ScreenshotViewer({
   return (
     <div className={`relative size-full ${className}`}>
       <div
-        className="relative size-full overflow-visible"
+        className="relative size-full overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -138,10 +138,10 @@ export default function ScreenshotViewer({
         <img
           src={screenshots[currentScreenshot].src}
           alt={screenshots[currentScreenshot].alt}
-          className={`absolute inset-0 size-full object-contain transition-opacity duration-300 ${isAnimating ? "opacity-80" : "opacity-100"}`}
+          className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-300 ${isAnimating ? "opacity-80" : "opacity-100"}`}
         />
 
-        <div className="absolute inset-x-0 -bottom-8 z-10 flex justify-center gap-2 py-2">
+        <div className="absolute inset-x-0 bottom-2 z-10 flex justify-center gap-2 py-2">
           {screenshots.map((_, index) => (
             <button
               key={index}
@@ -159,8 +159,18 @@ export default function ScreenshotViewer({
 
         {screenshots.length > 1 && (
           <>
-            <NavButton direction="prev" isMobile={isMobile} onClick={prevScreenshot} ariaLabel="Previous screenshot" />
-            <NavButton direction="next" isMobile={isMobile} onClick={nextScreenshot} ariaLabel="Next screenshot" />
+            <NavButton
+              direction="prev"
+              isMobile={isMobile}
+              onClick={prevScreenshot}
+              ariaLabel="Previous screenshot"
+            />
+            <NavButton
+              direction="next"
+              isMobile={isMobile}
+              onClick={nextScreenshot}
+              ariaLabel="Next screenshot"
+            />
           </>
         )}
       </div>

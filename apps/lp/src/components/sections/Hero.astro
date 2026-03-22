@@ -2,49 +2,91 @@
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import ScreenshotViewer from "./ScreenshotViewer.tsx";
 import StoreBadges from "./StoreBadges.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
 
 type Props = {
   title: string;
   description: string;
-  locale: string;
+  locale: Locale;
   namespace?: string;
 };
 
 const { title, description, locale, namespace = "" } = Astro.props;
 const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
 
 const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
-// mate LP のスクリーンショットは日本語版のみ存在するため、namespace ありの場合は ja を使う
 const screenshotLocale = namespace ? "ja" : locale;
 const screenshots = config.map(({ image, altKey }) => ({
   src: `/images/${screenshotLocale}/${image}`,
   alt: altKey,
 }));
+
+const socialProofRaw = t("hero.social-proof");
+const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
 ---
 
-<section class={`flex items-center justify-center ${theme.heroBg} p-8 py-12 md:py-16`}>
-  <div class="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
-    <div class="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
-      <h1 class={`mb-2 text-3xl font-semibold leading-tight ${theme.titleColor} md:mb-4 md:text-4xl md:font-bold lg:text-4xl`}>
+<section class="section-base relative overflow-hidden pt-28 md:pt-36">
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-14 md:flex-row md:gap-16">
+    <!-- テキスト側 -->
+    <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
+      {socialProofText && (
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm">
+          <span class="text-amber-500">★★★★★</span>
+          <span class="text-[var(--sub-foreground)]">{socialProofText}</span>
+        </div>
+      )}
+
+      <h1 class="mb-5 md:mb-7">
         {title}
       </h1>
-      <p class={`mb-4 text-lg ${theme.descColor} md:mb-6 md:text-xl lg:text-2xl`}>
+
+      <p class="mb-10 text-lg leading-relaxed text-[var(--sub-foreground)] md:text-xl">
         {description}
       </p>
-      <div class="hidden md:block">
-        <StoreBadges locale={locale} namespace={namespace} size="xl" />
-      </div>
-      <div class="block md:hidden">
-        <StoreBadges locale={locale} namespace={namespace} size="medium" />
+
+      <div class="flex flex-col items-center gap-4 md:items-start">
+        <div class="hidden md:block">
+          <StoreBadges locale={locale} namespace={namespace} size="xl" eager />
+        </div>
+        <div class="block md:hidden">
+          <StoreBadges locale={locale} namespace={namespace} size="large" eager />
+        </div>
       </div>
     </div>
 
-    <div class="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
-      <ScreenshotViewer
-        client:visible
-        screenshots={screenshots}
-        indicatorActiveClassName={theme.indicatorColor}
-      />
+    <!-- スクリーンショット -->
+    <div class="relative flex flex-1 items-center justify-center">
+      <div class="screenshot-frame">
+        <ScreenshotViewer
+          client:visible
+          screenshots={screenshots}
+          indicatorActiveClassName={theme.indicatorColor}
+        />
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .screenshot-frame {
+    position: relative;
+    width: 260px;
+    height: 540px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow:
+      0 20px 50px -12px rgba(0, 0, 0, 0.15),
+      0 8px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .screenshot-frame {
+      width: 280px;
+      height: 580px;
+      border-radius: 28px;
+    }
+  }
+</style>

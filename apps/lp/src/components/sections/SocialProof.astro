@@ -1,0 +1,57 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Stat = {
+  value: string;
+  label: string;
+};
+
+type Highlight = {
+  quote: string;
+  author: string;
+  category: string;
+};
+
+type Props = {
+  stats: Stat[];
+  highlights?: Highlight[];
+  namespace?: string;
+};
+
+const { stats, highlights = [], namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+---
+
+<section class="section-alt section-base">
+  <div class="mx-auto max-w-6xl">
+    <!-- 数字ハイライト -->
+    <div class="stagger-children grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
+      {stats.map(({ value, label }) => (
+        <div class="text-center">
+          <div class="stat-number" style={`color: ${theme.accentColor}`}>
+            {value}
+          </div>
+          <div class="mt-1 text-sm text-[var(--sub-foreground)]">
+            {label}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- レビューハイライト引用 -->
+    {highlights.length > 0 && (
+      <div class="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
+        {highlights.map(({ quote, author, category }) => (
+          <div class="animate-on-scroll review-quote">
+            <p class="text-base leading-relaxed text-[var(--foreground)] md:text-lg">
+              {quote}
+            </p>
+            <p class="mt-3 text-sm text-[var(--sub-foreground)]">
+              — {author}・{category}
+            </p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
