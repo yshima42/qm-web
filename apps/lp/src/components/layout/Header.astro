@@ -21,7 +21,7 @@ const linkClass = `${theme.navText} ${theme.navHover} transition-colors`;
 const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
 ---
 
-<header class={`sticky top-0 z-50 w-full backdrop-blur-md ${theme.headerBg} transition-shadow duration-300`} data-sticky-header>
+<header class={`sticky top-0 z-50 w-full backdrop-blur-md ${theme.headerBg} transition-shadow duration-300 will-change-transform`} data-sticky-header>
   <div class="mx-auto flex max-w-6xl items-center justify-between p-4">
     <Logo locale={locale} namespace={namespace} lightText={theme.lightText} />
 
