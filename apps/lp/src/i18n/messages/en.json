@@ -3,13 +3,13 @@
         "language-code": "en"
     },
     "common": {
-        "title": "QuitMate | Addiction Recovery SNS",
-        "description": "An anonymous community app to help you break free from alcohol, gambling, smoking, porn, and other addictions."
+        "title": "QuitMate | Addiction Recovery Community",
+        "description": "A safe, anonymous community app where 8,000+ people support each other through addiction recovery. Rated ★4.8."
     },
     "hero": {
       "title": "You don't have to quit alone",
       "description": "A safe, anonymous community where people in recovery support each other",
-      "social-proof": "★4.8 · 200+ reviews · 7,900+ people recovering",
+      "social-proof": "★4.8 · 200+ reviews · 8,000+ people recovering",
       "screenshot-stories-alt": "QuitMate app story screen",
       "screenshot-categories-alt": "QuitMate app category screen",
       "screenshot-program-alt": "QuitMate app program screen",
@@ -52,11 +52,12 @@
     },
     "social-proof": {
       "stats": {
-        "users": { "value": "7,900+", "label": "people recovering" },
+        "users": { "value": "8,000+", "label": "people recovering" },
         "stories": { "value": "90,000+", "label": "stories shared" },
         "likes": { "value": "1.3M+", "label": "likes exchanged" },
         "rating": { "value": "★4.8", "label": "200+ reviews" }
       },
+      "activity": "150+ new posts are shared in the community every day",
       "highlight1": {
         "quote": "After 20+ years of addiction, I've been clean for 365 days.",
         "author": "User",

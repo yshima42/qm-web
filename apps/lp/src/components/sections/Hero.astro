@@ -33,7 +33,24 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
     <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
       {socialProofText && (
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm">
-          <span class="text-amber-500">★★★★★</span>
+          <span class="flex gap-0.5" role="img" aria-label="4.8 out of 5 stars">
+            {/* ★4つ（満点） */}
+            {[...Array(4)].map(() => (
+              <svg class="size-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+            {/* ★1つ（80%塗り = 4.8の端数） */}
+            <svg class="size-4" viewBox="0 0 20 20" aria-hidden="true">
+              <defs>
+                <linearGradient id="star-partial">
+                  <stop offset="70%" stop-color="#f59e0b" />
+                  <stop offset="70%" stop-color="#d1d5db" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#star-partial)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </span>
           <span class="text-[var(--sub-foreground)]">{socialProofText}</span>
         </div>
       )}
@@ -71,8 +88,18 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 
 <style>
   .screenshot-frame {
-    position: relative;
     width: 260px;
+  }
+
+  @media (min-width: 768px) {
+    .screenshot-frame {
+      width: 280px;
+    }
+  }
+
+  .screenshot-frame :global(.screenshot-image-area) {
+    position: relative;
+    width: 100%;
     height: 540px;
     border-radius: 24px;
     overflow: hidden;
@@ -83,8 +110,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
   }
 
   @media (min-width: 768px) {
-    .screenshot-frame {
-      width: 280px;
+    .screenshot-frame :global(.screenshot-image-area) {
       height: 580px;
       border-radius: 28px;
     }

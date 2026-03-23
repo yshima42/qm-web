@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/sections/Hero.astro";
-import Problem from "@/components/sections/Problem.astro";
-import Solution from "@/components/sections/Solution.astro";
+import SocialProof from "@/components/sections/SocialProof.astro";
 import Features from "@/components/sections/Features.astro";
 import HowItWorks from "@/components/sections/HowItWorks.astro";
-import SocialProof from "@/components/sections/SocialProof.astro";
+import Reviews from "@/components/sections/Reviews.astro";
 import FAQ from "@/components/sections/FAQ.astro";
 import FinalCTA from "@/components/sections/FinalCTA.astro";
 import { useTranslations } from "@/i18n/utils";
@@ -18,14 +17,10 @@ type Props = {
 
 const { locale, namespace } = Astro.props;
 const t = useTranslations(locale, namespace);
+const tRoot = useTranslations(locale);
 
 const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
-const featureIcon1 = isMateLp ? "shield" as const : "users" as const;
-
-
-// problem.items が翻訳されているか確認（キーがそのまま返ったら未翻訳）
-const problemItem0 = t("problem.items.0.text");
-const hasProblemSection = problemItem0 !== "problem.items.0.text";
+const featureIcon1 = isMateLp ? ("shield" as const) : ("users" as const);
 ---
 
 <BaseLayout
@@ -40,27 +35,26 @@ const hasProblemSection = problemItem0 !== "problem.items.0.text";
     locale={locale}
     namespace={namespace}
   />
-  {hasProblemSection && (
-    <Problem
-      title={t("problem.title")}
-      items={[
-        { text: t("problem.items.0.text") },
-        { text: t("problem.items.1.text") },
-        { text: t("problem.items.2.text") },
-        { text: t("problem.items.3.text") },
-      ]}
-      closing={t("problem.closing")}
-      namespace={namespace}
-    />
-  )}
-  <Solution
-    title={t("solution.title")}
-    description={t("solution.description")}
+  <SocialProof
     namespace={namespace}
-    pillars={[
-      { icon: "shield", title: t("solution.pillar1.title"), description: t("solution.pillar1.description") },
-      { icon: "users", title: t("solution.pillar2.title"), description: t("solution.pillar2.description") },
-      { icon: "timer", title: t("solution.pillar3.title"), description: t("solution.pillar3.description") },
+    stats={[
+      { value: tRoot("social-proof.stats.users.value"), label: tRoot("social-proof.stats.users.label") },
+      { value: tRoot("social-proof.stats.stories.value"), label: tRoot("social-proof.stats.stories.label") },
+      { value: tRoot("social-proof.stats.likes.value"), label: tRoot("social-proof.stats.likes.label") },
+      { value: tRoot("social-proof.stats.rating.value"), label: tRoot("social-proof.stats.rating.label") },
+    ]}
+    activity={tRoot("social-proof.activity")}
+    highlights={[
+      {
+        quote: tRoot("social-proof.highlight1.quote"),
+        author: tRoot("social-proof.highlight1.author"),
+        category: tRoot("social-proof.highlight1.category"),
+      },
+      {
+        quote: tRoot("social-proof.highlight2.quote"),
+        author: tRoot("social-proof.highlight2.author"),
+        category: tRoot("social-proof.highlight2.category"),
+      },
     ]}
   />
   <Features
@@ -81,20 +75,14 @@ const hasProblemSection = problemItem0 !== "problem.items.0.text";
       { title: t("how-it-works.step3.title"), description: t("how-it-works.step3.description") },
     ]}
   />
-  <SocialProof
+  <Reviews
     title={t("testimonials.title")}
     locale={locale}
     namespace={namespace}
-    testimonials={[
-      { name: t("testimonials.testimonial1.name"), title: t("testimonials.testimonial1.title"), message: t("testimonials.testimonial1.message") },
-      { name: t("testimonials.testimonial2.name"), title: t("testimonials.testimonial2.title"), message: t("testimonials.testimonial2.message") },
-      { name: t("testimonials.testimonial3.name"), title: t("testimonials.testimonial3.title"), message: t("testimonials.testimonial3.message") },
-    ]}
-    stats={[
-      { value: t("social-proof.stats.rating.value"), label: t("social-proof.stats.rating.label") },
-      { value: t("social-proof.stats.reviews.value"), label: t("social-proof.stats.reviews.label") },
-      { value: t("social-proof.stats.categories.value"), label: t("social-proof.stats.categories.label") },
-      { value: t("social-proof.stats.free.value"), label: t("social-proof.stats.free.label") },
+    reviews={[
+      { name: t("testimonials.testimonial1.name"), category: namespace, message: t("testimonials.testimonial1.message") },
+      { name: t("testimonials.testimonial2.name"), category: namespace, message: t("testimonials.testimonial2.message") },
+      { name: t("testimonials.testimonial3.name"), category: namespace, message: t("testimonials.testimonial3.message") },
     ]}
   />
   <FAQ

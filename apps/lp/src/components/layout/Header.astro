@@ -26,26 +26,18 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
     <Logo locale={locale} namespace={namespace} lightText={theme.lightText} />
 
     <!-- デスクトップ用ナビゲーション -->
-    <div class={`hidden items-center gap-6 text-base md:flex ${theme.navText}`}>
-      <nav class="flex gap-6">
+    <div class={`hidden items-center gap-4 text-base md:flex ${theme.navText}`}>
+      <nav class="flex gap-5">
         {!namespace && (
-          <>
-            <a href={`/${locale}/apps`} class={`font-bold ${linkClass}`}>
-              {t("header.links.otherApps")}
-            </a>
-            <a href={`/${locale}/blog`} class={linkClass}>
-              {t("header.links.blog")}
-            </a>
-          </>
+          <a href={`/${locale}/blog`} class={linkClass}>
+            {t("header.links.blog")}
+          </a>
         )}
         {namespace && (
           <a href={`/${locale}/`} class={`font-bold ${linkClass}`}>
             {t("header.links.otherDependencies")}
           </a>
         )}
-        <a href={`${prefix}/terms`} class={linkClass}>{t("header.links.terms")}</a>
-        <a href={`${prefix}/privacy`} class={linkClass}>{t("header.links.privacy")}</a>
-        <a href={`${prefix}/contact`} class={linkClass}>{t("header.links.contact")}</a>
       </nav>
       {!namespace && (
         <a
@@ -93,10 +85,7 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
   <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.headerBg}`} data-mobile-menu>
     <nav class="flex flex-col space-y-4">
       {!namespace && (
-        <>
-          <a href={`/${locale}/apps`} class={`font-bold ${mobileLinkClass}`}>{t("header.links.otherApps")}</a>
-          <a href={`/${locale}/blog`} class={mobileLinkClass}>{t("header.links.blog")}</a>
-        </>
+        <a href={`/${locale}/blog`} class={mobileLinkClass}>{t("header.links.blog")}</a>
       )}
       {namespace && (
         <a href={`/${locale}/`} class={`font-bold ${mobileLinkClass}`}>{t("header.links.otherDependencies")}</a>
