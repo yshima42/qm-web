@@ -28,7 +28,7 @@ const alternateLocale = locale === "ja" ? "en" : "ja";
 const currentPath = Astro.url.pathname.replace(`/${locale}`, "");
 const siteUrl = "https://about.quitmate.app";
 const canonicalUrl = `${siteUrl}/${locale}${currentPath}`;
-const ogImageUrl = ogImage ?? `/images/${locale}/ogp.png`;
+const ogImageUrl = ogImage ?? `${siteUrl}/images/${locale}/ogp.png`;
 
 // Apple Smart Banner: extract app ID from store URL
 const storeKey = namespace || "default";

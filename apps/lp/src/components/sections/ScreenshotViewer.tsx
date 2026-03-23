@@ -9,6 +9,9 @@ type Props = {
   screenshots: Screenshot[];
   className?: string;
   indicatorActiveClassName?: string;
+  height?: number;
+  borderRadius?: number;
+  hideIndicators?: boolean;
 };
 
 const AUTO_PLAY_INTERVAL_MS = 4000;
@@ -19,6 +22,9 @@ export default function ScreenshotViewer({
   screenshots,
   className = "",
   indicatorActiveClassName = "bg-green-800",
+  height = 580,
+  borderRadius = 0,
+  hideIndicators = false,
 }: Props) {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
@@ -54,6 +60,27 @@ export default function ScreenshotViewer({
     setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
   };
 
+  // インジケーター同期用カスタムイベント
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("screenshot-change", {
+        detail: { index: currentScreenshot, total: screenshots.length },
+      }),
+    );
+  }, [currentScreenshot, screenshots.length]);
+
+  // 外部からのインジケータータップを受信
+  const goToRef = useRef<(index: number) => void>(goTo);
+  goToRef.current = goTo;
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const idx = (e as CustomEvent).detail?.index;
+      if (typeof idx === "number") goToRef.current?.(idx);
+    };
+    window.addEventListener("screenshot-goto", handler);
+    return () => window.removeEventListener("screenshot-goto", handler);
+  }, []);
+
   const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX);
   const handleTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
   const handleTouchEnd = () => {
@@ -70,9 +97,15 @@ export default function ScreenshotViewer({
 
   return (
     <div className={className}>
-      {/* スクリーンショット画像エリア */}
       <div
-        className="screenshot-image-area"
+        style={{
+          position: "relative",
+          width: "100%",
+          height: `${height}px`,
+          overflow: "hidden",
+          borderRadius: borderRadius > 0 ? `${borderRadius}px` : undefined,
+          background: "#fff",
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -80,15 +113,22 @@ export default function ScreenshotViewer({
         <img
           src={screenshots[currentScreenshot].src}
           alt={screenshots[currentScreenshot].alt}
-          className={`absolute inset-0 size-full object-contain transition-opacity duration-300 ${
-            isAnimating ? "opacity-80" : "opacity-100"
-          }`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top",
+            transition: "opacity 300ms",
+            opacity: isAnimating ? 0.8 : 1,
+          }}
         />
       </div>
 
-      {/* インジケーター（画像エリアの外） */}
-      {screenshots.length > 1 && (
-        <div className="flex justify-center gap-2 pt-4">
+      {!hideIndicators && screenshots.length > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", paddingTop: "16px" }}>
           {screenshots.map((_, index) => (
             <button
               key={index}

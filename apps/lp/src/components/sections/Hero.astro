@@ -75,44 +75,75 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 
     <!-- スクリーンショット -->
     <div class="relative flex flex-1 items-center justify-center">
-      <div class="screenshot-frame">
-        <ScreenshotViewer
-          client:visible
-          screenshots={screenshots}
-          indicatorActiveClassName={theme.indicatorColor}
-        />
+      <div class="phone-area">
+        <!-- フレーム（画像のみ、overflow: hidden） -->
+        <div class="phone-frame">
+          <ScreenshotViewer
+            client:visible
+            screenshots={screenshots}
+            indicatorActiveClassName={theme.indicatorColor}
+            height={580}
+            borderRadius={34}
+            hideIndicators
+          />
+        </div>
+        <!-- インジケーター（フレーム外） -->
+        <div class="mt-4 flex justify-center gap-2">
+          {screenshots.map((_, i) => (
+            <div
+              class="hero-dot size-2 rounded-full transition-opacity duration-300"
+              style={`background: ${theme.accentColor}; opacity: ${i === 0 ? 1 : 0.3}`}
+              data-index={i}
+            />
+          ))}
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<script is:inline>
+  // ScreenshotViewer → インジケーター同期
+  window.addEventListener('screenshot-change', function(e) {
+    var index = e.detail.index;
+    document.querySelectorAll('.hero-dot').forEach(function(dot, i) {
+      dot.style.opacity = i === index ? '1' : '0.3';
+    });
+  });
+  // インジケータータップ → ScreenshotViewer
+  document.querySelectorAll('.hero-dot').forEach(function(dot, i) {
+    dot.style.cursor = 'pointer';
+    dot.addEventListener('click', function() {
+      window.dispatchEvent(new CustomEvent('screenshot-goto', { detail: { index: i } }));
+    });
+  });
+</script>
+
 <style>
-  .screenshot-frame {
-    width: 260px;
+  .phone-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  @media (min-width: 768px) {
-    .screenshot-frame {
-      width: 280px;
-    }
-  }
-
-  .screenshot-frame :global(.screenshot-image-area) {
-    position: relative;
-    width: 100%;
-    height: 540px;
-    border-radius: 24px;
+  .phone-frame {
+    width: 270px;
+    padding: 10px;
+    background: #1a1a1a;
+    border-radius: 44px;
     overflow: hidden;
-    background: #fff;
     box-shadow:
-      0 20px 50px -12px rgba(0, 0, 0, 0.15),
-      0 8px 24px -8px rgba(0, 0, 0, 0.1);
+      0 0 0 0.5px rgba(255, 255, 255, 0.12),
+      inset 0 0 1px 0.5px rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 8px 16px rgba(0, 0, 0, 0.08),
+      0 16px 32px rgba(0, 0, 0, 0.06),
+      0 32px 64px rgba(0, 0, 0, 0.04);
   }
 
   @media (min-width: 768px) {
-    .screenshot-frame :global(.screenshot-image-area) {
-      height: 580px;
-      border-radius: 28px;
+    .phone-frame {
+      width: 290px;
     }
   }
 </style>
