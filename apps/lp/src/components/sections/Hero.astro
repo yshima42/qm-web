@@ -28,12 +28,12 @@ const socialProofRaw = t("hero.social-proof");
 const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
 ---
 
-<section class="section-base relative overflow-hidden pt-28 md:pt-36">
-  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-14 md:flex-row md:gap-16">
+<section class="section-base relative overflow-hidden pt-20 md:pt-36">
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 md:flex-row md:gap-16">
     <!-- テキスト側 -->
     <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
       {socialProofText && (
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm md:mb-6">
           <span class="flex gap-0.5" role="img" aria-label="4.8 out of 5 stars">
             {/* ★4つ（満点） */}
             {[...Array(4)].map(() => (
@@ -56,7 +56,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         </div>
       )}
 
-      <h1 class="mb-5 md:mb-7">
+      <h1 class="mb-3 md:mb-7">
         {eyebrow && (
           <span class="mb-2 block text-sm font-medium tracking-normal text-[var(--sub-foreground)]">
             {eyebrow}
@@ -65,7 +65,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         {title}
       </h1>
 
-      <p class="mb-10 text-lg leading-relaxed text-[var(--sub-foreground)] md:text-xl">
+      <p class="mb-6 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-10 md:text-xl">
         {description}
       </p>
 
