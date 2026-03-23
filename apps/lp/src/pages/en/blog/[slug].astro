@@ -21,6 +21,8 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const slug = post.id.replace(/\.md$/, "");
 
+const shareUrl = `https://about.quitmate.app/${locale}/blog/${slug}`;
+
 // 別言語バージョンの存在確認
 const jaPosts = await getAllPosts("ja");
 const hasJaVersion = jaPosts.some((p) => p.id === slug);
@@ -31,13 +33,13 @@ const hasJaVersion = jaPosts.some((p) => p.id === slug);
   description={post.data.excerpt}
   locale={locale}
 >
-  <article class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+  <article class="blog-article mx-auto max-w-[680px] px-5 py-8 sm:px-8">
     <a href={`/${locale}/blog`} class="mb-6 inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
       ← {t("blog.back-to-blog")}
     </a>
 
-    <header class="mb-8">
-      <h1 class="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">{post.data.title}</h1>
+    <header class="mb-10">
+      <h1 class="mb-4 text-[28px] font-black leading-[1.4] text-[#111] sm:text-[32px]">{post.data.title}</h1>
       <div class="flex items-center gap-4 text-sm text-gray-500">
         <time>{post.data.date}</time>
         {post.data.author && <span>by {post.data.author}</span>}
@@ -49,30 +51,98 @@ const hasJaVersion = jaPosts.some((p) => p.id === slug);
       )}
     </header>
 
-    <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-img:rounded-lg">
+    <div class="prose prose-lg max-w-none prose-headings:text-[#111] prose-p:text-[#333] prose-p:leading-[1.9] prose-a:text-primary-600 prose-img:rounded-lg prose-h2:text-[24px] prose-h2:font-bold prose-h3:text-[20px] prose-h3:font-bold prose-li:text-[#333] prose-li:leading-[1.9] prose-blockquote:text-[#555] prose-blockquote:border-gray-300 prose-hr:border-gray-300">
       <Content />
     </div>
 
-    <div class="mt-12 border-t border-gray-200 pt-6">
-      <p class="mb-3 text-sm font-semibold text-gray-700">{t("blog.share")}</p>
-      <div class="flex gap-3">
+    <div class="mt-14 flex flex-wrap items-center justify-center gap-3 border-t border-gray-200 pt-8" id="share-buttons" data-url={shareUrl} data-title={post.data.title}>
+      <!-- Web Share API (mobile, shown via JS) -->
+      <button
+        id="share-native"
+        class="hidden items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        {t("blog.share-native")}
+      </button>
+
+      <!-- Fallback (desktop) -->
+      <div id="share-fallback" class="flex flex-wrap items-center justify-center gap-3">
         <a
-          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}&text=${encodeURIComponent(post.data.title)}`}
+          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.data.title)}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+          class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm text-gray-600 transition-colors hover:bg-gray-100"
         >
-          Twitter
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
         </a>
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://about.quitmate.app/${locale}/blog/${slug}`)}`}
+          href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+          class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm text-gray-600 transition-colors hover:bg-gray-100"
         >
-          Facebook
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#06C755"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 .63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.63.629.626.626 0 0 1-.51-.262l-2.397-3.274v2.906a.63.63 0 0 1-.629.63.63.63 0 0 1-.63-.63V8.108a.63.63 0 0 1 .63-.63c.2 0 .378.092.495.262l2.397 3.274V8.108a.63.63 0 0 1 .63-.63c.346 0 .63.285.63.63v4.771h.014zm-5.741 0a.63.63 0 0 1-1.26 0V8.108a.63.63 0 0 1 1.26 0v4.771zm-2.527.629H4.856a.63.63 0 0 1-.63-.629V8.108a.63.63 0 0 1 1.26 0v4.14h1.856c.348 0 .63.285.63.63 0 .344-.282.63-.63.63M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINE
         </a>
+        <button
+          id="share-copy"
+          class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+          data-copied={t("blog.copied")}
+        >
+          <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <svg id="check-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="copy-label">{t("blog.copy-link")}</span>
+        </button>
       </div>
     </div>
   </article>
 </BaseLayout>
+
+<script>
+  const container = document.getElementById("share-buttons");
+  const shareNative = document.getElementById("share-native");
+  const shareFallback = document.getElementById("share-fallback");
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (container && shareNative && navigator.share && isMobile) {
+    shareNative.classList.remove("hidden");
+    shareNative.classList.add("inline-flex");
+    shareFallback?.classList.add("hidden");
+
+    shareNative.addEventListener("click", async () => {
+      try {
+        await navigator.share({
+          title: container.dataset.title,
+          url: container.dataset.url,
+        });
+      } catch {}
+    });
+  }
+
+  const shareCopy = document.getElementById("share-copy");
+  const copyLabel = document.getElementById("copy-label");
+  const copyIcon = document.getElementById("copy-icon");
+  const checkIcon = document.getElementById("check-icon");
+
+  if (shareCopy && copyLabel && copyIcon && checkIcon) {
+    const originalText = copyLabel.textContent;
+    const copiedText = shareCopy.dataset.copied;
+
+    shareCopy.addEventListener("click", async () => {
+      const url = container?.dataset.url || window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        copyLabel.textContent = copiedText || "Copied!";
+        copyIcon.classList.add("hidden");
+        checkIcon.classList.remove("hidden");
+        setTimeout(() => {
+          copyLabel.textContent = originalText;
+          copyIcon.classList.remove("hidden");
+          checkIcon.classList.add("hidden");
+        }, 2000);
+      } catch {}
+    });
+  }
+</script>

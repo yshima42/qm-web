@@ -212,7 +212,10 @@
         "latest-articles": "最新の記事",
         "read-article": "読む",
         "back-to-blog": "ブログに戻る",
-        "share": "共有:"
+        "share": "共有:",
+        "share-native": "共有する",
+        "copy-link": "リンクをコピー",
+        "copied": "コピーしました！"
     },
     "apps": {
         "title": "その他アプリ | QuitMate",
