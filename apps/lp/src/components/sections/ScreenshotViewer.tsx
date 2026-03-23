@@ -9,7 +9,9 @@ type Props = {
   screenshots: Screenshot[];
   className?: string;
   indicatorActiveClassName?: string;
+  /** @deprecated Use aspectRatio instead for responsive sizing */
   height?: number;
+  aspectRatio?: string;
   borderRadius?: number;
   hideIndicators?: boolean;
 };
@@ -22,7 +24,8 @@ export default function ScreenshotViewer({
   screenshots,
   className = "",
   indicatorActiveClassName = "bg-green-800",
-  height = 580,
+  height,
+  aspectRatio,
   borderRadius = 0,
   hideIndicators = false,
 }: Props) {
@@ -101,7 +104,7 @@ export default function ScreenshotViewer({
         style={{
           position: "relative",
           width: "100%",
-          height: `${height}px`,
+          ...(aspectRatio ? { aspectRatio } : { height: `${height ?? 580}px` }),
           overflow: "hidden",
           borderRadius: borderRadius > 0 ? `${borderRadius}px` : undefined,
           background: "#fff",

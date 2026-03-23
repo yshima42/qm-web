@@ -212,7 +212,10 @@
         "latest-articles": "Latest Articles",
         "read-article": "Read article",
         "back-to-blog": "Back to blog",
-        "share": "Share:"
+        "share": "Share:",
+        "share-native": "Share",
+        "copy-link": "Copy link",
+        "copied": "Copied!"
     },
     "apps": {
         "title": "Other apps | QuitMate",
