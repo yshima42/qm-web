@@ -10,9 +10,10 @@ type Props = {
   description: string;
   locale: Locale;
   namespace?: string;
+  eyebrow?: string;
 };
 
-const { title, description, locale, namespace = "" } = Astro.props;
+const { title, description, locale, namespace = "", eyebrow } = Astro.props;
 const theme = getTheme(namespace);
 const t = useTranslations(locale, namespace || undefined);
 
@@ -56,6 +57,11 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
       )}
 
       <h1 class="mb-5 md:mb-7">
+        {eyebrow && (
+          <span class="mb-2 block text-sm font-medium tracking-normal text-[var(--sub-foreground)]">
+            {eyebrow}
+          </span>
+        )}
         {title}
       </h1>
 

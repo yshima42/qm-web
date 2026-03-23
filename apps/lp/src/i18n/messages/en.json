@@ -3,17 +3,18 @@
         "language-code": "en"
     },
     "common": {
-        "title": "QuitMate | Addiction Recovery Community",
-        "description": "A safe, anonymous community app where 8,000+ people support each other through addiction recovery. Rated ★4.8."
+        "title": "QuitMate | Addiction Recovery Community App — Quit Together",
+        "description": "A free, anonymous community app for addiction recovery. 8,000+ people support each other to quit alcohol, gambling, smoking, porn and more. Rated ★4.8 on the App Store."
     },
     "hero": {
+      "eyebrow": "Addiction Recovery Community App",
       "title": "You don't have to quit alone",
       "description": "A safe, anonymous community where people in recovery support each other",
       "social-proof": "★4.8 · 200+ reviews · 8,000+ people recovering",
-      "screenshot-stories-alt": "QuitMate app story screen",
-      "screenshot-categories-alt": "QuitMate app category screen",
-      "screenshot-program-alt": "QuitMate app program screen",
-      "screenshot-habits-alt": "QuitMate app habits screen"
+      "screenshot-stories-alt": "QuitMate addiction recovery app community feed",
+      "screenshot-categories-alt": "QuitMate addiction recovery app category selection",
+      "screenshot-program-alt": "QuitMate addiction recovery app program screen",
+      "screenshot-habits-alt": "QuitMate addiction recovery app habit tracker"
     },
     "intro": {
       "title": "A supportive social network for addiction recovery",
@@ -36,7 +37,7 @@
       }
     },
     "features": {
-      "title": "What QuitMate offers",
+      "title": "3 features to support your recovery",
       "feature1": {
         "title": "People who truly understand",
         "description": "You don't have to face this alone. Connect with people who truly understand—because they're going through it too."
@@ -70,7 +71,7 @@
       }
     },
     "reviews": {
-      "title": "What our users say",
+      "title": "What our users say — App Store ★4.8",
       "review1": {
         "name": "User",
         "category": "Addiction Recovery",
@@ -103,7 +104,7 @@
       }
     },
     "how-it-works": {
-      "title": "Get started in 3 steps",
+      "title": "Get started for free in 3 steps",
       "step1": {
         "title": "Download the app",
         "description": "Free on the App Store and Google Play. Sign up anonymously — no real name needed."
@@ -331,11 +332,11 @@
     },
     "kinshu": {
         "common": {
-            "title": "Alcohol-Free Mate | Build a sober habit with the app",
-            "description": "Track your alcohol-free journey. A supportive timeline and logging help you build a sober daily life."
+            "title": "Alcohol-Free Mate | Sobriety Counter & Community to Stay Sober",
+            "description": "Track your sobriety with a free counter app. Visualize your alcohol-free streak, connect with others on the same journey, and stay motivated through a supportive community timeline."
         },
         "hero": {
-            "title": "Build a sober habit with the app",
+            "title": "Stay sober with tracking & community",
             "description": "Stay on track with logging and community. See your streak and get support on the timeline. The app supports your alcohol-free journey.",
             "screenshot-home-alt": "Alcohol-Free Mate app home screen",
             "screenshot-habits-alt": "Alcohol-Free Mate app habits screen"
@@ -418,8 +419,8 @@
     },
     "porn": {
         "common": {
-            "title": "Porn-Free Mate | Build a porn-free habit with the app",
-            "description": "Track your porn-free journey. A supportive timeline and logging help you build a healthier daily life."
+            "title": "Porn-Free Mate | NoFap Counter & Community to Quit Porn",
+            "description": "Track your porn-free streak with a free counter app. Visualize your progress, connect with others on the same journey, and stay motivated through a supportive community timeline."
         },
         "hero": {
             "title": "Build a porn-free habit with the app",
@@ -505,8 +506,8 @@
     },
     "tobacco": {
         "common": {
-            "title": "Tobacco-Free Mate | Quit smoking with the app",
-            "description": "Track your smoke-free journey. A supportive timeline and logging help you build a tobacco-free life."
+            "title": "Tobacco-Free Mate | Quit Smoking Counter & Community App",
+            "description": "Track your smoke-free streak with a free counter app. Visualize your progress, connect with others quitting smoking, and stay motivated through a supportive community timeline."
         },
         "hero": {
             "title": "Quit smoking with the app",

@@ -14,6 +14,20 @@ type Props = {
 
 const { title, items, namespace = "" } = Astro.props;
 const theme = getTheme(namespace);
+
+// FAQPage structured data for rich snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <section class="section-base">
@@ -49,4 +63,6 @@ const theme = getTheme(namespace);
       ))}
     </div>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </section>
