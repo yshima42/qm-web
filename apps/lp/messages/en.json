@@ -242,12 +242,12 @@
     },
     "alcohol": {
         "common": {
-            "title": "Alcohol-Free Week | Try going alcohol-free for one week",
-            "description": "Alcohol-Free Week is an app to help you seriously challenge yourself to quit or abstain from alcohol for just one week."
+            "title": "Alcohol-Free Week | Build a Sober Habit with Daily Tasks",
+            "description": "Learn, share, and track — 3 daily tasks to build a lasting sober habit. Science-based program with community support to help you quit drinking. Free on iOS and Android."
         },
         "hero": {
-            "title": "Try going alcohol-free for one week",
-            "description": "An app to help you seriously challenge yourself to quit or abstain from alcohol for just one week. Review your daily alcohol intake and support your 7-day journey to reset your mind and body.",
+            "title": "3 daily tasks to build a sober habit",
+            "description": "Learn, share, and track. A science-based daily program and supportive community help you quit drinking — one day at a time.",
             "screenshot-home-alt": "Alcohol-Free Week app home screen",
             "screenshot-timeline-alt": "Alcohol-Free Week app timeline screen",
             "screenshot-profile-alt": "Alcohol-Free Week app profile screen",
@@ -259,18 +259,18 @@
             "description": "Deciding to never drink alcohol again is tough, but doesn't 'just one week' sound more manageable? Review your daily alcohol intake and support your 7-day journey to reset your mind and body."
         },
         "features": {
-            "title": "Key Features of Alcohol-Free Week",
+            "title": "A science-based sobriety program",
             "feature1": {
-                "title": "One-week alcohol-free program",
-                "description": "Having a clear goal makes it easier to stay motivated. Start by completing your first week. By building small successes, you'll find yourself able to stay alcohol-free for longer. Your progress is visualized through the habit tracker feature."
+                "title": "Daily tasks",
+                "description": "Learn → Share → Track. Complete 3 simple steps each day to build sobriety skills. Read science-based articles on how alcohol affects your brain and body, then check in to record your progress. Not just a tracker — it's a habit-changing program."
             },
             "feature2": {
-                "title": "Daily support articles",
-                "description": "Receive one daily tip from 'alcohol-free experts' about changes in your body during abstinence and strategies to resist cravings. Control your alcohol cravings through knowledge."
+                "title": "Community timeline",
+                "description": "Share struggles and wins with others on the same journey. Likes and comments keep you motivated. Writing about what you learn helps the knowledge stick."
             },
             "feature3": {
-                "title": "Connect with others in the same situation",
-                "description": "Connect with people who started their alcohol-free journey on the same day, users with similar progress, and experienced users who have maintained long-term sobriety. Realizing 'I'm not alone in this struggle' is the fastest path to success. Share your challenges and successes, and support each other."
+                "title": "Progress tracking",
+                "description": "Your sober streak is counted automatically. Log 'I made it today' with a quick check-in and look back at your progress anytime. Seeing the numbers grow builds real confidence."
             }
         },
         "testimonials": {
