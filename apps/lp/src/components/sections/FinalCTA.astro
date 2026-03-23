@@ -1,20 +1,82 @@
 ---
-import { getTheme } from "@/config/themes";
+import { getTheme, STORE_URLS } from "@/config/themes";
 import StoreBadges from "./StoreBadges.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
 
 type Props = {
   title: string;
   description: string;
-  locale: string;
+  locale: Locale;
   namespace?: string;
 };
 
-const { title, description, locale, namespace } = Astro.props;
+const { title, description, locale, namespace = "" } = Astro.props;
 const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
+
+const storeKey = namespace || "default";
+const storeUrls = STORE_URLS[storeKey] ?? STORE_URLS.default;
+
+const closingRaw = t("final-cta.closing");
+const closingText = closingRaw !== "final-cta.closing" ? closingRaw : "";
 ---
 
-<section class={`${theme.finalCtaBg} px-6 py-20 text-center`}>
-  <h2 class={`mb-4 text-3xl font-bold ${theme.titleColor} md:text-4xl`}>{title}</h2>
-  <p class={`mx-auto mb-8 max-w-xl text-lg ${theme.descColor}`}>{description}</p>
-  <StoreBadges locale={locale} namespace={namespace} size="medium" />
+<section
+  class="section-base text-center"
+  style={`background: ${theme.accentColor}1A`}
+>
+  <div class="animate-on-scroll mx-auto max-w-2xl">
+    <h2 class="mb-5 md:mb-7">
+      {title}
+    </h2>
+    <p class="mx-auto mb-12 max-w-lg text-base leading-relaxed text-[var(--sub-foreground)] md:text-lg">
+      {description}
+    </p>
+
+    <div class="mb-10 flex justify-center">
+      <div class="hidden md:block">
+        <StoreBadges locale={locale} namespace={namespace} size="xl" />
+      </div>
+      <div class="block md:hidden">
+        <StoreBadges locale={locale} namespace={namespace} size="large" />
+      </div>
+    </div>
+
+    <!-- QRコード（デスクトップのみ） -->
+    <div class="hidden items-center justify-center gap-10 md:flex">
+      <div class="flex flex-col items-center gap-3">
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-2">
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(storeUrls.apple)}`}
+            alt="App Store QR Code"
+            width="120"
+            height="120"
+            class="rounded-lg"
+            loading="lazy"
+          />
+        </div>
+        <span class="text-xs font-medium text-[var(--sub-foreground)]">App Store</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-2">
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(storeUrls.google)}`}
+            alt="Google Play QR Code"
+            width="120"
+            height="120"
+            class="rounded-lg"
+            loading="lazy"
+          />
+        </div>
+        <span class="text-xs font-medium text-[var(--sub-foreground)]">Google Play</span>
+      </div>
+    </div>
+
+    {closingText && (
+      <p class="mt-8 text-sm text-[var(--sub-foreground)]">
+        {closingText}
+      </p>
+    )}
+  </div>
 </section>

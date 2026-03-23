@@ -9,65 +9,24 @@ type Props = {
   screenshots: Screenshot[];
   className?: string;
   indicatorActiveClassName?: string;
+  height?: number;
+  borderRadius?: number;
+  hideIndicators?: boolean;
 };
 
 const AUTO_PLAY_INTERVAL_MS = 4000;
 const ANIMATION_DURATION_MS = 300;
 const MIN_SWIPE_DISTANCE = 50;
-const MOBILE_BREAKPOINT = 768;
-
-function NavButton({
-  direction,
-  isMobile,
-  onClick,
-  ariaLabel,
-}: {
-  direction: "prev" | "next";
-  isMobile: boolean;
-  onClick: () => void;
-  ariaLabel: string;
-}) {
-  const isPrev = direction === "prev";
-  const positionClass = isPrev
-    ? isMobile
-      ? "-left-4 size-8"
-      : "-left-1 size-10"
-    : isMobile
-      ? "-right-4 size-8"
-      : "-right-1 size-10";
-  const size = isMobile ? 16 : 20;
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`absolute top-1/2 z-10 flex items-center justify-center rounded-full bg-gray-50/80 text-gray-800 shadow-lg transition-all hover:bg-gray-100 active:scale-95 active:bg-gray-200 ${positionClass} -translate-y-1/2`}
-      aria-label={ariaLabel}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {isPrev ? <path d="M15 18l-6-6 6-6" /> : <path d="M9 18l6-6-6-6" />}
-      </svg>
-    </button>
-  );
-}
 
 export default function ScreenshotViewer({
   screenshots,
   className = "",
   indicatorActiveClassName = "bg-green-800",
+  height = 580,
+  borderRadius = 0,
+  hideIndicators = false,
 }: Props) {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -93,44 +52,60 @@ export default function ScreenshotViewer({
     return () => clearAutoPlayTimer();
   }, [resetAutoPlayTimer, clearAutoPlayTimer]);
 
+  const goTo = (index: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentScreenshot(index);
+    resetAutoPlayTimer();
+    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
+  };
+
+  // インジケーター同期用カスタムイベント
   useEffect(() => {
-    const checkIfMobile = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-    return () => window.removeEventListener("resize", checkIfMobile);
+    window.dispatchEvent(
+      new CustomEvent("screenshot-change", {
+        detail: { index: currentScreenshot, total: screenshots.length },
+      }),
+    );
+  }, [currentScreenshot, screenshots.length]);
+
+  // 外部からのインジケータータップを受信
+  const goToRef = useRef<(index: number) => void>(goTo);
+  goToRef.current = goTo;
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const idx = (e as CustomEvent).detail?.index;
+      if (typeof idx === "number") goToRef.current?.(idx);
+    };
+    window.addEventListener("screenshot-goto", handler);
+    return () => window.removeEventListener("screenshot-goto", handler);
   }, []);
-
-  const nextScreenshot = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentScreenshot((prev) => (prev + 1) % screenshots.length);
-    resetAutoPlayTimer();
-    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
-  };
-
-  const prevScreenshot = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentScreenshot((prev) => (prev - 1 + screenshots.length) % screenshots.length);
-    resetAutoPlayTimer();
-    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
-  };
 
   const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX);
   const handleTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    if (distance > MIN_SWIPE_DISTANCE) nextScreenshot();
-    else if (distance < -MIN_SWIPE_DISTANCE) prevScreenshot();
+    if (distance > MIN_SWIPE_DISTANCE) {
+      goTo((currentScreenshot + 1) % screenshots.length);
+    } else if (distance < -MIN_SWIPE_DISTANCE) {
+      goTo((currentScreenshot - 1 + screenshots.length) % screenshots.length);
+    }
     setTouchStart(0);
     setTouchEnd(0);
   };
 
   return (
-    <div className={`relative size-full ${className}`}>
+    <div className={className}>
       <div
-        className="relative size-full overflow-visible"
+        style={{
+          position: "relative",
+          width: "100%",
+          height: `${height}px`,
+          overflow: "hidden",
+          borderRadius: borderRadius > 0 ? `${borderRadius}px` : undefined,
+          background: "#fff",
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -138,32 +113,34 @@ export default function ScreenshotViewer({
         <img
           src={screenshots[currentScreenshot].src}
           alt={screenshots[currentScreenshot].alt}
-          className={`absolute inset-0 size-full object-contain transition-opacity duration-300 ${isAnimating ? "opacity-80" : "opacity-100"}`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top",
+            transition: "opacity 300ms",
+            opacity: isAnimating ? 0.8 : 1,
+          }}
         />
+      </div>
 
-        <div className="absolute inset-x-0 -bottom-8 z-10 flex justify-center gap-2 py-2">
+      {!hideIndicators && screenshots.length > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", paddingTop: "16px" }}>
           {screenshots.map((_, index) => (
             <button
               key={index}
-              className={`size-2 rounded-full shadow-sm transition-colors ${
-                index === currentScreenshot ? indicatorActiveClassName : "bg-gray-200"
+              className={`size-2 rounded-full transition-colors ${
+                index === currentScreenshot ? indicatorActiveClassName : "bg-gray-300"
               }`}
-              onClick={() => {
-                setCurrentScreenshot(index);
-                resetAutoPlayTimer();
-              }}
+              onClick={() => goTo(index)}
               aria-label={`Screenshot ${index + 1}`}
             />
           ))}
         </div>
-
-        {screenshots.length > 1 && (
-          <>
-            <NavButton direction="prev" isMobile={isMobile} onClick={prevScreenshot} ariaLabel="Previous screenshot" />
-            <NavButton direction="next" isMobile={isMobile} onClick={nextScreenshot} ariaLabel="Next screenshot" />
-          </>
-        )}
-      </div>
+      )}
     </div>
   );
 }

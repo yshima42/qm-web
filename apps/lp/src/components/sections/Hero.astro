@@ -2,49 +2,154 @@
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import ScreenshotViewer from "./ScreenshotViewer.tsx";
 import StoreBadges from "./StoreBadges.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
 
 type Props = {
   title: string;
   description: string;
-  locale: string;
+  locale: Locale;
   namespace?: string;
+  eyebrow?: string;
 };
 
-const { title, description, locale, namespace = "" } = Astro.props;
+const { title, description, locale, namespace = "", eyebrow } = Astro.props;
 const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
 
 const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
-// mate LP のスクリーンショットは日本語版のみ存在するため、namespace ありの場合は ja を使う
 const screenshotLocale = namespace ? "ja" : locale;
 const screenshots = config.map(({ image, altKey }) => ({
   src: `/images/${screenshotLocale}/${image}`,
   alt: altKey,
 }));
+
+const socialProofRaw = t("hero.social-proof");
+const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
 ---
 
-<section class={`flex items-center justify-center ${theme.heroBg} p-8 py-12 md:py-16`}>
-  <div class="flex w-full max-w-5xl flex-col items-center justify-between gap-2 md:flex-row md:gap-6">
-    <div class="flex max-w-lg flex-col items-center text-center md:items-start md:text-left">
-      <h1 class={`mb-2 text-3xl font-semibold leading-tight ${theme.titleColor} md:mb-4 md:text-4xl md:font-bold lg:text-4xl`}>
+<section class="section-base relative overflow-hidden pt-28 md:pt-36">
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-14 md:flex-row md:gap-16">
+    <!-- テキスト側 -->
+    <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
+      {socialProofText && (
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm">
+          <span class="flex gap-0.5" role="img" aria-label="4.8 out of 5 stars">
+            {/* ★4つ（満点） */}
+            {[...Array(4)].map(() => (
+              <svg class="size-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+            {/* ★1つ（80%塗り = 4.8の端数） */}
+            <svg class="size-4" viewBox="0 0 20 20" aria-hidden="true">
+              <defs>
+                <linearGradient id="star-partial">
+                  <stop offset="70%" stop-color="#f59e0b" />
+                  <stop offset="70%" stop-color="#d1d5db" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#star-partial)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </span>
+          <span class="text-[var(--sub-foreground)]">{socialProofText}</span>
+        </div>
+      )}
+
+      <h1 class="mb-5 md:mb-7">
+        {eyebrow && (
+          <span class="mb-2 block text-sm font-medium tracking-normal text-[var(--sub-foreground)]">
+            {eyebrow}
+          </span>
+        )}
         {title}
       </h1>
-      <p class={`mb-4 text-lg ${theme.descColor} md:mb-6 md:text-xl lg:text-2xl`}>
+
+      <p class="mb-10 text-lg leading-relaxed text-[var(--sub-foreground)] md:text-xl">
         {description}
       </p>
-      <div class="hidden md:block">
-        <StoreBadges locale={locale} namespace={namespace} size="xl" />
-      </div>
-      <div class="block md:hidden">
-        <StoreBadges locale={locale} namespace={namespace} size="medium" />
+
+      <div class="flex flex-col items-center gap-4 md:items-start">
+        <div class="hidden md:block">
+          <StoreBadges locale={locale} namespace={namespace} size="xl" eager />
+        </div>
+        <div class="block md:hidden">
+          <StoreBadges locale={locale} namespace={namespace} size="large" eager />
+        </div>
       </div>
     </div>
 
-    <div class="relative mt-4 h-[600px] w-full md:mt-0 md:w-[380px] lg:w-[450px]">
-      <ScreenshotViewer
-        client:visible
-        screenshots={screenshots}
-        indicatorActiveClassName={theme.indicatorColor}
-      />
+    <!-- スクリーンショット -->
+    <div class="relative flex flex-1 items-center justify-center">
+      <div class="phone-area">
+        <!-- フレーム（画像のみ、overflow: hidden） -->
+        <div class="phone-frame">
+          <ScreenshotViewer
+            client:visible
+            screenshots={screenshots}
+            indicatorActiveClassName={theme.indicatorColor}
+            height={580}
+            borderRadius={34}
+            hideIndicators
+          />
+        </div>
+        <!-- インジケーター（フレーム外） -->
+        <div class="mt-4 flex justify-center gap-2">
+          {screenshots.map((_, i) => (
+            <div
+              class="hero-dot size-2 rounded-full transition-opacity duration-300"
+              style={`background: ${theme.accentColor}; opacity: ${i === 0 ? 1 : 0.3}`}
+              data-index={i}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  // ScreenshotViewer → インジケーター同期
+  window.addEventListener('screenshot-change', function(e) {
+    var index = e.detail.index;
+    document.querySelectorAll('.hero-dot').forEach(function(dot, i) {
+      dot.style.opacity = i === index ? '1' : '0.3';
+    });
+  });
+  // インジケータータップ → ScreenshotViewer
+  document.querySelectorAll('.hero-dot').forEach(function(dot, i) {
+    dot.style.cursor = 'pointer';
+    dot.addEventListener('click', function() {
+      window.dispatchEvent(new CustomEvent('screenshot-goto', { detail: { index: i } }));
+    });
+  });
+</script>
+
+<style>
+  .phone-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phone-frame {
+    width: 270px;
+    padding: 10px;
+    background: #1a1a1a;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.12),
+      inset 0 0 1px 0.5px rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 8px 16px rgba(0, 0, 0, 0.08),
+      0 16px 32px rgba(0, 0, 0, 0.06),
+      0 32px 64px rgba(0, 0, 0, 0.04);
+  }
+
+  @media (min-width: 768px) {
+    .phone-frame {
+      width: 290px;
+    }
+  }
+</style>

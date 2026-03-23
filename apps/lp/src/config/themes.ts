@@ -5,16 +5,9 @@
 
 export type ThemeConfig = {
   headerBg: string;
-  heroBg: string;
-  introBg: string;
-  featuresBg: string;
-  testimonialsBg: string;
-  finalCtaBg: string;
   footerBg: string;
   documentBg: string;
-  cardBg: string;
   titleColor: string;
-  descColor: string;
   navText: string;
   navHover: string;
   mobileLinkColor: string;
@@ -23,22 +16,16 @@ export type ThemeConfig = {
   footerSocial: string;
   footerCopyright: string;
   indicatorColor: string;
-  iconColor: string;
   lightText: boolean;
+  /** CSS値としてのアクセントカラー (style属性で使用) */
+  accentColor: string;
 };
 
 const defaultTheme: ThemeConfig = {
-  headerBg: "bg-white shadow-sm",
-  heroBg: "bg-gradient-to-b from-[#f8fbf7] to-white",
-  introBg: "bg-[#f8fbf7]",
-  featuresBg: "bg-white",
-  testimonialsBg: "bg-[#f8fbf7]",
-  finalCtaBg: "bg-gradient-to-b from-[#f8fbf7] to-white",
+  headerBg: "bg-white/80 shadow-sm",
   footerBg: "bg-white",
   documentBg: "bg-[#f8fbf7]",
-  cardBg: "bg-white",
   titleColor: "text-gray-800",
-  descColor: "text-gray-600",
   navText: "text-gray-600",
   navHover: "hover:text-primary-light",
   mobileLinkColor: "text-gray-600 hover:text-primary-light",
@@ -47,18 +34,13 @@ const defaultTheme: ThemeConfig = {
   footerSocial: "text-gray-600 hover:text-primary-light",
   footerCopyright: "text-gray-500",
   indicatorColor: "bg-[#2E6C28]",
-  iconColor: "text-[#2E6C28]",
   lightText: false,
+  accentColor: "#2E6C28",
 };
 
 const themes: Record<string, Partial<ThemeConfig>> = {
   alcohol: {
-    headerBg: "bg-[#d8e8d4] shadow-sm",
-    heroBg: "bg-gradient-to-b from-[#d8e8d4] to-white",
-    introBg: "bg-[#d8e8d4]",
-    featuresBg: "bg-[#e8f0e6]",
-    testimonialsBg: "bg-[#d8e8d4]",
-    finalCtaBg: "bg-gradient-to-b from-[#d8e8d4] to-white",
+    headerBg: "bg-[#d8e8d4]/80 shadow-sm",
     footerBg: "bg-[#d8e8d4]",
     documentBg: "bg-[#d8e8d4]",
     navText: "text-gray-700",
@@ -69,18 +51,13 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerSocial: "text-gray-600 hover:text-gray-800",
     footerCopyright: "text-gray-600",
     indicatorColor: "bg-green-700",
+    accentColor: "#15803d",
   },
   kinshu: {
-    headerBg: "bg-[#e8eaf6] shadow-sm",
-    heroBg: "bg-gradient-to-b from-[#e8eaf6] to-white",
-    introBg: "bg-[#e8eaf6]",
-    featuresBg: "bg-[#c5cae9]",
-    testimonialsBg: "bg-[#e8eaf6]",
-    finalCtaBg: "bg-gradient-to-b from-[#c5cae9] to-white",
+    headerBg: "bg-[#e8eaf6]/80 shadow-sm",
     footerBg: "bg-[#e8eaf6]",
     documentBg: "bg-[#e8eaf6]",
     titleColor: "text-gray-900",
-    descColor: "text-gray-700",
     navText: "text-gray-900",
     navHover: "hover:text-gray-700",
     mobileLinkColor: "text-gray-900 hover:text-gray-700",
@@ -89,20 +66,13 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerSocial: "text-gray-900 hover:text-gray-700",
     footerCopyright: "text-gray-700",
     indicatorColor: "bg-[#3949ab]",
-    iconColor: "text-gray-700",
+    accentColor: "#3949ab",
   },
   porn: {
-    headerBg: "bg-[#1a0a1f] shadow-none",
-    heroBg: "bg-gradient-to-b from-[#1a0a1f] via-[#2d1b4e] to-[#1a0a1f]",
-    introBg: "bg-[#1a0a1f]",
-    featuresBg: "bg-[#2d1b4e]",
-    testimonialsBg: "bg-[#1a0a1f]",
-    finalCtaBg: "bg-gradient-to-b from-[#2d1b4e] to-[#1a0a1f]",
+    headerBg: "bg-[#1a0a1f]/80 shadow-none",
     footerBg: "bg-[#1a0a1f]",
     documentBg: "bg-[#1a0a1f]",
-    cardBg: "bg-[#1a0a1f]/80",
     titleColor: "text-white",
-    descColor: "text-purple-200",
     navText: "text-purple-200",
     navHover: "hover:text-white",
     mobileLinkColor: "text-purple-200 hover:text-white",
@@ -111,20 +81,14 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerSocial: "text-purple-300 hover:text-white",
     footerCopyright: "text-purple-400",
     indicatorColor: "bg-purple-400",
-    iconColor: "text-purple-400",
     lightText: true,
+    accentColor: "#c084fc",
   },
   tobacco: {
-    headerBg: "bg-[#e8f5e9] shadow-sm",
-    heroBg: "bg-gradient-to-b from-[#e8f5e9] to-white",
-    introBg: "bg-[#e8f5e9]",
-    featuresBg: "bg-[#c8e6c9]",
-    testimonialsBg: "bg-[#e8f5e9]",
-    finalCtaBg: "bg-gradient-to-b from-[#e8f5e9] to-white",
+    headerBg: "bg-[#e8f5e9]/80 shadow-sm",
     footerBg: "bg-[#e8f5e9]",
     documentBg: "bg-[#e8f5e9]",
     titleColor: "text-gray-900",
-    descColor: "text-gray-700",
     navText: "text-gray-900",
     navHover: "hover:text-gray-700",
     mobileLinkColor: "text-gray-900 hover:text-gray-700",
@@ -133,7 +97,7 @@ const themes: Record<string, Partial<ThemeConfig>> = {
     footerSocial: "text-gray-900 hover:text-gray-700",
     footerCopyright: "text-gray-700",
     indicatorColor: "bg-green-600",
-    iconColor: "text-gray-700",
+    accentColor: "#16a34a",
   },
 };
 

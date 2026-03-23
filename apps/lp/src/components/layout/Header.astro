@@ -21,31 +21,23 @@ const linkClass = `${theme.navText} ${theme.navHover} transition-colors`;
 const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
 ---
 
-<header class={`w-full ${theme.headerBg}`}>
+<header class={`sticky top-0 z-50 w-full backdrop-blur-md ${theme.headerBg} transition-shadow duration-300`} data-sticky-header>
   <div class="mx-auto flex max-w-6xl items-center justify-between p-4">
     <Logo locale={locale} namespace={namespace} lightText={theme.lightText} />
 
     <!-- デスクトップ用ナビゲーション -->
-    <div class={`hidden items-center gap-6 text-base md:flex ${theme.navText}`}>
-      <nav class="flex gap-6">
+    <div class={`hidden items-center gap-4 text-base md:flex ${theme.navText}`}>
+      <nav class="flex gap-5">
         {!namespace && (
-          <>
-            <a href={`/${locale}/apps`} class={`font-bold ${linkClass}`}>
-              {t("header.links.otherApps")}
-            </a>
-            <a href={`/${locale}/blog`} class={linkClass}>
-              {t("header.links.blog")}
-            </a>
-          </>
+          <a href={`/${locale}/blog`} class={linkClass}>
+            {t("header.links.blog")}
+          </a>
         )}
         {namespace && (
           <a href={`/${locale}/`} class={`font-bold ${linkClass}`}>
             {t("header.links.otherDependencies")}
           </a>
         )}
-        <a href={`${prefix}/terms`} class={linkClass}>{t("header.links.terms")}</a>
-        <a href={`${prefix}/privacy`} class={linkClass}>{t("header.links.privacy")}</a>
-        <a href={`${prefix}/contact`} class={linkClass}>{t("header.links.contact")}</a>
       </nav>
       {!namespace && (
         <a
@@ -93,10 +85,7 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
   <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.headerBg}`} data-mobile-menu>
     <nav class="flex flex-col space-y-4">
       {!namespace && (
-        <>
-          <a href={`/${locale}/apps`} class={`font-bold ${mobileLinkClass}`}>{t("header.links.otherApps")}</a>
-          <a href={`/${locale}/blog`} class={mobileLinkClass}>{t("header.links.blog")}</a>
-        </>
+        <a href={`/${locale}/blog`} class={mobileLinkClass}>{t("header.links.blog")}</a>
       )}
       {namespace && (
         <a href={`/${locale}/`} class={`font-bold ${mobileLinkClass}`}>{t("header.links.otherDependencies")}</a>
@@ -113,14 +102,15 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
   const menu = document.querySelector("[data-mobile-menu]");
   const menuIcon = document.querySelector("[data-menu-icon]");
   const closeIcon = document.querySelector("[data-close-icon]");
+  const header = document.querySelector("[data-sticky-header]");
 
+  // モバイルメニューの開閉
   toggle?.addEventListener("click", () => {
     const isOpen = !menu?.classList.contains("hidden");
     menu?.classList.toggle("hidden");
     menuIcon?.classList.toggle("hidden");
     closeIcon?.classList.toggle("hidden");
     if (!isOpen) {
-      // メニューを開いたらリンククリックで閉じる
       menu?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
           menu?.classList.add("hidden");
@@ -130,4 +120,15 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
       });
     }
   });
+
+  // スクロール時にヘッダーにシャドウを付与
+  if (header) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        header.classList.add("shadow-md");
+      } else {
+        header.classList.remove("shadow-md");
+      }
+    }, { passive: true });
+  }
 </script>

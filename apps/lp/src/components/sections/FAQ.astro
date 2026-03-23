@@ -1,0 +1,68 @@
+---
+import { getTheme } from "@/config/themes";
+
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+type Props = {
+  title: string;
+  items: FAQItem[];
+  namespace?: string;
+};
+
+const { title, items, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+
+// FAQPage structured data for rich snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<section class="section-base">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="animate-on-scroll mb-12 text-center md:mb-16">
+      {title}
+    </h2>
+
+    <div class="stagger-children flex flex-col gap-3">
+      {items.map((item) => (
+        <details class="card group rounded-xl transition-all duration-200 open:shadow-md">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-base font-semibold md:text-lg [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="shrink-0 text-[var(--sub-foreground)] transition-transform duration-200 group-open:rotate-180"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-sm leading-relaxed text-[var(--sub-foreground)] md:text-base">
+            {item.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>
