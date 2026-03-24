@@ -46,7 +46,7 @@ So -- what did the rats in paradise choose?
 
 ---
 
-![Illustration of the Rat Park experiment](/blog/images/connection.png)
+![Illustration of the Rat Park experiment](/blog/images/connection.webp)
 
 ---
 
@@ -82,7 +82,7 @@ The explanation that "addiction happens because someone lacks willpower" -- that
 
 ---
 
-![Connection with others supports recovery](/blog/images/rat-park.png)
+![Connection with others supports recovery](/blog/images/rat-park.webp)
 
 ---
 

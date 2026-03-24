@@ -22,7 +22,7 @@ You decided to quit gambling, but the very next day you walked into a pachinko p
 
 In a related article, "[What if Addiction Was Never the 'Problem' — But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)," I wrote about how addictive behavior often begins as a form of self-medication for emotional pain. In this article, let's look at another source of suffering — **the way we keep blaming ourselves** — and how it affects recovery.
 
-![blaming-woman](/blog/images/blaming-woman.png)
+![blaming-woman](/blog/images/blaming-woman.webp)
 
 ---
 
@@ -70,7 +70,7 @@ Another is **shifting your focus from "what I couldn't do" to "what I did do."**
 
 And the ABC analysis I mentioned earlier — think of it like a journal. The act of keeping a record itself becomes practice in seeing yourself objectively. Try using it not as a tool to blame yourself, but as a tool to understand yourself.
 
-![writing-woman](/blog/images/writing-woman.png)
+![writing-woman](/blog/images/writing-woman.webp)
 
 ---
 

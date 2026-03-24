@@ -18,7 +18,7 @@ But how much can you trust that memory?
 
 ## A Clear-Eyed Look at How Gambling Actually Works
 
-![Horse Racing](/blog/images/horse-racing.png)
+![Horse Racing](/blog/images/horse-racing.webp)
 
 Every form of gambling has what's called a "house edge" — basically, **the cut the house takes**.
 
@@ -54,7 +54,7 @@ As we touched on in [Why Can't You Stop Gambling?](/en/blog/why-cant-you-stop-ga
 
 ## The Real Reason People Can't Let Go of "Winning Overall"
 
-![Gambling Reality](/blog/images/gambling-reality.png)
+![Gambling Reality](/blog/images/gambling-reality.webp)
 
 The deeper someone falls into gambling addiction, the more fiercely they tend to insist they're "up overall."
 

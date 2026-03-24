@@ -12,7 +12,7 @@ If that sounds familiar, you're far from alone.
 
 In Japan, total sales from public gambling — including online betting — reached roughly **7.8 trillion yen in fiscal 2023**. Sports lotteries like toto and BIG hit an **all-time high of 120.3 billion yen**. On top of that, an estimated **6.45 trillion yen** is reportedly flowing to illegal overseas betting sites. With just a smartphone, you can wager anytime, anywhere, around the clock. The line between "a bit of harmless fun" and "addiction" is far blurrier than most people think.
 
-![A young man on a sofa staring at a betting app on his phone, with two TVs showing live sports in the background](/blog/images/sports-betting-young.png)
+![A young man on a sofa staring at a betting app on his phone, with two TVs showing live sports in the background](/blog/images/sports-betting-young.webp)
 
 ---
 
@@ -70,7 +70,7 @@ What gambling gave you was intense focus for a short period and the thrill of "I
 
 Push yourself with HIIT (high-intensity interval training). Chase a higher score on a language-learning app. Battle it out in online chess or shogi. Anything works. Having just one thing you can get absorbed in gives you somewhere to escape when the urge to bet hits.
 
-![In a cafe, a counselor shows a self-exclusion confirmation screen on a tablet while a man looks relieved](/blog/images/sports-betting-old.png)
+![In a cafe, a counselor shows a self-exclusion confirmation screen on a tablet while a man looks relieved](/blog/images/sports-betting-old.webp)
 
 ### Talk to Someone
 

@@ -24,7 +24,7 @@ author: "QuitMate"
 
 それは意志の弱さじゃない。**脳が「学習」した結果**なんだ。
 
-![脳内報酬学習ループ（VTA→NAcc）](/blog/images/glowing-brain.png)
+![脳内報酬学習ループ（VTA→NAcc）](/blog/images/glowing-brain.webp)
 
 ---
 
@@ -40,7 +40,7 @@ author: "QuitMate"
 
 この状態で「気合いでやめろ」と言われても、それは無理な話だ。自分を責めたくなる気持ちはよくわかる。でも、[その自己否定こそが回復を遠ざけてしまう](/ja/blog/stop-blaming-yourself)ということも、研究でわかっている。
 
-![ブレーキとアクセルのせめぎ合い](/blog/images/worried-woman.png)
+![ブレーキとアクセルのせめぎ合い](/blog/images/worried-woman.webp)
 
 ---
 
@@ -82,7 +82,7 @@ author: "QuitMate"
 
 ひとりで抱え込まなくていい。QuitMateには、同じ痛みを知っている仲間がいる。
 
-[![孤独ケージとラットパークの対比](/blog/images/rat-park2.png)](/ja/blog/rat-park)
+[![孤独ケージとラットパークの対比](/blog/images/rat-park2.webp)](/ja/blog/rat-park)
 
 ---
 

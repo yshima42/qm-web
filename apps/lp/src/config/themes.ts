@@ -141,11 +141,11 @@ export const STORE_URLS: Record<string, { apple: string; google: string }> = {
 
 /** namespace ごとのロゴアイコン */
 export const LOGO_ICONS: Record<string, string> = {
-  "": "/images/icon-web.png",
-  alcohol: "/images/kinshu_icon.png",
-  kinshu: "/images/alcohol_icon.png",
-  porn: "/images/porn_icon.png",
-  tobacco: "/images/tobacco_icon.png",
+  "": "/images/icon-web.webp",
+  alcohol: "/images/kinshu_icon.webp",
+  kinshu: "/images/alcohol_icon.webp",
+  porn: "/images/porn_icon.webp",
+  tobacco: "/images/tobacco_icon.webp",
 };
 
 /** namespace → URLパス */
@@ -159,28 +159,28 @@ export const NAMESPACE_TO_PATH: Record<string, string> = {
 /** namespace ごとのスクリーンショット設定 */
 export const SCREENSHOT_CONFIG: Record<string, { image: string; altKey: string }[]> = {
   default: [
-    { image: "screenshot-stories.png", altKey: "screenshot-stories-alt" },
-    { image: "screenshot-categories.png", altKey: "screenshot-categories-alt" },
-    { image: "screenshot-program.png", altKey: "screenshot-program-alt" },
-    { image: "screenshot-habits.png", altKey: "screenshot-habits-alt" },
+    { image: "screenshot-stories.webp", altKey: "screenshot-stories-alt" },
+    { image: "screenshot-categories.webp", altKey: "screenshot-categories-alt" },
+    { image: "screenshot-program.webp", altKey: "screenshot-program-alt" },
+    { image: "screenshot-habits.webp", altKey: "screenshot-habits-alt" },
   ],
   alcohol: [
-    { image: "k-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "k-screenshot-timeline.png", altKey: "screenshot-timeline-alt" },
-    { image: "k-screenshot-profile.png", altKey: "screenshot-profile-alt" },
-    { image: "k-screenshot-diagnosis.png", altKey: "screenshot-diagnosis-alt" },
-    { image: "k-screenshot-roadmap.png", altKey: "screenshot-roadmap-alt" },
+    { image: "k-screenshot-home.webp", altKey: "screenshot-home-alt" },
+    { image: "k-screenshot-timeline.webp", altKey: "screenshot-timeline-alt" },
+    { image: "k-screenshot-profile.webp", altKey: "screenshot-profile-alt" },
+    { image: "k-screenshot-diagnosis.webp", altKey: "screenshot-diagnosis-alt" },
+    { image: "k-screenshot-roadmap.webp", altKey: "screenshot-roadmap-alt" },
   ],
   kinshu: [
-    { image: "a-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "a-screenshot-habits.png", altKey: "screenshot-habits-alt" },
+    { image: "a-screenshot-home.webp", altKey: "screenshot-home-alt" },
+    { image: "a-screenshot-habits.webp", altKey: "screenshot-habits-alt" },
   ],
   porn: [
-    { image: "p-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "p-screenshot-habits.png", altKey: "screenshot-habits-alt" },
+    { image: "p-screenshot-home.webp", altKey: "screenshot-home-alt" },
+    { image: "p-screenshot-habits.webp", altKey: "screenshot-habits-alt" },
   ],
   tobacco: [
-    { image: "t-screenshot-home.png", altKey: "screenshot-home-alt" },
-    { image: "t-screenshot-habits.png", altKey: "screenshot-habits-alt" },
+    { image: "t-screenshot-home.webp", altKey: "screenshot-home-alt" },
+    { image: "t-screenshot-habits.webp", altKey: "screenshot-habits-alt" },
   ],
 };

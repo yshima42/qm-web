@@ -19,7 +19,11 @@ export function extractFirstImage(content: string): string | null {
   if (match?.[1]) {
     const src = match[1];
     if (src.startsWith("http") || src.startsWith("/")) return src;
-    return `/blog/images/${src}`;
+    // "xxx.png" or "../images/xxx.png" → "/blog/images/xxx.webp"
+    const filename = src.split("/").pop();
+    if (filename) {
+      return `/blog/images/${filename.replace(/\.png$/, ".webp")}`;
+    }
   }
   return null;
 }
