@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { useTranslations } from "@/i18n/utils";
 import { getAllPosts, extractFirstImage } from "@/utils/blog";
+import { getCategoryColor } from "@/utils/category";
 
 const locale = "ja";
 const t = useTranslations(locale);
@@ -41,12 +42,7 @@ const posts = await getAllPosts(locale);
                 <div class="px-3 py-2 sm:px-4 sm:py-3">
                   <div class="flex items-center justify-between">
                     {post.data.category && (
-                      <span class:list={[
-                        "inline-block rounded-full px-2 py-0.5 text-xs font-medium",
-                        post.data.category === "ギャンブル" && "bg-amber-600/10 text-amber-700",
-                        post.data.category === "脳と心の科学" && "bg-sky-600/10 text-sky-700",
-                        post.data.category === "回復のヒント" && "bg-primary-600/10 text-primary-600",
-                      ]}>
+                      <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getCategoryColor(post.data.category)}`}>
                         {post.data.category}
                       </span>
                     )}

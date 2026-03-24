@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { useTranslations } from "@/i18n/utils";
 import { getAllPosts } from "@/utils/blog";
+import { getCategoryColor } from "@/utils/category";
 import { render } from "astro:content";
 
 const locale = "ja";
@@ -47,12 +48,7 @@ const formatDate = (dateStr: string) => {
       <h1 class="mb-4 text-[24px] font-black leading-[1.4] text-[#111] sm:text-[32px]">{post.data.title}</h1>
       <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-gray-400">
         {post.data.category && (
-          <span class:list={[
-            "inline-block rounded-full px-2 py-0.5 text-xs font-medium",
-            post.data.category === "ギャンブル" && "bg-amber-600/10 text-amber-700",
-            post.data.category === "脳と心の科学" && "bg-sky-600/10 text-sky-700",
-            post.data.category === "回復のヒント" && "bg-primary-600/10 text-primary-600",
-          ]}>
+          <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getCategoryColor(post.data.category)}`}>
             {post.data.category}
           </span>
         )}
