@@ -3,6 +3,7 @@ title: "The Real Reasons You Can't Stop Gambling, Explained Through Brain Scienc
 date: "2025-06-09"
 updatedAt: "2026-03-24"
 excerpt: "The question 'why can't I stop when I know I'll lose?' misses the point. Gambling addiction has less to do with money or willpower and more to do with the brain's reward system, dopamine, and the role of emotional pain. This article covers the neuroscience and practical steps toward recovery."
+category: "Gambling"
 
 ---
 

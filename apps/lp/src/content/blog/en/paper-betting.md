@@ -3,6 +3,7 @@ title: "Should You Stop Paper Betting? What Neuroscience Says About Gambling Rel
 date: "2025-05-26"
 updatedAt: "2026-03-24"
 excerpt: "Paper betting (simulated betting without real money) feels harmless, but fMRI research shows it activates the same brain reward circuits as actual gambling. This article covers the neuroscience behind why paper betting raises relapse risk and what alternatives exist."
+category: "Gambling"
 
 ---
 

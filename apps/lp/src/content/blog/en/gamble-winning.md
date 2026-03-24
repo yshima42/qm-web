@@ -3,6 +3,7 @@ title: "Is 'Winning Overall' at Gambling Just an Illusion? The Dangerous Tricks 
 date: "2025-05-27"
 updatedAt: "2026-03-24"
 excerpt: "Most gamblers who believe they're 'up overall' are wrong, and the reasons are structural. This article explains the house edge, confirmation bias, the gambler's fallacy, and the sunk cost fallacy, and why these cognitive biases make accurate self-assessment nearly impossible."
+category: "Gambling"
 
 ---
 

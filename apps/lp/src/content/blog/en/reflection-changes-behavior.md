@@ -3,6 +3,7 @@ title: "Reflection Changes Behavior: What Behavioral Economics Tells Us About Re
 date: "2025-06-11"
 updatedAt: "2026-03-24"
 excerpt: "Dan Ariely's Ten Commandments experiment showed that a brief moment of moral reflection, even when participants couldn't remember what they were reflecting on, nearly eliminated cheating. The same mechanism applies to addiction recovery through implementation intentions and self-compassion."
+category: "Recovery Tips"
 
 ---
 

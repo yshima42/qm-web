@@ -3,6 +3,7 @@ title: "What Is the Rat Park Experiment? The Surprising Link Between Loneliness 
 date: "2025-05-19"
 updatedAt: "2026-03-24"
 excerpt: "Psychologist Bruce Alexander's 1970s Rat Park experiment challenged decades of addiction science by showing that environment, not just drug exposure, shaped addictive behavior. This article covers the experiment, its results, its limitations, and what it means for recovery."
+category: "Brain Science"
 
 ---
 
