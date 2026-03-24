@@ -1,22 +1,7 @@
 ---
-import { getImage } from "astro:assets";
-import { NAMESPACE_TO_PATH } from "@/config/themes";
+import { LOGO_ICONS, NAMESPACE_TO_PATH } from "@/config/themes";
 import { useTranslations } from "@/i18n/utils";
 import type { Locale } from "@/i18n/config";
-
-import iconWeb from "@/assets/images/icon-web.png";
-import iconAlcohol from "@/assets/images/alcohol_icon.png";
-import iconKinshu from "@/assets/images/kinshu_icon.png";
-import iconPorn from "@/assets/images/porn_icon.png";
-import iconTobacco from "@/assets/images/tobacco_icon.png";
-
-const LOGO_IMAGES: Record<string, ImageMetadata> = {
-  "": iconWeb,
-  alcohol: iconKinshu,
-  kinshu: iconAlcohol,
-  porn: iconPorn,
-  tobacco: iconTobacco,
-};
 
 type Props = {
   locale: Locale;
@@ -30,8 +15,7 @@ const t = useTranslations(locale, namespace || undefined);
 
 const size = xl ? 56 : 42;
 const fontStyle = xl ? "text-4xl" : "text-[28px]";
-const logoImage = LOGO_IMAGES[namespace] ?? LOGO_IMAGES[""];
-const optimizedIcon = await getImage({ src: logoImage, format: "webp", width: size * 2, height: size * 2 });
+const iconSrc = LOGO_ICONS[namespace] ?? LOGO_ICONS[""];
 // common.title から "|" の前の部分をサイト名として使用し、括弧の補足を除去
 const fullTitle = t("common.title");
 const beforePipe = fullTitle.includes("|") ? fullTitle.split("|")[0].trim() : fullTitle;
@@ -44,7 +28,7 @@ const textColor = lightText ? "text-white" : "text-gray-900";
 <a href={href} class={`inline-flex items-center ${lightText ? "text-white" : ""}`}>
   <div class="inline-flex items-center gap-2" style={`min-height: ${size}px`}>
     <span class="flex shrink-0 items-center justify-center" style={`width: ${size}px; height: ${size}px`}>
-      <img src={optimizedIcon.src} alt={siteName} width={size} height={size} class="block" />
+      <img src={iconSrc} alt={siteName} width={size} height={size} class="block" />
     </span>
     <span
       class={`${fontStyle} font-medium leading-[1.1] ${textColor} self-center`}

@@ -1,5 +1,4 @@
 ---
-import { getImage } from "astro:assets";
 import { STORE_URLS } from "@/config/themes";
 
 type Props = {
@@ -24,28 +23,13 @@ const storeUrls = STORE_URLS[namespace] ?? STORE_URLS.default;
 const { height, apple: appleWidth, google: googleWidth } = SIZE_MAPPING[size];
 const dirClass = direction === "column" ? "flex-col" : "flex-row";
 const loadingAttr = eager ? "eager" : "lazy";
-
-// ストアバッジをインポート＋WebP最適化
-const badgeImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/*/*.png",
-  { eager: true },
-);
-const appleKey = `/src/assets/images/${locale}/apple-store-badge.png`;
-const googleKey = `/src/assets/images/${locale}/google-play-badge.png`;
-
-const appleBadge = badgeImages[appleKey]
-  ? await getImage({ src: badgeImages[appleKey].default, format: "webp", width: appleWidth * 2 })
-  : null;
-const googleBadge = badgeImages[googleKey]
-  ? await getImage({ src: badgeImages[googleKey].default, format: "webp", width: googleWidth * 2 })
-  : null;
 ---
 
 <div class={`flex items-center justify-center gap-3 md:gap-4 ${dirClass} ${className}`}>
   <a href={storeUrls.apple} target="_blank" rel="noopener noreferrer">
     <div class="flex items-center" style={`height: ${height}px`}>
       <img
-        src={appleBadge?.src ?? `/images/${locale}/apple-store-badge.png`}
+        src={`/images/${locale}/apple-store-badge.webp`}
         alt="App Store"
         width={appleWidth}
         height={height}
@@ -57,7 +41,7 @@ const googleBadge = badgeImages[googleKey]
   <a href={storeUrls.google} target="_blank" rel="noopener noreferrer">
     <div class="flex items-center" style={`height: ${height}px`}>
       <img
-        src={googleBadge?.src ?? `/images/${locale}/google-play-badge.png`}
+        src={`/images/${locale}/google-play-badge.webp`}
         alt="Google Play"
         width={googleWidth}
         height={height}

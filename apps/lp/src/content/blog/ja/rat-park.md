@@ -46,7 +46,7 @@ author: "QuitMate"
 
 ---
 
-![ラットパーク実験のイメージ図](../images/connection.png)
+![ラットパーク実験のイメージ図](/blog/images/connection.webp)
 
 ---
 
@@ -82,7 +82,7 @@ author: "QuitMate"
 
 ---
 
-![人とのつながりが回復を支える](../images/rat-park.png)
+![人とのつながりが回復を支える](/blog/images/rat-park.webp)
 
 ---
 

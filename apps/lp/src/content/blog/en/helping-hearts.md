@@ -12,7 +12,7 @@ Among people struggling with addiction, this pattern of giving too much of yours
 
 There's a perspective that [addiction doesn't start as a "problem" -- it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem). Self-sacrifice may be another kind of "solution," an attempt to fill that hollow space inside.
 
-![Helping with wounded hands](../images/helping-hearts.png)
+![Helping with wounded hands](/blog/images/helping-hearts.webp)
 
 ## What Lies Behind "I Have to Be Useful"
 
@@ -58,7 +58,7 @@ When gratitude doesn't come back, self-loathing floods in. "See, I really am wor
 
 Relationships that only work because you're giving will warp eventually. You end up fostering dependency in the other person, too. And no matter how much you run around for others trying to fill the emptiness inside, the root problem stays hidden, untouched.
 
-![An exhausted woman at a table at night](../images/sad-woman.png)
+![An exhausted woman at a table at night](/blog/images/sad-woman.webp)
 
 ## So What Can You Do?
 

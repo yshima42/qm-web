@@ -8,7 +8,7 @@ author: "QuitMate"
 
 ---
 
-![reflection](../images/reflection.png)
+![reflection](/blog/images/reflection.webp)
 
 「やめたい」と思っているのに、気づいたら手が動いている。
 
@@ -29,7 +29,7 @@ author: "QuitMate"
 
 ところが、テストの直前に「**モーセの十戒をできるだけ思い出してみてください**」と一言添えたグループでは、不正がほぼゼロになった。
 
-![study](../images/study.png)
+![study](/blog/images/study.webp)
 
 ここからが面白い。十戒を正確に言えた学生は、ほとんどいなかったのだ。
 

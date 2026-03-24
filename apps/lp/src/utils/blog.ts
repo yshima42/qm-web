@@ -11,17 +11,19 @@ export async function getAllPosts(locale: Locale) {
 }
 
 /**
- * Markdown内の最初の画像ファイル名を抽出（カバー画像用）
+ * Markdown内の最初の画像を抽出（カバー画像用）
  */
-export function extractFirstImageFilename(content: string): string | null {
+export function extractFirstImage(content: string): string | null {
   const imgRegex = /!\[.*?\]\((.*?)\)/;
   const match = content.match(imgRegex);
   if (match?.[1]) {
     const src = match[1];
-    if (src.startsWith("http")) return src;
-    // "../images/xxx.png" → "xxx.png"
+    if (src.startsWith("http") || src.startsWith("/")) return src;
+    // "xxx.png" or "../images/xxx.png" → "/blog/images/xxx.webp"
     const filename = src.split("/").pop();
-    return filename ?? null;
+    if (filename) {
+      return `/blog/images/${filename.replace(/\.png$/, ".webp")}`;
+    }
   }
   return null;
 }

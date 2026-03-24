@@ -16,7 +16,7 @@ Even after you've quit gambling, do you ever catch yourself running these phanto
 
 But your brain doesn't see it that way.
 
-![Man is doing paper betting](../images/paper-betting.png)
+![Man is doing paper betting](/blog/images/paper-betting.webp)
 
 ---
 
@@ -40,7 +40,7 @@ Paper betting is precisely the act of **creating that stimulation yourself**.
 
 It works on the same principle as "mental rehearsal," a well-known concept in sports psychology. When athletes visualize their movements in their mind, the associated neural circuits activate. The exact same thing happens with paper betting. In other words, **you're essentially giving your "betting circuits" a daily workout**.
 
-![Man wants to play gamble](../images/trying-to-bet.png)
+![Man wants to play gamble](/blog/images/trying-to-bet.webp)
 
 ---
 

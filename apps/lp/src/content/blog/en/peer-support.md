@@ -20,7 +20,7 @@ But Takashi later said that in that moment, he felt something: "Maybe I can be h
 
 ---
 
-![Japanese peer support](../images/peer-support-ja.png)
+![Japanese peer support](/blog/images/peer-support-ja.webp)
 
 ## The Power of a Simple "I Know What You Mean"
 
@@ -74,7 +74,7 @@ Government backing is gradually expanding. In the United States, more than 30 st
 
 AI-powered projects are also underway that use wearable heart-rate and sleep data to detect early signs of relapse (Yang et al., 2025). Technology is helpful, no question. But when an alert goes off, what really matters is whether there's someone beside you to ask, "Hey, are you okay?" In the end, it's human warmth that gives you that final push.
 
-![American peer support](../images/peer-support-en.png)
+![American peer support](/blog/images/peer-support-en.webp)
 
 ---
 

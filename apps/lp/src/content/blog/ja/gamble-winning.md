@@ -18,7 +18,7 @@ author: "QuitMate"
 
 ## パチンコや競馬の「仕組み」を冷静に見る
 
-![Horse Racing](../images/horse-racing.png)
+![Horse Racing](/blog/images/horse-racing.webp)
 
 ギャンブルには「控除率」というものがある。聞き慣れない言葉かもしれないけれど、要は**胴元の取り分**のこと。
 
@@ -54,7 +54,7 @@ author: "QuitMate"
 
 ## 「トータル勝ち」が手放せない本当の理由
 
-![Gambling Reality](../images/gambling-reality.png)
+![Gambling Reality](/blog/images/gambling-reality.webp)
 
 ギャンブル依存が深まるほど、「トータルでは勝ってる」という主張は強くなる傾向がある。
 
