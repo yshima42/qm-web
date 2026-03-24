@@ -4,6 +4,7 @@ import { glob } from "astro/loaders";
 const blogSchema = z.object({
   title: z.string(),
   date: z.coerce.string(),
+  updatedAt: z.coerce.string().optional(),
   excerpt: z.string(),
   author: z.string().optional().default("QuitMate"),
 });
