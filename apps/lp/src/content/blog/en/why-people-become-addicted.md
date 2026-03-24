@@ -1,162 +1,130 @@
 ---
-title: "Why Do People Get Addicted? — A Simple Look at the Brain and Recovery"
+title: "Why Do People Get Addicted? How the Brain and Mind Work"
 date: "2025-05-22"
-excerpt: "If you’ve ever said, 'I want to quit, but I can’t,' you’re not alone—and it’s not your fault. This article explains how addiction works in the brain, and how you can take small, science-backed steps toward recovery. QuitMate makes these steps easier."
+updatedAt: "2026-03-24"
+excerpt: "'I want to quit, but I can't.' That's not your fault. There are hidden mechanisms in your brain and mind that pull you in without you realizing it. This article offers a gentle look at how addiction takes hold — and how recovery begins."
 author: "QuitMate"
 ---
 
-## ✅ **3‑Line Takeaways**
-> • Addiction builds a powerful habit loop: _want → do → feel better_  
-> • Stress weakens the brain’s “brake” system  
-> • Risk goes up when genes, early life, and stress overlap
+"I'm never doing this again." And yet the next morning, there you are, doing the exact same thing.
+
+That wave of self-loathing — only someone who's been through it truly understands. You catch your reflection in the mirror and think, "Why am I so weak?" But hold on a moment.
+
+This isn't a story about weakness. **It's a story about the brain.**
 
 ---
 
-## 1. Why You Keep Going Back: The Dopamine Loop
+## The Truth Behind "Just One More Time"
 
-Let’s say you’re tempted to drink, gamble, or scroll—_just one more time_.  
-That’s not just habit. It’s **dopamine** talking.
+"Just one more time..." The moment that thought crosses your mind, your brain is already releasing **dopamine**.
 
-Dopamine is your brain’s “reward chemical.” It makes things feel good and tells your brain, “This matters—do it again.”
+Dopamine is often called the "pleasure chemical," but that's not quite right. The truth is, **your brain floods with dopamine before the reward — during the anticipation itself**. In other words, your brain is already off and running before you even act.
 
-The twist? Dopamine doesn’t wait for the reward.  
-It kicks in **when you expect** something good is about to happen.  
-That builds a strong loop: _expect → act → reward_.  
-Do it enough, and your brain starts to run this loop on autopilot.
+"Anticipation, then action, then pleasure." Once your brain learns this sequence, it drives you to repeat the behavior — powerfully. Just walking past a pachinko parlor makes your chest tighten. Just glimpsing the alcohol aisle at the convenience store makes your hand reach out.
 
-![Brain reward-learning loop (VTA → NAcc)](/blog/images/glowing-brain.png)
+That's not a lack of willpower. **That's your brain doing exactly what it learned to do.**
+
+![Brain reward-learning loop (VTA to NAcc)](/blog/images/glowing-brain.png)
 
 ---
 
-## 2. When the Brain’s Brake Stops Working
+## When the Brakes Are Broken
 
-Your brain also has a **brake system**—called the **prefrontal cortex (PFC)**.  
-It helps you pause, think things through, and say “not now.”
+Your brain has a built-in braking system — a region called the **prefrontal cortex**. It's the part responsible for cool-headed decisions like "I should stop here" or "Not today."
 
-But chronic stress, trauma, or repeated use of drugs or alcohol can wear that brake down.  
-Over time, the part of your brain that says “stop” gets quieter, while the part that says “go” stays loud.
+But here's the problem.
 
-Brain scans even show this: people who _want_ to quit still show high brain activity in the “reward” area—but low activity in the “brake” zone.
+Chronic stress, trauma, or repeated addictive behavior gradually wears those brakes down. Brain imaging studies show that even when someone desperately wants to quit, the reward-related areas of the brain are firing at full blast — while activity in the prefrontal cortex has clearly dropped off (Volkow & Morales, 2015).
 
-![Brake (PFC) vs. accelerator (NAcc)](/blog/images/worried-woman.png)
+The accelerator is floored. The brakes are shot.
 
----
+Telling someone in this state to "just tough it out and quit" is asking the impossible. It's completely understandable to want to blame yourself. But research also shows that [that very self-blame is what pushes recovery further away](/en/blog/stop-blaming-yourself).
 
-## 3. It’s Not Willpower. It’s Layers of Risk.
-
-Addiction doesn’t mean you’re weak. It means your brain is overwhelmed.  
-And often, **several risk factors stack up**:
-
-### 🔹 Genetics
-
-- Some people are more sensitive to rewards. Addiction can run in families.
-
-### 🔹 Brain Development
-
-- In teens and young adults, the “go for it” part of the brain matures first.  
-  The “think twice” part comes later.
-
-### 🔹 Stress & Trauma
-
-- Childhood abuse, neglect, or long-term stress can damage the brain’s ability to regulate impulses.
-
-The more of these risks you carry, the easier it is to fall into addiction—and the harder it feels to climb out.
+![The tug-of-war between brakes and accelerator](/blog/images/worried-woman.png)
 
 ---
 
-## 4. From Chasing Pleasure to Escaping Pain
+## You're Not Weak — Risk Factors Just Piled Up
 
-At first, addiction is about **feeling good**.  
-But over time, it becomes more about **avoiding pain**—like stress, cravings, or emotional discomfort.
+Does becoming addicted make someone a "bad person"? Absolutely not.
 
-| Motivation           | Early Stage               | Later Stage                                         |
-| -------------------- | ------------------------- | --------------------------------------------------- |
-| **Seeking pleasure** | Fun, exciting, feels good | The thrill fades                                    |
-| **Avoiding pain**    | Not a big factor          | Becomes the main reason—just to feel “normal” again |
+It simply means that several risk factors happened to overlap. That's all.
 
-Your brain learns:
+**Genetics.** If someone in your family has struggled with addiction, you may have inherited a predisposition. Twin studies report that the genetic influence on alcohol dependence is as high as 50-60% (Kendler et al., 2011). It's just that the cards you were dealt at birth were different.
 
-- **Quitting = pain** (cravings, stress, emptiness)
-- **Using = relief** (even if it’s short-lived)
+**Brain development.** During adolescence, the brain regions that chase rewards mature first, while the prefrontal cortex — the braking system — hasn't caught up yet (Casey et al., 2008). The heightened risk during youth comes down to this "timing gap."
 
-So you may no longer enjoy the behavior, but it _feels necessary_—just to get through the day.
-
-Think of it this way:  
-You’re not doing it for the fun anymore.  
-You’re doing it because **not doing it feels worse**.
-
-That’s not weakness. That’s your brain trying to protect you.  
-But now it’s stuck in a loop—and you can start gently untangling it.
+**Stress and trauma.** Painful childhood experiences and chronic stress quietly erode your ability to regulate yourself. In many cases, [addiction doesn't start as the "problem" — it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem). This kind of background is why that happens so often.
 
 ---
 
-## 5. Why Loneliness and Boredom Make It Worse
+## The Fun Fades, and Only the Escape Remains
 
-A famous experiment called [Rat Park](/blog/rat-park) showed something powerful:
+In the beginning, it really was enjoyable. Exciting. A relief.
 
-- Rats alone in small cages kept using drugs.
-- Rats in large, fun, social environments didn’t.
+But somewhere along the way, that enjoyment fades. What's left in its place is **the pain of stopping** — anxiety, irritability, restlessness.
 
-The takeaway?  
-**Loneliness, boredom, and stress can supercharge cravings.**
+Your brain learns a new equation: "Quitting = suffering" and "Continuing = a little bit of relief."
 
-That’s why QuitMate gives you a safe place to connect with others—even if you don’t want to talk.  
-Just knowing you're not alone can help.
+It's no longer about the pleasure. **You keep going because stopping hurts too much.** This shift has nothing to do with willpower — it happens when the balance between the brain's reward system and anti-reward system breaks down (Koob & Volkow, 2016).
 
-[![Rats playing freely in an enriched “park” environment](/blog/images/rat-park2.png)](/blog/rat-park)
+People in recovery often say the same thing: "I started because it was fun. When did it become this painful?"
 
 ---
 
-## 6. Myths That Make Recovery Harder
+## Being Alone Is the Greatest Danger
 
-- **Myth 1: “People with addiction just have no willpower.”**  
-  → Actually, addiction changes brain circuits. Willpower alone can’t fix that.
+You may have heard of the famous [Rat Park experiment](/en/blog/rat-park). Rats placed in isolated cages kept drinking drug-laced water. But rats living in an environment with companions and things to do — a "paradise" — hardly touched it.
 
-- **Myth 2: “Once addicted, always addicted.”**  
-  → The brain can heal. With time and support, it _can_ rewire itself.
+The lesson from this experiment is simple but profound. **Loneliness and boredom can deepen addiction endlessly.**
 
-Letting go of these myths helps reduce shame—and opens the door to real healing.
+The reverse is also true: human connection and a sense of belonging become powerful forces for recovery. [Research on peer support](/en/blog/peer-support) has shown that connecting with others increases treatment continuation rates by roughly 1.4 times.
 
----
+You don't have to carry this alone. On QuitMate, there are people who understand your pain firsthand.
 
-## 7. A Quick Self-Check (Especially for Adults 40+)
-
-| If You Feel...                             | What It Means                 | Try This Small Step                                        |
-| ------------------------------------------ | ----------------------------- | ---------------------------------------------------------- |
-| Anxious just _thinking_ about a reward     | Dopamine is primed            | Take a 10-second deep breath                               |
-| You always use the habit when stressed     | Your brain’s using it to cope | Save a short list of healthy alternatives on your phone    |
-| “I’m the only one who struggles like this” | That’s isolation talking      | Read someone else’s QuitMate story—even just reading helps |
+[![Isolated cage vs. Rat Park](/blog/images/rat-park2.png)](/en/blog/rat-park)
 
 ---
 
-## 8. How QuitMate Helps Your Brain Reset
+## Gently Letting Go of Common Misconceptions
 
-- 🧘 **1-Minute Breathing Coach** – Cravings often peak in just 90 seconds.
-- 👀 **Timeline** – Get social support without having to post.
-- 📝 **Trigger Log** – Track what triggered your urges and start spotting patterns.
+**"It's just a matter of willpower."** No, it isn't. The structure and function of the brain have changed. This isn't about grit.
 
-These tools are based on proven therapy ideas—designed to fit into real life.
+**"Once you're hooked, you can never get out."** That's not true either. The brain has plasticity — the ability to change. With the right environment and support, people do recover.
 
----
-
-## 9. Bottom Line
-
-Addiction isn’t about “bad choices.”  
-It’s your brain trying to cope—with stress, pain, or loneliness—in the only way it knows.
-
-But your brain can _relearn_.  
-With support, new routines, and a bit of patience, recovery is possible.
-
-[QuitMate](/) was built to support you—whether you’re ready to act, or just need time to understand.  
-Even reading this article? That’s a kind first step.
+Letting go of these assumptions, one by one — that alone can make it a little easier to breathe. [Research shows that even "just reflecting" can change behavior](/en/blog/reflection-changes-behavior). You don't have to be perfect. Just start by noticing.
 
 ---
 
-## Sources
+## Take a Moment to Check In With Yourself
 
-1. Koob GF, Volkow ND. “Neurobiology of addiction: a neurocircuitry analysis.” _The Lancet Psychiatry_ (2016).
-2. Volkow ND, Morales M. “The brain on drugs: from reward to addiction.” _Cell_ (2015).
-3. Casey BJ et al. “The adolescent brain.” _Ann. NY Acad. Sci._ (2008).
-4. Kendler KS et al. “Twin study of alcohol dependence.” _Arch. Gen. Psychiatry_ (2011).
-5. Alexander BK et al. “Rat Park studies of addiction.” _Pharmacol. Biochem. Behav._ (1978–1981).
-6. Sinha R. “How does stress increase risk of drug abuse and relapse?” _Psychopharmacology_ (2001).
+If you've read this far and thought, "Wait, this sounds like me," try turning your attention inward for just a moment.
+
+**Do you get restless just imagining the reward?** That's a sign that dopamine is reacting strongly. Even just taking 10 seconds to slowly exhale can help you settle down a little.
+
+**Do you reach for something the instant you feel stressed?** It might be that stress avoidance has become a habit. Jot down just one alternative — and when the next wave hits, you'll have another option.
+
+**Do you feel like you're the only one who can't get it together?** That might be loneliness talking. Try reading the stories of people on QuitMate who've been through the same thing. Just realizing "I'm not the only one" can lighten your heart a little.
+
+---
+
+## In Closing
+
+Addiction isn't "weakness." It's what happens when the brain and mind do their best to find some kind of balance.
+
+When you understand the mechanism, "I'm hopeless" starts to shift into "Okay, so what can I do?" That small shift is the doorway to recovery.
+
+[QuitMate](/en/) is here for exactly that. It's okay to just look around. It's okay to just read.
+
+If you've made it to the end of this article, you've already taken a step forward.
+
+---
+
+## References
+
+1. Koob, G. F., & Volkow, N. D. (2016). Neurobiology of addiction: A neurocircuitry analysis. *The Lancet Psychiatry*, 3(8), 760-773.
+2. Volkow, N. D., & Morales, M. (2015). The brain on drugs: From reward to addiction. *Cell*, 162(3), 403-413.
+3. Casey, B. J., Jones, R. M., & Hare, T. A. (2008). The adolescent brain. *Annals of the New York Academy of Sciences*, 1124, 111-126.
+4. Kendler, K. S., et al. (2011). A population-based twin study of alcohol dependence. *Archives of General Psychiatry*, 54(9), 801-808.
+5. Alexander, B. K., Beyerstein, B. L., Hadaway, P. F., & Coambs, R. B. (1981). Effect of early and later colony housing on oral ingestion of morphine in rats. *Pharmacology Biochemistry and Behavior*, 15(4), 571-576.
+6. Sinha, R. (2001). How does stress increase risk of drug abuse and relapse? *Psychopharmacology*, 158(4), 343-359.

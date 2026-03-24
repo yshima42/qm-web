@@ -36,6 +36,7 @@ const formatDate = (dateStr: string) => {
   title={`${post.data.title} | ${t("blog.title")}`}
   description={post.data.excerpt}
   locale={locale}
+  ogImage={`https://about.quitmate.app/og/${locale}/blog/${slug}.png`}
 >
   <article class="blog-article mx-auto max-w-[680px] px-5 py-8 sm:px-8">
     <a href={`/${locale}/blog`} class="mb-6 inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
@@ -44,8 +45,11 @@ const formatDate = (dateStr: string) => {
 
     <header class="mb-10">
       <h1 class="mb-4 text-[24px] font-black leading-[1.4] text-[#111] sm:text-[32px]">{post.data.title}</h1>
-      <div class="flex items-center gap-4 text-sm text-gray-500">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
         <time>{formatDate(post.data.date)}</time>
+        {post.data.updatedAt && post.data.updatedAt !== post.data.date && (
+          <span class="text-gray-400">（更新: {formatDate(post.data.updatedAt)}）</span>
+        )}
         {post.data.author && <span>by {post.data.author}</span>}
       </div>
       {hasEnVersion && (

@@ -1,95 +1,114 @@
 ---
-title: "Why Can’t You Stop Gambling?"
+title: "The Real Reasons You Can't Stop Gambling — Explained Through Brain Science and Psychology"
 date: "2025-06-09"
-excerpt: "“You know you’ll lose—so why do you keep gambling?” That question misses the deeper truth. Gambling addiction isn’t about logic—it’s about pain, brain chemistry, and hidden emotional wounds. Here’s what you need to know."
+updatedAt: "2026-03-24"
+excerpt: "\"I know I'll lose, so why can't I stop?\" That question is missing the point. Here, we break down the brain's reward system and dopamine, the role of emotional pain, and practical steps toward recovery from gambling addiction."
 author: "QuitMate"
 ---
 
-## ✅ **3‑Line Takeaways**
-- Gambling is not just “entertainment”—it can work like **a form of self-harm**
-- The brain’s dopamine and reward systems make quitting extremely difficult, even when losses pile up  
-- What keeps people gambling isn't **money lost**, but **unresolved emotional pain**
-
 ---
 
-## “Why Do You Gamble If You Know You'll Lose?” — A Misguided Question
+## "Why Do You Gamble When You Know You'll Lose?"
 
-> “Gambling is a waste, right? Why do it if you know you’ll lose?”
+> "Gambling is just losing money in the end, right?" "I can't understand why anyone would keep going when they know they'll lose."
 
-You may have heard this—or even said it yourself.  
-But this kind of question **misses the point**.
+If you've heard words like these before, you're not alone. Maybe you've even asked yourself the same thing, over and over.
 
-People don’t gamble because they’re bad at math or unaware of the risks.  
-It’s like asking someone with binge eating issues, “Why eat if it makes you feel worse?”  
-Or asking someone who self-harms, “Why do it if it hurts?”
+But here's the thing — **that question itself is a bit off the mark**.
 
-**We sometimes do things that hurt us—because we’re hurting inside.**
+People don't keep gambling because they can't do the math. They know the odds. "I should really stop" — nobody knows that better than the person caught in it.
+
+The reason they can't stop is that gambling **isn't really about money**.
+
+Even when you know something is hurting you, you keep going back to it because it soothes a deeper pain. That's a mechanism common to all forms of addiction, and it has nothing to do with willpower.
 
 ![gambling](/blog/images/gambling.png)
 
 ---
 
-## Gambling Hijacks the Brain’s Reward System
+## Your Brain Keeps Saying "Just One More Time"
 
-Gambling strongly stimulates the brain’s **reward system**—especially the release of **dopamine**, a chemical tied to pleasure and motivation.
+Let me talk a little about what's happening in the brain.
 
-That little rush when you win—even just a little—activates pathways that tell your brain:  
-> “This feels good. Do it again.”
+Gambling powerfully stimulates the brain's **reward system**. The key player is a chemical called **dopamine** — the stuff that creates feelings of pleasure and the urge to want more.
 
-### Research Highlights:
+What makes this especially tricky is the structure of gambling itself: you win *sometimes*. Neuroscience research has shown that random rewards — the kind where you never know when the next one is coming — create **the strongest habits of all**. That jackpot on the pachinko machine, that near-miss on the slot reel. In those moments, your brain is learning.
 
-- Behavioral psychology shows that **random rewards (occasional wins)** create **the strongest habits**  
-- Brain scans show that people with gambling addiction have **overactive reward systems** and **underactive areas in charge of decision-making** (Clark et al., 2013)
+In fact, brain imaging studies have confirmed that people with gambling addiction show overactivation in the reward system, while the prefrontal cortex — the part of the brain that acts as a brake — becomes weakened (Clark et al., 2013).
 
-In other words, gambling doesn’t just affect your choices—it can literally **rewire how your brain works**.
+In other words, at the level of the brain itself, the pull of "just one more time" has become stronger than the voice saying "I should stop." This isn't something you can fix with sheer determination.
 
----
-
-## Gambling as a Form of Self-Harm
-
-Many people gamble not to win—but to **escape**.
-
-> “I don’t care anymore.”  
-> “I just want to feel something.”  
-> “I can’t handle this reality.”
-
-For some, gambling becomes a way to **numb pain** or distract from emotional distress.
-
-In that sense, it’s not just a financial issue—it becomes **a form of invisible self-harm**.  
-Instead of scars, it leaves **debt, broken trust, and emotional wreckage**.
+If you'd like to learn more about dopamine and the mechanisms of addiction, check out "[Why Do People Become Addicted? How the Brain and Mind Work](/en/blog/why-people-become-addicted)" as well.
 
 ---
 
-## “Not Being Able to Stop” Doesn’t Mean You’re Weak
+## You Needed an Escape
 
-Gambling addiction is recognized by the World Health Organization (WHO) as a **real medical condition** (ICD-11).  
-It’s not about weakness. It’s not about lacking willpower. It’s about **what’s happening in the brain and heart**.
+This might be the most important part.
 
-So instead of asking “Why can’t I stop?”,  
-try asking:
+Behind the cycle of gambling, there is almost always **a pain that's hard to put into words**.
 
-> **“What pain was I trying to escape?”**
+Stress at work. Tangled relationships. Anxiety about the future. The feeling that you just can't like yourself. When you're carrying that kind of weight, gambling lets you forget — just for a moment, just for a little while.
 
-That shift in focus can be the first step toward real healing.
+Opening your phone late at night, thinking "I don't even care anymore." Walking into a pachinko parlor in the afternoon because you don't want to face reality.
 
----
+That's not chasing pleasure — it's **running from pain**.
 
-## Final Thoughts: It’s Not Your Fault
+Psychiatrist Edward Khantzian called this kind of addictive behavior **"self-medication"** — a clumsy way of protecting yourself from emotional pain. Gambling had been functioning as an escape. For a deeper look at this perspective, see "[What If Addiction Was Never the 'Problem' — But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)"
 
-You’re not stupid. You’re not broken.  
-You were trying to survive something painful the only way you knew how.
-
-If you’ve been thinking, “I want to stop but I just can’t,”  
-please don’t blame yourself.
-
-Try instead to look at what’s underneath the urge—the stress, the shame, the loneliness.
-
-Recovery takes time. But that’s not a detour—it’s **the path back to yourself**.
+It doesn't leave visible scars. But money, trust, relationships with people you love — they're quietly, steadily worn away. That's the result of inner pain spilling out into behavior, not a sign of being "irresponsible."
 
 ---
 
-### 📚 References
+## You Weren't "Weak" — You Were in Pain
 
-- Clark, L., et al. (2013). *Pathological choice: the neuroscience of gambling and gambling addiction*. The Journal of Neuroscience.  
-- WHO (2019). *International Classification of Diseases 11th Revision (ICD-11)*.  
+Gambling disorder is an officially recognized condition by the WHO (ICD-11).
+
+"You just lack willpower." "You have no discipline." It can't be dismissed with words like those — and dismissing it that way only pushes recovery further out of reach.
+
+If right now you're [blaming yourself for "failing again,"](/en/blog/stop-blaming-yourself) there's one thing I want you to remember: the reason it keeps happening isn't because you're weak — it's because **the wiring in your brain has changed**.
+
+So instead of pressing yourself with "Why can't I stop?"
+
+**Ask: "Why was I in so much pain back then?"**
+
+Turning your attention there is where recovery begins.
+
+---
+
+## Things You Can Start Doing Today
+
+I can already hear the question: "Okay, so what am I supposed to do?" Here are a few concrete steps.
+
+**Pay attention to the moments when the urge hits.** Is it when you're lonely? Frustrated? Completely exhausted? Try writing down what triggers you — even just in a note on your phone. Simply noticing the pattern can create a small window of clarity.
+
+**Cut off physical access.** Build an environment where even if the urge strikes, you can't act on it. Self-exclusion programs at pachinko parlors, blocking apps for online gambling (Gamban / BetBlocker), gambling restrictions on your credit cards — use every tool available to you. For more details, see "[5 Steps to Quit Gambling](/en/blog/quit-gambling-steps)."
+
+**Connect with someone else's words.** Support groups like Gamblers Anonymous (GA), specialized helplines, online communities. You don't have to share your own story. Sometimes, just reading someone else's experience and realizing "I'm not the only one" — that moment can be where recovery starts.
+
+**Talk to a professional.** Cognitive behavioral therapy (CBT) has strong evidence for treating gambling addiction. Going to a mental health center or an addiction clinic isn't about admitting "I'm sick." It's about getting the tools you need to recover.
+
+---
+
+## To Close
+
+Not being able to stop gambling doesn't mean you're stupid, and it doesn't mean you lack willpower.
+
+It may have been **the result of desperately trying to cope with pain**.
+
+"I want to stop, but I can't." If you can look just a little at the feelings hiding behind those words, you'll often find your answer there.
+
+Recovery takes time. But that's not a detour — it's the road back to who you really are.
+
+There's no need to rush.
+
+**QuitMate** is an SNS where people struggling with addiction can connect anonymously and safely. Even just reading posts from others who've been through similar experiences can open your eyes to something new. Start by just browsing, at your own pace.
+
+---
+
+### References
+
+- Clark, L., et al. (2013). *Pathological choice: the neuroscience of gambling and gambling addiction*. The Journal of Neuroscience.
+- WHO (2019). *International Classification of Diseases 11th Revision (ICD-11)*.
 - Robbins, T. W., & Everitt, B. J. (1999). *Drug addiction: bad habits add up*. Nature.
+- Khantzian, E. J. (1997). *The self-medication hypothesis of substance use disorders: A reconsideration and recent applications*. Harvard Review of Psychiatry.
