@@ -1,38 +1,62 @@
 ---
+import { getImage } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { useTranslations } from "@/i18n/utils";
-import { getAllPosts, extractFirstImage } from "@/utils/blog";
+import { getAllPosts, extractFirstImageFilename } from "@/utils/blog";
 
 const locale = "en";
 const t = useTranslations(locale);
 const posts = await getAllPosts(locale);
-const featuredPost = posts[0];
-const remainingPosts = posts.slice(1);
+
+// ブログ画像を一括インポート
+const blogImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/content/blog/images/*.png",
+  { eager: true },
+);
+
+// 各記事のカバー画像を最適化
+async function getOptimizedCover(body: string | undefined) {
+  const filename = extractFirstImageFilename(body ?? "");
+  if (!filename || filename.startsWith("http")) return filename;
+  const key = `/src/content/blog/images/${filename}`;
+  const imageModule = blogImages[key];
+  if (!imageModule) return null;
+  const optimized = await getImage({ src: imageModule.default, format: "webp", width: 800 });
+  return optimized.src;
+}
+
+const postsWithCovers = await Promise.all(
+  posts.map(async (post) => ({
+    ...post,
+    coverImage: await getOptimizedCover(post.body),
+  })),
+);
+
+const featuredPost = postsWithCovers[0];
+const remainingPosts = postsWithCovers.slice(1);
 ---
 
 <BaseLayout title={t("blog.title")} description={t("blog.description")} locale={locale}>
   <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-    <!-- ジャーナルヘッダー -->
     <div class="mb-12 text-center">
       <h1 class="mb-2 text-4xl font-bold text-gray-900">{t("blog.journal-title")}</h1>
       <p class="text-lg text-gray-600">{t("blog.journal-description")}</p>
     </div>
 
-    {posts.length === 0 ? (
+    {postsWithCovers.length === 0 ? (
       <div class="py-20 text-center">
         <h2 class="mb-4 text-2xl font-semibold text-gray-700">{t("blog.no-posts")}</h2>
         <p class="text-gray-500">{t("blog.content-preparing")}</p>
       </div>
     ) : (
       <>
-        {/* 最新記事（フィーチャー） */}
         {featuredPost && (
           <a href={`/${locale}/blog/${featuredPost.id.replace(/\.md$/, "")}`} class="group mb-12 block">
             <article class="overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow hover:shadow-xl">
-              {extractFirstImage(featuredPost.body ?? "") && (
+              {featuredPost.coverImage && (
                 <div class="aspect-video w-full overflow-hidden">
                   <img
-                    src={extractFirstImage(featuredPost.body ?? "")!}
+                    src={featuredPost.coverImage}
                     alt={featuredPost.data.title}
                     class="size-full object-cover transition-transform group-hover:scale-105"
                     loading="lazy"
@@ -53,21 +77,19 @@ const remainingPosts = posts.slice(1);
           </a>
         )}
 
-        {/* 残りの記事一覧 */}
         {remainingPosts.length > 0 && (
           <>
             <h2 class="mb-6 text-2xl font-bold text-gray-900">{t("blog.latest-articles")}</h2>
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {remainingPosts.map((post) => {
                 const slug = post.id.replace(/\.md$/, "");
-                const coverImage = extractFirstImage(post.body ?? "");
                 return (
                   <a href={`/${locale}/blog/${slug}`} class="group block">
                     <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
-                      {coverImage && (
+                      {post.coverImage && (
                         <div class="aspect-video w-full overflow-hidden">
                           <img
-                            src={coverImage}
+                            src={post.coverImage}
                             alt={post.data.title}
                             class="size-full object-cover transition-transform group-hover:scale-105"
                             loading="lazy"

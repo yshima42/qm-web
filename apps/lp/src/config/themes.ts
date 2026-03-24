@@ -139,15 +139,6 @@ export const STORE_URLS: Record<string, { apple: string; google: string }> = {
   },
 };
 
-/** namespace ごとのロゴアイコン */
-export const LOGO_ICONS: Record<string, string> = {
-  "": "/images/icon-web.png",
-  alcohol: "/images/kinshu_icon.png",
-  kinshu: "/images/alcohol_icon.png",
-  porn: "/images/porn_icon.png",
-  tobacco: "/images/tobacco_icon.png",
-};
-
 /** namespace → URLパス */
 export const NAMESPACE_TO_PATH: Record<string, string> = {
   alcohol: "/challenge",

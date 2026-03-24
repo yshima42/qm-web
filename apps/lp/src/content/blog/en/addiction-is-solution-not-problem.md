@@ -6,7 +6,7 @@ excerpt: "Addiction isn't just a bad habit. It may have been a way to protect yo
 author: "QuitMate"
 ---
 
-![healing-path](/blog/images/healing-path.png)
+![healing-path](../images/healing-path.png)
 ---
 
 ## Before You Blame Yourself for Not Being Able to Stop

@@ -22,7 +22,7 @@ author: "QuitMate"
 
 テーマの近い記事「[依存症は「問題」ではなく「解決策」だった？](/ja/blog/addiction-is-solution-not-problem)」では、依存行動がもともと心の痛みに対する"自己治療"として始まる背景について書きました。この記事では、もうひとつの苦しみ、**自分を責め続けること**が回復にどう影響するかを見ていきます。
 
-![blaming-woman](/blog/images/blaming-woman.png)
+![blaming-woman](../images/blaming-woman.png)
 
 ---
 
@@ -70,7 +70,7 @@ author: "QuitMate"
 
 そしてさっき紹介したABC分析。これは「日記」みたいなもので、記録をつけること自体が、自分を客観的に見る練習になります。自分を責めるのではなく、自分を知るための道具として使ってみてください。
 
-![writing-woman](/blog/images/writing-woman.png)
+![writing-woman](../images/writing-woman.png)
 
 ---
 

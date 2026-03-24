@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import ScreenshotViewer from "./ScreenshotViewer.tsx";
 import StoreBadges from "./StoreBadges.astro";
@@ -19,10 +20,25 @@ const t = useTranslations(locale, namespace || undefined);
 
 const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
 const screenshotLocale = namespace ? "ja" : locale;
-const screenshots = config.map(({ image, altKey }) => ({
-  src: `/images/${screenshotLocale}/${image}`,
-  alt: altKey,
-}));
+
+// import.meta.glob で全スクリーンショットを一括インポート
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/**/*screenshot*.png",
+  { eager: true },
+);
+
+const screenshots = await Promise.all(
+  config.map(async ({ image, altKey }) => {
+    const key = `/src/assets/images/${screenshotLocale}/${image}`;
+    const imageModule = allImages[key];
+    if (!imageModule) {
+      // フォールバック: 画像が見つからない場合は元のパスを使用
+      return { src: `/images/${screenshotLocale}/${image}`, alt: altKey };
+    }
+    const optimized = await getImage({ src: imageModule.default, format: "webp", width: 580 });
+    return { src: optimized.src, alt: altKey };
+  }),
+);
 
 const socialProofRaw = t("hero.social-proof");
 const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";

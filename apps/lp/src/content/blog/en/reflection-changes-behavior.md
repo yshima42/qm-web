@@ -8,7 +8,7 @@ author: "QuitMate"
 
 ---
 
-![reflection](/blog/images/reflection.png)
+![reflection](../images/reflection.png)
 
 You want to stop—but before you know it, your hand is already reaching.
 
@@ -29,7 +29,7 @@ Sure enough, some students inflated their scores.
 
 But in the group that was asked, right before the test, to **"try to recall as many of the Ten Commandments as you can"**—cheating dropped to nearly zero.
 
-![study](/blog/images/study.png)
+![study](../images/study.png)
 
 Here's where it gets interesting. Almost none of the students could actually recite the commandments correctly.
 

@@ -22,7 +22,7 @@ The reason they can't stop is that gambling **isn't really about money**.
 
 Even when you know something is hurting you, you keep going back to it because it soothes a deeper pain. That's a mechanism common to all forms of addiction, and it has nothing to do with willpower.
 
-![gambling](/blog/images/gambling.png)
+![gambling](../images/gambling.png)
 
 ---
 

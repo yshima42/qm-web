@@ -1,16 +1,29 @@
 ---
+import { getImage } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { useTranslations } from "@/i18n/utils";
+
+import iconKinshu from "@/assets/images/kinshu_icon.png";
+import iconAlcohol from "@/assets/images/alcohol_icon.png";
+import iconPorn from "@/assets/images/porn_icon.png";
+import iconTobacco from "@/assets/images/tobacco_icon.png";
 
 const locale = "ja";
 const t = useTranslations(locale);
 
-const apps = [
-  { key: "challenge", path: "/ja/challenge/", icon: "/images/kinshu_icon.png" },
-  { key: "kinshu", path: "/ja/alcohol/", icon: "/images/alcohol_icon.png" },
-  { key: "porn", path: "/ja/porn/", icon: "/images/porn_icon.png" },
-  { key: "tobacco", path: "/ja/tobacco/", icon: "/images/tobacco_icon.png" },
+const appsRaw = [
+  { key: "challenge", path: "/ja/challenge/", image: iconKinshu },
+  { key: "kinshu", path: "/ja/alcohol/", image: iconAlcohol },
+  { key: "porn", path: "/ja/porn/", image: iconPorn },
+  { key: "tobacco", path: "/ja/tobacco/", image: iconTobacco },
 ];
+
+const apps = await Promise.all(
+  appsRaw.map(async (app) => ({
+    ...app,
+    icon: (await getImage({ src: app.image, format: "webp", width: 96 })).src,
+  })),
+);
 ---
 
 <BaseLayout title={t("apps.title")} description={t("apps.description")} locale={locale}>

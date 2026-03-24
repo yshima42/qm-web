@@ -22,7 +22,7 @@ author: "QuitMate"
 
 自分を傷つけるとわかっていても、心の痛みをやわらげるために繰り返してしまう。それは依存症に共通するメカニズムで、意志の強さとは関係がない。
 
-![gambling](/blog/images/gambling.png)
+![gambling](../images/gambling.png)
 
 ---
 

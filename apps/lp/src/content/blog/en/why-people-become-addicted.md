@@ -24,7 +24,7 @@ Dopamine is often called the "pleasure chemical," but that's not quite right. Th
 
 That's not a lack of willpower. **That's your brain doing exactly what it learned to do.**
 
-![Brain reward-learning loop (VTA to NAcc)](/blog/images/glowing-brain.png)
+![Brain reward-learning loop (VTA to NAcc)](../images/glowing-brain.png)
 
 ---
 
@@ -40,7 +40,7 @@ The accelerator is floored. The brakes are shot.
 
 Telling someone in this state to "just tough it out and quit" is asking the impossible. It's completely understandable to want to blame yourself. But research also shows that [that very self-blame is what pushes recovery further away](/en/blog/stop-blaming-yourself).
 
-![The tug-of-war between brakes and accelerator](/blog/images/worried-woman.png)
+![The tug-of-war between brakes and accelerator](../images/worried-woman.png)
 
 ---
 
@@ -82,7 +82,7 @@ The reverse is also true: human connection and a sense of belonging become power
 
 You don't have to carry this alone. On QuitMate, there are people who understand your pain firsthand.
 
-[![Isolated cage vs. Rat Park](/blog/images/rat-park2.png)](/en/blog/rat-park)
+[![Isolated cage vs. Rat Park](../images/rat-park2.png)](/en/blog/rat-park)
 
 ---
 

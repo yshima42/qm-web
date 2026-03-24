@@ -16,7 +16,7 @@ The first step is to look at where you stand, in hard numbers.
 
 How much have you spent? How much debt have you taken on? How many hours a week were you devoting to gambling? You can use a piece of paper or a notes app on your phone — it doesn't matter. Take those vague feelings swirling around in your head and get them down in writing. Sometimes, just that act alone changes the way you see things.
 
-![Man slumped after heavy gambling losses](/blog/images/gambling-loss.png)
+![Man slumped after heavy gambling losses](../images/gambling-loss.png)
 
 One person had racked up 3 million yen in debt from pachinko slots. One day, on a whim, he spread out all his statements and looked at the total. His hands were shaking. But that was the moment he decided to get help. Yes, it's terrifying to look directly at the truth. But if you feel that fear, it means you're already starting to see things clearly.
 
@@ -34,7 +34,7 @@ For example, pachinko parlors in Japan offer a **self-exclusion and family-exclu
 
 On your phone and computer, install blocking apps like **Gamban** or **BetBlocker**. Setting up gambling transaction restrictions on your credit card (available with some providers) is also effective.
 
-![Smartphone screen showing gambling sites being blocked](/blog/images/block-app.png)
+![Smartphone screen showing gambling sites being blocked](../images/block-app.png)
 
 And here's something that's surprisingly easy to overlook: figuring out *when* and *in what mood* you get the urge to gamble. Payday night. The commute home after a bad day at work. A quiet Sunday afternoon alone in your room. Once you start seeing the patterns, you can take concrete action — like scheduling something else during those windows.
 
