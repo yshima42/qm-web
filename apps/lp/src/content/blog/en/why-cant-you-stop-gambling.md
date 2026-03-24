@@ -3,7 +3,7 @@ title: "The Real Reasons You Can't Stop Gambling, Explained Through Brain Scienc
 date: "2025-06-09"
 updatedAt: "2026-03-24"
 excerpt: "The question 'why can't I stop when I know I'll lose?' misses the point. Gambling addiction has less to do with money or willpower and more to do with the brain's reward system, dopamine, and the role of emotional pain. This article covers the neuroscience and practical steps toward recovery."
-author: "QuitMate"
+
 ---
 
 Anyone who has played a claw machine knows the feeling. You put in 100 yen, the claw closes around the prize, lifts it halfway, and drops it. Rationally, you know the machine is calibrated to lose. But your brain just saw the prize move, and it's already saying "one more try." You end up spending 2,000 yen on a toy you could have bought for 500. That basic loop, where almost-winning feels like evidence that winning is close, is the same mechanism that makes gambling so difficult to walk away from.
@@ -16,7 +16,7 @@ Gambling powerfully stimulates the brain's reward system. The key player is a ch
 
 What makes this especially effective at creating habits is the structure of gambling itself: you win sometimes. Neuroscience research has shown that **random rewards** (the kind where you never know when the next one is coming) create the strongest behavioral patterns of all. That jackpot on the pachinko machine, that near-miss on the slot reel: in those moments, your brain is learning.
 
-Brain imaging studies have confirmed that people with gambling addiction show overactivation in the reward system, while the prefrontal cortex (the part of the brain that acts as a brake) becomes weakened (Clark et al., 2013).
+Brain imaging studies have confirmed that people with gambling addiction show overactivation in the reward system in response to near-misses and gambling cues, while general reward sensitivity may actually be blunted, and the prefrontal cortex (the part of the brain that acts as a brake) becomes weakened (Clark et al., 2013).
 
 In other words, at the level of the brain itself, the pull of "just one more time" has become stronger than the voice saying "I should stop." This isn't something you can override with determination alone.
 

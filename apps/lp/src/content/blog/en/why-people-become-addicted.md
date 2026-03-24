@@ -3,7 +3,7 @@ title: "Why Do People Get Addicted? How the Brain and Mind Work"
 date: "2025-05-22"
 updatedAt: "2026-03-24"
 excerpt: "Addiction isn't about weak willpower. It's the result of dopamine-driven reward learning, a weakened prefrontal cortex, genetic predisposition, and stress. This article walks through the neuroscience of how addiction develops and what the research says about recovery."
-author: "QuitMate"
+
 ---
 
 There's a familiar pattern with streaming services. You finish one episode, the next one auto-plays, and three hours later you're still on the couch even though you have work in the morning. You knew after the second episode you should stop. You wanted to stop. But the "just one more" impulse kept winning. Now scale that up: instead of a TV show, it's alcohol, gambling, or drugs, and instead of losing sleep, you're losing relationships and savings. The underlying brain mechanics are more similar than you might expect.
@@ -36,7 +36,7 @@ Telling someone in this state to "just tough it out and quit" is asking the impo
 
 Becoming addicted doesn't make someone a "bad person." It means several risk factors happened to overlap.
 
-Genetics play a role. If someone in your family has struggled with addiction, you may have inherited a predisposition. Twin studies report that the genetic influence on alcohol dependence is as high as **50-60%** (Kendler et al., 2011). The cards you were dealt at birth were simply different.
+Genetics play a role. If someone in your family has struggled with addiction, you may have inherited a predisposition. Twin studies report that the genetic influence on alcohol dependence is as high as **50-60%** (Kendler et al., 1997). The cards you were dealt at birth were simply different.
 
 Brain development matters too. During adolescence, the brain regions that chase rewards mature first, while the prefrontal cortex (the braking system) hasn't caught up yet (Casey et al., 2008). The heightened risk during youth comes down to this **timing gap**.
 
@@ -83,6 +83,6 @@ Addiction is what happens when the brain and mind do their best to find some kin
 1. Koob, G. F., & Volkow, N. D. (2016). Neurobiology of addiction: A neurocircuitry analysis. *The Lancet Psychiatry*, 3(8), 760-773.
 2. Volkow, N. D., & Morales, M. (2015). The brain on drugs: From reward to addiction. *Cell*, 162(3), 403-413.
 3. Casey, B. J., Jones, R. M., & Hare, T. A. (2008). The adolescent brain. *Annals of the New York Academy of Sciences*, 1124, 111-126.
-4. Kendler, K. S., et al. (2011). A population-based twin study of alcohol dependence. *Archives of General Psychiatry*, 54(9), 801-808.
+4. Kendler, K. S., et al. (1997). A population-based twin study of alcohol dependence. *Archives of General Psychiatry*, 54(9), 801-808.
 5. Alexander, B. K., Beyerstein, B. L., Hadaway, P. F., & Coambs, R. B. (1981). Effect of early and later colony housing on oral ingestion of morphine in rats. *Pharmacology Biochemistry and Behavior*, 15(4), 571-576.
 6. Sinha, R. (2001). How does stress increase risk of drug abuse and relapse? *Psychopharmacology*, 158(4), 343-359.

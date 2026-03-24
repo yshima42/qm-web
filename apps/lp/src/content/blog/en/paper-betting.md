@@ -3,7 +3,7 @@ title: "Should You Stop Paper Betting? What Neuroscience Says About Gambling Rel
 date: "2025-05-26"
 updatedAt: "2026-03-24"
 excerpt: "Paper betting (simulated betting without real money) feels harmless, but fMRI research shows it activates the same brain reward circuits as actual gambling. This article covers the neuroscience behind why paper betting raises relapse risk and what alternatives exist."
-author: "QuitMate"
+
 ---
 
 Athletes have known for decades that mental rehearsal works. A basketball player who visualizes free throws improves almost as much as one who practices them physically. Brain imaging studies confirm the mechanism: imagining a movement activates many of the same neural circuits as performing it (Jeannerod, 1995). The brain, it turns out, has trouble distinguishing rehearsal from the real thing.
@@ -24,7 +24,7 @@ The problem is what happens next.
 
 ## The Brain Can't Tell "Imagined" from "Real"
 
-Research using fMRI (a technology that visualizes brain activity) has shown this directly. When people with gambling disorder were simply shown gambling-related imagery, the **ventral striatum** (the core of the brain's reward system) lit up (Crockford et al., 2005; Potenza et al., 2003).
+Research using fMRI (a technology that visualizes brain activity) has shown this directly. When people with gambling disorder were simply shown gambling-related imagery, **reward-related brain regions** including the prefrontal cortex and limbic areas showed significant activation (Crockford et al., 2005; Potenza et al., 2003).
 
 Even without placing a real bet, mere exposure to gambling-related stimuli makes the brain respond as if you're actually gambling.
 

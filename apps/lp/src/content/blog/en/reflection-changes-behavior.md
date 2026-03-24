@@ -3,7 +3,7 @@ title: "Reflection Changes Behavior: What Behavioral Economics Tells Us About Re
 date: "2025-06-11"
 updatedAt: "2026-03-24"
 excerpt: "Dan Ariely's Ten Commandments experiment showed that a brief moment of moral reflection, even when participants couldn't remember what they were reflecting on, nearly eliminated cheating. The same mechanism applies to addiction recovery through implementation intentions and self-compassion."
-author: "QuitMate"
+
 ---
 
 ![reflection](/blog/images/reflection.webp)
@@ -26,6 +26,8 @@ The interesting part: almost none of the students could actually recite the comm
 
 The content of the reflection didn't matter. The act of briefly considering "what kind of person do I want to be?" was **sufficient to change behavior**. Whether participants recalled any specific commandment was irrelevant to the effect.
 
+*Note: In 2021, data integrity concerns were raised about some of Ariely's dishonesty research (Simonsohn et al., 2021). The Ten Commandments experiment was not the direct subject, but the broader context warrants caution.*
+
 ## The gap between impulse and action
 
 This finding connects to addiction recovery in a useful way.
@@ -38,7 +40,7 @@ For more on why self-blame is counterproductive in recovery, see "[Stop Blaming 
 
 ## Self-compassion outperforms self-criticism
 
-Research by Kristin Neff at the University of Texas (Neff & Germer, 2013) found that people who reflect on themselves with **self-compassion** are better at preventing relapse than those who judge themselves harshly.
+Research by Kristin Neff at the University of Texas (Neff & Germer, 2013) found that a **self-compassion** training program reduced self-criticism and stress. Since stress is a known relapse trigger, this has direct relevance to addiction recovery.
 
 The mechanism is straightforward. Harsh self-judgment ("I did it again, I'm worthless") generates stress, and stress drives people back toward addictive behavior. It creates a feedback loop.
 
@@ -64,3 +66,4 @@ A few seconds, once a day, spent touching the thought "why did I want to quit?" 
 3. Gollwitzer, P. M., & Sheeran, P. "Implementation Intentions and Goal Achievement: A Meta-Analysis of Effects and Processes." *Advances in Experimental Social Psychology,* 38, 69-119, 2006.
 4. Neff, K. D., & Germer, C. K. "A Pilot Study and Randomized Controlled Trial of the Mindful Self-Compassion Program." *Journal of Clinical Psychology,* 69(1), 28-44, 2013.
 5. Ariely, D. *The (Honest) Truth About Dishonesty.* Harper, 2012.
+6. Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2021). "[Evidence of Fraud in an Influential Field Experiment About Dishonesty](http://datacolada.org/98)." *Data Colada*, #98.

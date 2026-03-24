@@ -3,7 +3,7 @@ title: "Want to Quit Gambling? 5 Steps Grounded in Recovery Science"
 date: "2025-05-20"
 updatedAt: "2026-03-24"
 excerpt: "Five evidence-based steps for gambling recovery: quantifying losses, blocking access through self-exclusion and apps, leveraging peer support and CBT, finding replacement rewards, and managing cravings with urge surfing. Includes relevant research and practical tools."
-author: "QuitMate"
+
 ---
 
 Anyone who has tried to build a new habit knows the gap between intention and execution. You buy running shoes and they sit by the door for three weeks. You download a meditation app and open it twice. The interesting thing about habit research is that the people who succeed aren't more disciplined; they're better at restructuring their environment so the desired behavior becomes the path of least resistance.
@@ -12,7 +12,7 @@ Quitting gambling works on the same principle. Willpower is unreliable, especial
 
 ## Step 1: Quantify the damage
 
-According to a survey by Japan's Ministry of Health, Labour and Welfare, an estimated **3.6% of adults** may have a gambling disorder (2017 national survey). Yet only a small fraction ever seek professional help.
+According to a survey by Japan's Ministry of Health, Labour and Welfare, an estimated **3.6% of adults** may have experienced a gambling disorder at some point in their lifetime (approximately 0.8% in the past year) according to a 2017 national survey. Yet only a small fraction ever seek professional help.
 
 The first step is to put concrete numbers on where things stand. Total amount spent. Total debt accumulated. Hours per week devoted to gambling. The format doesn't matter (paper, phone notes, spreadsheet). The point is to convert vague feelings into specific figures.
 
@@ -58,7 +58,7 @@ Even "paper betting" (predicting outcomes without money on the line) triggers th
 
 Gambling cravings tend to strike without obvious warning. A horse racing commercial. A payday notification. Sometimes no trigger at all, just a thought drifting in at night.
 
-Research shows that gambling cravings naturally peak and subside within **10 to 20 minutes** (Hodgins & el-Guebaly, 2004). They function like waves: they rise, then pull back.
+Clinical experience suggests that gambling cravings naturally peak and subside within **10 to 20 minutes**. They function like waves: they rise, then pull back.
 
 A technique called **urge surfing** takes advantage of this. When the impulse hits, rate its intensity on a scale of 1 to 10. Take a deep breath. Wait a few minutes and rate it again. The number typically drops. The goal is to observe the wave rather than get pulled under by it.
 

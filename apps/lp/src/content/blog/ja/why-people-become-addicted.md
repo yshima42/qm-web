@@ -3,7 +3,7 @@ title: "なぜ依存症になるのか？脳とこころのしくみ"
 date: "2025-05-22"
 updatedAt: "2026-03-24"
 excerpt: "「やめたいのに、やめられない」のは意志が弱いからではなく、脳の仕組みに原因があります。ドーパミンの働き、前頭前野のブレーキ機能、遺伝やストレスとの関係など、依存症のメカニズムをわかりやすく解説します。"
-author: "QuitMate"
+
 ---
 
 「やめたいのにやめられない」という経験は、依存症に限らず多くの人が持っている。ダイエット中に夜中にお菓子を食べてしまったり、スマホを触るつもりがなかったのに気づいたら1時間経っていたり。
@@ -38,7 +38,7 @@ author: "QuitMate"
 
 依存症になるかどうかには、いくつかのリスク要因が関わっている。
 
-まず遺伝。双子を対象にした研究によると、アルコール依存の遺伝的影響は**50〜60%**とかなり高い（Kendler et al., 2011）。「お酒に強い・弱い」が遺伝するように、依存症のなりやすさにも生まれつきの個人差がある。
+まず遺伝。双子を対象にした研究によると、アルコール依存の遺伝的影響は**50〜60%**とかなり高い（Kendler et al., 1997）。「お酒に強い・弱い」が遺伝するように、依存症のなりやすさにも生まれつきの個人差がある。
 
 次に年齢。思春期の脳は、報酬を求める部分が先に発達して、ブレーキ役の前頭前野は**25歳ごろまで**発達が続く（Casey et al., 2008）。若いうちに依存リスクが高いのは、この脳の発達の「タイムラグ」が原因だ。
 
@@ -87,6 +87,6 @@ author: "QuitMate"
 1. Koob, G. F., & Volkow, N. D. (2016). Neurobiology of addiction: A neurocircuitry analysis. *The Lancet Psychiatry*, 3(8), 760–773.
 2. Volkow, N. D., & Morales, M. (2015). The brain on drugs: From reward to addiction. *Cell*, 162(3), 403–413.
 3. Casey, B. J., Jones, R. M., & Hare, T. A. (2008). The adolescent brain. *Annals of the New York Academy of Sciences*, 1124, 111–126.
-4. Kendler, K. S., et al. (2011). A population-based twin study of alcohol dependence. *Archives of General Psychiatry*, 54(9), 801–808.
-5. Alexander, B. K., Beyerstein, B. L., Hadaway, P. F., & Coambs, R. B. (1981). Effect of early and later colony housing on oral ingestion of morphine in rats. *Pharmacology Biochemistry and Behavior*, 15(4), 571–126.
+4. Kendler, K. S., et al. (1997). A population-based twin study of alcohol dependence. *Archives of General Psychiatry*, 54(9), 801–808.
+5. Alexander, B. K., Beyerstein, B. L., Hadaway, P. F., & Coambs, R. B. (1981). Effect of early and later colony housing on oral ingestion of morphine in rats. *Pharmacology Biochemistry and Behavior*, 15(4), 571–576.
 6. Sinha, R. (2001). How does stress increase risk of drug abuse and relapse? *Psychopharmacology*, 158(4), 343–359.

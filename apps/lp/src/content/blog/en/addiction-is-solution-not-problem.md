@@ -3,7 +3,7 @@ title: "What If Addiction Isn't the Problem, But a Solution? The Self-Medication
 date: "2025-06-18"
 updatedAt: "2026-03-24"
 excerpt: "Psychiatrist Edward Khantzian's self-medication hypothesis reframes addiction as a coping response to emotional pain. This article examines the theory alongside the ACE study on adverse childhood experiences and what both suggest about recovery."
-author: "QuitMate"
+
 ---
 
 ![healing-path](/blog/images/healing-path.webp)
@@ -16,7 +16,7 @@ Now imagine the pressure isn't a bad meeting but years of anxiety, loneliness, o
 
 Khantzian's core argument is straightforward. People turn to specific substances or behaviors to ease psychological suffering they can't handle on their own, whether that's anxiety, depression, loneliness, or anger.
 
-The interesting part is the specificity. His clinical research found patterns in what people become dependent on. People carrying anxiety tended to gravitate toward sedating substances like alcohol, while those struggling with apathy or depression were drawn to the excitement of gambling or stimulants. It wasn't random. People were **unconsciously selecting the "medicine"** that matched their particular kind of suffering.
+The interesting part is the specificity. His clinical observations suggested patterns in what people become dependent on. People carrying anxiety tended to gravitate toward sedating substances like alcohol, while those struggling with apathy or depression were drawn to the excitement of gambling or stimulants. Khantzian proposed that people were **unconsciously selecting the "medicine"** that matched their particular kind of suffering.
 
 ## Why "Just Quit" Doesn't Work
 

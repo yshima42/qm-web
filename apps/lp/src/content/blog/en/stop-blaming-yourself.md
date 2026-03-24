@@ -3,7 +3,7 @@ title: "How Self-Blame Sabotages Addiction Recovery, and What Actually Helps"
 date: "2025-06-12"
 updatedAt: "2026-03-24"
 excerpt: "Research shows that self-blame after a relapse doesn't motivate change. It raises cortisol, weakens impulse control, and makes the next relapse more likely. This article covers the neuroscience behind that cycle and practical alternatives like ABC analysis."
-author: "QuitMate"
+
 ---
 
 There's a specific kind of morning-after regret that most people recognize. You set a clear intention the night before ("no snacking after 9pm," "no checking my phone in bed," "no buying stuff I don't need"), and then you did the exact thing you said you wouldn't. The first thought is usually some version of "what's wrong with me?" For people dealing with addiction, that loop plays on repeat, and the self-blame turns out to be far more damaging than the slip itself.
@@ -72,4 +72,4 @@ What distinguishes people who eventually recover is not the absence of setbacks.
 2. WHO. "[Lexicon of alcohol and drug terms](https://www.who.int/publications/i/item/9241544686)." World Health Organization.
 3. Koob GF, Volkow ND. "Neurobiology of addiction: A neurocircuitry analysis." *The Lancet Psychiatry*, 3(8), 760-773 (2016).
 4. Sinha R. "How does stress increase risk of drug abuse and relapse?" *Psychopharmacology*, 158(4), 343-359 (2001).
-5. Ellis A, Dryden W. *The Practice of Rational Emotive Behavior Therapy* (2nd ed.). Springer (1997). Theoretical background for ABC analysis.
+5. Cooper JO, Heron TE, Heward WL. *Applied Behavior Analysis* (3rd ed.). Pearson (2020). Theoretical background for ABC analysis (Antecedent-Behavior-Consequence).

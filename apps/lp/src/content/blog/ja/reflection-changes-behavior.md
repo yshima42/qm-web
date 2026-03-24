@@ -3,7 +3,7 @@ title: "「振り返り」で依存行動は変わる。行動経済学が示す
 date: "2025-06-11"
 updatedAt: "2026-03-24"
 excerpt: "行動経済学者ダン・アリエリーの十戒実験は、ほんの少し「思いを巡らせる」だけで不正行為がほぼゼロになることを示した。この知見が依存症の回復にどう応用できるかを、実装意図やセルフコンパッションの研究とあわせて解説する。"
-author: "QuitMate"
+
 ---
 
 ![reflection](/blog/images/reflection.webp)
@@ -22,6 +22,8 @@ author: "QuitMate"
 
 つまり、内容を正しく覚えているかどうかは関係なかった。「自分はどうありたいか」について、ほんの少し思いを巡らせた。その行為そのものが行動を変えた。
 
+※ アリエリーの不正行為研究については、2021年に一部データの信頼性が問題視されている（Simonsohn et al., 2021）。十戒実験自体は直接の対象ではないが、留意が必要だ。
+
 ## 衝動と行動のあいだに「余白」をつくる
 
 この実験結果は、依存症の回復にもつながる話だ。
@@ -32,7 +34,7 @@ author: "QuitMate"
 
 ## 厳しい反省より、やさしい振り返りのほうが再発を防ぐ
 
-テキサス大学のクリスティン・ネフ教授らの研究（Neff & Germer, 2013）では、自分を厳しく責める人よりも、**自分に思いやりを持って振り返れる人**のほうが、依存行動の再発を防ぎやすいことがわかっている。
+テキサス大学のクリスティン・ネフ教授らの研究（Neff & Germer, 2013）では、**セルフコンパッション（自分への思いやり）**を高めるプログラムによって自己批判やストレスが軽減されることが確認されている。ストレスは依存行動の再発リスクを高めるため、この知見は回復にも直結する。
 
 「また繰り返してしまった」と自分を追い詰めると、かえってストレスが増し、そのストレスからまた依存行動に逃げたくなる。悪循環になる。
 
@@ -62,3 +64,4 @@ author: "QuitMate"
 3. Gollwitzer, P. M., & Sheeran, P. "Implementation Intentions and Goal Achievement: A Meta‐Analysis of Effects and Processes." *Advances in Experimental Social Psychology,* 38, 69–119, 2006.
 4. Neff, K. D., & Germer, C. K. "A Pilot Study and Randomized Controlled Trial of the Mindful Self-Compassion Program." *Journal of Clinical Psychology,* 69(1), 28–44, 2013.
 5. Ariely, D. *The (Honest) Truth About Dishonesty.* Harper, 2012.（邦訳『ずる 嘘とごまかしの行動経済学』早川書房）
+6. Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2021). "[Evidence of Fraud in an Influential Field Experiment About Dishonesty](http://datacolada.org/98)." *Data Colada*, #98.

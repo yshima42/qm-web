@@ -3,7 +3,7 @@ title: "Is 'Winning Overall' at Gambling Just an Illusion? The Dangerous Tricks 
 date: "2025-05-27"
 updatedAt: "2026-03-24"
 excerpt: "Most gamblers who believe they're 'up overall' are wrong, and the reasons are structural. This article explains the house edge, confirmation bias, the gambler's fallacy, and the sunk cost fallacy, and why these cognitive biases make accurate self-assessment nearly impossible."
-author: "QuitMate"
+
 ---
 
 Try this experiment at your next dinner party: ask everyone at the table whether they consider themselves an above-average driver. In most groups, **over 80%** will say yes. Psychologists have been documenting this effect since the 1980s, and it extends well beyond driving. People consistently overestimate their own performance, especially in areas where feedback is ambiguous. Gambling is one of those areas, and the distortions run deep.
@@ -18,7 +18,7 @@ Every form of gambling has what's called a **"house edge,"** the percentage the 
 
 For pachinko and slot machines, that's **15-20%** of what you put in. For horse racing, about 25%. For lotteries, more than half of the money never comes back. In other words, every time you bet 100 yen, somewhere between 15 and 50 yen is gone before the game even starts.
 
-You can win once or twice on luck alone. But over 100 bets, 1,000 bets, that invisible fee piles up and your balance steadily drifts into the red. In mathematics, this is called the **"law of large numbers"** (Tversky & Kahneman, 1971). The more you play, the closer your results converge to the theoretical average.
+You can win once or twice on luck alone. But over 100 bets, 1,000 bets, that invisible fee piles up and your balance steadily drifts into the red. In mathematics, this is called the **"law of large numbers"**: the more you play, the closer your results converge to the theoretical average. Yet people tend to believe this convergence applies even to small samples. Tversky & Kahneman (1971) called this the "belief in the law of small numbers."
 
 This is exactly why the idea of "if I just keep going, I'll win it back" doesn't hold up structurally.
 

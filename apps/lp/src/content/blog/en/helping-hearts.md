@@ -3,7 +3,7 @@ title: "Can Being Too Nice Destroy You? The Deep Connection Between Self-Sacrifi
 date: "2025-05-28"
 updatedAt: "2026-03-24"
 excerpt: "Self-sacrificial helping and addiction share overlapping brain mechanisms. This article examines contingent self-worth, codependency, and the neuroscience of the 'helper's high,' and why chronic self-sacrifice can accelerate addictive behavior."
-author: "QuitMate"
+
 ---
 
 There's a particular kind of fatigue that comes from agreeing to help someone when you didn't have the bandwidth. You know the feeling. A friend asks for a favor, you say yes before thinking, and an hour later you're sitting in traffic wondering why you didn't just say no. Most people have been there. It's a small thing, easily forgotten.
@@ -46,9 +46,9 @@ But that isn't love. It's a transaction. And transactions eventually fall apart.
 
 The link between self-sacrifice and addiction isn't just emotional. It can be explained by brain chemistry, too.
 
-When you help someone and they're grateful, your brain releases dopamine. That rush of elation after volunteering is sometimes called the **"helper's high."** There's nothing wrong with it in isolation. The problem is that this feel-good response travels through the same neural circuits as gambling or alcohol. The loop of "someone thanks me, it feels good, I want more" gets wired into the same reward-learning system as addiction.
+When you help someone and they're grateful, your brain releases dopamine. That rush of elation after volunteering is sometimes called the **"helper's high."** There's nothing wrong with it in isolation. The problem is that this feel-good response partially overlaps with the reward circuits activated by gambling or alcohol. The loop of "someone thanks me, it feels good, I want more" can get wired into a similar reward-learning pattern as addiction.
 
-On top of that, self-sacrificing people carry chronic stress. When you constantly push your own needs aside, that's an inevitable result. Research by Baumeister et al. (1998) found that continuously suppressing yourself **drains your willpower "fuel,"** and eventually the brakes on impulse control stop working. The result: [wanting to quit but being unable to](/en/blog/why-people-become-addicted) accelerates further and further.
+On top of that, self-sacrificing people carry chronic stress. When you constantly push your own needs aside, that's an inevitable result. Chronic stress impairs prefrontal cortex function, weakening impulse control (Arnsten, 2009). The result: [wanting to quit but being unable to](/en/blog/why-people-become-addicted) accelerates further and further.
 
 ## What's Left After All That Giving
 
@@ -90,7 +90,7 @@ Filling your own cup first isn't selfishness. It's building the foundation neede
 
 ### References
 1. Crocker J, Wolfe CT. "Contingencies of Self-Worth." *Psychological Review.* 2001;108(3):593-623.
-2. Baumeister RF, Bratslavsky E, Muraven M, Tice DM. "Ego Depletion: Is the Active Self a Limited Resource?" *Journal of Personality and Social Psychology.* 1998;74(5):1252-1265.
+2. Arnsten AFT. "Stress signalling pathways that impair prefrontal cortex structure and function." *Nature Reviews Neuroscience.* 2009;10(6):410-422.
 3. Bowlby J. *Attachment and Loss, Vol. 1: Attachment.* Basic Books, 1969.
 4. Cloud H, Townsend J. *Boundaries: When to Say Yes, How to Say No to Take Control of Your Life.* Zondervan, 1992.
 5. Post SG. "Altruism, Happiness, and Health: It's Good to Be Good." *International Journal of Behavioral Medicine.* 2005;12(2):66-77.
