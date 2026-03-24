@@ -148,6 +148,14 @@ export const LOGO_ICONS: Record<string, string> = {
   tobacco: "/images/tobacco_icon.webp",
 };
 
+/** namespace ごとのOGP画像 */
+export const OGP_IMAGES: Record<string, string> = {
+  alcohol: "/images/ja/ogp-alcohol.png",
+  kinshu: "/images/ja/ogp-kinshu.png",
+  porn: "/images/ja/ogp-porn.png",
+  tobacco: "/images/ja/ogp-tobacco.png",
+};
+
 /** namespace → URLパス */
 export const NAMESPACE_TO_PATH: Record<string, string> = {
   alcohol: "/challenge",

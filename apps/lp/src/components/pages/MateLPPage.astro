@@ -8,6 +8,7 @@ import Reviews from "@/components/sections/Reviews.astro";
 import FAQ from "@/components/sections/FAQ.astro";
 import FinalCTA from "@/components/sections/FinalCTA.astro";
 import { useTranslations } from "@/i18n/utils";
+import { OGP_IMAGES } from "@/config/themes";
 import type { Locale } from "@/i18n/config";
 
 type Props = {
@@ -21,6 +22,7 @@ const tRoot = useTranslations(locale);
 
 const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
 const featureIcon1 = isMateLp ? ("shield" as const) : ("users" as const);
+const ogImage = OGP_IMAGES[namespace] ? `https://about.quitmate.app${OGP_IMAGES[namespace]}` : undefined;
 ---
 
 <BaseLayout
@@ -28,6 +30,7 @@ const featureIcon1 = isMateLp ? ("shield" as const) : ("users" as const);
   description={t("common.description")}
   locale={locale}
   namespace={namespace}
+  ogImage={ogImage}
 >
   <Hero
     title={t("hero.title")}

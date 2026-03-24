@@ -6,7 +6,6 @@ const blogSchema = z.object({
   date: z.coerce.string(),
   updatedAt: z.coerce.string().optional(),
   excerpt: z.string(),
-  author: z.string().optional().default("QuitMate"),
 });
 
 const docSchema = z.object({

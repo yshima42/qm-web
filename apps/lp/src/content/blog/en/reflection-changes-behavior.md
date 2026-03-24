@@ -2,98 +2,61 @@
 title: "Reflection Changes Behavior: What Behavioral Economics Tells Us About Recovery"
 date: "2025-06-11"
 updatedAt: "2026-03-24"
-excerpt: "Behavioral economist Dan Ariely's Ten Commandments experiment showed that just a brief moment of reflection can change how people act. Here's a science-backed approach to facing addiction—without relying on willpower alone."
-author: "QuitMate"
----
+excerpt: "Dan Ariely's Ten Commandments experiment showed that a brief moment of moral reflection, even when participants couldn't remember what they were reflecting on, nearly eliminated cheating. The same mechanism applies to addiction recovery through implementation intentions and self-compassion."
 
 ---
 
 ![reflection](/blog/images/reflection.webp)
 
-You want to stop—but before you know it, your hand is already reaching.
+You open a calorie-tracking app, log your breakfast, and then at lunch you pause before ordering that extra side. You weren't hungry for discipline. You just saw your own numbers from three hours ago, and that was enough to shift the decision. The calorie count didn't force anything. The brief act of noticing did the work.
 
-Your head knows better, but your body reacts first. That feeling is something only people who've been through it truly understand. "You just don't have enough willpower" doesn't even begin to explain it. There's something deeper going on.
+That small effect, where a moment of reflection changes the behavior that follows, turns out to be surprisingly well-documented.
 
-But a fascinating experiment taught us something unexpected.
-**Just a few seconds of reflection can dramatically change how people behave.**
+## The Ten Commandments experiment
 
----
+Behavioral economist Dan Ariely ran a now-well-known experiment at MIT, Yale, and other universities (Mazar et al., 2008).
 
-## The Ten Commandments Experiment: They Couldn't Even Remember Them, Yet Their Behavior Changed
+The setup: students took a test, then self-reported their scores with no verification. They were deliberately given the opportunity to cheat. And some did inflate their scores.
 
-Behavioral economist Dan Ariely ran a now-famous experiment at MIT, Yale, and other universities (Mazar et al., 2008).
-
-The setup was simple. Students took a test, then reported their own scores—no one checked. In other words, they were deliberately given the opportunity to cheat.
-
-Sure enough, some students inflated their scores.
-
-But in the group that was asked, right before the test, to **"try to recall as many of the Ten Commandments as you can"**—cheating dropped to nearly zero.
+But one group was asked, right before the test, to "try to recall as many of the Ten Commandments as you can." In that group, **cheating dropped to nearly zero**.
 
 ![study](/blog/images/study.webp)
 
-Here's where it gets interesting. Almost none of the students could actually recite the commandments correctly.
+The interesting part: almost none of the students could actually recite the commandments correctly. Some couldn't even produce "Thou shalt not steal." Ariely further confirmed that the same effect occurred when non-religious students were simply asked to sign an honor code.
 
-Some couldn't even come up with "Thou shalt not steal." It wasn't religious knowledge that made the difference. Ariely further confirmed that the same effect occurred when non-religious students were simply asked to sign an honor code.
+The content of the reflection didn't matter. The act of briefly considering "what kind of person do I want to be?" was **sufficient to change behavior**. Whether participants recalled any specific commandment was irrelevant to the effect.
 
-In other words, whether they remembered the content accurately didn't matter. **The act itself—taking a brief moment to reflect on "what kind of person do I want to be?"—was what changed their behavior.**
+*Note: In 2021, data integrity concerns were raised about some of Ariely's dishonesty research (Simonsohn et al., 2021). The Ten Commandments experiment was not the direct subject, but the broader context warrants caution.*
 
-Isn't that remarkable?
+## The gap between impulse and action
 
----
+This finding connects to addiction recovery in a useful way.
 
-## The "Space" Between Impulse and Action
+Research by Gollwitzer and colleagues (Gollwitzer & Sheeran, 2006) shows that vague resolutions ("I'll just stop") are significantly less effective than specific pre-planned responses: "If I get the urge to drink, I'll have a glass of water first" or "If I walk past the pachinko parlor, I'll take a deep breath." This technique, called **implementation intentions**, substantially increases goal achievement rates.
 
-When you first hear about this experiment, you might sense a connection to addiction.
+The mechanism is similar to what happened in the Ten Commandments experiment. Pre-planning creates a **small gap between impulse and action**. That gap is where different choices become possible. It doesn't require enormous willpower, just a moment of structured reflection before the critical moment arrives.
 
-When you're facing addiction, it's tempting to think, "I just need to power through with willpower." But deep down, everyone knows that doesn't work. Sometimes you end up [blaming yourself and thinking "I'm no good."](/en/blog/stop-blaming-yourself)
+For more on why self-blame is counterproductive in recovery, see "[Stop Blaming Yourself](/en/blog/stop-blaming-yourself)."
 
-Research by psychologist Gollwitzer and colleagues (Gollwitzer & Sheeran, 2006) shows that vague resolutions like "I'll just stop" are far less effective than planning for specific situations in advance—like "If I get the urge to drink, I'll have a glass of water first" or "If I walk past the pachinko parlor, I'll take a deep breath." This kind of pre-planning significantly increases goal achievement.
+## Self-compassion outperforms self-criticism
 
-You don't need some grand resolution. **Just thinking ahead about "what do I want to do when that moment comes?"**—that alone creates a small "space" between impulse and action.
+Research by Kristin Neff at the University of Texas (Neff & Germer, 2013) found that a **self-compassion** training program reduced self-criticism and stress. Since stress is a known relapse trigger, this has direct relevance to addiction recovery.
 
-It's the same mechanism that was at work with the students in the Ten Commandments experiment.
+The mechanism is straightforward. Harsh self-judgment ("I did it again, I'm worthless") generates stress, and stress drives people back toward addictive behavior. It creates a feedback loop.
 
----
+Self-compassion breaks the loop. Treating a slip as data (what triggered it? what were you feeling?) rather than as evidence of personal failure makes it possible to learn from the experience instead of being crushed by it. Over time, this kind of observation can reveal the [deeper issues underlying the addiction](/en/blog/addiction-is-solution-not-problem).
 
-## Reflection Without Self-Blame
+## Everyday forms of reflection
 
-There's another important piece to this.
+Reflection doesn't require formal journaling or meditation. Small moments work: reading someone else's recovery post and thinking "right, I wanted to quit too." Looking at a day counter. Glancing at something you wrote last week.
 
-Research by Dr. Kristin Neff at the University of Texas and colleagues (Neff & Germer, 2013) found that **people who can reflect on themselves with self-compassion are better at preventing relapse than those who judge themselves harshly.**
+[Research shows that peer support improves treatment outcomes](/en/blog/peer-support), and part of the reason is that community participation naturally creates **moments of reflection**. Reading a post on an app like [QuitMate](/en/), sending a reaction, seeing others' progress, each of these functions as a prompt to briefly reconnect with your own intentions.
 
-When you beat yourself up thinking "I did it again," the stress only builds—and that stress drives you right back to the addictive behavior. It's a vicious cycle.
+## The practical takeaway
 
-But what if instead you could say to yourself: "That was tough. But the fact that I noticed—that alone is a step forward." Then reflection stops being "punishment" and becomes **a moment of caring for yourself.**
+The Ten Commandments experiment demonstrated that people who couldn't remember what they were reflecting on still changed their behavior. The bar for effective reflection is **remarkably low**.
 
-Try seeing the days you slipped not as "failures" but as "data." What triggered it? What were you feeling? When you start observing like this, you may gradually begin to see the [deeper issues underlying the addiction](/en/blog/addiction-is-solution-not-problem).
-
----
-
-## Making Time for Reflection in Everyday Life
-
-Among people who use addiction recovery platforms like QuitMate, some have had experiences like these:
-
-Reading someone else's post reminded them, "Oh right—I wanted to quit too." Looking back at something they'd written before helped calm a restless mind. Seeing the number "Day XX" became a moment of recognizing how far they'd come.
-
-You don't need to sit down and write something long and serious. It's okay if you can't put your feelings into perfect words. All you need is a brief moment of touching that feeling inside you—the one that says "I want to quit."
-
-[Research shows that peer support improves treatment outcomes](/en/blog/peer-support), and that's not just about formal programs. Reading a post, sending a reaction—each small action becomes a prompt to reflect. Rather than relying on willpower alone, the presence of others naturally creates those moments for you.
-
----
-
-## You Don't Need a Perfect Resolution
-
-What it takes to change isn't "iron will" or a "flawless plan."
-
-Once a day, just a few seconds. Simply touching the thought "Why did I want to quit in the first place?" can change the choices you make that day. Just like those students who couldn't remember the Ten Commandments—a brief moment of reflection is enough.
-
-In the day-to-day of facing addiction, some days go well and some don't.
-But if you paused to reflect even once today—that alone makes today different from yesterday.
-
-A moment of reflection can change your behavior.
-Recovery doesn't have to start with a grand decision—it can begin with a quiet realization.
-
-That's the kind of space [QuitMate](https://about.quitmate.app/en) wants to keep providing.
+A few seconds, once a day, spent touching the thought "why did I want to quit?" can shift the choices that follow. Some days go well. Some don't. But a day that includes even one moment of reflection is measurably different from one that doesn't.
 
 ---
 
@@ -103,3 +66,4 @@ That's the kind of space [QuitMate](https://about.quitmate.app/en) wants to keep
 3. Gollwitzer, P. M., & Sheeran, P. "Implementation Intentions and Goal Achievement: A Meta-Analysis of Effects and Processes." *Advances in Experimental Social Psychology,* 38, 69-119, 2006.
 4. Neff, K. D., & Germer, C. K. "A Pilot Study and Randomized Controlled Trial of the Mindful Self-Compassion Program." *Journal of Clinical Psychology,* 69(1), 28-44, 2013.
 5. Ariely, D. *The (Honest) Truth About Dishonesty.* Harper, 2012.
+6. Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2021). "[Evidence of Fraud in an Influential Field Experiment About Dishonesty](http://datacolada.org/98)." *Data Colada*, #98.
