@@ -3,7 +3,7 @@ title: "What Is Peer Support? The Power of Fellowship in Addiction Recovery, Bac
 date: "2025-06-06"
 updatedAt: "2026-03-24"
 excerpt: "Peer support in addiction recovery improves treatment retention by roughly 1.4x and benefits family members too. This article covers the research behind why shared experience works, from self-efficacy boosts to hybrid meeting models."
-author: "QuitMate"
+
 ---
 
 ![Japanese peer support](/blog/images/peer-support-ja.webp)

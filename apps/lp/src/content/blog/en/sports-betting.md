@@ -3,7 +3,7 @@ title: "How Sports Betting Gets Its Hooks in You, and What the Research Says Abo
 date: "2025-05-23"
 updatedAt: "2026-03-24"
 excerpt: "Sports betting addiction is surging as mobile apps normalize in-play wagering. This article covers how live odds exploit the brain's reward system, why cognitive bias keeps bettors in the red, and evidence-based strategies for pulling back."
-author: "QuitMate"
+
 ---
 
 There's a moment during any live sporting event where the score changes and a thought pops up: "I knew that was going to happen." It feels like insight. Sports fans do this constantly, replaying what they would have predicted, mentally keeping score of their accuracy. Betting apps take that same instinct and attach real money to it. The transition from "I called it" to "I should bet on it" turns out to be a very short step, and the apps are designed to make it even shorter.
