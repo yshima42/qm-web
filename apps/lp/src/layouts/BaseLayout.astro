@@ -97,26 +97,31 @@ const structuredData = {
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <!-- Fonts (preload for LCP, extended weights for bold headings) -->
+    <!-- Fonts (non-blocking load, reduced weights) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&display=optional"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&display=optional"
+        rel="stylesheet"
+      />
+    </noscript>
 
-    <!-- Google Analytics -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-E9SDLCKM7G"></script>
+    <!-- Google Analytics (deferred to reduce main-thread work) -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-E9SDLCKM7G');
+      (function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=G-E9SDLCKM7G';s.async=true;
+      if('requestIdleCallback' in window){requestIdleCallback(function(){document.head.appendChild(s)})}
+      else{setTimeout(function(){document.head.appendChild(s)},2000)}})();
     </script>
   </head>
   <body class="min-h-screen font-sans antialiased" style="font-family: 'Noto Sans JP', 'Inter', sans-serif;">

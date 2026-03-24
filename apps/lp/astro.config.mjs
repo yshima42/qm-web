@@ -1,14 +1,12 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import cloudflare from "@astrojs/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import remarkCjkFriendly from "remark-cjk-friendly";
 
 export default defineConfig({
   site: "https://about.quitmate.app",
   output: "static",
-  integrations: [react(), sitemap()],
+  integrations: [sitemap()],
   markdown: {
     remarkPlugins: [remarkCjkFriendly],
   },
