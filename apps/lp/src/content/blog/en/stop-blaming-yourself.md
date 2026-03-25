@@ -39,7 +39,7 @@ On the day it happens again, in the middle of that awful feeling, the instinct i
 
 Try treating "the day I failed" as "the day I spotted one of my patterns."
 
-There's a concept in psychology called **ABC analysis**. The name sounds formal, but in practice it's simple: write down "what happened before (A)," "what I did (B)," and "what happened after (C)."
+There's a concept in psychology called **ABC analysis**. The name sounds formal, but in practice it's simple: write down "what happened before (A = Antecedent)," "what I did (B = Behavior)," and "what happened after (C = Consequence)."
 
 For example:
 
