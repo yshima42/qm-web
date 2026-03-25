@@ -12,9 +12,10 @@ type Props = {
   locale: Locale;
   namespace?: string;
   eyebrow?: string;
+  categoryBadges?: string[];
 };
 
-const { title, description, locale, namespace = "", eyebrow } = Astro.props;
+const { title, description, locale, namespace = "", eyebrow, categoryBadges } = Astro.props;
 const theme = getTheme(namespace);
 const t = useTranslations(locale, namespace || undefined);
 
@@ -66,9 +67,19 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         {title}
       </h1>
 
-      <p class="mb-6 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-10 md:text-xl">
+      <p class="mb-3 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-4 md:text-xl">
         {description}
       </p>
+
+      {categoryBadges && categoryBadges.length > 0 && (
+        <div class="mb-6 flex flex-wrap justify-center gap-2 md:mb-10 md:justify-start">
+          {categoryBadges.map((label) => (
+            <span class="rounded-full border border-gray-200 bg-white/80 px-3 py-1 text-sm text-[var(--sub-foreground)]">
+              {label}
+            </span>
+          ))}
+        </div>
+      )}
 
       <div class="flex flex-col items-center gap-4 md:items-start">
         <div class="hidden md:block">
