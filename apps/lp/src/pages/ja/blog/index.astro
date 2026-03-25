@@ -46,7 +46,7 @@ const posts = await getAllPosts(locale);
                         {post.data.category}
                       </span>
                     )}
-                    <time class="text-xs text-gray-400">{post.data.date}</time>
+                    <time class="text-xs text-gray-400" datetime={post.data.date}>{post.data.date}</time>
                   </div>
                   <h3 class="mt-1 text-lg font-semibold text-gray-900 group-hover:text-primary-600">
                     {post.data.title}

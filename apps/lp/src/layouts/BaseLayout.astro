@@ -13,6 +13,12 @@ type Props = {
   namespace?: string;
   ogImage?: string;
   noHeaderFooter?: boolean;
+  article?: {
+    headline: string;
+    publishedDate: string;
+    modifiedDate?: string;
+    category?: string;
+  };
 };
 
 const {
@@ -22,6 +28,7 @@ const {
   namespace = "",
   ogImage,
   noHeaderFooter = false,
+  article,
 } = Astro.props;
 
 const alternateLocale = locale === "ja" ? "en" : "ja";
@@ -35,9 +42,9 @@ const storeKey = namespace || "default";
 const appleUrl = STORE_URLS[storeKey]?.apple ?? STORE_URLS.default.apple;
 const appleAppId = appleUrl.match(/id(\d+)/)?.[1] ?? "";
 
-// Structured Data (SoftwareApplication)
+// Structured Data (SoftwareApplication) — non-article pages only
 const appName = SITE_NAMES[namespace] || "QuitMate";
-const structuredData = {
+const softwareAppData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: appName,
@@ -56,6 +63,64 @@ const structuredData = {
     worstRating: "1",
   },
 };
+
+// Structured Data (BlogPosting + BreadcrumbList) — article pages only
+const blogPostingData = article
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: article.headline,
+      datePublished: article.publishedDate,
+      ...(article.modifiedDate && { dateModified: article.modifiedDate }),
+      author: {
+        "@type": "Organization",
+        name: "QuitMate",
+        url: siteUrl,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "QuitMate",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/images/icon.png`,
+        },
+      },
+      description,
+      image: ogImageUrl,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+      },
+      inLanguage: locale,
+      ...(article.category && { articleSection: article.category }),
+    }
+  : null;
+
+const breadcrumbData = article
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: locale === "ja" ? "ホーム" : "Home",
+          item: `${siteUrl}/${locale}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: locale === "ja" ? "ブログ" : "Blog",
+          item: `${siteUrl}/${locale}/blog/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: article.headline,
+        },
+      ],
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -70,6 +135,7 @@ const structuredData = {
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang={alternateLocale} href={`${siteUrl}/${alternateLocale}${currentPath}`} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${currentPath}`} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/png" href="/images/icon.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/images/icon.png" />
@@ -85,7 +151,10 @@ const structuredData = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    {article && <meta property="article:published_time" content={article.publishedDate} />}
+    {article?.modifiedDate && <meta property="article:modified_time" content={article.modifiedDate} />}
+    {article?.category && <meta property="article:section" content={article.category} />}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -95,7 +164,15 @@ const structuredData = {
     <meta name="twitter:creator" content="@QuitMate_JP" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {article ? (
+      <script type="application/ld+json" set:html={JSON.stringify(blogPostingData)} />
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+    ) : (
+      <script type="application/ld+json" set:html={JSON.stringify(softwareAppData)} />
+    )}
+
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title={locale === "ja" ? "QuitMate Journal (日本語)" : "QuitMate Journal (English)"} href={`${siteUrl}/${locale}/blog/rss.xml`} />
 
     <!-- Fonts (non-blocking load, reduced weights) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
