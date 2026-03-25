@@ -3,6 +3,7 @@ title: "Can Being Too Nice Destroy You? The Deep Connection Between Self-Sacrifi
 date: "2025-05-28"
 updatedAt: "2026-03-24"
 excerpt: "Self-sacrificial helping and addiction share overlapping brain mechanisms. This article examines contingent self-worth, codependency, and the neuroscience of the 'helper's high,' and why chronic self-sacrifice can accelerate addictive behavior."
+category: "Recovery Tips"
 
 ---
 

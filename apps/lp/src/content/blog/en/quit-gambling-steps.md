@@ -3,6 +3,7 @@ title: "Want to Quit Gambling? 5 Steps Grounded in Recovery Science"
 date: "2025-05-20"
 updatedAt: "2026-03-24"
 excerpt: "Five evidence-based steps for gambling recovery: quantifying losses, blocking access through self-exclusion and apps, leveraging peer support and CBT, finding replacement rewards, and managing cravings with urge surfing. Includes relevant research and practical tools."
+category: "Gambling"
 
 ---
 

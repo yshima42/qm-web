@@ -3,6 +3,7 @@ title: "How Self-Blame Sabotages Addiction Recovery, and What Actually Helps"
 date: "2025-06-12"
 updatedAt: "2026-03-24"
 excerpt: "Research shows that self-blame after a relapse doesn't motivate change. It raises cortisol, weakens impulse control, and makes the next relapse more likely. This article covers the neuroscience behind that cycle and practical alternatives like ABC analysis."
+category: "Recovery Tips"
 
 ---
 
@@ -38,7 +39,7 @@ On the day it happens again, in the middle of that awful feeling, the instinct i
 
 Try treating "the day I failed" as "the day I spotted one of my patterns."
 
-There's a concept in psychology called **ABC analysis**. The name sounds formal, but in practice it's simple: write down "what happened before (A)," "what I did (B)," and "what happened after (C)."
+There's a concept in psychology called **ABC analysis**. The name sounds formal, but in practice it's simple: write down "what happened before (A = Antecedent)," "what I did (B = Behavior)," and "what happened after (C = Consequence)."
 
 For example:
 

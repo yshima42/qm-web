@@ -3,6 +3,7 @@ title: "What If Addiction Isn't the Problem, But a Solution? The Self-Medication
 date: "2025-06-18"
 updatedAt: "2026-03-24"
 excerpt: "Psychiatrist Edward Khantzian's self-medication hypothesis reframes addiction as a coping response to emotional pain. This article examines the theory alongside the ACE study on adverse childhood experiences and what both suggest about recovery."
+category: "Brain Science"
 
 ---
 

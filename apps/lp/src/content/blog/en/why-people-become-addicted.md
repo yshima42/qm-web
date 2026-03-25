@@ -3,6 +3,7 @@ title: "Why Do People Get Addicted? How the Brain and Mind Work"
 date: "2025-05-22"
 updatedAt: "2026-03-24"
 excerpt: "Addiction isn't about weak willpower. It's the result of dopamine-driven reward learning, a weakened prefrontal cortex, genetic predisposition, and stress. This article walks through the neuroscience of how addiction develops and what the research says about recovery."
+category: "Brain Science"
 
 ---
 

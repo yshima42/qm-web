@@ -1,0 +1,256 @@
+---
+/**
+ * ニューラルネットワーク風のアニメーション背景
+ * ドット（ノード）が線でつながりながらゆっくり動く。
+ * 脳の神経信号をイメージしたデザイン。
+ *
+ * Flutter版 (neural_network_animation.dart) の Canvas API 移植
+ */
+type Props = {
+  /** アクセントカラー (hex) */
+  accentColor?: string;
+  /** ノード数 */
+  nodeCount?: number;
+  /** 線を引く最大距離 */
+  maxDistance?: number;
+};
+
+const {
+  accentColor = "#2E6C28",
+  nodeCount = 30,
+  maxDistance = 160,
+} = Astro.props;
+---
+
+<div class="neural-network-bg" aria-hidden="true">
+  <canvas
+    class="neural-network-canvas"
+    data-accent={accentColor}
+    data-node-count={nodeCount}
+    data-max-distance={maxDistance}
+  ></canvas>
+</div>
+
+<script is:inline>
+(function () {
+  const canvas = document.querySelector(".neural-network-canvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const accentHex = canvas.dataset.accent;
+  const isMobile = window.innerWidth < 768;
+  const nodeCount = isMobile ? 15 : parseInt(canvas.dataset.nodeCount, 10);
+  const maxDistance = isMobile ? 120 : parseFloat(canvas.dataset.maxDistance);
+
+  // hex → { r, g, b }
+  function hexToRgb(hex) {
+    const n = parseInt(hex.replace("#", ""), 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+
+  const rgb = hexToRgb(accentHex);
+
+  // ノード
+  const nodes = [];
+  const VELOCITY_RANGE = 0.4;
+  const MIN_RADIUS = 2.5;
+  const RADIUS_VARIANCE = 2.5;
+  const NODE_ALPHA = 0.25;
+  const LINE_ALPHA = 0.35;
+  const LINE_WIDTH = 1.2;
+
+  function createNode(w, h) {
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * VELOCITY_RANGE,
+      vy: (Math.random() - 0.5) * VELOCITY_RANGE,
+      radius: MIN_RADIUS + Math.random() * RADIUS_VARIANCE,
+    };
+  }
+
+  // 論理サイズ（CSS px）を返すヘルパー
+  function getLogicalSize() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    return { w: rect.width, h: rect.height };
+  }
+
+  function initNodes() {
+    nodes.length = 0;
+    var size = getLogicalSize();
+    for (var i = 0; i < nodeCount; i++) {
+      nodes.push(createNode(size.w, size.h));
+    }
+  }
+
+  function resize() {
+    var size = getLogicalSize();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = size.w * dpr;
+    canvas.height = size.h * dpr;
+    canvas.style.width = size.w + "px";
+    canvas.style.height = size.h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cacheLogicalSize();
+  }
+
+  // キャッシュ用
+  var logicalW = 0;
+  var logicalH = 0;
+  var maxDist2 = maxDistance * maxDistance;
+
+  function cacheLogicalSize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    logicalW = canvas.width / dpr;
+    logicalH = canvas.height / dpr;
+  }
+
+  function updateNode(node) {
+    node.x += node.vx;
+    node.y += node.vy;
+    if (node.x < 0 || node.x > logicalW) {
+      node.vx *= -1;
+      node.x = Math.max(0, Math.min(logicalW, node.x));
+    }
+    if (node.y < 0 || node.y > logicalH) {
+      node.vy *= -1;
+      node.y = Math.max(0, Math.min(logicalH, node.y));
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, logicalW, logicalH);
+
+    // 線 — 同一alphaでバッチ描画するため距離でグループ化せず
+    // ただし線ごとにalphaが異なるため個別strokeは必要
+    // → beginPath/stroke のペア呼び出しを最小化
+    ctx.lineWidth = LINE_WIDTH;
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var a = nodes[i];
+        var b = nodes[j];
+        var dx = a.x - b.x;
+        var dy = a.y - b.y;
+        var dist2 = dx * dx + dy * dy;
+        if (dist2 < maxDist2) {
+          var dist = Math.sqrt(dist2);
+          var opacity = (1 - dist / maxDistance) * LINE_ALPHA;
+          ctx.strokeStyle = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + opacity + ")";
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // ノード — fillStyle は全ノード共通なので1回だけセット
+    ctx.fillStyle = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + NODE_ALPHA + ")";
+    ctx.beginPath();
+    for (var k = 0; k < nodes.length; k++) {
+      var node = nodes[k];
+      ctx.moveTo(node.x + node.radius, node.y);
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+    }
+    ctx.fill();
+  }
+
+  let animId;
+  function loop() {
+    for (const node of nodes) {
+      updateNode(node);
+    }
+    draw();
+    animId = requestAnimationFrame(loop);
+  }
+
+  // Intersection Observer で表示中のみアニメーション
+  let running = false;
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !running) {
+          running = true;
+          loop();
+        } else if (!entry.isIntersecting && running) {
+          running = false;
+          cancelAnimationFrame(animId);
+        }
+      });
+    },
+    { threshold: 0 }
+  );
+
+  // 初期化時のサイズを記録
+  var initW = 0;
+  var initH = 0;
+
+  function initIfNeeded() {
+    var size = getLogicalSize();
+    if (size.h < 10) return;
+    resize();
+    if (initH === 0) {
+      // 初回：ノード生成
+      initNodes();
+      initW = size.w;
+      initH = size.h;
+    } else if (size.h > initH * 1.3 || size.w > initW * 1.3) {
+      // セクションが大幅に伸びた → ノードを新しいエリア全体に比例再配置
+      var scaleX = size.w / initW;
+      var scaleY = size.h / initH;
+      for (var k = 0; k < nodes.length; k++) {
+        nodes[k].x *= scaleX;
+        nodes[k].y *= scaleY;
+      }
+      initW = size.w;
+      initH = size.h;
+    } else {
+      // 小さなリサイズ：クランプだけ
+      for (var k = 0; k < nodes.length; k++) {
+        nodes[k].x = Math.min(nodes[k].x, size.w);
+        nodes[k].y = Math.min(nodes[k].y, size.h);
+      }
+      initW = size.w;
+      initH = size.h;
+    }
+  }
+
+  // ResizeObserver でセクションのサイズ変化を監視
+  var resizeTimer;
+  var ro = new ResizeObserver(function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initIfNeeded, 50);
+  });
+  ro.observe(canvas.parentElement);
+
+  // 初回
+  initIfNeeded();
+  observer.observe(canvas);
+
+  // prefers-reduced-motion 対応
+  var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (mq.matches) {
+    draw();
+    observer.disconnect();
+  }
+})();
+</script>
+
+<style>
+  .neural-network-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .neural-network-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

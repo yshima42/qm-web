@@ -1,6 +1,8 @@
 ---
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import StoreBadges from "./StoreBadges.astro";
+import NeuralNetworkBackground from "./NeuralNetworkBackground.astro";
+import GradientOrbsBackground from "./GradientOrbsBackground.astro";
 import { useTranslations } from "@/i18n/utils";
 import type { Locale } from "@/i18n/config";
 
@@ -27,8 +29,10 @@ const socialProofRaw = t("hero.social-proof");
 const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
 ---
 
-<section class="section-base relative overflow-hidden pt-20 md:pt-36">
-  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 md:flex-row md:gap-16">
+<section class="hero-section relative">
+  <NeuralNetworkBackground accentColor={theme.accentColor} />
+  <GradientOrbsBackground accentColor={theme.accentColor} />
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-6 md:flex-row md:gap-12">
     <!-- テキスト側 -->
     <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
       {socialProofText && (
@@ -167,6 +171,16 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 </script>
 
 <style>
+  .hero-section {
+    padding: 4.5rem 1.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      padding: 4rem 2rem 1rem;
+    }
+  }
+
   .phone-area {
     display: flex;
     flex-direction: column;
@@ -174,7 +188,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
   }
 
   .phone-frame {
-    width: 270px;
+    width: 250px;
     padding: 10px;
     background: #1a1a1a;
     border-radius: 44px;
@@ -208,7 +222,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 
   @media (min-width: 768px) {
     .phone-frame {
-      width: 290px;
+      width: 270px;
     }
   }
 </style>

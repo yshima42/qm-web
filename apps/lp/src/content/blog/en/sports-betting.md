@@ -3,6 +3,7 @@ title: "How Sports Betting Gets Its Hooks in You, and What the Research Says Abo
 date: "2025-05-23"
 updatedAt: "2026-03-24"
 excerpt: "Sports betting addiction is surging as mobile apps normalize in-play wagering. This article covers how live odds exploit the brain's reward system, why cognitive bias keeps bettors in the red, and evidence-based strategies for pulling back."
+category: "Gambling"
 
 ---
 

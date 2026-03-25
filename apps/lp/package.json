@@ -11,6 +11,7 @@
     "format": "prettier --write './**/*.{js,ts,tsx,astro,scss}'"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.0.0",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^5.7.0",

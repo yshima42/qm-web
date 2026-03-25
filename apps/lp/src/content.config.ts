@@ -6,6 +6,7 @@ const blogSchema = z.object({
   date: z.coerce.string(),
   updatedAt: z.coerce.string().optional(),
   excerpt: z.string(),
+  category: z.string().optional(),
 });
 
 const docSchema = z.object({
