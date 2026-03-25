@@ -1,6 +1,7 @@
 ---
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import StoreBadges from "./StoreBadges.astro";
+import NeuralNetworkBackground from "./NeuralNetworkBackground.astro";
 import { useTranslations } from "@/i18n/utils";
 import type { Locale } from "@/i18n/config";
 
@@ -28,6 +29,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 ---
 
 <section class="section-base relative overflow-hidden pt-20 md:pt-36">
+  <NeuralNetworkBackground accentColor={theme.accentColor} />
   <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 md:flex-row md:gap-16">
     <!-- テキスト側 -->
     <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
