@@ -14,7 +14,13 @@ const t = useTranslations(locale);
 ---
 
 <BaseLayout title={t("common.title")} description={t("common.description")} locale={locale}>
-  <Hero title={t("hero.title")} description={t("hero.description")} locale={locale} eyebrow={t("hero.eyebrow")} />
+  <Hero
+    title={t("hero.title")}
+    description={t("hero.description")}
+    locale={locale}
+    eyebrow={t("hero.eyebrow")}
+    categoryBadges={["Alcohol", "Gambling", "Tobacco", "Porn", "Binge Eating", "and more"]}
+  />
   <SocialProof
     stats={[
       { value: t("social-proof.stats.users.value"), label: t("social-proof.stats.users.label") },
