@@ -1,69 +1,65 @@
 ---
 title: "The Real Reasons You Can't Stop Gambling, Explained Through Brain Science and Psychology"
 date: "2025-06-09"
-updatedAt: "2026-03-24"
+updatedAt: "2026-03-25"
 excerpt: "The question 'why can't I stop when I know I'll lose?' misses the point. Gambling addiction has less to do with money or willpower and more to do with the brain's reward system, dopamine, and the role of emotional pain. This article covers the neuroscience and practical steps toward recovery."
 category: "Gambling"
 
 ---
 
-Anyone who has played a claw machine knows the feeling. You put in 100 yen, the claw closes around the prize, lifts it halfway, and drops it. Rationally, you know the machine is calibrated to lose. But your brain just saw the prize move, and it's already saying "one more try." You end up spending 2,000 yen on a toy you could have bought for 500. That basic loop, where almost-winning feels like evidence that winning is close, is the same mechanism that makes gambling so difficult to walk away from.
+You open your phone to check notifications. Nothing new. You close it. A while later, you open it again. Still nothing. But every now and then there's a "like," and that alone feels good. So you keep checking.
+
+It might seem unrelated, but gambling works on the same principle. "Winning sometimes" is what hijacks the brain. The difference is that the money at stake is on a completely different scale, and it can escalate to the point of destroying your life. You want to stop, but you can't.
 
 ![gambling](/blog/images/gambling.webp)
 
-## Your brain keeps saying "just one more time"
+## "Winning sometimes" is the most dangerous part
 
-Gambling powerfully stimulates the brain's reward system. The key player is a chemical called **dopamine**, which creates feelings of pleasure and the urge to want more.
+To understand how gambling affects the brain, you need to understand dopamine. Most people think of dopamine as a pleasure chemical, but its actual role is a bit different. It's the substance that creates the urge to chase: "I want more," "the next one could be the one."
 
-What makes this especially effective at creating habits is the structure of gambling itself: you win sometimes. Neuroscience research has shown that **random rewards** (the kind where you never know when the next one is coming) create the strongest behavioral patterns of all. That jackpot on the pachinko machine, that near-miss on the slot reel: in those moments, your brain is learning.
+Neuroscience research has repeatedly confirmed that random rewards trigger the strongest dopamine response. A reward you get every time is less compelling than one that comes unpredictably. In psychology, this is called **intermittent reinforcement**. The jackpot on a pachinko machine, the near-miss on a slot reel — these are intermittent reinforcement in its purest form.
 
-Brain imaging studies have confirmed that people with gambling addiction show overactivation in the reward system in response to near-misses and gambling cues, while general reward sensitivity may actually be blunted, and the prefrontal cortex (the part of the brain that acts as a brake) becomes weakened (Clark et al., 2013).
+The SNS notifications from the opening, mobile game gacha — the principle is the same. But with gacha, you lose a few dollars at most. With gambling, it's hundreds, thousands, sometimes tens of thousands. The larger the stakes, the greater the changes in the brain.
 
-In other words, at the level of the brain itself, the pull of "just one more time" has become stronger than the voice saying "I should stop." This isn't something you can override with determination alone.
+Brain imaging studies have found that people with gambling addiction show excessive activation in the reward system in response to near-misses, while their response to ordinary rewards is dulled and the prefrontal cortex — the brain's brake — is weakened. In short, it's full throttle with no brakes. The pull of "one more time" overpowers the voice saying "I should stop," at the level of the brain itself.
 
-For a deeper look at dopamine and addiction mechanisms, see "[Why Do People Become Addicted? How the Brain and Mind Work](/en/blog/why-people-become-addicted)."
+For more on dopamine and the mechanics of addiction, see "[Why Do People Become Addicted? How the Brain and Mind Work](/en/blog/why-people-become-addicted)."
 
-## The role of emotional pain
+## Gambling as a painkiller
 
-Behind the cycle of gambling, there is almost always a pain that's hard to articulate.
+Brain mechanics alone don't explain the full picture of gambling addiction. Another major factor is that gambling functions as an escape from emotional suffering.
 
-Stress at work. Tangled relationships. Anxiety about the future. The feeling that you just can't like yourself. When you're carrying that kind of weight, gambling lets you forget, just for a moment.
+Work stress. Relationship problems. Anxiety about the future. The feeling of not being able to like yourself. When you're carrying that kind of weight, gambling gives you something else to focus on. While your mind is on winning or losing, you can temporarily forget the problems you're carrying.
 
-Opening your phone late at night, thinking "I don't even care anymore." Walking into a pachinko parlor in the afternoon because you don't want to face reality.
+In psychiatry, this kind of addictive behavior is called **self-medication**. It's not about chasing pleasure — gambling is chosen as a clumsy way to soothe emotional pain. Just as you take medicine when you have a cold, gambling becomes the "medicine" when your mind is hurting. For more on this perspective, see "[What If Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)"
 
-That's not chasing pleasure. It's **running from pain**.
+It doesn't leave visible scars. But money, trust, and relationships with the people you love are quietly worn away.
 
-Psychiatrist Edward Khantzian called this kind of addictive behavior **"self-medication"**: a way of protecting yourself from emotional pain. For more on this perspective, see "[What If Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)"
+## Calling it "weak willpower" pushes recovery further away
 
-It doesn't leave visible scars. But money, trust, relationships with people you love are quietly, steadily worn away. That's the result of inner pain spilling out into behavior, not a sign of being "irresponsible."
+Gambling disorder is an officially recognized condition by the WHO.
 
-## The brain changes, and that matters
+Dismissing it as "lack of willpower" or "laziness" only makes the person blame themselves more, and to escape that pain, they turn back to gambling — a vicious cycle. Structural changes have occurred in the brain's reward system. Willpower alone can't override that.
 
-Gambling disorder is an officially recognized condition by the WHO (ICD-11).
-
-The explanations "you just lack willpower" and "you have no discipline" don't hold up, and using them only pushes recovery further out of reach.
-
-If right now you're [blaming yourself for "failing again,"](/en/blog/stop-blaming-yourself) consider this: the reason it keeps happening isn't because you're weak. It's because **the wiring in your brain has changed**.
-
-So instead of asking "why can't I stop?", a more useful question is: "what pain was I trying to manage?"
-
-Turning attention there is where recovery tends to begin.
+Rather than demanding "why can't you stop?", reflecting on "why did I turn to gambling that time?" is where recovery begins. [Blaming yourself](/en/blog/stop-blaming-yourself) does the opposite.
 
 ## Things you can start doing today
 
-Pay attention to the moments when the urge hits. Is it when you're lonely? Frustrated? Completely exhausted? Try writing down what triggers you, even just in a note on your phone. Simply **noticing the pattern** can create a small window of clarity.
+Here are some concrete steps you can take.
 
-Cut off physical access. Build an environment where even if the urge strikes, you can't act on it. Self-exclusion programs at pachinko parlors, blocking apps for online gambling (Gamban / BetBlocker), gambling restrictions on your credit cards: use every tool available. For more details, see "[5 Steps to Quit Gambling](/en/blog/quit-gambling-steps)."
+**Pay attention to the moments when the urge hits.** When you're lonely, frustrated, or completely exhausted. Try writing down what triggers you, even just in a note on your phone. Simply noticing the pattern can create a small window of clarity when the urge strikes.
 
-Connect with someone else's words. Support groups like Gamblers Anonymous (GA), specialized helplines, online communities like [QuitMate](/en/). You don't have to share your own story. Sometimes, just reading someone else's experience and realizing "I'm not the only one" can be a turning point.
+**Cut off physical access.** Build an environment where even if the urge strikes, you can't act on it. Self-exclusion programs at pachinko parlors, blocking apps for online gambling (Gamban / BetBlocker), gambling restrictions on your credit cards — use every tool available. For more details, see "[5 Steps to Quit Gambling](/en/blog/quit-gambling-steps)."
 
-Talk to a professional. **Cognitive behavioral therapy (CBT)** has strong evidence for treating gambling addiction. Going to a mental health center or an addiction clinic isn't about labeling yourself. It's about getting the tools you need.
+**Connect with others who've been there.** Support groups like Gamblers Anonymous (GA), specialized helplines, online communities like [QuitMate](/en/). You don't have to share your own story. Sometimes, just reading someone else's experience and realizing "I'm not the only one" can be a turning point.
+
+**Talk to a professional.** Cognitive behavioral therapy (CBT) has strong evidence for treating gambling addiction. Mental health centers and addiction clinics are places to get concrete tools for recovery.
 
 ## Summary
 
-Not being able to stop gambling doesn't mean you're stupid, and it doesn't mean you lack willpower.
+Not being able to stop gambling isn't a sign of weak willpower. It's the result of "winning sometimes" reshaping the brain's reward system, intertwined with coping mechanisms for emotional pain.
 
-In many cases, it's the result of trying to cope with pain using the only tool that seemed available at the time. When you look at the feelings behind "I want to stop, but I can't," the path forward tends to become clearer.
+Understanding the mechanism is the first step toward recovery. Just knowing "this is what's been happening in my brain" instead of "I'm just broken" makes it easier to think about what to do next.
 
 ---
 
