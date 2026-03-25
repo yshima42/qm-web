@@ -72,7 +72,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
       </p>
 
       {categoryBadges && categoryBadges.length > 0 && (
-        <div class="mb-6 flex flex-wrap justify-center gap-2 md:mb-10 md:justify-start">
+        <div class="mb-6 hidden flex-wrap gap-2 md:mb-10 md:flex">
           {categoryBadges.map((label) => (
             <span class="rounded-full border border-gray-200 bg-white/80 px-3 py-1 text-sm text-[var(--sub-foreground)]">
               {label}
