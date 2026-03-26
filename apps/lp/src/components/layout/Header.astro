@@ -27,7 +27,7 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
 
     <!-- デスクトップ用ナビゲーション -->
     <div class={`hidden items-center gap-4 text-base md:flex ${theme.navText}`}>
-      <nav class="flex gap-5">
+      <nav class="flex gap-5 font-medium">
         {!namespace && (
           <a href={`/${locale}/blog`} class={linkClass}>
             {t("header.links.blog")}

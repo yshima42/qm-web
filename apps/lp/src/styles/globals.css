@@ -77,6 +77,12 @@ h3 {
   letter-spacing: 0;
 }
 
+/* prose内の最初の要素の上マージンを除去 */
+.blog-article .prose > :first-child,
+.blog-article .prose > :first-child img {
+  margin-top: 0;
+}
+
 /* ===== Section Layout ===== */
 
 .section-base {
