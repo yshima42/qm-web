@@ -25,7 +25,7 @@ const href = `/${locale}${basePath}/`;
 const textColor = lightText ? "text-white" : "text-gray-900";
 ---
 
-<a href={href} class={`inline-flex items-center ${lightText ? "text-white" : ""}`}>
+<a href={href} class={`inline-flex items-center ${lightText ? "text-white" : ""}`} data-logo-link>
   <div class="inline-flex items-center gap-2" style={`min-height: ${size}px`}>
     <span class="flex shrink-0 items-center justify-center" style={`width: ${size}px; height: ${size}px`}>
       <img src={iconSrc} alt={siteName} width={size} height={size} class="block" />
@@ -38,3 +38,13 @@ const textColor = lightText ? "text-white" : "text-gray-900";
     </span>
   </div>
 </a>
+
+<script>
+  document.querySelector("[data-logo-link]")?.addEventListener("click", (e) => {
+    const link = e.currentTarget as HTMLAnchorElement;
+    if (link.pathname === window.location.pathname) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+</script>
