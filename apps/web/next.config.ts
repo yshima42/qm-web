@@ -20,6 +20,8 @@ const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-i
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
+    // Vercel Hobby プランの画像最適化上限(1000枚/月)超過防止
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
