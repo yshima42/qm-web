@@ -167,6 +167,7 @@
     "profile": "プロフィール",
     "habits": "習慣",
     "articles": "記事",
+    "blog": "ブログ",
     "app": "アプリ",
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
@@ -252,6 +253,7 @@
   "footer": {
     "title": "共になら、やめられる",
     "about": "QuitMateについて",
+    "blog": "ブログ",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "contact": "お問い合わせ"

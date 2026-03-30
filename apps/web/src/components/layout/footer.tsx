@@ -32,6 +32,12 @@ export function Footer() {
           {t("about")}
         </Link>
         <Link
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/blog`}
+          className="hover:text-foreground hover:underline"
+        >
+          {t("blog")}
+        </Link>
+        <Link
           href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/terms`}
           className="hover:text-foreground hover:underline"
         >

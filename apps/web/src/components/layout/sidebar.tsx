@@ -12,6 +12,7 @@ import {
   Settings,
   Smartphone,
   UserRound,
+  Newspaper,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { EXTERNAL_URLS } from "@/lib/urls";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
@@ -52,6 +54,7 @@ export function SidebarContent({
 }: SidebarContentProps) {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
+  const tConfig = useTranslations("config");
   const tCategory = useTranslations("categories");
   const tAppDownload = useTranslations("app-download-dialog");
   const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false); // デフォルトは閉じた状態
@@ -101,7 +104,7 @@ export function SidebarContent({
               height={24}
               className="h-8 w-auto"
             />
-            {!compact && <span className="text-2xl font-medium leading-tight">QuitMate</span>}
+            {!compact && <span className="text-2xl leading-tight font-medium">QuitMate</span>}
           </Link>
         </div>
       )}
@@ -324,6 +327,15 @@ export function SidebarContent({
           label={t("articles")}
           href="/articles"
           active={pathname === "/articles"}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
+        {/* ブログ（外部サイト） */}
+        <SidebarIcon
+          icon={Newspaper}
+          label={t("blog")}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/blog`}
+          active={false}
           showLabel={!compact}
           onClick={handleLinkClick}
         />
