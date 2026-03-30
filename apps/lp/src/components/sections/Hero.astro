@@ -21,6 +21,7 @@ const t = useTranslations(locale, namespace || undefined);
 
 const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
 const screenshotLocale = namespace ? "ja" : locale;
+// 画像は public/images/ に 810px 幅で事前最適化済み
 const screenshots = config.map(({ image, altKey }) => ({
   src: `/images/${screenshotLocale}/${image}`,
   alt: altKey,
@@ -99,8 +100,8 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
             <img
               src={screenshots[0].src}
               alt={screenshots[0].alt}
-              width="1170"
-              height="2532"
+              width="810"
+              height="1751"
               loading="eager"
               fetchpriority="high"
             />
