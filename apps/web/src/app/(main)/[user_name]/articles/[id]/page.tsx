@@ -1,10 +1,8 @@
 import { Logo } from "@quitmate/ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 import { Header } from "@/components/layout/header";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 import { fetchProfileByUsername } from "@/features/profiles/data/data";
 
@@ -118,9 +116,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   return (
     <>
       <Header titleElement={<Logo />} currentUserProfile={currentUserProfile} />
-      <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <div className="h-14" />
-      </Suspense>
       <ArticleContent
         article={articleWithLikeStatus}
         comments={comments}

@@ -57,8 +57,6 @@ export function SidebarContent({
   const tConfig = useTranslations("config");
   const tCategory = useTranslations("categories");
   const tAppDownload = useTranslations("app-download-dialog");
-  const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false); // デフォルトは閉じた状態
-
   // 習慣データを取得（Providerから、存在しない場合は空配列）
   // React Hooksのルールに従い、常に同じ順序で呼び出す
   const habits = useHabits();
@@ -76,7 +74,9 @@ export function SidebarContent({
     return { myCategories: categorized.myCategories, otherCategories: otherCats };
   }, [habits, habitCategories]);
 
-  // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
+  const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false);
+
+  // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ）
   useEffect(() => {
     const currentCategory = habitCategories.find((cat) => {
       const href = getCategoryUrl(cat);
@@ -86,7 +86,7 @@ export function SidebarContent({
       setIsOtherCommunityOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 初回のみ実行（現在のページがその他コミュニティの場合のみ開く）
+  }, []);
 
   return (
     <div className="flex h-full flex-col">
