@@ -3,11 +3,7 @@ import { ReactNode } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { StoryModalProvider } from "@/features/stories/ui/story-modal-provider";
-import {
-  getCurrentUserUsername,
-  getCurrentUserHabits,
-  getCurrentUserProfile,
-} from "@/lib/utils/page-helpers";
+import { getCurrentUserHabits, getCurrentUserProfile } from "@/lib/utils/page-helpers";
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -21,11 +17,11 @@ type MainLayoutProps = {
  */
 export default async function MainLayout({ children }: MainLayoutProps) {
   // ユーザー情報を並列でフェッチ
-  const [currentUserUsername, habits, currentUserProfile] = await Promise.all([
-    getCurrentUserUsername(),
+  const [habits, currentUserProfile] = await Promise.all([
     getCurrentUserHabits(),
     getCurrentUserProfile(),
   ]);
+  const currentUserUsername = currentUserProfile?.user_name ?? null;
 
   return (
     <>

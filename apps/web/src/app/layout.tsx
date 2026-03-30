@@ -92,10 +92,9 @@ export default async function RootLayout({
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
 
-  const locale = await getLocale();
-
-  // ユーザー情報を並列でフェッチ（ルートレイアウトで一度だけ）
-  const [currentUserProfile, habits] = await Promise.all([
+  // locale取得とユーザー情報フェッチを並列実行
+  const [locale, currentUserProfile, habits] = await Promise.all([
+    getLocale(),
     getCurrentUserProfile(),
     getCurrentUserHabits(),
   ]);
