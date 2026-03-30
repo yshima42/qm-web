@@ -1,5 +1,4 @@
 ---
-import { Image, getImage } from "astro:assets";
 import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
 import StoreBadges from "./StoreBadges.astro";
 import NeuralNetworkBackground from "./NeuralNetworkBackground.astro";
@@ -22,29 +21,11 @@ const t = useTranslations(locale, namespace || undefined);
 
 const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
 const screenshotLocale = namespace ? "ja" : locale;
-
-// src/assets/ から画像を動的インポートし、Astro の画像最適化で 540px 幅にリサイズ
-const imageModules = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/**/*.webp",
-  { eager: true },
-);
-
-const HERO_IMAGE_WIDTH = 810; // 270px 表示 × 3x retina
-
-const optimizedScreenshots = await Promise.all(
-  config.map(async ({ image, altKey }) => {
-    const key = `/src/assets/images/${screenshotLocale}/${image}`;
-    const mod = imageModules[key];
-    if (!mod) {
-      return { src: `/images/${screenshotLocale}/${image}`, alt: altKey, imageData: null };
-    }
-    const optimized = await getImage({ src: mod.default, width: HERO_IMAGE_WIDTH, format: "webp" });
-    return { src: optimized.src, alt: altKey, imageData: mod.default };
-  }),
-);
-
-const firstScreenshot = optimizedScreenshots[0];
-const carouselData = optimizedScreenshots.map(({ src, alt }) => ({ src, alt }));
+// 画像は public/images/ に 810px 幅で事前最適化済み
+const screenshots = config.map(({ image, altKey }) => ({
+  src: `/images/${screenshotLocale}/${image}`,
+  alt: altKey,
+}));
 
 const socialProofRaw = t("hero.social-proof");
 const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
@@ -115,31 +96,20 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
     <div class="relative flex flex-1 items-center justify-center">
       <div class="phone-area">
         <div class="phone-frame">
-          <div class="screenshot-viewer" data-screenshots={JSON.stringify(carouselData)}>
-            {firstScreenshot.imageData ? (
-              <Image
-                src={firstScreenshot.imageData}
-                alt={firstScreenshot.alt}
-                width={HERO_IMAGE_WIDTH}
-                format="webp"
-                loading="eager"
-                fetchpriority="high"
-              />
-            ) : (
-              <img
-                src={firstScreenshot.src}
-                alt={firstScreenshot.alt}
-                width="540"
-                height="1167"
-                loading="eager"
-                fetchpriority="high"
-              />
-            )}
+          <div class="screenshot-viewer" data-screenshots={JSON.stringify(screenshots)}>
+            <img
+              src={screenshots[0].src}
+              alt={screenshots[0].alt}
+              width="810"
+              height="1751"
+              loading="eager"
+              fetchpriority="high"
+            />
           </div>
         </div>
         <!-- インジケーター -->
         <div class="mt-4 flex justify-center gap-2">
-          {optimizedScreenshots.map((_, i) => (
+          {screenshots.map((_, i) => (
             <div
               class="hero-dot size-2 cursor-pointer rounded-full transition-opacity duration-300"
               style={`background: ${theme.accentColor}; opacity: ${i === 0 ? 1 : 0.3};`}
@@ -153,7 +123,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
 </section>
 
 <!-- LCP preload -->
-<link rel="preload" href={firstScreenshot.src} as="image" slot="head" />
+<link rel="preload" href={screenshots[0].src} as="image" slot="head" />
 
 <script is:inline>
 (function () {
