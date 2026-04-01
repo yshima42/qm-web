@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
 import { useTranslations } from "@/i18n/utils";
 import { getAllPosts } from "@/utils/blog";
 import { getCategoryColor } from "@/utils/category";
@@ -137,6 +138,9 @@ const formatDate = (dateStr: string) => {
         </button>
       </div>
     </div>
+
+    <!-- アプリ紹介セクション -->
+    <BlogAppPromo locale={locale} />
   </article>
 </BaseLayout>
 

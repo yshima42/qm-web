@@ -217,6 +217,13 @@
         "copy-link": "Copy link",
         "copied": "Copied!"
     },
+    "blog-app-promo": {
+        "title": "Together, you can quit",
+        "description": "Connect anonymously with others who share your struggle. Whether it's alcohol, smoking, gambling, or other habits, you're not alone.",
+        "screenshot-alt": "QuitMate app community feed",
+        "screenshot-alt-2": "QuitMate app category selection",
+        "screenshot-alt-3": "QuitMate app recovery program"
+    },
     "apps": {
         "title": "Other apps | QuitMate",
         "description": "Apps by QuitMate for addiction recovery. Alcohol-Free Week, Alcohol-Free Mate, Porn-Free Mate, Tobacco-Free Mate.",
