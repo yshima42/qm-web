@@ -217,6 +217,13 @@
         "copy-link": "リンクをコピー",
         "copied": "コピーしました！"
     },
+    "blog-app-promo": {
+        "title": "共になら、やめられる",
+        "description": "同じ悩みを持つ仲間と匿名で支え合える依存症克服コミュニティアプリ。禁酒・禁煙・禁ギャンブルなど、一人じゃないから続けられる。",
+        "screenshot-alt": "QuitMateアプリのコミュニティ投稿画面",
+        "screenshot-alt-2": "QuitMateアプリのカテゴリ選択画面",
+        "screenshot-alt-3": "QuitMateアプリの回復プログラム画面"
+    },
     "apps": {
         "title": "その他アプリ | QuitMate",
         "description": "QuitMateが提供する依存症克服アプリ一覧。禁酒チャレンジ、禁酒メイト、禁欲メイト、禁煙メイトなど。",

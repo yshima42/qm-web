@@ -1,0 +1,249 @@
+---
+import StoreBadges from "./StoreBadges.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  locale: Locale;
+};
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const screenshots = [
+  { src: `/images/${locale}/screenshot-categories.webp`, alt: t("blog-app-promo.screenshot-alt-2") },
+  { src: `/images/${locale}/screenshot-stories.webp`, alt: t("blog-app-promo.screenshot-alt") },
+  { src: `/images/${locale}/screenshot-program.webp`, alt: t("blog-app-promo.screenshot-alt-3") },
+];
+---
+
+<section class="blog-app-promo mt-14">
+  <div class="promo-card">
+    <!-- スマホモックアップ -->
+    <div class="phones-area">
+      <div class="phone phone-left">
+        <div class="phone-bezel">
+          <img src={screenshots[0].src} alt={screenshots[0].alt} width="810" height="1751" loading="lazy" />
+        </div>
+      </div>
+      <div class="phone phone-center">
+        <div class="phone-bezel">
+          <img src={screenshots[1].src} alt={screenshots[1].alt} width="810" height="1751" loading="lazy" />
+        </div>
+      </div>
+      <div class="phone phone-right">
+        <div class="phone-bezel">
+          <img src={screenshots[2].src} alt={screenshots[2].alt} width="810" height="1751" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- アイコン + アプリ名 -->
+    <div class="promo-tagline">
+      <img
+        src="/images/icon-green.webp"
+        alt="QuitMate"
+        width="36"
+        height="36"
+        class="promo-icon"
+        loading="lazy"
+      />
+      <p class="promo-app-name">QuitMate</p>
+    </div>
+
+    <!-- サブタイトル -->
+    <p class="promo-subtitle">{t("blog-app-promo.title")}</p>
+
+    <!-- 説明文 -->
+    <p class="promo-description">{t("blog-app-promo.description")}</p>
+
+    <!-- ストアバッジ -->
+    <div class="promo-badges">
+      <StoreBadges locale={locale} size="medium" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-app-promo {
+    text-align: center;
+  }
+
+  .promo-card {
+    border-radius: 1rem;
+    background: linear-gradient(180deg, #f4f8f3 0%, #eaf1e8 100%);
+    padding: 1.25rem 1.25rem 1.75rem;
+    overflow: hidden;
+  }
+
+  /* スマホモックアップ */
+  .phones-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 260px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .phones-area {
+      height: 300px;
+    }
+  }
+
+  .phone {
+    position: absolute;
+    top: 0;
+  }
+
+  .phone-bezel {
+    background: #111;
+    padding: 3px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.12),
+      0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .phone-bezel img {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  .phone-center {
+    width: 200px;
+    z-index: 3;
+  }
+
+  .phone-center .phone-bezel {
+    padding: 4px;
+    border-radius: 22px;
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.15),
+      0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .phone-center .phone-bezel img {
+    border-radius: 18px;
+  }
+
+  .phone-left {
+    width: 170px;
+    z-index: 2;
+    top: 20px;
+    transform: translateX(-60%) rotate(-8deg);
+  }
+
+  .phone-right {
+    width: 170px;
+    z-index: 2;
+    top: 20px;
+    transform: translateX(60%) rotate(8deg);
+  }
+
+  @media (min-width: 640px) {
+    .phone-center {
+      width: 230px;
+    }
+
+    .phone-center .phone-bezel {
+      padding: 4px;
+      border-radius: 26px;
+    }
+
+    .phone-center .phone-bezel img {
+      border-radius: 22px;
+    }
+
+    .phone-left {
+      width: 195px;
+      transform: translateX(-60%) rotate(-8deg);
+    }
+
+    .phone-right {
+      width: 195px;
+      transform: translateX(60%) rotate(8deg);
+    }
+
+    .phone-bezel {
+      border-radius: 22px;
+    }
+
+    .phone-bezel img {
+      border-radius: 18px;
+    }
+  }
+
+  /* アイコン + アプリ名 */
+  .promo-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .promo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .promo-app-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  /* サブタイトル */
+  .promo-subtitle {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .promo-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .promo-app-name {
+      font-size: 1.375rem;
+    }
+
+    .promo-subtitle {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* 説明文 */
+  .promo-description {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: #666;
+    max-width: 24rem;
+    margin: 0 auto 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .promo-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* ストアバッジ */
+  .promo-badges {
+    display: flex;
+    justify-content: center;
+  }
+</style>
