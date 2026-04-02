@@ -21,13 +21,13 @@ The interesting part is the specificity. His clinical observations suggested pat
 
 ## Why "Just Quit" Doesn't Work
 
-If you've ever been told "Why don't you just stop?", you know how unhelpful that advice is. You may have even [blamed yourself](/en/blog/stop-blaming-yourself), wondering what was wrong with you.
+If you've ever been told "Why don't you just stop?", you know how unhelpful that advice is. You may have even [blamed yourself](/en/blog/stop-blaming-yourself/), wondering what was wrong with you.
 
 The difficulty of stopping isn't about weak willpower. Without the addictive behavior, **the underlying pain goes unmanaged**.
 
 While gambling, a person can temporarily forget anxiety. The loneliness fades. Self-loathing quiets down. Even if the relief is brief, it's real, and that's what drives the cycle.
 
-From a neuroscience perspective, addictive behaviors activate the reward system through dopamine, instantly drowning out negative emotions. As covered in more detail in [Why People Become Addicted](/en/blog/why-people-become-addicted), the brain's "I want more" circuitry isn't something you can override with determination alone.
+From a neuroscience perspective, addictive behaviors activate the reward system through dopamine, instantly drowning out negative emotions. As covered in more detail in [Why People Become Addicted](/en/blog/why-people-become-addicted/), the brain's "I want more" circuitry isn't something you can override with determination alone.
 
 ## The Roots Run Deep
 
@@ -41,11 +41,11 @@ Facing that kind of pain head-on is frightening and exhausting. That's exactly w
 
 The National Institute on Drug Abuse (NIDA) states clearly that addiction is a **chronic brain condition**, one that causes changes in structure and function. It's not a matter of weak willpower or a character flaw.
 
-This reframing opens up a more useful question: before "I need to quit," it helps to ask, "Why did I need this in the first place?" Keeping a journal, or simply [taking quiet time to reflect on feelings](/en/blog/reflection-changes-behavior), can help patterns start to come into focus.
+This reframing opens up a more useful question: before "I need to quit," it helps to ask, "Why did I need this in the first place?" Keeping a journal, or simply [taking quiet time to reflect on feelings](/en/blog/reflection-changes-behavior/), can help patterns start to come into focus.
 
 There's also the isolation factor. When someone is cut off from connection, it's nearly impossible to find a "safe place" that can replace what addiction provided.
 
-The [Rat Park experiment](/en/blog/rat-park) illustrates this well. Rats kept alone in cages turned heavily to drugs, but rats in spacious environments where they could play with others barely touched them. The parallel to human experience is hard to miss: having even one person you feel safe talking to can **significantly reduce the pull** of "just one more time." Peer support communities, including online platforms like [QuitMate](/en/), exist largely because of this principle.
+The [Rat Park experiment](/en/blog/rat-park/) illustrates this well. Rats kept alone in cages turned heavily to drugs, but rats in spacious environments where they could play with others barely touched them. The parallel to human experience is hard to miss: having even one person you feel safe talking to can **significantly reduce the pull** of "just one more time." Peer support communities, including online platforms like [QuitMate](/en/), exist largely because of this principle.
 
 ## Self-Blame Gets in the Way
 

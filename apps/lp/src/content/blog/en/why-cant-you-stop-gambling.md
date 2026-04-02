@@ -23,7 +23,7 @@ The SNS notifications from the opening, mobile game gacha — the principle is t
 
 Brain imaging studies have found that people with gambling addiction show excessive activation in the reward system in response to near-misses, while their response to ordinary rewards is dulled and the prefrontal cortex — the brain's brake — is weakened. In short, it's full throttle with no brakes. The pull of "one more time" overpowers the voice saying "I should stop," at the level of the brain itself.
 
-For more on dopamine and the mechanics of addiction, see "[Why Do People Become Addicted? How the Brain and Mind Work](/en/blog/why-people-become-addicted)."
+For more on dopamine and the mechanics of addiction, see "[Why Do People Become Addicted? How the Brain and Mind Work](/en/blog/why-people-become-addicted/)."
 
 ## Gambling as a painkiller
 
@@ -31,7 +31,7 @@ Brain mechanics alone don't explain the full picture of gambling addiction. Anot
 
 Work stress. Relationship problems. Anxiety about the future. The feeling of not being able to like yourself. When you're carrying that kind of weight, gambling gives you something else to focus on. While your mind is on winning or losing, you can temporarily forget the problems you're carrying.
 
-In psychiatry, this kind of addictive behavior is called **self-medication**. It's not about chasing pleasure — gambling is chosen as a clumsy way to soothe emotional pain. Just as you take medicine when you have a cold, gambling becomes the "medicine" when your mind is hurting. For more on this perspective, see "[What If Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)"
+In psychiatry, this kind of addictive behavior is called **self-medication**. It's not about chasing pleasure — gambling is chosen as a clumsy way to soothe emotional pain. Just as you take medicine when you have a cold, gambling becomes the "medicine" when your mind is hurting. For more on this perspective, see "[What If Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem/)"
 
 It doesn't leave visible scars. But money, trust, and relationships with the people you love are quietly worn away.
 
@@ -41,7 +41,7 @@ Gambling disorder is an officially recognized condition by the WHO.
 
 Dismissing it as "lack of willpower" or "laziness" only makes the person blame themselves more, and to escape that pain, they turn back to gambling — a vicious cycle. Structural changes have occurred in the brain's reward system. Willpower alone can't override that.
 
-Rather than demanding "why can't you stop?", reflecting on "why did I turn to gambling that time?" is where recovery begins. [Blaming yourself](/en/blog/stop-blaming-yourself) does the opposite.
+Rather than demanding "why can't you stop?", reflecting on "why did I turn to gambling that time?" is where recovery begins. [Blaming yourself](/en/blog/stop-blaming-yourself/) does the opposite.
 
 ## Things you can start doing today
 
@@ -49,7 +49,7 @@ Here are some concrete steps you can take.
 
 **Pay attention to the moments when the urge hits.** When you're lonely, frustrated, or completely exhausted. Try writing down what triggers you, even just in a note on your phone. Simply noticing the pattern can create a small window of clarity when the urge strikes.
 
-**Cut off physical access.** Build an environment where even if the urge strikes, you can't act on it. Self-exclusion programs at pachinko parlors, blocking apps for online gambling (Gamban / BetBlocker), gambling restrictions on your credit cards — use every tool available. For more details, see "[5 Steps to Quit Gambling](/en/blog/quit-gambling-steps)."
+**Cut off physical access.** Build an environment where even if the urge strikes, you can't act on it. Self-exclusion programs at pachinko parlors, blocking apps for online gambling (Gamban / BetBlocker), gambling restrictions on your credit cards — use every tool available. For more details, see "[5 Steps to Quit Gambling](/en/blog/quit-gambling-steps/)."
 
 **Connect with others who've been there.** Support groups like Gamblers Anonymous (GA), specialized helplines, online communities like [QuitMate](/en/). You don't have to share your own story. Sometimes, just reading someone else's experience and realizing "I'm not the only one" can be a turning point.
 

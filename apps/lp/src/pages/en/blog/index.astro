@@ -27,7 +27,7 @@ const posts = await getAllPosts(locale);
           const slug = post.id.replace(/\.md$/, "");
           const coverImage = extractFirstImage(post.body ?? "");
           return (
-            <a href={`/${locale}/blog/${slug}`} class="group block">
+            <a href={`/${locale}/blog/${slug}/`} class="group block">
               <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
                 {coverImage && (
                   <div class="aspect-video w-full overflow-hidden">

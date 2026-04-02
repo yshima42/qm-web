@@ -45,7 +45,7 @@ After spending 100,000 yen, you think, "If I quit now, that money was all for no
 
 This is the **sunk cost fallacy**. The fear of "cutting your losses" ends up leading to even bigger ones.
 
-As covered in [Why Can't You Stop Gambling?](/en/blog/why-cant-you-stop-gambling), these biases are built into the structure of the brain itself. They aren't something that only happens to certain people.
+As covered in [Why Can't You Stop Gambling?](/en/blog/why-cant-you-stop-gambling/), these biases are built into the structure of the brain itself. They aren't something that only happens to certain people.
 
 ## Why People Cling to the "Winning Overall" Story
 
@@ -55,13 +55,13 @@ The deeper someone falls into gambling addiction, the more fiercely they tend to
 
 The reason is protective. As long as they believe they're winning, they don't have to see their behavior as a problem. "I'm ahead, so it's fine." "The losses are temporary." "I'll make it back next time." These phrases work as a shield.
 
-At its core, addiction often starts as [a "solution" rather than a "problem"](/en/blog/addiction-is-solution-not-problem), a way to temporarily escape anxiety, stress, loneliness, or boredom. When gambling serves that function, "I'm winning overall" becomes the **ultimate justification** for continuing. And the more you repeat that justification, the more the debt grows and the addiction deepens, creating a cycle where the exit keeps getting further away.
+At its core, addiction often starts as [a "solution" rather than a "problem"](/en/blog/addiction-is-solution-not-problem/), a way to temporarily escape anxiety, stress, loneliness, or boredom. When gambling serves that function, "I'm winning overall" becomes the **ultimate justification** for continuing. And the more you repeat that justification, the more the debt grows and the addiction deepens, creating a cycle where the exit keeps getting further away.
 
 ## The Rare Exceptions
 
 A tiny handful of professional bettors in horse racing and sports betting do maintain a positive balance, through exhaustive analysis and emotion-free bankroll management.
 
-But their lives look nothing like what you'd imagine. They pour enormous amounts of time into data analysis and absorb significant losses during cold streaks. They operate on an entirely different level from the average gambler, with deep knowledge of [the structural risks of sports betting](/en/blog/sports-betting). Thinking "I can win overall too" is like a weekend softball player watching the pros on TV and thinking, "I could do that."
+But their lives look nothing like what you'd imagine. They pour enormous amounts of time into data analysis and absorb significant losses during cold streaks. They operate on an entirely different level from the average gambler, with deep knowledge of [the structural risks of sports betting](/en/blog/sports-betting/). Thinking "I can win overall too" is like a weekend softball player watching the pros on TV and thinking, "I could do that."
 
 And even if someone is technically in the black financially, what about the time spent, the sleep lost, the relationships strained? Factor all of that in and the answer starts to shift.
 
@@ -77,7 +77,7 @@ The tricky thing about cognitive bias is that it's nearly impossible to spot on 
 
 ### Look at What's Really Behind the Gambling
 
-Is it about making money? Killing boredom? Running from something? The real reason people turn to gambling is different for everyone. But just asking yourself the question can be enough to [start shifting something](/en/blog/reflection-changes-behavior).
+Is it about making money? Killing boredom? Running from something? The real reason people turn to gambling is different for everyone. But just asking yourself the question can be enough to [start shifting something](/en/blog/reflection-changes-behavior/).
 
 ## The Numbers Tell the Real Story
 
