@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
 import { fetchArticlesXml, fetchProfilesXml, fetchStoriesXml } from "@/features/sitemap/data/data";
+
+// 1日ごとにサイトマップを再生成（ISR）
+export const revalidate = 86400;
 import { HabitCategoryName } from "@/lib/types";
 
 import { SITEMAP_LIMITS } from "@/features/sitemap/constants";
