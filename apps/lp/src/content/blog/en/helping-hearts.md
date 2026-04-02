@@ -13,7 +13,7 @@ But for some people, this isn't occasional. It's the entire operating system. Li
 
 Among people struggling with addiction, this pattern of giving too much of yourself is surprisingly common. It's not just kindness. Something deeper is driving the behavior.
 
-There's a perspective that [addiction doesn't start as a "problem," it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem). Self-sacrifice may be another kind of "solution," an attempt to fill that hollow space inside.
+There's a perspective that [addiction doesn't start as a "problem," it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem/). Self-sacrifice may be another kind of "solution," an attempt to fill that hollow space inside.
 
 ![Helping with wounded hands](/blog/images/helping-hearts.webp)
 
@@ -49,13 +49,13 @@ The link between self-sacrifice and addiction isn't just emotional. It can be ex
 
 When you help someone and they're grateful, your brain releases dopamine. That rush of elation after volunteering is sometimes called the **"helper's high."** There's nothing wrong with it in isolation. The problem is that this feel-good response partially overlaps with the reward circuits activated by gambling or alcohol. The loop of "someone thanks me, it feels good, I want more" can get wired into a similar reward-learning pattern as addiction.
 
-On top of that, self-sacrificing people carry chronic stress. When you constantly push your own needs aside, that's an inevitable result. Chronic stress impairs prefrontal cortex function, weakening impulse control (Arnsten, 2009). The result: [wanting to quit but being unable to](/en/blog/why-people-become-addicted) accelerates further and further.
+On top of that, self-sacrificing people carry chronic stress. When you constantly push your own needs aside, that's an inevitable result. Chronic stress impairs prefrontal cortex function, weakening impulse control (Arnsten, 2009). The result: [wanting to quit but being unable to](/en/blog/why-people-become-addicted/) accelerates further and further.
 
 ## What's Left After All That Giving
 
 The return on all that devotion is thin: a temporary sense of security, a faint feeling of "I was useful." And the costs pile up on the other side.
 
-When gratitude doesn't come back, self-loathing floods in. Once you're caught in the [cycle of blaming yourself too harshly](/en/blog/stop-blaming-yourself), addictive behavior tends to escalate even more.
+When gratitude doesn't come back, self-loathing floods in. Once you're caught in the [cycle of blaming yourself too harshly](/en/blog/stop-blaming-yourself/), addictive behavior tends to escalate even more.
 
 Relationships that only work because you're giving will warp eventually. You end up fostering dependency in the other person, too. And no matter how much you run around for others trying to fill the emptiness inside, the root problem stays hidden, untouched.
 
@@ -79,7 +79,7 @@ Saying "Sorry, I can't right now" isn't rejecting the other person. Psychologist
 
 ### Seeing Patterns Through Outside Perspective
 
-Your own patterns are difficult to spot alone. Talking to a counselor or a professional can lead to surprising discoveries. [Peer support, connecting with others who share similar experiences](/en/blog/peer-support), often becomes the catalyst for recognizing behavioral patterns you couldn't see by yourself. Online communities like [QuitMate](/en/) can serve as a low-pressure starting point.
+Your own patterns are difficult to spot alone. Talking to a counselor or a professional can lead to surprising discoveries. [Peer support, connecting with others who share similar experiences](/en/blog/peer-support/), often becomes the catalyst for recognizing behavioral patterns you couldn't see by yourself. Online communities like [QuitMate](/en/) can serve as a low-pressure starting point.
 
 ## Sustainability Over Generosity
 

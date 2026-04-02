@@ -19,9 +19,9 @@ The distinguishing feature of sports betting is that it makes you feel like skil
 
 With casino slots, most people recognize the outcome is random. But sports are different. Player form, team matchups, weather, recent results: the more research you do, the more it feels like an "informed bet." Add live in-play betting, where odds shift every few seconds, and your brain gets a **continuous drip of "now's my chance" moments** with no natural pause.
 
-As covered in [Why You Can't Stop Gambling](/en/blog/why-cant-you-stop-gambling), what's happening neurologically is repeated bursts of dopamine. When the reward system goes into overdrive, the prefrontal cortex (the region responsible for rational thinking) loses its ability to pump the brakes. The feeling of "I was going to stop, but before I knew it I was betting again" isn't weak willpower. It's a structural response in the brain.
+As covered in [Why You Can't Stop Gambling](/en/blog/why-cant-you-stop-gambling/), what's happening neurologically is repeated bursts of dopamine. When the reward system goes into overdrive, the prefrontal cortex (the region responsible for rational thinking) loses its ability to pump the brakes. The feeling of "I was going to stop, but before I knew it I was betting again" isn't weak willpower. It's a structural response in the brain.
 
-Then there's the **near-miss effect**. Even when you lose by a hair, your brain registers something close to a win. You've actually lost, but the sensation says "next time for sure." If you sit down and honestly tally up your wins and losses, most people are in the red, yet the [belief that you're ahead overall](/en/blog/gamble-winning) persists. That's cognitive bias doing its work.
+Then there's the **near-miss effect**. Even when you lose by a hair, your brain registers something close to a win. You've actually lost, but the sensation says "next time for sure." If you sit down and honestly tally up your wins and losses, most people are in the red, yet the [belief that you're ahead overall](/en/blog/gamble-winning/) persists. That's cognitive bias doing its work.
 
 ## How "just 500 yen" spirals out of control
 
@@ -53,7 +53,7 @@ Set a 24-hour cooling-off period on deposits. Load a fixed weekly budget onto a 
 
 What keeps "impulse betting" in check is inconvenience. Urges don't last forever. As long as you have a system to ride out those few minutes to few hours, the storm will pass.
 
-One related caution: [using air bets (imaginary wagers) to cope](/en/blog/paper-betting) might seem harmless at first glance, but it actually backfires. You end up "practicing" the desire to bet, which risks reigniting your cravings.
+One related caution: [using air bets (imaginary wagers) to cope](/en/blog/paper-betting/) might seem harmless at first glance, but it actually backfires. You end up "practicing" the desire to bet, which risks reigniting your cravings.
 
 ### Find a different source of dopamine
 
@@ -69,7 +69,7 @@ This is often the hardest step, and the most effective.
 
 If you can't tell your family, start with an anonymous helpline. The Gambling Addiction Helpline (0120-683-705) is available 24 hours a day, and you don't have to give your name.
 
-[Research on peer support](/en/blog/peer-support) shows that people who connect with others who share their experience are roughly **1.4 times more likely to stay in treatment**. Online communities like [QuitMate](/en/) can serve as a starting point if face-to-face conversation feels like too much.
+[Research on peer support](/en/blog/peer-support/) shows that people who connect with others who share their experience are roughly **1.4 times more likely to stay in treatment**. Online communities like [QuitMate](/en/) can serve as a starting point if face-to-face conversation feels like too much.
 
 Professional approaches like CBT (**cognitive behavioral therapy**) and motivational interviewing have also been shown to significantly reduce the risk of relapse.
 
@@ -77,7 +77,7 @@ Professional approaches like CBT (**cognitive behavioral therapy**) and motivati
 
 Sports betting looks sleek and strategic on the surface. Behind the scenes, it's a system engineered to stimulate your brain's reward circuitry second by second.
 
-If you want a concrete roadmap, take a look at [5 Steps to Quit Gambling](/en/blog/quit-gambling-steps) as well.
+If you want a concrete roadmap, take a look at [5 Steps to Quit Gambling](/en/blog/quit-gambling-steps/) as well.
 
 ---
 

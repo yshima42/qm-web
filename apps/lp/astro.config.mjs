@@ -30,11 +30,55 @@ function getBlogDateMap() {
 
 const blogDateMap = getBlogDateMap();
 
+// ロケールなしURLのリダイレクト先を構築
+function buildRedirects() {
+  const redirects = {};
+
+  // ルートレベルページ
+  for (const page of ["contact", "privacy", "terms", "apps"]) {
+    redirects[`/${page}`] = `/en/${page}/`;
+  }
+
+  // カテゴリページ（各サブページ含む）
+  for (const category of ["alcohol", "tobacco", "porn", "challenge"]) {
+    redirects[`/${category}`] = `/en/${category}/`;
+    for (const sub of ["contact", "privacy", "terms"]) {
+      redirects[`/${category}/${sub}`] = `/en/${category}/${sub}/`;
+    }
+  }
+
+  // 旧 /jp/ ロケール -> /ja/
+  redirects["/jp"] = "/ja/";
+  for (const page of ["contact", "privacy", "terms", "apps"]) {
+    redirects[`/jp/${page}`] = `/ja/${page}/`;
+  }
+
+  return redirects;
+}
+
 export default defineConfig({
   site: "https://about.quitmate.app",
   output: "static",
+  trailingSlash: "always",
+  redirects: buildRedirects(),
   integrations: [
     sitemap({
+      filter(page) {
+        const url = new URL(page);
+        const p = url.pathname;
+        // ロケール付きページのみ
+        if (!/^\/(en|ja)\//.test(p)) return false;
+        // カテゴリ別 document ページは除外（default版のみ残す）
+        // 例: /en/alcohol/terms/ → 除外, /en/terms/ → 残す
+        const categories = ["alcohol", "tobacco", "porn", "challenge"];
+        const docs = ["terms", "privacy", "contact"];
+        for (const cat of categories) {
+          for (const doc of docs) {
+            if (p.includes(`/${cat}/${doc}`)) return false;
+          }
+        }
+        return true;
+      },
       serialize(item) {
         const url = new URL(item.url);
         const lastmod = blogDateMap.get(url.pathname);

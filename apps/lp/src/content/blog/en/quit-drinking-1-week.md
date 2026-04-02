@@ -87,4 +87,4 @@ Here are three takeaways from the data and user posts:
 
 On the morning of Day 4, you'll have that "Wait..." moment. Your body answers back. That tangible feedback is what carries you into the next day.
 
-For what happens in Week 2 and beyond, check out "[Amazing Effects of 2 Weeks Without Alcohol: Physical and Mental Changes](/en/blog/quit-drinking-2-weeks)."
+For what happens in Week 2 and beyond, check out "[Amazing Effects of 2 Weeks Without Alcohol: Physical and Mental Changes](/en/blog/quit-drinking-2-weeks/)."

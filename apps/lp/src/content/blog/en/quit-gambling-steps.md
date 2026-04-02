@@ -21,7 +21,7 @@ The first step is to put concrete numbers on where things stand. Total amount sp
 
 This exercise works because it breaks through the mental fog that gambling disorders create. It's common for people to significantly underestimate their losses until they see everything laid out. One person who had accumulated **3 million yen** in pachinko debt described spreading out all his statements and seeing the total for the first time as the moment he decided to seek help.
 
-For a deeper look at the neurological mechanisms that make gambling so hard to quit, see "[Why Can't You Stop Gambling?](/en/blog/why-cant-you-stop-gambling)."
+For a deeper look at the neurological mechanisms that make gambling so hard to quit, see "[Why Can't You Stop Gambling?](/en/blog/why-cant-you-stop-gambling/)."
 
 ## Step 2: Block the path to gambling
 
@@ -33,7 +33,7 @@ Pachinko parlors in Japan offer a **self-exclusion and family-exclusion program*
 
 A surprisingly useful exercise is identifying the specific triggers: when and in what mood the urge to gamble hits. Payday evening. The commute home after a bad day. A quiet Sunday afternoon with nothing planned. Once the patterns become visible, you can schedule alternative activities during those windows.
 
-In recent years, sports betting (where a bet is a single tap away) has been surging. For more on why blocking online access is especially critical, see "[The Rise of Sports Betting and Addiction Risk](/en/blog/sports-betting)."
+In recent years, sports betting (where a bet is a single tap away) has been surging. For more on why blocking online access is especially critical, see "[The Rise of Sports Betting and Addiction Risk](/en/blog/sports-betting/)."
 
 ## Step 3: Connect with peers and professionals
 
@@ -45,7 +45,7 @@ A practical step that many people find effective: handing control of finances (w
 
 For more structured intervention, **CBT (Cognitive Behavioral Therapy)** can help rewrite thought patterns like "if I just keep betting, I'll win it all back." Medication-based approaches using drugs like nalmefene can ease cravings. Both outpatient and inpatient options exist.
 
-For more on the mechanics of peer support, read "[The Effects and Meaning of Peer Support](/en/blog/peer-support)."
+For more on the mechanics of peer support, read "[The Effects and Meaning of Peer Support](/en/blog/peer-support/)."
 
 ## Step 4: Fill the reward gap
 
@@ -53,7 +53,7 @@ An addicted brain's dopamine circuits have been overstimulated by gambling, and 
 
 This is why finding healthy replacement rewards matters. Twenty jumping jacks. A five-minute walk outside. One lesson on a language-learning app. A new chord on guitar. When the pull toward a betting app hits, sending a message to a friend instead. Each of these is small, but for the brain, each one is a data point that rewards exist beyond gambling.
 
-Even "paper betting" (predicting outcomes without money on the line) triggers the brain's reward system. For more on this, see "[Should You Practice Paper Betting?](/en/blog/paper-betting)."
+Even "paper betting" (predicting outcomes without money on the line) triggers the brain's reward system. For more on this, see "[Should You Practice Paper Betting?](/en/blog/paper-betting/)."
 
 ## Step 5: Ride out the craving wave
 

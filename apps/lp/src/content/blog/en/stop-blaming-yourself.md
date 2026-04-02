@@ -15,7 +15,7 @@ For many people dealing with addiction, the behavior isn't the worst part. It's 
 
 You decided to quit gambling, but the very next day you walked into a pachinko parlor again. You swore off alcohol, but there you were at the convenience store, reaching for a can. And the voice that hits you in that moment: "I knew it, I'm hopeless."
 
-In a related article, "[What if Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem)," we looked at how addictive behavior often begins as a form of self-medication for emotional pain. This article focuses on another source of suffering: the way constant self-blame affects recovery.
+In a related article, "[What if Addiction Was Never the 'Problem', But the 'Solution'?](/en/blog/addiction-is-solution-not-problem/)," we looked at how addictive behavior often begins as a form of self-medication for emotional pain. This article focuses on another source of suffering: the way constant self-blame affects recovery.
 
 ![blaming-woman](/blog/images/blaming-woman.webp)
 
@@ -23,7 +23,7 @@ In a related article, "[What if Addiction Was Never the 'Problem', But the 'Solu
 
 This is counterintuitive, but **self-blame actively gets in the way of recovery**. Brief reflection ("next time will be different") is natural. But when "I'm no good" becomes a constant loop, something starts happening physiologically.
 
-Sustained self-criticism floods the body with **stress hormones (cortisol)**. Anxiety rises, and the prefrontal cortex (the part of your brain that acts as the brakes) starts losing its grip. As discussed in "[Why Do People Become Addicted?](/en/blog/why-people-become-addicted)," fighting urges with weakened brakes is extremely difficult.
+Sustained self-criticism floods the body with **stress hormones (cortisol)**. Anxiety rises, and the prefrontal cortex (the part of your brain that acts as the brakes) starts losing its grip. As discussed in "[Why Do People Become Addicted?](/en/blog/why-people-become-addicted/)," fighting urges with weakened brakes is extremely difficult.
 
 The cycle works like this:
 
@@ -47,11 +47,11 @@ For example:
 
 Laid out this way, "why on earth did I do that?" shifts from vague self-loathing to "oh, that stress was the trigger." It stops being ammunition for self-blame and becomes a clue for being better prepared next time.
 
-A notebook, a note on your phone, anything works. It doesn't need to be polished. As discussed in "[Simply Reflecting Can Change Your Behavior](/en/blog/reflection-changes-behavior)," giving yourself even a small space for reflection can change how you respond the next time an urge hits.
+A notebook, a note on your phone, anything works. It doesn't need to be polished. As discussed in "[Simply Reflecting Can Change Your Behavior](/en/blog/reflection-changes-behavior/)," giving yourself even a small space for reflection can change how you respond the next time an urge hits.
 
 ## From "blaming" to "supporting"
 
-One effective alternative to self-blame is connecting with people who've been through the same thing. "Oh, it wasn't just me." That realization alone can release a surprising amount of tension. [Research on peer support](/en/blog/peer-support) has shown that connecting with others going through similar experiences can increase treatment continuation rates by **about 1.4 times**. Communities like [QuitMate](/en/) can be a good place to start, especially when talking to someone face-to-face feels like too much.
+One effective alternative to self-blame is connecting with people who've been through the same thing. "Oh, it wasn't just me." That realization alone can release a surprising amount of tension. [Research on peer support](/en/blog/peer-support/) has shown that connecting with others going through similar experiences can increase treatment continuation rates by **about 1.4 times**. Communities like [QuitMate](/en/) can be a good place to start, especially when talking to someone face-to-face feels like too much.
 
 Another is shifting your focus from "what I couldn't do" to "what I did do." Not "I couldn't keep it up for three days," but "I made it through one day." Today I almost reached for it, but I held off for ten minutes. Those ten minutes matter. Stacking small successes like that gradually builds **a sense of capability**.
 

@@ -61,7 +61,7 @@ Alcohol suppresses the central nervous system. When you drink daily, your brain 
 
 > "I can't fall asleep and I wake up way too early. I've failed before because the stress of not being able to sleep when I had work the next day was too much." (Day 1)
 
-But this settles down within days. By Day 5, posts like "I'm falling asleep before I know it" start appearing. Giving up because of 2-3 days of insomnia isn't worth it. I wrote more about the progression of insomnia in "[Effects of 1 Week Without Alcohol](/en/blog/quit-drinking-1-week)."
+But this settles down within days. By Day 5, posts like "I'm falling asleep before I know it" start appearing. Giving up because of 2-3 days of insomnia isn't worth it. I wrote more about the progression of insomnia in "[Effects of 1 Week Without Alcohol](/en/blog/quit-drinking-1-week/)."
 
 ### "When Does the Irritability Go Away?"
 
@@ -75,7 +75,7 @@ The root cause of irritability is that your dopamine receptors haven't fully rec
 
 Changes start appearing in 4-7 days, and things look noticeably clearer by 2 weeks.
 
-Alcohol disrupts your body's water balance. When you stop, excess water starts draining within days. By Day 7, people are saying "my skin has improved dramatically," and by Day 10, "I think my face looks slimmer." Changes in skin and puffiness are the fastest and most visible effects of quitting. I covered the second-week changes in more detail in "[Effects of 2 Weeks Without Alcohol](/en/blog/quit-drinking-2-weeks)."
+Alcohol disrupts your body's water balance. When you stop, excess water starts draining within days. By Day 7, people are saying "my skin has improved dramatically," and by Day 10, "I think my face looks slimmer." Changes in skin and puffiness are the fastest and most visible effects of quitting. I covered the second-week changes in more detail in "[Effects of 2 Weeks Without Alcohol](/en/blog/quit-drinking-2-weeks/)."
 
 ### "How Long Will This 'Nothing Is Enjoyable' Feeling Last?"
 
@@ -85,7 +85,7 @@ Your dopamine receptors are still diminished, so everyday stimulation can't reac
 
 > "Nothing is fun. Honestly, I don't want to talk to anyone. Don't want to see anyone. Don't want to go to work." (Day 15)
 
-It's subtler than physical withdrawal, but this is the real cause of relapse. That said, one person wrote on Day 15: "I had a normal night out, joking around, feeling that pleasant tiredness afterward. Turns out I didn't need alcohol nearly as much as I thought." I wrote about changes from Week 3 onward in "[Effects of 3 Weeks to 1 Month Without Alcohol](/en/blog/quit-drinking-3-weeks-to-1-month)."
+It's subtler than physical withdrawal, but this is the real cause of relapse. That said, one person wrote on Day 15: "I had a normal night out, joking around, feeling that pleasant tiredness afterward. Turns out I didn't need alcohol nearly as much as I thought." I wrote about changes from Week 3 onward in "[Effects of 3 Weeks to 1 Month Without Alcohol](/en/blog/quit-drinking-3-weeks-to-1-month/)."
 
 ### Why Does It Feel Like "I've Become Weaker to Stress"?
 

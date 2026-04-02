@@ -49,7 +49,7 @@ The drug wasn't the deciding factor. **The environment was.**
 
 The experiment has weaknesses.
 
-Other teams tried to replicate the results under the same conditions and didn't always succeed (Petrie, 1996). Small changes in rat strain or drug concentration could shift the outcome. And of course, what happens in rats doesn't map neatly onto humans. Human addiction involves genetics, neural circuits, and social context tangled together in ways far more complex than a rat colony can model (for more, see "[Why Do People Become Addicted?](/en/blog/why-people-become-addicted)").
+Other teams tried to replicate the results under the same conditions and didn't always succeed (Petrie, 1996). Small changes in rat strain or drug concentration could shift the outcome. And of course, what happens in rats doesn't map neatly onto humans. Human addiction involves genetics, neural circuits, and social context tangled together in ways far more complex than a rat colony can model (for more, see "[Why Do People Become Addicted?](/en/blog/why-people-become-addicted/)").
 
 Alexander himself has said that environment is one important factor, not the only one. The experiment was never meant to prove that "connection alone cures addiction."
 
@@ -61,9 +61,9 @@ Still, the idea that "addiction is just weak willpower" clearly doesn't hold up.
 
 Journalist [Johann Hari's TED talk](https://www.ted.com/talks/johann_hari_everything_you_think_you_know_about_addiction_is_wrong?language=en) popularized the phrase "the opposite of addiction is connection" — essentially a human translation of the Rat Park findings.
 
-Epidemiological research backs the core idea: loneliness and social isolation raise addiction risk. On the flip side, [people who participate in peer support see treatment continuation rates improve by roughly **1.4 times**](/en/blog/peer-support).
+Epidemiological research backs the core idea: loneliness and social isolation raise addiction risk. On the flip side, [people who participate in peer support see treatment continuation rates improve by roughly **1.4 times**](/en/blog/peer-support/).
 
-Addictive behavior, looked at from another angle, can be [a way of shielding yourself from emotional pain](/en/blog/addiction-is-solution-not-problem). When things get hard, people reach for something — alcohol, gambling, drugs. If connection with other people is available, you lean on that instead. That's basically what Rat Park is saying.
+Addictive behavior, looked at from another angle, can be [a way of shielding yourself from emotional pain](/en/blog/addiction-is-solution-not-problem/). When things get hard, people reach for something — alcohol, gambling, drugs. If connection with other people is available, you lean on that instead. That's basically what Rat Park is saying.
 
 ---
 
@@ -71,7 +71,7 @@ The question Rat Park posed is simple: lock anyone in a small cage long enough, 
 
 [QuitMate](/en/) was heavily influenced by this experiment. Just as the Rat Park rats forgot about morphine when they had companions, we wondered if we could build a place online where people don't have to fight alone. We can't build a giant theme park, but we can build an anonymous community where people connect at their own pace.
 
-Real life doesn't sort as neatly as a rat experiment. For a lot of people, forming connections is itself the hard part. But there are ways out of the small cage — self-help groups, [stopping the cycle of self-blame](/en/blog/stop-blaming-yourself), or just finding one small space where you're not alone.
+Real life doesn't sort as neatly as a rat experiment. For a lot of people, forming connections is itself the hard part. But there are ways out of the small cage — self-help groups, [stopping the cycle of self-blame](/en/blog/stop-blaming-yourself/), or just finding one small space where you're not alone.
 
 ---
 

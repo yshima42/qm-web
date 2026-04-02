@@ -5,7 +5,7 @@ excerpt: "QuitMate data shows that 80% of people who make it past 1 week reach t
 category: "Alcohol"
 ---
 
-In [the previous article](/en/blog/quit-drinking-1-week), I covered the first week of quitting alcohol. How 60% of resets happen within the first 3 days, and how 75% of those who make it past day 3 go on to complete the full week.
+In [the previous article](/en/blog/quit-drinking-1-week/), I covered the first week of quitting alcohol. How 60% of resets happen within the first 3 days, and how 75% of those who make it past day 3 go on to complete the full week.
 
 So what happens to people who make it past one week?
 
@@ -127,4 +127,4 @@ Two weeks. Your body starts responding. Your mind clears up. The "ordinary daily
 
 One user wrote on day 14: "I've gotten used to being sober at night. I can sleep without sleeping pills. I can wake up early. I can exercise and I can work. I cook what I want to eat, and I eat it. I can handle the normal, everyday things. That's happiness."
 
-For what happens from week 3 onward, see "[The Effects of 3 Weeks to 1 Month Without Alcohol and How to Overcome the 'Week 3 Wall'](/en/blog/quit-drinking-3-weeks-to-1-month)."
+For what happens from week 3 onward, see "[The Effects of 3 Weeks to 1 Month Without Alcohol and How to Overcome the 'Week 3 Wall'](/en/blog/quit-drinking-3-weeks-to-1-month/)."
