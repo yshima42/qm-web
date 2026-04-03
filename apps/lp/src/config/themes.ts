@@ -123,11 +123,11 @@ export const STORE_URLS: Record<string, { apple: string; google: string }> = {
   },
   alcohol: {
     apple: "https://apps.apple.com/jp/app/id6756336624",
-    google: "https://play.google.com/store/apps/details?id=com.quitmate.alcohol",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
   },
   kinshu: {
     apple: "https://apps.apple.com/jp/app/id6758752490",
-    google: "https://play.google.com/store/apps/details?id=com.quitmate.kinshu",
+    google: "https://play.google.com/store/apps/details?id=com.quitmate.alcohol",
   },
   porn: {
     apple: "https://apps.apple.com/jp/app/id6759315555",
