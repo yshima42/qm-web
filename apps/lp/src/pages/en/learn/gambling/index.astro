@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
+import { useTranslations } from "@/i18n/utils";
+import { getAllChapters } from "@/utils/learn";
+
+const locale = "en";
+const category = "gambling";
+const t = useTranslations(locale);
+
+// Check if any English content exists yet
+const chapters = await getAllChapters(category, locale);
+const hasContent = chapters.length > 0;
+---
+
+<BaseLayout
+  title={t(`learn.${category}.title`)}
+  description={t(`learn.${category}.description`)}
+  locale={locale}
+>
+  <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <nav aria-label="breadcrumbs">
+      <ol class="mb-6 flex items-center gap-1 text-sm text-gray-400">
+        <li><a href={`/${locale}/`} class="transition-colors hover:text-gray-600">Home</a></li>
+        <li class="mx-0.5">/</li>
+        <li><a href={`/${locale}/learn`} class="transition-colors hover:text-gray-600">{t("learn.breadcrumb")}</a></li>
+        <li class="mx-0.5">/</li>
+        <li class="text-gray-600" aria-current="page">{t(`learn.${category}.short-name`)}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10 text-center">
+      <h1 class="mb-4 text-3xl font-black leading-tight text-[#111] sm:text-4xl">
+        {t(`learn.${category}.name`)}
+      </h1>
+      <p class="text-lg text-gray-600">{t(`learn.${category}.tagline`)}</p>
+    </header>
+
+    {!hasContent && (
+      <section class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-10 text-center">
+        <p class="mb-2 text-base font-semibold text-gray-700">{t("learn.coming-soon")}</p>
+        <p class="text-sm text-gray-500">
+          The English edition is in preparation. The Japanese edition is available at
+          <a href={`/ja/learn/${category}`} class="text-primary-600 hover:underline">/ja/learn/{category}</a>.
+        </p>
+      </section>
+    )}
+
+    <div class="mt-12">
+      <BlogAppPromo locale={locale} />
+    </div>
+  </div>
+</BaseLayout>

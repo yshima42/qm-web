@@ -1,0 +1,99 @@
+---
+import { type Locale } from "@/i18n/config";
+import { useTranslations } from "@/i18n/utils";
+import {
+  getAllChapters,
+  groupByPhasePart,
+  chapterUrl,
+  chapterSlug,
+  getPhaseLabel,
+  getPartLabel,
+  UPCOMING_PHASES,
+  type LearnCategory,
+} from "@/utils/learn";
+
+type Props = {
+  category: LearnCategory;
+  locale: Locale;
+  currentSlug?: string;
+};
+
+const { category, locale, currentSlug } = Astro.props;
+const t = useTranslations(locale);
+
+const chapters = await getAllChapters(category, locale);
+const grouped = groupByPhasePart(chapters);
+---
+
+<nav class="learn-sidebar-nav" aria-label={t("learn.sidebar.title")}>
+  <div class="border-b border-gray-200 pb-3 mb-4">
+    <a href={`/${locale}/learn/${category}`} class="text-sm font-bold text-gray-900 hover:text-primary-600">
+      {t(`learn.${category}.short-name`)}
+    </a>
+  </div>
+
+  {grouped.length === 0 ? (
+    <p class="text-sm text-gray-500">{t("blog.content-preparing")}</p>
+  ) : (
+    <ol class="space-y-5">
+      {grouped.map((phase) => (
+        <li>
+          <h3 class="mb-2 text-xs font-bold uppercase tracking-wider text-gray-500">
+            {getPhaseLabel(phase.phase, locale)}
+          </h3>
+          <ol class="space-y-3">
+            {phase.parts.map((part) => (
+              <li>
+                <h4 class="mb-1.5 text-[13px] font-semibold text-gray-700">
+                  {getPartLabel(part.code, locale)}
+                </h4>
+                <ol class="space-y-1 border-l border-gray-200 pl-3">
+                  {part.chapters.map((chapter) => {
+                    const slug = chapterSlug(chapter);
+                    const isCurrent = slug === currentSlug;
+                    return (
+                      <li>
+                        <a
+                          href={chapterUrl(category, locale, chapter)}
+                          class:list={[
+                            "block py-1 text-[13px] leading-snug transition-colors",
+                            isCurrent
+                              ? "font-semibold text-primary-600"
+                              : "text-gray-600 hover:text-gray-900",
+                          ]}
+                          aria-current={isCurrent ? "page" : undefined}
+                        >
+                          <span class="mr-1 inline-block min-w-[1.75rem] text-gray-400">
+                            {chapter.data.chapter}.
+                          </span>
+                          <span>{chapter.data.title}</span>
+                          {chapter.data.required && (
+                            <span class="ml-1 inline-block rounded-sm bg-amber-100 px-1 text-[10px] font-bold text-amber-700" title={t("learn.chapter.required-label")}>
+                              ⚠️
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </li>
+            ))}
+          </ol>
+        </li>
+      ))}
+
+      {/* Phase 2-5 プレースホルダ（執筆中） */}
+      {UPCOMING_PHASES.map((phaseNum) => (
+        <li class="opacity-50">
+          <h3 class="flex items-baseline gap-1.5 text-xs font-bold uppercase tracking-wider text-gray-400">
+            <span>{getPhaseLabel(phaseNum, locale)}</span>
+            <span class="text-[9px] font-normal normal-case tracking-normal">
+              ({t("learn.coming-soon")})
+            </span>
+          </h3>
+        </li>
+      ))}
+    </ol>
+  )}
+</nav>

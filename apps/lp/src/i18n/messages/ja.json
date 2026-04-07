@@ -176,6 +176,7 @@
     "header": {
         "links": {
             "blog": "ブログ",
+            "learn": "学ぶ",
             "otherApps": "その他アプリ",
             "terms": "利用規約",
             "privacy": "プライバシーポリシー",
@@ -216,6 +217,57 @@
         "share-native": "共有する",
         "copy-link": "リンクをコピー",
         "copied": "コピーしました！"
+    },
+    "learn": {
+        "title": "学ぶ | QuitMate",
+        "description": "依存症からの回復に必要な知識とスキルを体系的にまとめたガイド。当事者が単独で読めるように書かれています。",
+        "breadcrumb": "学ぶ",
+        "hero-title": "依存症からの回復を学ぶ",
+        "hero-description": "依存症からの回復に必要な知識とスキルを、当事者が一人でも読み進められるようにまとめました。",
+        "categories-heading": "カテゴリ",
+        "coming-soon": "準備中",
+        "gambling": {
+            "title": "ギャンブル依存からの回復 | QuitMate",
+            "description": "ギャンブル依存（パチンコ・パチスロ・競馬・オンラインカジノ・スポーツベッティング・FX等）からの回復に必要な知識とスキルをまとめたガイド。",
+            "name": "ギャンブル依存からの回復",
+            "short-name": "ギャンブル",
+            "tagline": "やめられる順に並んだ、当事者のための回復ガイド",
+            "intro": "ギャンブル依存（パチンコ・パチスロ・競馬・競艇・競輪・オンラインカジノ・スポーツベッティング・FX等）からの回復に必要な知識とスキルをまとめました。当事者が一人でも読み進められるように書いています。",
+            "phase-progress-notice": "現在 Phase 1（全28章）を公開中です。Phase 2〜5 は執筆中で、書けたものから順次追加していきます。Phase 1 を読み終えるだけでも、回復の最初の足場が作れる構成にしています。",
+            "total-chapters-label": "章",
+            "published-phases-label": "Phase 1 公開中",
+            "upcoming-phases-label": "Phase 2〜5 準備中",
+            "reading-time-label": "読了目安",
+            "reading-time-value": "1章 5〜10分",
+            "table-of-contents": "目次",
+            "usage-guide-heading": "使い方ガイド",
+            "usage-guide-intro": "本書の読み方は1つではありません。状況に応じて選んでください。",
+            "usage-pattern-a-title": "パターン A: 順番に読む（標準）",
+            "usage-pattern-a-body": "Phase 1 の Part 1A から順番に読みます。「やめられた人が多くたどってきた順」で並んでいます。1日1章でも、週1章でも、自分のペースで構いません。",
+            "usage-pattern-b-title": "パターン B: 必読の2章だけ読む",
+            "usage-pattern-b-body": "時間がない場合や、危機的な状況にある場合は、まずこの2章だけで構いません。第7章（お金のアクセスを遮断する）と第9章（死にたいと思ったとき: 安全計画）。",
+            "usage-pattern-c-title": "パターン C: 状況別に選んで読む",
+            "usage-pattern-c-body": "「いま渇望に困っている」「給料日が怖い」「死にたい気持ちがある」など、いまの状況に合う章から読みます。",
+            "usage-pattern-d-title": "パターン D: Phase 1 だけ読む",
+            "usage-pattern-d-body": "Phase 1 を読み終えれば、回復の最初の足場は作れます。続きは余裕ができてから読めば構いません。",
+            "disclaimer-heading": "ご注意",
+            "disclaimer-body": "本書は一般的な知識をまとめたものであり、個別の医療判断・法律相談の代わりにはなりません。具体的な治療方針や債務整理は、専門家（精神科医、依存症専門医、弁護士、司法書士など）に相談してください。"
+        },
+        "chapter": {
+            "required-label": "必読",
+            "learning-goals-heading": "この章で学ぶこと",
+            "prev-chapter": "前の章",
+            "next-chapter": "次の章",
+            "back-to-toc": "目次に戻る",
+            "chapter-prefix": "第",
+            "chapter-suffix": "章"
+        },
+        "sidebar": {
+            "title": "目次",
+            "current": "現在の章",
+            "open-menu": "目次を開く",
+            "close-menu": "目次を閉じる"
+        }
     },
     "blog-app-promo": {
         "title": "共になら、やめられる",

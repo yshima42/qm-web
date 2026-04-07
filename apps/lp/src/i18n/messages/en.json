@@ -176,6 +176,7 @@
     "header": {
       "links": {
         "blog": "Blog",
+        "learn": "Learn",
         "otherApps": "Other apps",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
@@ -216,6 +217,57 @@
         "share-native": "Share",
         "copy-link": "Copy link",
         "copied": "Copied!"
+    },
+    "learn": {
+        "title": "Learn | QuitMate",
+        "description": "A guide to addiction recovery. The knowledge and skills needed to recover, written so that people in recovery can read it on their own.",
+        "breadcrumb": "Learn",
+        "hero-title": "Learn how to recover from addiction",
+        "hero-description": "A practical guide covering the knowledge and skills needed for recovery, written so people in recovery can read it on their own.",
+        "categories-heading": "Categories",
+        "coming-soon": "Coming soon",
+        "gambling": {
+            "title": "Recovering from Gambling Addiction | QuitMate",
+            "description": "A guide to recovering from gambling addiction (pachinko, pachislot, horse/boat/cycle racing, online casinos, sports betting, FX, etc.).",
+            "name": "Recovering from Gambling Addiction",
+            "short-name": "Gambling",
+            "tagline": "A practical guide for people in recovery, ordered by what works",
+            "intro": "A guide covering the knowledge and skills needed to recover from gambling addiction (pachinko, pachislot, horse/boat/cycle racing, online casinos, sports betting, FX, etc.). Written so people in recovery can read it on their own.",
+            "phase-progress-notice": "Phase 1 (28 chapters) is currently available. Phases 2–5 are being written and will be released as they are completed. Phase 1 alone is designed to give you the first foothold for recovery.",
+            "total-chapters-label": "Chapters",
+            "published-phases-label": "Phase 1 available",
+            "upcoming-phases-label": "Phases 2–5 in preparation",
+            "reading-time-label": "Reading time",
+            "reading-time-value": "5–10 min per chapter",
+            "table-of-contents": "Table of Contents",
+            "usage-guide-heading": "How to read this book",
+            "usage-guide-intro": "There is no single right way to read this book. Pick the pattern that fits your situation.",
+            "usage-pattern-a-title": "Pattern A: Read in order (default)",
+            "usage-pattern-a-body": "Start at Phase 1 Part 1A and read in order. Chapters are arranged in the order most successful people followed. One chapter a day or one a week is fine — go at your own pace.",
+            "usage-pattern-b-title": "Pattern B: Read only the two essential chapters",
+            "usage-pattern-b-body": "If you have no time, or if you are in crisis, just these two chapters are enough to start: Chapter 7 (Cut off access to money) and Chapter 9 (When you want to die: a safety plan).",
+            "usage-pattern-c-title": "Pattern C: Read by situation",
+            "usage-pattern-c-body": "Pick chapters based on what you face right now: cravings, payday anxiety, suicidal thoughts, family conversations, debt fears.",
+            "usage-pattern-d-title": "Pattern D: Read only Phase 1",
+            "usage-pattern-d-body": "Phase 1 alone is enough to set up the first foothold of recovery. The later phases can wait until you have room.",
+            "disclaimer-heading": "Disclaimer",
+            "disclaimer-body": "This book covers general knowledge and is not a substitute for individual medical or legal advice. For specific treatment plans or debt relief, consult professionals (psychiatrists, addiction specialists, lawyers, etc.)."
+        },
+        "chapter": {
+            "required-label": "Essential",
+            "learning-goals-heading": "What you'll learn",
+            "prev-chapter": "Previous chapter",
+            "next-chapter": "Next chapter",
+            "back-to-toc": "Back to contents",
+            "chapter-prefix": "Chapter ",
+            "chapter-suffix": ""
+        },
+        "sidebar": {
+            "title": "Contents",
+            "current": "Current chapter",
+            "open-menu": "Open contents",
+            "close-menu": "Close contents"
+        }
     },
     "blog-app-promo": {
         "title": "Together, you can quit",
