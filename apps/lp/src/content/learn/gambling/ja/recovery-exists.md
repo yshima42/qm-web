@@ -1,7 +1,7 @@
 ---
 phase: 1
 part: "1A"
-chapter: 6
+chapter: 5
 title: "回復した人がいる"
 required: false
 excerpt: "何回目だろう、と思った。 「もうやめる」と妻に言ってから、3週間後にまたやっていた。 今度こそ、と決めて、また3週間。"

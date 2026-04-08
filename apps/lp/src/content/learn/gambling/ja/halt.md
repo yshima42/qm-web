@@ -1,7 +1,7 @@
 ---
 phase: 1
 part: "1C"
-chapter: 12
+chapter: 11
 title: "HALT: 空腹・怒り・孤独・疲労"
 required: false
 excerpt: "金曜の夜21時。 残業で昼から何も食べていない。 夕方、取引先のミスで部長に怒鳴られた。 家族はもう寝ているはずだ。 靴の中の足が湿っている。"

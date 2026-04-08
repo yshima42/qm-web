@@ -1,7 +1,7 @@
 ---
 phase: 1
 part: "1B"
-chapter: 11
+chapter: 10
 title: "助けを求める方法"
 required: false
 excerpt: "夜10時。 スマホの電話帳をスクロールしている。 3週間前の再発から、誰にも言えていない。 誰に何を言えばいいのか、それ自体がわからない。"
