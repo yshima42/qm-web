@@ -6,7 +6,7 @@
  * apps/lp/src/content/learn/{category}/{locale}/ に同期する。
  *
  * - 章ファイル名から ch{NN}_ プレフィックスを剥がして topic-only slug に変換
- * - frontmatter に phase / part / chapter / title / required / learningGoals / excerpt を付与
+ * - frontmatter に phase / part / chapter / title / required / excerpt を付与
  * - title / learning goals / 必読フラグは元ファイルの本文から自動抽出
  * - 必読フラグ章（ch07_money_access, ch09_safety_plan）は required: true
  *
@@ -143,12 +143,11 @@ function parseChapter(content) {
     }
   }
 
-  if (!goalsHeadingFound) {
-    throw new Error("Could not find ## この章で学ぶこと heading");
-  }
-  if (learningGoals.length === 0) {
-    throw new Error("Could not extract any learning goals");
-  }
+  // 学習ゴール見出しが source 側に存在する場合はスキップ済み。存在しなくても許容する。
+  // learningGoals は現在 frontmatter に出力しない（schema から削除済み）が、
+  // source 側の section を body から除外する目的で parse ロジックは残している。
+  void goalsHeadingFound;
+  void learningGoals;
 
   // body の整形:
   // - 先頭の "---" 区切りを 1 つだけ落とす（学習ゴール直後の `---` を除去）
@@ -167,7 +166,7 @@ function parseChapter(content) {
   // 末尾整形
   body = body.trimEnd() + "\n";
 
-  return { title, learningGoals, required, body };
+  return { title, required, body };
 }
 
 /**
@@ -208,7 +207,7 @@ function generateExcerpt(body) {
 /**
  * frontmatter YAML を生成
  */
-function buildFrontmatter({ phase, part, chapter, title, required, learningGoals, excerpt, updatedAt }) {
+function buildFrontmatter({ phase, part, chapter, title, required, excerpt, updatedAt }) {
   const escapeYamlString = (s) => {
     // ダブルクォートを含む or コロンを含む文字列はクォート + escape
     if (/["\\]/.test(s)) {
@@ -217,8 +216,6 @@ function buildFrontmatter({ phase, part, chapter, title, required, learningGoals
     return `"${s}"`;
   };
 
-  const goalsYaml = learningGoals.map((g) => `  - ${escapeYamlString(g)}`).join("\n");
-
   return [
     "---",
     `phase: ${phase}`,
@@ -226,8 +223,6 @@ function buildFrontmatter({ phase, part, chapter, title, required, learningGoals
     `chapter: ${chapter}`,
     `title: ${escapeYamlString(title)}`,
     `required: ${required}`,
-    `learningGoals:`,
-    goalsYaml,
     `excerpt: ${escapeYamlString(excerpt)}`,
     `updatedAt: "${updatedAt}"`,
     "---",
@@ -241,7 +236,7 @@ function buildFrontmatter({ phase, part, chapter, title, required, learningGoals
 async function processChapter({ sourcePath, filename, phase, partCode }) {
   const content = await readFile(sourcePath, "utf-8");
   const { chapterNum, slug } = parseFilename(filename);
-  const { title, learningGoals, required: requiredFromBody, body } = parseChapter(content);
+  const { title, required: requiredFromBody, body } = parseChapter(content);
 
   // 必読フラグ: ファイル名 OR 本文内マーカーのいずれか
   const required = REQUIRED_CHAPTERS.has(filename) || requiredFromBody;
@@ -255,7 +250,6 @@ async function processChapter({ sourcePath, filename, phase, partCode }) {
     chapter: chapterNum,
     title,
     required,
-    learningGoals,
     excerpt,
     updatedAt,
   });
@@ -267,7 +261,7 @@ async function processChapter({ sourcePath, filename, phase, partCode }) {
   const targetPath = path.join(targetDir, `${slug}.md`);
   await writeFile(targetPath, frontmatter + body, "utf-8");
 
-  return { slug, chapterNum, title, required, learningGoalsCount: learningGoals.length };
+  return { slug, chapterNum, title, required };
 }
 
 async function main() {

@@ -22,7 +22,6 @@ const learnSchema = z.object({
   chapter: z.number().int().min(1), // category 内の通し番号
   title: z.string(),
   required: z.boolean().default(false), // 必読フラグ
-  learningGoals: z.array(z.string()), // 「この章で学ぶこと」
   excerpt: z.string(), // 検索・OG・listing 用
   updatedAt: z.coerce.string().optional(),
 });

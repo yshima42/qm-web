@@ -24,19 +24,19 @@ export const UPCOMING_PHASES = [2, 3, 4, 5] as const;
  * `undefined` を返すことを型で表現する
  */
 export const PHASE_LABELS: Partial<Record<number, { ja: string; en: string }>> = {
-  1: { ja: "Phase 1: 全体像と緊急対処", en: "Phase 1: Big picture & emergency response" },
-  2: { ja: "Phase 2: 基礎を固める", en: "Phase 2: Build the foundation" },
-  3: { ja: "Phase 3: 深める", en: "Phase 3: Go deeper" },
-  4: { ja: "Phase 4: つながる", en: "Phase 4: Reconnect" },
-  5: { ja: "Phase 5: 生きる", en: "Phase 5: Live" },
+  1: { ja: "全体像と緊急対処", en: "Big picture & emergency response" },
+  2: { ja: "基礎を固める", en: "Build the foundation" },
+  3: { ja: "深める", en: "Go deeper" },
+  4: { ja: "つながる", en: "Reconnect" },
+  5: { ja: "生きる", en: "Live" },
 };
 
 export const PART_LABELS: Partial<Record<string, { ja: string; en: string }>> = {
-  "1A": { ja: "Part 1A: 自分の状態を知る", en: "Part 1A: Know your state" },
-  "1B": { ja: "Part 1B: いま、動き出す", en: "Part 1B: Act now" },
-  "1C": { ja: "Part 1C: 引き金とスキル", en: "Part 1C: Triggers and skills" },
-  "1D": { ja: "Part 1D: 現実に向き合う", en: "Part 1D: Face reality" },
-  "1E": { ja: "Part 1E: 立て直しを始める", en: "Part 1E: Start rebuilding" },
+  "1A": { ja: "自分の状態を知る", en: "Know your state" },
+  "1B": { ja: "いま、動き出す", en: "Act now" },
+  "1C": { ja: "引き金とスキル", en: "Triggers and skills" },
+  "1D": { ja: "現実に向き合う", en: "Face reality" },
+  "1E": { ja: "立て直しを始める", en: "Start rebuilding" },
 };
 
 /**
@@ -52,7 +52,6 @@ export type LearnChapterData = {
   chapter: number;
   title: string;
   required: boolean;
-  learningGoals: string[];
   excerpt: string;
   updatedAt?: string;
 };
