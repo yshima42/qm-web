@@ -26,6 +26,8 @@ You are solely responsible for maintaining the confidentiality of your account I
 
 ## 4. Prohibited Conduct
 
+We maintain a zero-tolerance policy toward objectionable content and abusive users. Any content or behavior that violates these Terms will be removed immediately, and offending users will have their accounts suspended or terminated without prior notice.
+
 You agree not to engage in any of the following while using the Service:
 
 - Violating laws or public order
