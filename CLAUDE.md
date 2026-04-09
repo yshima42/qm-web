@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-QuitMate — a multilingual SNS for addiction recovery (alcohol, gambling, smoking, porn, etc.). Yarn monorepo with Turborepo, deployed on Vercel.
+QuitMate — a multilingual SNS for addiction recovery (alcohol, gambling, smoking, porn, etc.). Yarn monorepo with Turborepo. The web app is deployed on Vercel; the LP (Astro) is deployed on Cloudflare Pages (`wrangler.toml` in `apps/lp/`).
 
 ## Monorepo Structure
 
 - **apps/web** — Main SNS app (Next.js 15, React 19, Supabase, TanStack Query, shadcn/ui)
-- **apps/lp** — Landing pages for each "mate" app (Next.js 15, Framer Motion, Tailwind v4)
+- **apps/lp** — Landing pages + blog + legal docs for each "mate" app (Astro 5, Tailwind v4, Content Collections)
 - **apps/webv1** — Legacy/archived version (do not modify)
 - **packages/ui** — Shared UI components (@quitmate/ui)
 - **packages/analytics** — Google Analytics 4 wrapper (@quitmate/analytics)
@@ -59,11 +59,17 @@ Commits trigger: lint-staged (ESLint + Prettier) → `lint:type` on web → full
 - **i18n** via `next-intl` — locales: `en`, `ja` — messages in `apps/web/messages/`
 
 ### LP App (`apps/lp/src/`)
-- Dynamic `[locale]` routing with pages per addiction type: `alcohol/`, `porn/`, `tobacco/`
-- Shared section components in `components/sections/` (hero, intro, features, testimonials, final-cta, store-badge)
-- Store links (Apple/Google Play) are configured in `components/sections/store-badge.tsx` per namespace
-- **i18n** via `next-intl` — messages in `apps/lp/messages/`
-- Uses **Tailwind CSS v4** (different from web's v3)
+- **Astro 5** with `output: "static"`; per-locale page directories (`pages/en/`, `pages/ja/`) instead of dynamic `[locale]` routing
+- **Namespaces** for each mate app defined in `i18n/config.ts`: `alcohol`, `kinshu`, `porn`, `tobacco` — with `namespaceToPath` mapping (e.g. `alcohol` → `/challenge`, `kinshu` → `/alcohol`)
+- **Content Collections** in `src/content/` (`blog/{en,ja}`, `documents/{namespace}/{locale}`) — schemas in `content.config.ts`
+- Shared section components in `components/sections/` are `.astro` files (`Hero.astro`, `Features.astro`, `FinalCTA.astro`, `StoreBadges.astro`, `FAQ.astro`, etc.)
+- Store links (Apple/Google Play) configured in `components/sections/StoreBadges.astro` per namespace
+- **i18n** via Astro's built-in i18n (`astro.config.mjs`); messages in `src/i18n/messages/{en,ja}.json`
+- Single root layout in `layouts/BaseLayout.astro`
+- **OG images** generated dynamically with `satori` + `@resvg/resvg-js` (see `pages/og/`)
+- **Sitemap** via `@astrojs/sitemap` with `lastmod` pulled from blog frontmatter at build time
+- **CJK-friendly markdown** via `remark-cjk-friendly` (important for Japanese line-breaking)
+- Uses **Tailwind CSS v4** via `@tailwindcss/vite`
 
 ### Shared Packages
 - `@quitmate/ui` exports reusable components (buttons, dialogs, category icons, etc.)
@@ -85,5 +91,5 @@ Web app requires `.env.local` / `.env.dev` / `.env.prod` with:
 
 ## Deployment
 
-- Web: https://qm-web.vercel.app/
-- LP: https://qm-lp.vercel.app/
+- Web: https://www.quitmate.app/ — Vercel
+- LP: https://about.quitmate.app/ — Cloudflare Pages (config in `apps/lp/wrangler.toml`)

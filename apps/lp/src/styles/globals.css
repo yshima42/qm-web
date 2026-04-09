@@ -36,6 +36,11 @@
   --radius: 0.75rem;
 }
 
+html {
+  /* スクロールバー有無で横位置がズレないように常に gutter を確保 */
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -81,6 +86,68 @@ h3 {
 .blog-article .prose > :first-child,
 .blog-article .prose > :first-child img {
   margin-top: 0;
+}
+
+/* ===== 折りたたみ参考文献（教科書章末用） ===== */
+
+/* prose 内に出現するので、prose のデフォルトスタイルを上書きしつつ控えめに見せる */
+.prose .references-details {
+  margin-top: 2.5rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.25rem;
+}
+
+.prose .references-summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+  user-select: none;
+  transition: color 0.15s ease-out;
+}
+
+.prose .references-summary:hover {
+  color: #374151;
+}
+
+.prose .references-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 三角アイコン（疑似要素） */
+.prose .references-summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+  color: #9ca3af;
+}
+
+.prose .references-details[open] > .references-summary::before {
+  transform: rotate(90deg);
+}
+
+/* 開いたときの本文（参考文献リスト）は控えめに表示 */
+.prose .references-details[open] > *:not(.references-summary) {
+  font-size: 0.85em;
+  color: #6b7280;
+  margin-top: 0.75rem;
+}
+
+.prose .references-details ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.prose .references-details li {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.6;
 }
 
 /* ===== Section Layout ===== */

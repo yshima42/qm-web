@@ -1,0 +1,113 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
+import LearnSidebar from "@/components/learn/LearnSidebar.astro";
+import LearnPrevNext from "@/components/learn/LearnPrevNext.astro";
+import { useTranslations } from "@/i18n/utils";
+import {
+  getAllChapters,
+  chapterSlug,
+  getPhaseLabel,
+  getPartLabel,
+} from "@/utils/learn";
+import { render } from "astro:content";
+
+const locale = "en";
+const category = "gambling";
+
+export async function getStaticPaths() {
+  // English content is empty for now; this returns [] until chapters are added.
+  const chapters = await getAllChapters("gambling", "en");
+  return chapters.map((chapter) => ({
+    params: { slug: chapterSlug(chapter) },
+    props: { chapter },
+  }));
+}
+
+const { chapter } = Astro.props;
+const slug = chapterSlug(chapter);
+const t = useTranslations(locale);
+const { Content } = await render(chapter);
+
+const chapterNumDisplay = `${t("learn.chapter.chapter-prefix")}${chapter.data.chapter}${t("learn.chapter.chapter-suffix")}`;
+const shareUrl = `https://about.quitmate.app/${locale}/learn/${category}/${slug}/`;
+---
+
+<BaseLayout
+  title={`${chapterNumDisplay} ${chapter.data.title} | ${t(`learn.${category}.name`)}`}
+  description={chapter.data.excerpt}
+  locale={locale}
+  article={{
+    headline: chapter.data.title,
+    publishedDate: chapter.data.updatedAt ?? new Date().toISOString().slice(0, 10),
+    modifiedDate: chapter.data.updatedAt,
+    category: t(`learn.${category}.short-name`),
+  }}
+>
+  <div class="learn-layout mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <aside class="learn-sidebar hidden lg:block">
+      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
+        <LearnSidebar category={category} locale={locale} currentSlug={slug} />
+      </div>
+    </aside>
+
+    <article class="learn-article min-w-0">
+      <nav aria-label="breadcrumbs">
+        <ol class="mb-6 flex flex-wrap items-center gap-1 text-xs text-gray-400 sm:text-sm">
+          <li><a href={`/${locale}/`} class="transition-colors hover:text-gray-600">Home</a></li>
+          <li class="mx-0.5">/</li>
+          <li><a href={`/${locale}/learn/`} class="transition-colors hover:text-gray-600">{t("learn.breadcrumb")}</a></li>
+          <li class="mx-0.5">/</li>
+          <li><a href={`/${locale}/learn/${category}/`} class="transition-colors hover:text-gray-600">{t(`learn.${category}.short-name`)}</a></li>
+          <li class="mx-0.5">/</li>
+          <li class="text-gray-500">{getPartLabel(chapter.data.part, locale)}</li>
+          <li class="mx-0.5">/</li>
+          <li class="max-w-[200px] truncate text-gray-600 sm:max-w-none" aria-current="page">{chapter.data.title}</li>
+        </ol>
+      </nav>
+
+      <header class="mb-8">
+        <div class="mb-3 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+          <span class="rounded-full bg-gray-100 px-2.5 py-0.5 font-medium">
+            {getPhaseLabel(chapter.data.phase, locale)}
+          </span>
+          <span class="rounded-full bg-gray-100 px-2.5 py-0.5 font-medium">
+            {getPartLabel(chapter.data.part, locale)}
+          </span>
+          <span>{chapterNumDisplay}</span>
+          {chapter.data.required && (
+            <span class="rounded-full bg-amber-100 px-2.5 py-0.5 font-bold text-amber-700">
+              {t("learn.chapter.required-label")} ⚠️
+            </span>
+          )}
+        </div>
+        <h1 class="text-[26px] font-black leading-[1.4] text-[#111] sm:text-[32px]">
+          {chapter.data.title}
+        </h1>
+      </header>
+
+      <div class="prose max-w-none sm:prose-lg prose-headings:text-[#111] prose-h2:text-[20px] sm:prose-h2:text-[24px] prose-h2:font-bold prose-h2:mt-10 prose-h3:text-[18px] sm:prose-h3:text-[20px] prose-h3:font-bold prose-p:text-[#333] prose-p:leading-[1.85] prose-li:text-[#333] prose-li:leading-[1.85] prose-a:text-primary-600 prose-blockquote:text-[#555] prose-blockquote:border-gray-300 prose-blockquote:bg-gray-50/50 prose-blockquote:py-3 prose-blockquote:pl-4 prose-blockquote:pr-4 prose-blockquote:rounded-r prose-table:text-sm prose-th:bg-gray-50 prose-hr:border-gray-200">
+        <Content />
+      </div>
+
+      <LearnPrevNext category={category} locale={locale} currentSlug={slug} />
+
+      <BlogAppPromo locale={locale} />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .learn-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 1024px) {
+    .learn-layout {
+      grid-template-columns: 240px minmax(0, 720px);
+      gap: 2.5rem;
+      justify-content: start;
+    }
+  }
+</style>

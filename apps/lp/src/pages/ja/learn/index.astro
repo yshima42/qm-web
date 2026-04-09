@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import { getAllChapters, LEARN_CATEGORIES } from "@/utils/learn";
+
+const locale = "ja";
+const t = useTranslations(locale);
+
+// 各カテゴリの章数を集計（コンテンツが入ってないカテゴリは "準備中" 表示）
+const categoryStats = await Promise.all(
+  LEARN_CATEGORIES.map(async (cat) => {
+    const chapters = await getAllChapters(cat, locale);
+    return { category: cat, chapterCount: chapters.length };
+  }),
+);
+
+// 将来追加予定のカテゴリ（コンテンツがまだないので coming-soon 表示）
+const upcomingCategories = ["alcohol", "porn", "tobacco"] as const;
+---
+
+<BaseLayout title={t("learn.title")} description={t("learn.description")} locale={locale}>
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <header class="mb-12 text-center">
+      <h1 class="mb-4 text-3xl font-black leading-tight text-[#111] sm:text-4xl">
+        {t("learn.hero-title")}
+      </h1>
+      <p class="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
+        {t("learn.hero-description")}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="mb-6 text-lg font-bold text-gray-900">{t("learn.categories-heading")}</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {categoryStats.map(({ category, chapterCount }) => (
+          <a
+            href={`/${locale}/learn/${category}/`}
+            class="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-primary-300 hover:shadow-md"
+          >
+            <h3 class="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary-700">
+              {t(`learn.${category}.name`)}
+            </h3>
+            <p class="mb-4 flex-1 text-sm leading-relaxed text-gray-600">
+              {t(`learn.${category}.tagline`)}
+            </p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-3 text-xs text-gray-500">
+              <span>{chapterCount} {t(`learn.${category}.total-chapters-label`)}</span>
+              <span class="text-primary-600 group-hover:translate-x-0.5 transition-transform">→</span>
+            </div>
+          </a>
+        ))}
+
+        {upcomingCategories.map((cat) => (
+          <div class="flex flex-col rounded-xl border border-dashed border-gray-200 bg-gray-50 p-6 opacity-60">
+            <h3 class="mb-2 text-xl font-bold text-gray-500">
+              {cat === "alcohol" && "アルコール依存からの回復"}
+              {cat === "porn" && "ポルノ依存からの回復"}
+              {cat === "tobacco" && "ニコチン依存からの回復"}
+            </h3>
+            <p class="mb-4 flex-1 text-sm text-gray-500">
+              {t("learn.coming-soon")}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

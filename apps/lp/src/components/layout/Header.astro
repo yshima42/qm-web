@@ -29,6 +29,11 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
     <div class={`hidden items-center gap-4 text-base md:flex ${theme.navText}`}>
       <nav class="flex gap-5 font-medium">
         {!namespace && (
+          <a href={`/${locale}/learn/`} class={linkClass}>
+            {t("header.links.learn")}
+          </a>
+        )}
+        {!namespace && (
           <a href={`/${locale}/blog/`} class={linkClass}>
             {t("header.links.blog")}
           </a>
@@ -84,6 +89,9 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
   <!-- モバイルメニュー -->
   <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.headerBg}`} data-mobile-menu>
     <nav class="flex flex-col space-y-4">
+      {!namespace && (
+        <a href={`/${locale}/learn/`} class={mobileLinkClass}>{t("header.links.learn")}</a>
+      )}
       {!namespace && (
         <a href={`/${locale}/blog/`} class={mobileLinkClass}>{t("header.links.blog")}</a>
       )}

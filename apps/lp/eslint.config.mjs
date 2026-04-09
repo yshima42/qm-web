@@ -16,7 +16,7 @@ export default tseslint.config(
     files: ['*.ts', '*.tsx'], // TypeScriptファイル
   },
   {
-    ignores: ['**/.next/**/*', '*.config.mjs'], // 無視するファイル
+    ignores: ['**/.next/**/*', '*.config.mjs', 'scripts/**/*'], // 無視するファイル
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
