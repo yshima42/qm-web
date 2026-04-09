@@ -31,7 +31,7 @@ When a brain that's dependent on alcohol is suddenly cut off, the balance betwee
 
 But day three is the peak. QuitMate's data shows that **roughly 60% of people who relapse do so within the first three days.** About 70% of those who make it past day three go on to reach one week. Around day four, sleep quality shifts dramatically. Your liver is freed from processing alcohol, and your body can truly rest for the first time. Facial puffiness subsides, and your mornings become clear-headed.
 
-**Read more: [What Happens After 1 Week Without Alcohol [Data from 750 Users]](/en/blog/quit-drinking-1-week)**
+**Read more: [What Happens After 1 Week Without Alcohol [Data from 750 Users]](/en/blog/quit-drinking-1-week/)**
 
 ## Effects of Quitting Alcohol: 2 Weeks -- The Numbers Start Moving
 
@@ -43,7 +43,7 @@ Your sense of taste sharpens as well. Many people say their morning coffee taste
 
 That said, you might hit a sudden bout of insomnia one night during week two. It's a temporary disruption caused by neurotransmitter levels rebalancing. If you understand the mechanism, you can ride it out knowing it will pass in a few days.
 
-**Read more: [The Surprising Effects of 2 Weeks Without Alcohol: Body and Mind Changes](/en/blog/quit-drinking-2-weeks)**
+**Read more: [The Surprising Effects of 2 Weeks Without Alcohol: Body and Mind Changes](/en/blog/quit-drinking-2-weeks/)**
 
 ## When Do the Effects Start? As Early as Day 4, Confidence by Week 2
 
@@ -53,7 +53,7 @@ Different symptoms recover on different timelines. Sleep starts improving within
 
 The brain receptors depleted by daily drinking need time to return to normal levels. Feeling like "nothing is getting better" in the early days is completely normal. Your receptors are still on their way back.
 
-**Read more: [When Do the Effects of Quitting Alcohol Start? A Timeline Explained](/en/blog/quit-drinking-when-effects-start)**
+**Read more: [When Do the Effects of Quitting Alcohol Start? A Timeline Explained](/en/blog/quit-drinking-when-effects-start/)**
 
 ## Effects of Quitting Alcohol: 3 Weeks to 1 Month -- The Wall
 
@@ -65,7 +65,7 @@ The part of the brain responsible for judgment only begins to recover around the
 
 On the other hand, reaching one month gives you solid data. Blood pressure improvement, liver function recovery, better digestion. The numbers that were still ambiguous at one week are clearly better at one month.
 
-**Read more: [Quitting Alcohol for 3 Weeks to 1 Month: Effects and How to Overcome the "Week 3 Wall"](/en/blog/quit-drinking-3-weeks-to-1-month)**
+**Read more: [Quitting Alcohol for 3 Weeks to 1 Month: Effects and How to Overcome the "Week 3 Wall"](/en/blog/quit-drinking-3-weeks-to-1-month/)**
 
 ## Effects on Gray Hair, Skin, and Hair
 
@@ -75,7 +75,7 @@ That said, alcohol damages your hair through multiple pathways. The metabolic pr
 
 The first visible change, though, happens in your skin. Simply stopping dehydration and inflammation is enough to visibly brighten your complexion. When it comes to beauty benefits of quitting alcohol, skin is the surest bet.
 
-**Read more: [Does Quitting Alcohol Reduce Gray Hair? Effects on Hair Explained](/en/blog/quit-drinking-gray-hair)**
+**Read more: [Does Quitting Alcohol Reduce Gray Hair? Effects on Hair Explained](/en/blog/quit-drinking-gray-hair/)**
 
 ## Effects of Quitting Alcohol: 3 Months to 1 Year -- Your Judgment Comes Back
 
@@ -87,7 +87,7 @@ Past six months, the behavioral pattern of "not drinking" starts to solidify as 
 
 That said, long-term sobriety comes with its own losses. The detailed article covers that as well.
 
-**Read more: [The Incredible Effects of Quitting Alcohol: What Happens from 3 Months to 1 Year](/en/blog/quit-drinking-effects-are-amazing)**
+**Read more: [The Incredible Effects of Quitting Alcohol: What Happens from 3 Months to 1 Year](/en/blog/quit-drinking-effects-are-amazing/)**
 
 ## Timeline Overview
 

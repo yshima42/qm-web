@@ -22,8 +22,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-noto-sans-jp), sans-serif;
-  --font-display: var(--font-inter), sans-serif;
+  --font-sans: "Noto Sans JP Variable", sans-serif;
+  --font-display: "Inter Variable", "Noto Sans JP Variable", sans-serif;
 
   --container-2xl: 1400px;
 }
@@ -75,7 +75,7 @@ h3 {
 .blog-article h2,
 .blog-article h3,
 .blog-article h4 {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Noto Sans JP Variable', sans-serif;
   font-size: revert;
   font-weight: 800;
   line-height: revert;

@@ -19,7 +19,7 @@ This finding has an uncomfortable implication for anyone trying to quit gambling
 
 Even after quitting gambling, the urge to bet tends to linger. Checking the odds, making a prediction, watching for the result: that whole ritual carries a sense of comfort built up over years. It's a familiar source of stimulation that can make boredom and anxiety vanish in an instant.
 
-So people look for a compromise: "As long as I'm not betting real money." That's not a sign of weak willpower. It's a natural response that happens because [the brain's reward system has been rewired](/en/blog/why-cant-you-stop-gambling).
+So people look for a compromise: "As long as I'm not betting real money." That's not a sign of weak willpower. It's a natural response that happens because [the brain's reward system has been rewired](/en/blog/why-cant-you-stop-gambling/).
 
 The problem is what happens next.
 
@@ -47,7 +47,7 @@ Eventually, paper bets aren't enough. It starts as air betting, but "Maybe just 
 
 ## Alternatives When the Urge Hits
 
-As covered in [concrete steps to quit gambling](/en/blog/quit-gambling-steps), having coping strategies ready before the urge strikes makes a real difference. Here are some options for different situations.
+As covered in [concrete steps to quit gambling](/en/blog/quit-gambling-steps/), having coping strategies ready before the urge strikes makes a real difference. Here are some options for different situations.
 
 When you're craving a thrill: Try a short burst of high-intensity exercise (HIIT) or a cold shower. They provide a safe adrenaline release, and the refreshed feeling afterward offers a sense of satisfaction quite different from the excitement of a bet.
 
@@ -59,7 +59,7 @@ When you're feeling isolated: Browse posts from people dealing with the same cha
 
 ## The Cost of "Harmless" Paper Betting
 
-Paper betting raises the risk of relapse. Your time and mental energy get consumed by odds and matches, draining the resources you could be putting toward recovery. And it delays your ability to [face the root causes of addiction](/en/blog/why-people-become-addicted) and adapt to a life without betting.
+Paper betting raises the risk of relapse. Your time and mental energy get consumed by odds and matches, draining the resources you could be putting toward recovery. And it delays your ability to [face the root causes of addiction](/en/blog/why-people-become-addicted/) and adapt to a life without betting.
 
 Even if you never lose a dollar, you are continuously **feeding "gambling memories" to your brain's reward circuits**.
 

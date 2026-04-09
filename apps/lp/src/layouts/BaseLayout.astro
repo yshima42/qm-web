@@ -1,4 +1,6 @@
 ---
+import "@fontsource-variable/noto-sans-jp";
+import "@fontsource-variable/inter";
 import "@/styles/globals.css";
 import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
@@ -34,7 +36,16 @@ const {
 const alternateLocale = locale === "ja" ? "en" : "ja";
 const currentPath = Astro.url.pathname.replace(`/${locale}`, "");
 const siteUrl = "https://about.quitmate.app";
-const canonicalUrl = `${siteUrl}/${locale}${currentPath}`;
+
+// カテゴリ別 document ページ (e.g. /alcohol/contact/) は default 版を canonical にする
+const docTypes = ["terms", "privacy", "contact"];
+const categories = ["/alcohol/", "/tobacco/", "/porn/", "/challenge/"];
+const isNamespacedDoc = namespace && docTypes.some((d) => currentPath.endsWith(`${d}/`))
+  && categories.some((c) => currentPath.includes(c));
+const canonicalPath = isNamespacedDoc
+  ? currentPath.replace(/^\/[^/]+/, "")  // "/alcohol/contact/" → "/contact/"
+  : currentPath;
+const canonicalUrl = `${siteUrl}/${locale}${canonicalPath}`;
 const ogImageUrl = ogImage ?? `${siteUrl}/images/${locale}/ogp.png`;
 
 // Apple Smart Banner: extract app ID from store URL
@@ -133,9 +144,9 @@ const breadcrumbData = article
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang={alternateLocale} href={`${siteUrl}/${alternateLocale}${currentPath}`} />
+    <link rel="alternate" hreflang={alternateLocale} href={`${siteUrl}/${alternateLocale}${canonicalPath}`} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${currentPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${canonicalPath}`} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/png" href="/images/icon.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/images/icon.png" />
@@ -174,21 +185,6 @@ const breadcrumbData = article
     <!-- RSS Autodiscovery -->
     <link rel="alternate" type="application/rss+xml" title={locale === "ja" ? "QuitMate Journal (日本語)" : "QuitMate Journal (English)"} href={`${siteUrl}/${locale}/blog/rss.xml`} />
 
-    <!-- Fonts (non-blocking load, reduced weights) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&display=optional"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&display=optional"
-        rel="stylesheet"
-      />
-    </noscript>
 
     <!-- Google Analytics (deferred to reduce main-thread work) -->
     <script is:inline>
@@ -201,7 +197,7 @@ const breadcrumbData = article
       else{setTimeout(function(){document.head.appendChild(s)},2000)}})();
     </script>
   </head>
-  <body class="min-h-screen font-sans antialiased" style="font-family: 'Noto Sans JP', 'Inter', sans-serif;">
+  <body class="min-h-screen font-sans antialiased">
     {!noHeaderFooter && <Header locale={locale} namespace={namespace} />}
     <main class="flex-1">
       <slot />

@@ -37,7 +37,7 @@ Research by Gollwitzer and colleagues (Gollwitzer & Sheeran, 2006) shows that va
 
 The mechanism is similar to what happened in the Ten Commandments experiment. Pre-planning creates a **small gap between impulse and action**. That gap is where different choices become possible. It doesn't require enormous willpower, just a moment of structured reflection before the critical moment arrives.
 
-For more on why self-blame is counterproductive in recovery, see "[Stop Blaming Yourself](/en/blog/stop-blaming-yourself)."
+For more on why self-blame is counterproductive in recovery, see "[Stop Blaming Yourself](/en/blog/stop-blaming-yourself/)."
 
 ## Self-compassion outperforms self-criticism
 
@@ -45,13 +45,13 @@ Research by Kristin Neff at the University of Texas (Neff & Germer, 2013) found 
 
 The mechanism is straightforward. Harsh self-judgment ("I did it again, I'm worthless") generates stress, and stress drives people back toward addictive behavior. It creates a feedback loop.
 
-Self-compassion breaks the loop. Treating a slip as data (what triggered it? what were you feeling?) rather than as evidence of personal failure makes it possible to learn from the experience instead of being crushed by it. Over time, this kind of observation can reveal the [deeper issues underlying the addiction](/en/blog/addiction-is-solution-not-problem).
+Self-compassion breaks the loop. Treating a slip as data (what triggered it? what were you feeling?) rather than as evidence of personal failure makes it possible to learn from the experience instead of being crushed by it. Over time, this kind of observation can reveal the [deeper issues underlying the addiction](/en/blog/addiction-is-solution-not-problem/).
 
 ## Everyday forms of reflection
 
 Reflection doesn't require formal journaling or meditation. Small moments work: reading someone else's recovery post and thinking "right, I wanted to quit too." Looking at a day counter. Glancing at something you wrote last week.
 
-[Research shows that peer support improves treatment outcomes](/en/blog/peer-support), and part of the reason is that community participation naturally creates **moments of reflection**. Reading a post on an app like [QuitMate](/en/), sending a reaction, seeing others' progress, each of these functions as a prompt to briefly reconnect with your own intentions.
+[Research shows that peer support improves treatment outcomes](/en/blog/peer-support/), and part of the reason is that community participation naturally creates **moments of reflection**. Reading a post on an app like [QuitMate](/en/), sending a reaction, seeing others' progress, each of these functions as a prompt to briefly reconnect with your own intentions.
 
 ## The practical takeaway
 

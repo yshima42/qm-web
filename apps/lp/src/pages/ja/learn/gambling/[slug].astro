@@ -30,7 +30,7 @@ const { Content } = await render(chapter);
 
 const chapterNumDisplay = `${t("learn.chapter.chapter-prefix")}${chapter.data.chapter}${t("learn.chapter.chapter-suffix")}`;
 
-const shareUrl = `https://about.quitmate.app/${locale}/learn/${category}/${slug}`;
+const shareUrl = `https://about.quitmate.app/${locale}/learn/${category}/${slug}/`;
 ---
 
 <BaseLayout
@@ -59,9 +59,9 @@ const shareUrl = `https://about.quitmate.app/${locale}/learn/${category}/${slug}
         <ol class="mb-6 flex flex-wrap items-center gap-1 text-xs text-gray-400 sm:text-sm">
           <li><a href={`/${locale}/`} class="transition-colors hover:text-gray-600">ホーム</a></li>
           <li class="mx-0.5">/</li>
-          <li><a href={`/${locale}/learn`} class="transition-colors hover:text-gray-600">{t("learn.breadcrumb")}</a></li>
+          <li><a href={`/${locale}/learn/`} class="transition-colors hover:text-gray-600">{t("learn.breadcrumb")}</a></li>
           <li class="mx-0.5">/</li>
-          <li><a href={`/${locale}/learn/${category}`} class="transition-colors hover:text-gray-600">{t(`learn.${category}.short-name`)}</a></li>
+          <li><a href={`/${locale}/learn/${category}/`} class="transition-colors hover:text-gray-600">{t(`learn.${category}.short-name`)}</a></li>
           <li class="mx-0.5">/</li>
           <li class="text-gray-500">{getPartLabel(chapter.data.part, locale)}</li>
           <li class="mx-0.5">/</li>

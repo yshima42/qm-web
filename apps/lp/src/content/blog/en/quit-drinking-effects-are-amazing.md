@@ -89,4 +89,4 @@ On their 16th sobriety anniversary, another user wrote:
 
 > "Today marks exactly 16 years sober, and it's the first day of year 17. So it's really just the beginning..." (Year 16)
 
-For a complete picture from day 1 through the first year, see "[The Complete Guide to the Effects of Quitting Alcohol](/en/blog/quit-drinking-effects-complete-guide)." If you want to go back to the very first week, start with "[Effects of 1 Week Without Alcohol](/en/blog/quit-drinking-1-week)."
+For a complete picture from day 1 through the first year, see "[The Complete Guide to the Effects of Quitting Alcohol](/en/blog/quit-drinking-effects-complete-guide/)." If you want to go back to the very first week, start with "[Effects of 1 Week Without Alcohol](/en/blog/quit-drinking-1-week/)."

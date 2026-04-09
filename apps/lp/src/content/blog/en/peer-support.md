@@ -15,7 +15,7 @@ In the early days of Alcoholics Anonymous, the founders noticed something that d
 
 Professional counseling has clear strengths. But peer support operates on a different mechanism: the **shared experience** of someone who has been through the same thing. When a person in early recovery hears "I've been there too" from someone further along, it registers differently than clinical advice.
 
-In the [Rat Park experiment](/en/blog/rat-park), rats in a social environment barely touched drugs. The variable wasn't willpower; it was connection. Having a sense of belonging, rather than isolation, was enough to change behavior. Human addiction is more complex than rat studies, of course, but the directional finding holds up across species.
+In the [Rat Park experiment](/en/blog/rat-park/), rats in a social environment barely touched drugs. The variable wasn't willpower; it was connection. Having a sense of belonging, rather than isolation, was enough to change behavior. Human addiction is more complex than rat studies, of course, but the directional finding holds up across species.
 
 ## The self-efficacy effect
 
@@ -27,7 +27,7 @@ This makes intuitive sense. Seeing someone who was struggling three years ago no
 
 Addiction puts enormous strain on families. An online family program conducted in Australia (Peart et al., 2023) studied 78 participating spouses and parents. Of those, **90% reported that their sense of loneliness eased**, and family self-efficacy improved significantly. Relapse rates among the family members' loved ones also dropped.
 
-If [addiction is not the "problem" but a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem), it follows that when the atmosphere at home softens, the person in recovery has more room to find healthier coping mechanisms.
+If [addiction is not the "problem" but a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem/), it follows that when the atmosphere at home softens, the person in recovery has more room to find healthier coping mechanisms.
 
 ## What the research consistently finds
 
@@ -53,7 +53,7 @@ AI-powered projects are also underway that use wearable heart-rate and sleep dat
 
 Options include local sobriety groups, GA meetings (which allow anonymous attendance), and online communities like [QuitMate](/en/). The barrier to entry is low: listening without speaking is a perfectly valid form of participation. Many people start by simply observing before engaging more actively.
 
-The research is clear that [addiction involves both neurological and psychological mechanisms](/en/blog/why-people-become-addicted), and carrying it alone makes recovery harder than it needs to be.
+The research is clear that [addiction involves both neurological and psychological mechanisms](/en/blog/why-people-become-addicted/), and carrying it alone makes recovery harder than it needs to be.
 
 ---
 

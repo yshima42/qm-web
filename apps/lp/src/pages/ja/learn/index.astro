@@ -34,7 +34,7 @@ const upcomingCategories = ["alcohol", "porn", "tobacco"] as const;
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {categoryStats.map(({ category, chapterCount }) => (
           <a
-            href={`/${locale}/learn/${category}`}
+            href={`/${locale}/learn/${category}/`}
             class="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-primary-300 hover:shadow-md"
           >
             <h3 class="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary-700">

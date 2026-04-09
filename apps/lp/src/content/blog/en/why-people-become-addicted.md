@@ -29,7 +29,7 @@ But chronic stress, trauma, or repeated addictive behavior gradually wears those
 
 The accelerator is floored. The brakes are shot.
 
-Telling someone in this state to "just tough it out and quit" is asking the impossible. It's completely understandable to want to blame yourself, but research also shows that [that very self-blame is what pushes recovery further away](/en/blog/stop-blaming-yourself).
+Telling someone in this state to "just tough it out and quit" is asking the impossible. It's completely understandable to want to blame yourself, but research also shows that [that very self-blame is what pushes recovery further away](/en/blog/stop-blaming-yourself/).
 
 ![The tug-of-war between brakes and accelerator](/blog/images/worried-woman.webp)
 
@@ -41,7 +41,7 @@ Genetics play a role. If someone in your family has struggled with addiction, yo
 
 Brain development matters too. During adolescence, the brain regions that chase rewards mature first, while the prefrontal cortex (the braking system) hasn't caught up yet (Casey et al., 2008). The heightened risk during youth comes down to this **timing gap**.
 
-Stress and trauma are also major factors. Painful childhood experiences and chronic stress quietly erode the ability to self-regulate. In many cases, [addiction doesn't start as the "problem," it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem).
+Stress and trauma are also major factors. Painful childhood experiences and chronic stress quietly erode the ability to self-regulate. In many cases, [addiction doesn't start as the "problem," it starts as a "solution" to inner pain](/en/blog/addiction-is-solution-not-problem/).
 
 ## The fun fades, and only the escape remains
 
@@ -57,13 +57,13 @@ People in recovery often say the same thing: "I started because it was fun. When
 
 ## Isolation makes it worse
 
-You may have heard of the famous [Rat Park experiment](/en/blog/rat-park). Rats placed in isolated cages kept drinking drug-laced water. But rats living in an environment with companions and things to do (a "paradise") hardly touched it.
+You may have heard of the famous [Rat Park experiment](/en/blog/rat-park/). Rats placed in isolated cages kept drinking drug-laced water. But rats living in an environment with companions and things to do (a "paradise") hardly touched it.
 
 The lesson from this experiment is straightforward. **Loneliness and boredom** can deepen addiction endlessly.
 
-The reverse is also true: human connection and a sense of belonging become powerful forces for recovery. [Research on peer support](/en/blog/peer-support) has shown that connecting with others increases treatment continuation rates by roughly **1.4 times**. Online communities like [QuitMate](/en/) make it possible to access that kind of connection without leaving your room.
+The reverse is also true: human connection and a sense of belonging become powerful forces for recovery. [Research on peer support](/en/blog/peer-support/) has shown that connecting with others increases treatment continuation rates by roughly **1.4 times**. Online communities like [QuitMate](/en/) make it possible to access that kind of connection without leaving your room.
 
-[![Isolated cage vs. Rat Park](/blog/images/rat-park2.webp)](/en/blog/rat-park)
+[![Isolated cage vs. Rat Park](/blog/images/rat-park2.webp)](/en/blog/rat-park/)
 
 ## Letting go of common misconceptions
 
@@ -71,7 +71,7 @@ The reverse is also true: human connection and a sense of belonging become power
 
 "Once you're hooked, you can never get out." Also not true. The brain has **plasticity**, the ability to change. With the right environment and support, people do recover.
 
-Letting go of these assumptions, one by one, makes it a little easier to think clearly about what comes next. [Research shows that even "just reflecting" can change behavior](/en/blog/reflection-changes-behavior). You don't have to be perfect. Just start by noticing.
+Letting go of these assumptions, one by one, makes it a little easier to think clearly about what comes next. [Research shows that even "just reflecting" can change behavior](/en/blog/reflection-changes-behavior/). You don't have to be perfect. Just start by noticing.
 
 ## What the neuroscience adds up to
 

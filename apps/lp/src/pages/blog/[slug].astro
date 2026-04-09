@@ -1,0 +1,26 @@
+---
+// ロケールなし /blog/[slug] -> /en/blog/[slug]/ へリダイレクト
+import { getAllPosts } from "@/utils/blog";
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts("en");
+  return posts
+    .filter((post) => post.id)
+    .map((post) => ({
+      params: { slug: post.id.replace(/\.md$/, "") },
+    }));
+}
+
+const { slug } = Astro.params;
+const destination = `/en/blog/${slug}/`;
+const canonicalUrl = `https://about.quitmate.app${destination}`;
+---
+
+<!doctype html>
+<title>Redirecting to: {destination}</title>
+<meta http-equiv="refresh" content={`0;url=${destination}`} />
+<meta name="robots" content="noindex" />
+<link rel="canonical" href={canonicalUrl} />
+<body>
+  <a href={destination}>Redirecting to {destination}</a>
+</body>

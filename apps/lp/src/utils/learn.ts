@@ -167,7 +167,7 @@ export function chapterSlug(entry: LearnChapter): string {
  * 章 entry から URL を生成
  */
 export function chapterUrl(category: LearnCategory, locale: Locale, entry: LearnChapter): string {
-  return `/${locale}/learn/${category}/${chapterSlug(entry)}`;
+  return `/${locale}/learn/${category}/${chapterSlug(entry)}/`;
 }
 
 /**
