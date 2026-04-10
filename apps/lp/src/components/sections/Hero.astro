@@ -38,7 +38,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
     <!-- テキスト側 -->
     <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
       {socialProofText && (
-        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm md:mb-6">
+        <div class="reveal mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm md:mb-6">
           <span class="flex gap-0.5" role="img" aria-label="4.8 out of 5 stars">
             {[...Array(4)].map(() => (
               <svg class="size-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -59,7 +59,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         </div>
       )}
 
-      <h1 class="mb-3 md:mb-7">
+      <h1 class="reveal reveal-delay-1 mb-3 md:mb-7">
         {eyebrow && (
           <span class="mb-2 block text-sm font-medium tracking-normal text-[var(--sub-foreground)]">
             {eyebrow}
@@ -68,7 +68,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         {title}
       </h1>
 
-      <p class="mb-3 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-4 md:text-xl">
+      <p class="reveal reveal-delay-2 mb-3 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-4 md:text-xl">
         {description}
       </p>
 
@@ -82,7 +82,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
         </div>
       )}
 
-      <div class="flex flex-col items-center gap-4 md:items-start">
+      <div class="reveal reveal-delay-3 flex flex-col items-center gap-4 md:items-start">
         <div class="hidden md:block">
           <StoreBadges locale={locale} namespace={namespace} size="xl" eager />
         </div>
@@ -93,7 +93,7 @@ const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw 
     </div>
 
     <!-- スクリーンショット -->
-    <div class="relative flex flex-1 items-center justify-center">
+    <div class="reveal reveal-delay-2 relative flex flex-1 items-center justify-center">
       <div class="phone-area">
         <div class="phone-frame">
           <div class="screenshot-viewer" data-screenshots={JSON.stringify(screenshots)}>

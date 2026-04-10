@@ -13,9 +13,9 @@ const { accentColor = "#2E6C28" } = Astro.props;
 ---
 
 <div class="gradient-orbs" aria-hidden="true">
-  <div class="orb orb-1" style={`background: radial-gradient(circle, ${accentColor}30 0%, ${accentColor}08 50%, transparent 70%);`}></div>
-  <div class="orb orb-2" style={`background: radial-gradient(circle, ${accentColor}25 0%, ${accentColor}06 50%, transparent 70%);`}></div>
-  <div class="orb orb-3" style={`background: radial-gradient(circle, ${accentColor}20 0%, ${accentColor}04 50%, transparent 70%);`}></div>
+  <div class="orb orb-1" style={`background: radial-gradient(circle, ${accentColor}40 0%, ${accentColor}15 50%, transparent 70%);`}></div>
+  <div class="orb orb-2" style={`background: radial-gradient(circle, ${accentColor}35 0%, ${accentColor}10 50%, transparent 70%);`}></div>
+  <div class="orb orb-3" style={`background: radial-gradient(circle, ${accentColor}30 0%, ${accentColor}08 50%, transparent 70%);`}></div>
 </div>
 
 <style>
@@ -31,47 +31,48 @@ const { accentColor = "#2E6C28" } = Astro.props;
   .orb {
     position: absolute;
     border-radius: 50%;
+    filter: blur(60px);
   }
 
   .orb-1 {
-    width: 500px;
-    height: 500px;
-    top: -10%;
-    left: -5%;
+    width: 600px;
+    height: 600px;
+    top: -15%;
+    left: -8%;
   }
 
   .orb-2 {
-    width: 400px;
-    height: 400px;
-    bottom: -15%;
-    right: -5%;
+    width: 500px;
+    height: 500px;
+    bottom: -20%;
+    right: -8%;
   }
 
   .orb-3 {
-    width: 350px;
-    height: 350px;
-    top: 30%;
-    left: 50%;
+    width: 450px;
+    height: 450px;
+    top: 25%;
+    left: 45%;
   }
 
   @media (max-width: 767px) {
     .orb-1 {
-      width: 280px;
-      height: 280px;
+      width: 350px;
+      height: 350px;
       top: -15%;
       left: -20%;
     }
 
     .orb-2 {
-      width: 250px;
-      height: 250px;
+      width: 300px;
+      height: 300px;
       bottom: -10%;
       right: -15%;
     }
 
     .orb-3 {
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
       top: auto;
       bottom: 20%;
       left: -10%;

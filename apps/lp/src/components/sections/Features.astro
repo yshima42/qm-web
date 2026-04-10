@@ -31,37 +31,34 @@ const iconSvgs: Record<Feature["icon"], string> = {
       {title}
     </h2>
 
-    <div class="stagger-children flex flex-col gap-12 md:gap-16">
+    <div class="stagger-children grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
       {features.map((feature) => (
-        <div class="flex flex-col items-center gap-5 text-center md:flex-row md:gap-10 md:text-left">
+        <div class="card group p-8 text-center">
           <div
-            class="flex size-16 shrink-0 items-center justify-center rounded-2xl md:size-20"
-            style={`background: ${theme.accentColor}10`}
+            class="mx-auto mb-5 flex size-14 items-center justify-center rounded-2xl transition-transform duration-200 group-hover:scale-110 md:size-16"
+            style={`background: linear-gradient(135deg, ${theme.accentColor}, ${theme.accentColor}CC)`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
+              width="26"
+              height="26"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="currentColor"
+              stroke="white"
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
-              style={`color: ${theme.accentColor}`}
             >
               <Fragment set:html={iconSvgs[feature.icon]} />
             </svg>
           </div>
 
-          <div>
-            <h3 class="mb-2 text-xl font-bold md:text-2xl">
-              {feature.title}
-            </h3>
-            <p class="text-base leading-relaxed text-[var(--sub-foreground)] md:text-lg">
-              {feature.description}
-            </p>
-          </div>
+          <h3 class="mb-3 text-lg font-bold md:text-xl">
+            {feature.title}
+          </h3>
+          <p class="text-sm leading-relaxed text-[var(--sub-foreground)] md:text-base">
+            {feature.description}
+          </p>
         </div>
       ))}
     </div>
