@@ -1,0 +1,140 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
+import LearnSidebar from "@/components/learn/LearnSidebar.astro";
+import LearnPrevNext from "@/components/learn/LearnPrevNext.astro";
+import { useTranslations } from "@/i18n/utils";
+import {
+  LEARN_BOOKS,
+  getBookBySlug,
+  getBookTitle,
+  getBookChapters,
+  getCategoryLabel,
+  entryChapterSlug,
+} from "@/utils/learn";
+import { render } from "astro:content";
+
+const locale = "ja";
+const t = useTranslations(locale);
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const book of LEARN_BOOKS) {
+    const chapters = await getBookChapters("ja", book.slug);
+    for (const chapter of chapters) {
+      paths.push({
+        params: { book: book.slug, slug: entryChapterSlug(chapter) },
+        props: { chapter },
+      });
+    }
+  }
+  return paths;
+}
+
+const { book: bookSlug } = Astro.params;
+const { chapter } = Astro.props;
+const slug = entryChapterSlug(chapter);
+const { Content } = await render(chapter);
+
+const book = getBookBySlug(bookSlug)!;
+const bookTitle = getBookTitle(book, locale);
+const chapterNum = String(chapter.data.chapter).padStart(2, "0");
+const shareUrl = `https://about.quitmate.app/${locale}/learn/${bookSlug}/${slug}/`;
+---
+
+<BaseLayout
+  title={`${t("learn.chapter.chapter-prefix")}${chapter.data.chapter}${t("learn.chapter.chapter-suffix")} ${chapter.data.title} | ${bookTitle}`}
+  description={chapter.data.excerpt}
+  locale={locale}
+  article={{
+    headline: chapter.data.title,
+    publishedDate: chapter.data.updatedAt ?? new Date().toISOString().slice(0, 10),
+    modifiedDate: chapter.data.updatedAt,
+    category: getCategoryLabel(book.category, locale),
+  }}
+>
+  <div class="learn-layout mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <aside class="learn-sidebar hidden lg:block">
+      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8 pr-2">
+        <LearnSidebar bookSlug={bookSlug} locale={locale} currentSlug={slug} />
+      </div>
+    </aside>
+
+    <article class="learn-article blog-article min-w-0">
+      <button
+        id="learn-mobile-toc-toggle"
+        class="mb-6 flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition-shadow hover:shadow lg:hidden"
+        aria-controls="learn-mobile-toc"
+        aria-expanded="false"
+      >
+        <span class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          {t("learn.sidebar.title")}
+        </span>
+        <span class="text-xs text-gray-400">{t("learn.chapter.chapter-prefix")}{chapter.data.chapter}{t("learn.chapter.chapter-suffix")}</span>
+      </button>
+
+      <header class="mb-8">
+        <span class="mb-2 block text-sm font-medium text-primary-600">Chapter {chapterNum}</span>
+        <h1 class="text-[26px] font-black leading-[1.4] text-[#111] sm:text-[32px]">{chapter.data.title}</h1>
+        {chapter.data.required && (
+          <span class="mt-3 inline-block rounded bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-700">{t("learn.chapter.required-label")}</span>
+        )}
+      </header>
+
+      <div class="prose max-w-none sm:prose-lg prose-headings:text-[#111] prose-h2:text-[20px] sm:prose-h2:text-[24px] prose-h2:font-bold prose-h2:mt-10 prose-h3:text-[18px] sm:prose-h3:text-[20px] prose-h3:font-bold prose-p:text-[#333] prose-p:leading-[1.8] prose-li:text-[#333] prose-li:leading-[1.8] prose-a:text-primary-600 prose-blockquote:text-[#555] prose-blockquote:border-gray-300 prose-blockquote:bg-gray-50/50 prose-blockquote:py-3 prose-blockquote:pl-4 prose-blockquote:pr-4 prose-blockquote:rounded-r prose-table:text-sm prose-th:bg-gray-50 prose-hr:border-gray-200">
+        <Content />
+      </div>
+
+      <LearnPrevNext bookSlug={bookSlug} locale={locale} currentSlug={slug} />
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-gray-200 pt-6" id="share-buttons" data-url={shareUrl} data-title={chapter.data.title}>
+        <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(chapter.data.title)}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs text-gray-600 transition-colors hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X で共有
+        </a>
+        <button id="share-copy" class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs text-gray-600 transition-colors hover:bg-gray-100" data-copied={t("blog.copied")}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span id="copy-label">{t("blog.copy-link")}</span>
+        </button>
+      </div>
+
+      <BlogAppPromo locale={locale} />
+    </article>
+  </div>
+
+  <div id="learn-mobile-toc" class="fixed inset-0 z-[60] hidden lg:hidden" role="dialog" aria-modal="true" aria-label={t("learn.sidebar.title")}>
+    <div class="absolute inset-0 bg-black/40" data-toc-backdrop></div>
+    <div class="absolute inset-y-0 left-0 w-[85%] max-w-[320px] overflow-y-auto bg-white p-5 shadow-2xl">
+      <div class="mb-3 flex items-center justify-between">
+        <h2 class="text-base font-bold text-gray-900">{t("learn.sidebar.title")}</h2>
+        <button id="learn-mobile-toc-close" class="rounded p-1 text-gray-500 hover:bg-gray-100" aria-label={t("learn.sidebar.close-menu")}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <LearnSidebar bookSlug={bookSlug} locale={locale} currentSlug={slug} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .learn-layout { display: grid; grid-template-columns: 1fr; gap: 0; }
+  @media (min-width: 1024px) {
+    .learn-layout { grid-template-columns: 260px minmax(0, 720px); gap: 2.5rem; justify-content: start; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("learn-mobile-toc-toggle");
+  const drawer = document.getElementById("learn-mobile-toc");
+  const close = document.getElementById("learn-mobile-toc-close");
+  const backdrop = drawer?.querySelector("[data-toc-backdrop]");
+  function openDrawer() { drawer?.classList.remove("hidden"); toggle?.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; }
+  function closeDrawer() { drawer?.classList.add("hidden"); toggle?.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+  toggle?.addEventListener("click", openDrawer);
+  close?.addEventListener("click", closeDrawer);
+  backdrop?.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown",(e)=>{ if(e.key==="Escape"&&!drawer?.classList.contains("hidden")) closeDrawer(); });
+  const shareCopy=document.getElementById("share-copy"); const copyLabel=document.getElementById("copy-label"); const container=document.getElementById("share-buttons");
+  if(shareCopy&&copyLabel&&container){ const orig=copyLabel.textContent; const copied=(shareCopy as HTMLElement).dataset.copied; shareCopy.addEventListener("click",async()=>{ const url=(container as HTMLElement).dataset.url||window.location.href; try{await navigator.clipboard.writeText(url);copyLabel.textContent=copied||"Copied!";setTimeout(()=>{copyLabel.textContent=orig;},2000);}catch{}}); }
+</script>

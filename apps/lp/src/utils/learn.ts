@@ -2,52 +2,98 @@ import { getCollection } from "astro:content";
 
 import type { Locale } from "@/i18n/config";
 
-/**
- * 教科書（learn）系の collection 名は `learn-{category}-{locale}` の形
- */
-export const LEARN_CATEGORIES = ["gambling"] as const;
-export type LearnCategory = (typeof LEARN_CATEGORIES)[number];
-
-/**
- * 全 Phase の番号（教科書全体の構成）
+/* ============================================================
+ *  ブック定義
  *
- * Phase 1 のみ執筆完了。Phase 2-5 は執筆中で UI 上は「準備中」として表示する
- */
-export const ALL_PHASES = [1, 2, 3, 4, 5] as const;
-export const PUBLISHED_PHASES = [1] as const;
-export const UPCOMING_PHASES = [2, 3, 4, 5] as const;
+ *  各ブックはコンテンツディレクトリ名（slug）で識別する。
+ *  例: content/learn/ja/quit-gambling-today/*.md → slug = "quit-gambling-today"
+ * ============================================================ */
 
-/**
- * Phase / Part の表示用ラベル定義
- *
- * `Partial<Record<...>>` にすることで、未定義キーへのアクセスが
- * `undefined` を返すことを型で表現する
- */
-export const PHASE_LABELS: Partial<Record<number, { ja: string; en: string }>> = {
-  1: { ja: "全体像と緊急対処", en: "Big picture & emergency response" },
-  2: { ja: "基礎を固める", en: "Build the foundation" },
-  3: { ja: "深める", en: "Go deeper" },
-  4: { ja: "つながる", en: "Reconnect" },
-  5: { ja: "生きる", en: "Live" },
+export type LearnCategory = "gambling" | "alcohol" | "porn" | "tobacco";
+
+export type BookDef = {
+  slug: string;
+  category: LearnCategory;
+  title: { ja: string; en: string };
+  subtitle?: { ja: string; en: string };
+  coverImage?: string;
+};
+
+export const LEARN_BOOKS: BookDef[] = [
+  // ── ギャンブル ──
+  {
+    slug: "quit-gambling-today",
+    category: "gambling",
+    title: { ja: "「あと1万」が止まらない", en: '"Just One More" Won\'t Stop' },
+    subtitle: {
+      ja: "ギャンブル依存から抜け出すための実践ガイド",
+      en: "A practical guide to breaking free from gambling addiction",
+    },
+    coverImage: "/learn/covers/quit-gambling-today.webp",
+  },
+  {
+    slug: "staying-quit-gambling",
+    category: "gambling",
+    title: { ja: "ギャンブルより退屈が怖い", en: "Boredom Scares Me More Than Gambling" },
+    subtitle: {
+      ja: "やめた後の毎日をどう生きるか",
+      en: "How to live each day after quitting",
+    },
+  },
+  {
+    slug: "understanding-gambling",
+    category: "gambling",
+    title: { ja: "勝った記憶しかない不思議", en: "I Only Remember the Wins" },
+    subtitle: {
+      ja: "なぜ自分がこうなったのかを知る",
+      en: "Understanding why this happened to you",
+    },
+  },
+  {
+    slug: "rebuilding-from-gambling",
+    category: "gambling",
+    title: { ja: "借金より重い嘘の返し方", en: "Lies Heavier Than Debt" },
+    subtitle: {
+      ja: "家族と信頼を取り戻すために",
+      en: "Rebuilding trust with the people you hurt",
+    },
+  },
+  {
+    slug: "living-without-gambling",
+    category: "gambling",
+    title: { ja: "賭けない朝は、静かだった", en: "Mornings Without Bets Were Quiet" },
+    subtitle: {
+      ja: "ギャンブルのない人生の始め方",
+      en: "Starting a life without gambling",
+    },
+  },
+];
+
+/* ============================================================
+ *  カテゴリ・パートのラベル
+ * ============================================================ */
+
+export const CATEGORY_LABELS: Record<LearnCategory, { ja: string; en: string }> = {
+  gambling: { ja: "ギャンブル", en: "Gambling" },
+  alcohol: { ja: "アルコール", en: "Alcohol" },
+  porn: { ja: "ポルノ", en: "Pornography" },
+  tobacco: { ja: "たばこ", en: "Tobacco" },
 };
 
 export const PART_LABELS: Partial<Record<string, { ja: string; en: string }>> = {
-  "1A": { ja: "自分の状態を知る", en: "Know your state" },
-  "1B": { ja: "いま、動き出す", en: "Act now" },
-  "1C": { ja: "引き金とスキル", en: "Triggers and skills" },
-  "1D": { ja: "現実に向き合う", en: "Face reality" },
-  "1E": { ja: "立て直しを始める", en: "Start rebuilding" },
+  A: { ja: "自分の状態を知る", en: "Know your state" },
+  B: { ja: "いま、動き出す", en: "Act now" },
+  C: { ja: "引き金とスキル", en: "Triggers and skills" },
+  D: { ja: "現実に向き合う", en: "Face reality" },
+  E: { ja: "立て直しを始める", en: "Start rebuilding" },
 };
 
-/**
- * frontmatter スキーマに対応するデータ型
- *
- * `content.config.ts` の learnSchema と手動で同期する。
- * `getCollection` の動的 name 引数は TypeScript の型推論が効かないので、
- * このユーティリティ層で明示的な型を持たせる
- */
+/* ============================================================
+ *  章データの型定義
+ * ============================================================ */
+
 export type LearnChapterData = {
-  phase: number;
+  category: string;
   part: string;
   chapter: number;
   title: string;
@@ -56,131 +102,133 @@ export type LearnChapterData = {
   updatedAt?: string;
 };
 
-/**
- * 章エントリの構造的型
- *
- * 実体は Astro の `CollectionEntry` だが、`getCollection` への動的 name は
- * 型推論が効かないので、構造的に互換な型を定義してキャストで橋渡しする。
- * `astro:content` の `render(entry)` には実行時の本物の entry なので
- * そのまま渡せる。
- */
 export type LearnChapter = {
   id: string;
-  slug?: string;
   body?: string;
   collection: string;
   data: LearnChapterData;
 };
 
-/**
- * 指定 category × locale の全章を phase + chapter 順で取得
- */
-export async function getAllChapters(
-  category: LearnCategory,
-  locale: Locale,
-): Promise<LearnChapter[]> {
-  const collectionName = `learn-${category}-${locale}`;
-  // 動的な collection name は型推論できないため unknown 経由でキャスト
-  const raw = await getCollection(collectionName as never);
-  const all = raw as unknown as LearnChapter[];
-  return [...all].sort((a, b) => {
-    if (a.data.phase !== b.data.phase) return a.data.phase - b.data.phase;
-    return a.data.chapter - b.data.chapter;
-  });
-}
+/* ============================================================
+ *  ID からブック slug / チャプター slug を抽出
+ *
+ *  entry.id の形式: "quit-gambling-today/not-willpower.md"
+ *  → bookSlug = "quit-gambling-today"
+ *  → chapterSlug = "not-willpower"
+ * ============================================================ */
 
-/**
- * slug から単一章を取得
- */
-export async function getChapterBySlug(
-  category: LearnCategory,
-  locale: Locale,
-  slug: string,
-): Promise<LearnChapter | undefined> {
-  const all = await getAllChapters(category, locale);
-  return all.find((entry) => chapterSlug(entry) === slug);
-}
-
-/**
- * 現在の章の前後の章を返す
- */
-export async function getChapterNav(
-  category: LearnCategory,
-  locale: Locale,
-  currentSlug: string,
-): Promise<{ prev: LearnChapter | null; next: LearnChapter | null }> {
-  const all = await getAllChapters(category, locale);
-  const idx = all.findIndex((entry) => chapterSlug(entry) === currentSlug);
-  if (idx === -1) return { prev: null, next: null };
+export function parseEntryId(id: string): { bookSlug: string; chapterSlug: string } {
+  const parts = id.replace(/\.md$/, "").split("/");
   return {
-    prev: idx > 0 ? all[idx - 1] : null,
-    next: idx < all.length - 1 ? all[idx + 1] : null,
+    bookSlug: parts.length > 1 ? parts[0] : "",
+    chapterSlug: parts.length > 1 ? parts[1] : parts[0],
   };
 }
 
-/**
- * 章を Phase > Part の階層構造にグルーピング
- *
- * サイドバー目次や category top の Phase 一覧で使う
- */
-export type GroupedChapters = {
-  phase: number;
-  parts: {
-    code: string;
-    chapters: LearnChapter[];
-  }[];
+export function entryBookSlug(entry: LearnChapter): string {
+  return parseEntryId(entry.id).bookSlug;
+}
+
+export function entryChapterSlug(entry: LearnChapter): string {
+  return parseEntryId(entry.id).chapterSlug;
+}
+
+/* ============================================================
+ *  ブック取得
+ * ============================================================ */
+
+export function getBookBySlug(slug: string): BookDef | undefined {
+  return LEARN_BOOKS.find((b) => b.slug === slug);
+}
+
+export function getBookTitle(book: BookDef, locale: Locale): string {
+  return book.title[locale];
+}
+
+export function getBookSubtitle(book: BookDef, locale: Locale): string | undefined {
+  return book.subtitle?.[locale];
+}
+
+export function getBooksByCategory(category: LearnCategory): BookDef[] {
+  return LEARN_BOOKS.filter((b) => b.category === category);
+}
+
+export function getCategoryLabel(category: LearnCategory, locale: Locale): string {
+  return CATEGORY_LABELS[category]?.[locale] ?? category;
+}
+
+/* ============================================================
+ *  章の取得
+ * ============================================================ */
+
+export async function getAllLearnPosts(locale: Locale): Promise<LearnChapter[]> {
+  const collectionName = `learn-${locale}`;
+  const raw = await getCollection(collectionName as never);
+  const all = raw as unknown as LearnChapter[];
+  return [...all].sort((a, b) => a.data.chapter - b.data.chapter);
+}
+
+export async function getBookChapters(locale: Locale, bookSlug: string): Promise<LearnChapter[]> {
+  const all = await getAllLearnPosts(locale);
+  return all
+    .filter((ch) => entryBookSlug(ch) === bookSlug)
+    .sort((a, b) => a.data.chapter - b.data.chapter);
+}
+
+export async function getChapterNav(
+  locale: Locale,
+  bookSlug: string,
+  currentSlug: string,
+): Promise<{ prev: LearnChapter | null; next: LearnChapter | null }> {
+  const chapters = await getBookChapters(locale, bookSlug);
+  const idx = chapters.findIndex((e) => entryChapterSlug(e) === currentSlug);
+  if (idx === -1) return { prev: null, next: null };
+  return {
+    prev: idx > 0 ? chapters[idx - 1] : null,
+    next: idx < chapters.length - 1 ? chapters[idx + 1] : null,
+  };
+}
+
+/* ============================================================
+ *  グルーピング（Part 単位）
+ * ============================================================ */
+
+export type GroupedByPart = {
+  code: string;
+  chapters: LearnChapter[];
 }[];
 
-export function groupByPhasePart(chapters: LearnChapter[]): GroupedChapters {
-  const phaseMap = new Map<number, Map<string, LearnChapter[]>>();
+export function groupByPart(chapters: LearnChapter[]): GroupedByPart {
+  const partMap = new Map<string, LearnChapter[]>();
   for (const ch of chapters) {
-    let partMap = phaseMap.get(ch.data.phase);
-    if (!partMap) {
-      partMap = new Map();
-      phaseMap.set(ch.data.phase, partMap);
-    }
     const list = partMap.get(ch.data.part) ?? [];
     list.push(ch);
     partMap.set(ch.data.part, list);
   }
-  return Array.from(phaseMap.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([phase, partMap]) => ({
-      phase,
-      parts: Array.from(partMap.entries())
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([code, chs]) => ({
-          code,
-          chapters: [...chs].sort((a, b) => a.data.chapter - b.data.chapter),
-        })),
+  return Array.from(partMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([code, chs]) => ({
+      code,
+      chapters: [...chs].sort((a, b) => a.data.chapter - b.data.chapter),
     }));
 }
 
-/**
- * 章 entry から URL slug（拡張子なし）を取得
- */
-export function chapterSlug(entry: LearnChapter): string {
-  return entry.id.replace(/\.md$/, "");
+/* ============================================================
+ *  URL ヘルパー
+ * ============================================================ */
+
+export function bookUrl(locale: Locale, bookSlug: string): string {
+  return `/${locale}/learn/${bookSlug}/`;
 }
 
-/**
- * 章 entry から URL を生成
- */
-export function chapterUrl(category: LearnCategory, locale: Locale, entry: LearnChapter): string {
-  return `/${locale}/learn/${category}/${chapterSlug(entry)}/`;
+export function chapterUrl(locale: Locale, bookSlug: string, entry: LearnChapter): string {
+  return `/${locale}/learn/${bookSlug}/${entryChapterSlug(entry)}/`;
 }
 
-/**
- * Phase ラベルの取得
- */
-export function getPhaseLabel(phase: number, locale: Locale): string {
-  const label = PHASE_LABELS[phase];
-  return label ? label[locale] : `Phase ${String(phase)}`;
-}
+/* ============================================================
+ *  ラベル取得
+ * ============================================================ */
 
-/**
- * Part ラベルの取得
- */
 export function getPartLabel(part: string, locale: Locale): string {
   const label = PART_LABELS[part];
   return label ? label[locale] : `Part ${part}`;

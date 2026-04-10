@@ -13,16 +13,16 @@ const docSchema = z.object({
   title: z.string(),
 });
 
-// 教科書（recovery study）スキーマ
-// Phase > Part > Chapter の階層を frontmatter で表現する
-// ファイル名・URL slug は章番号を含めない（並び替えでもリンクが壊れないように）
+// 教科書（learn）スキーマ
+// ディレクトリ名が本の slug を決定する（例: learn/ja/quit-gambling-today/ch.md）
+// category はカテゴリ分類用（gambling, alcohol 等）
 const learnSchema = z.object({
-  phase: z.number().int().min(1).max(5),
-  part: z.string(), // "1A", "1B", "2A" など
-  chapter: z.number().int().min(1), // category 内の通し番号
+  category: z.string(),
+  part: z.string(),
+  chapter: z.number().int().min(1),
   title: z.string(),
-  required: z.boolean().default(false), // 必読フラグ
-  excerpt: z.string(), // 検索・OG・listing 用
+  required: z.boolean().default(false),
+  excerpt: z.string(),
   updatedAt: z.coerce.string().optional(),
 });
 
@@ -52,26 +52,21 @@ const docCollections = Object.fromEntries(
   ),
 );
 
-// 教科書 collection（category × locale ごと）
-// 初期は gambling のみ。alcohol/porn/tobacco は執筆完了次第追加。
-const learnCategories = ["gambling"] as const;
-const learnLocales = ["en", "ja"] as const;
+// 教科書 collection（locale ごと。サブディレクトリ = 本の slug）
+const learnJa = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/learn/ja" }),
+  schema: learnSchema,
+});
 
-const learnCollections = Object.fromEntries(
-  learnCategories.flatMap((cat) =>
-    learnLocales.map((locale) => [
-      `learn-${cat}-${locale}`,
-      defineCollection({
-        loader: glob({ pattern: "*.md", base: `./src/content/learn/${cat}/${locale}` }),
-        schema: learnSchema,
-      }),
-    ]),
-  ),
-);
+const learnEn = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/learn/en" }),
+  schema: learnSchema,
+});
 
 export const collections = {
   "blog-en": blogEn,
   "blog-ja": blogJa,
   ...docCollections,
-  ...learnCollections,
+  "learn-ja": learnJa,
+  "learn-en": learnEn,
 };

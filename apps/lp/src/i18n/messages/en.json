@@ -253,6 +253,11 @@
             "disclaimer-heading": "Disclaimer",
             "disclaimer-body": "This book covers general knowledge and is not a substitute for individual medical or legal advice. For specific treatment plans or debt relief, consult professionals (psychiatrists, addiction specialists, lawyers, etc.)."
         },
+        "start-reading": "Start reading",
+        "free": "Free",
+        "published-label": "Published",
+        "chapter-count-label": "Chapters",
+        "price-label": "Price",
         "chapter": {
             "required-label": "Essential",
             "prev-chapter": "Previous chapter",
