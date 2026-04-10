@@ -28,7 +28,7 @@ const theme = getTheme(namespace);
     <!-- モバイル: 横スクロール / デスクトップ: 2x3グリッド -->
     <div class="reviews-scroll stagger-children -mx-[1.5rem] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[calc(50vw-140px)] pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
       {reviews.map(({ name, category, message }) => (
-        <div class="card flex w-[280px] shrink-0 snap-center flex-col p-6 md:w-auto">
+        <div class="card flex w-[280px] shrink-0 snap-center flex-col overflow-hidden p-6 md:w-auto" style={`border-top: 3px solid ${theme.accentColor}25`}>
           {/* ★評価 */}
           <div class="mb-3 flex gap-0.5" role="img" aria-label="5 out of 5 stars">
             {[...Array(5)].map(() => (

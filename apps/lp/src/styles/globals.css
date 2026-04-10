@@ -33,17 +33,22 @@
   --foreground: #1A1A1A;
   --sub-foreground: #6B6B6B;
   --section-alt: #FFFFFF;
-  --radius: 0.75rem;
+  --radius: 1rem;
 }
 
 html {
   /* スクロールバー有無で横位置がズレないように常に gutter を確保 */
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-feature-settings: "palt";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== Typography ===== */
@@ -170,14 +175,15 @@ h3 {
 
 .card {
   background: #FFFFFF;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out, border-color 0.2s ease-out;
 }
 
 .card:hover {
-  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 /* ===== Stat Number (Social Proof) ===== */
@@ -254,12 +260,36 @@ h3 {
 .stagger-children > *:nth-child(5) { animation-delay: 400ms; }
 .stagger-children > *:nth-child(6) { animation-delay: 500ms; }
 
+/* ===== Page-load Animation (Hero等) ===== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.2s; }
+.reveal-delay-3 { animation-delay: 0.3s; }
+.reveal-delay-4 { animation-delay: 0.4s; }
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-on-scroll,
   .animate-fade-in,
   .animate-scale-in,
-  .stagger-children > * {
+  .stagger-children > *,
+  .reveal {
     animation: none;
     opacity: 1;
     transform: none;

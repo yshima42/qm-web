@@ -26,9 +26,9 @@ const theme = getTheme(namespace);
 <section class="section-alt section-base">
   <div class="mx-auto max-w-6xl">
     <!-- 数字ハイライト -->
-    <div class="stagger-children grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
+    <div class="stagger-children grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
       {stats.map(({ value, label }) => (
-        <div class="text-center">
+        <div class="rounded-2xl p-5 text-center" style={`background: ${theme.accentColor}08`}>
           <div class="stat-number" style={`color: ${theme.accentColor}`}>
             {value}
           </div>
@@ -48,10 +48,10 @@ const theme = getTheme(namespace);
 
     <!-- レビューハイライト引用 -->
     {highlights.length > 0 && (
-      <div class="mt-14 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-10">
+      <div class="mt-14 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-8">
         {highlights.map(({ quote, author, category }) => (
-          <div class="animate-on-scroll">
-            <div class="text-4xl leading-none opacity-15" style={`color: ${theme.accentColor}`}>
+          <div class="animate-on-scroll rounded-2xl bg-white p-6 shadow-sm">
+            <div class="text-4xl leading-none opacity-20" style={`color: ${theme.accentColor}`}>
               &ldquo;
             </div>
             <p class="mt-1 text-lg font-medium leading-relaxed text-[var(--foreground)] md:text-xl">
