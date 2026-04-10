@@ -11,7 +11,7 @@ category: "アルコール"
 
 論文と代謝のメカニズム、そして実際のユーザーの声を照らし合わせてみた。
 
-![禁酒と白髪](/blog/images/quit-drinking-gray-hair.png)
+![禁酒と白髪](/blog/images/quit-drinking-gray-hair.webp)
 
 ## まず、白髪の仕組みを整理する
 

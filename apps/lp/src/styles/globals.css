@@ -75,6 +75,11 @@ h3 {
   line-height: 1.35;
 }
 
+/* ブログ・教科書の本文は palt を解除して読みやすく */
+.blog-article .prose {
+  font-feature-settings: normal;
+}
+
 /* ブログ記事内はLP用のスタイルを無効化し、Noto Sans JPに統一 */
 .blog-article h1,
 .blog-article h2,
