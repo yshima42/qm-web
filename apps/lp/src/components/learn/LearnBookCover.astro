@@ -1,0 +1,122 @@
+---
+type Props = {
+  title: string;
+  subtitle?: string;
+  category: string;
+  size?: "sm" | "md" | "lg";
+};
+
+const { title, subtitle, category, size = "md" } = Astro.props;
+
+const sizeMap = {
+  sm: { width: 48, height: 67 },
+  md: { width: 180, height: 252 },
+  lg: { width: 240, height: 336 },
+};
+
+// 売れる本の表紙 = 明るい背景 + 太い文字 + アクセントカラー
+const themeMap: Record<string, { bg: string; accent: string; accentLight: string; text: string }> = {
+  gambling: {
+    bg: "#FFFDF5",
+    accent: "#D97706",
+    accentLight: "#FEF3C7",
+    text: "#1a1a1a",
+  },
+  alcohol: {
+    bg: "#F0F9FF",
+    accent: "#2563EB",
+    accentLight: "#DBEAFE",
+    text: "#1a1a1a",
+  },
+  porn: {
+    bg: "#FDF4FF",
+    accent: "#9333EA",
+    accentLight: "#F3E8FF",
+    text: "#1a1a1a",
+  },
+  tobacco: {
+    bg: "#F0FDF4",
+    accent: "#16A34A",
+    accentLight: "#DCFCE7",
+    text: "#1a1a1a",
+  },
+};
+
+const s = sizeMap[size];
+const theme = themeMap[category] ?? themeMap.gambling;
+---
+
+{size === "sm" ? (
+  /* サイドバー用ミニカバー */
+  <div
+    class="book-cover-sm flex-shrink-0 overflow-hidden rounded"
+    style={`width: ${s.width}px; height: ${s.height}px; background: ${theme.bg}; border: 1px solid rgba(0,0,0,0.08);`}
+  >
+    <div class="flex h-full flex-col items-start justify-end p-1.5">
+      <div class="mb-0.5 h-[3px] w-3 rounded-full" style={`background: ${theme.accent};`} />
+      <p class="text-[6px] font-bold leading-[1.2]" style={`color: ${theme.text};`}>{title}</p>
+    </div>
+  </div>
+) : (
+  /* md / lg カバー */
+  <div
+    class="book-cover group relative flex-shrink-0 overflow-hidden rounded-lg"
+    style={`width: ${s.width}px; height: ${s.height}px; background: ${theme.bg};`}
+  >
+    {/* アクセントカラーの帯（上部） */}
+    <div
+      class="absolute top-0 left-0 right-0"
+      style={`height: ${size === "lg" ? "6px" : "4px"}; background: ${theme.accent};`}
+    />
+
+    {/* コンテンツ */}
+    <div class="relative flex h-full flex-col px-4 pt-5 pb-4" style={size === "lg" ? "padding: 1.5rem 1.25rem 1.25rem;" : ""}>
+      {/* QuitMate ラベル */}
+      <span
+        class="mb-3 text-[9px] font-semibold tracking-wider uppercase"
+        style={`color: ${theme.accent};`}
+      >
+        QuitMate
+      </span>
+
+      {/* タイトル（上部に配置、太く） */}
+      <p
+        class="font-black leading-[1.25]"
+        style={`color: ${theme.text}; font-size: ${size === "lg" ? "1.4rem" : "1rem"};`}
+      >
+        {title}
+      </p>
+
+      {/* 副題（大きめ） */}
+      {subtitle && (
+        <p
+          class="mt-2 leading-relaxed"
+          style={`color: #555; font-size: ${size === "lg" ? "0.8rem" : "0.65rem"};`}
+        >
+          {subtitle}
+        </p>
+      )}
+
+      {/* 底部のアクセント */}
+      <div class="mt-auto flex items-center gap-1.5">
+        <div class="h-[3px] w-8 rounded-full" style={`background: ${theme.accent};`} />
+        <div class="h-[3px] w-3 rounded-full" style={`background: ${theme.accent}; opacity: 0.3;`} />
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .book-cover {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.08),
+      0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+
+  .book-cover-sm {
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+</style>

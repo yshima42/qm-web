@@ -1,0 +1,158 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
+import LearnBookCover from "@/components/learn/LearnBookCover.astro";
+import { useTranslations } from "@/i18n/utils";
+import {
+  LEARN_BOOKS,
+  getBookBySlug,
+  getBookTitle,
+  getBookSubtitle,
+  getBookChapters,
+  getCategoryLabel,
+  groupByPart,
+  chapterUrl,
+  getPartLabel,
+  bookUrl,
+} from "@/utils/learn";
+
+const locale = "en";
+const t = useTranslations(locale);
+
+export function getStaticPaths() {
+  return LEARN_BOOKS.map((book) => ({ params: { book: book.slug } }));
+}
+
+const { book: bookSlug } = Astro.params;
+const book = getBookBySlug(bookSlug)!;
+const bookTitle = getBookTitle(book, locale);
+const bookSubtitle = getBookSubtitle(book, locale);
+const categoryLabel = getCategoryLabel(book.category, locale);
+
+const chapters = await getBookChapters(locale, bookSlug);
+const grouped = groupByPart(chapters);
+const totalChapters = chapters.length;
+const hasContent = totalChapters > 0;
+const firstChapterUrl = hasContent ? chapterUrl(locale, bookSlug, chapters[0]) : undefined;
+---
+
+<BaseLayout
+  title={`${bookTitle} | QuitMate`}
+  description={`${categoryLabel} - ${bookTitle}`}
+  locale={locale}
+>
+  <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <nav aria-label="パンくずリスト">
+      <ol class="mb-6 flex items-center gap-1 text-sm text-gray-400">
+        <li><a href={`/${locale}/`} class="transition-colors hover:text-gray-600">Home</a></li>
+        <li class="mx-0.5">/</li>
+        <li><a href={`/${locale}/learn/`} class="transition-colors hover:text-gray-600">{t("learn.breadcrumb")}</a></li>
+        <li class="mx-0.5">/</li>
+        <li class="text-gray-600" aria-current="page">{bookTitle}</li>
+      </ol>
+    </nav>
+
+    <div class="mb-14 flex flex-col gap-8 md:flex-row lg:gap-10">
+      <div class="flex flex-shrink-0 justify-center md:justify-start">
+        <LearnBookCover title={bookTitle} subtitle={bookSubtitle} category={book.category} size="lg" />
+      </div>
+
+      <div class="flex min-w-0 flex-1 flex-col">
+        <h1 class="mb-2 text-2xl font-bold leading-tight text-gray-900 sm:text-3xl">{bookTitle}</h1>
+        <div class="mb-5 flex items-center gap-3">
+          <div class="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+          </div>
+          <span class="text-sm font-medium text-gray-700">QuitMate</span>
+          <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-500">{categoryLabel}</span>
+        </div>
+        {hasContent && (
+          <span class="mb-5 inline-flex w-fit items-center rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700">
+            {t("learn.free")} to read
+          </span>
+        )}
+      </div>
+
+      <div class="w-full flex-shrink-0 md:w-[260px]">
+        <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+          {firstChapterUrl ? (
+            <a href={firstChapterUrl} class="book-cta-btn mb-5 flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-bold text-white">
+              {t("learn.start-reading")}
+            </a>
+          ) : (
+            <div class="mb-5 flex w-full items-center justify-center rounded-lg bg-gray-100 px-4 py-3 text-sm font-bold text-gray-400">
+              {t("learn.coming-soon")}
+            </div>
+          )}
+          <dl class="space-y-4 text-sm">
+            <div class="flex items-center justify-between">
+              <dt class="text-gray-500">{t("learn.chapter-count-label")}</dt>
+              <dd class="font-medium text-gray-900">{hasContent ? `${totalChapters}章` : "-"}</dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-gray-500">{t("learn.price-label")}</dt>
+              <dd class="font-medium text-gray-900">0円</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    {hasContent ? (
+      <section class="mb-14">
+        <h2 class="mb-8 text-lg font-bold text-gray-900">{t(`learn.${book.category}.table-of-contents`)}</h2>
+        <div class="space-y-6">
+          {grouped.map((part) => (
+            <div>
+              <h4 class="mb-3 text-sm font-semibold text-gray-500">{getPartLabel(part.code, locale)}</h4>
+              <ol class="relative ml-1.5 border-l-2 border-primary-100 pl-7">
+                {part.chapters.map((chapter) => {
+                  const num = String(chapter.data.chapter).padStart(2, "0");
+                  return (
+                    <li class="relative pb-6 last:pb-0">
+                      <div class="absolute -left-[calc(1.75rem+5px)] top-0.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary-300 bg-white">
+                        <div class="h-1.5 w-1.5 rounded-full bg-primary-400" />
+                      </div>
+                      <a href={chapterUrl(locale, bookSlug, chapter)} class="group block">
+                        <span class="mb-0.5 block text-xs font-semibold text-primary-500">Chapter {num}</span>
+                        <span class="flex items-center gap-2">
+                          <span class="text-[15px] font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary-600">{chapter.data.title}</span>
+                          {chapter.data.required && (
+                            <span class="inline-flex flex-shrink-0 items-center rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700">{t("learn.chapter.required-label")}</span>
+                          )}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          ))}
+        </div>
+      </section>
+    ) : (
+      <section class="mb-14 rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-10 text-center">
+        <p class="text-base font-semibold text-gray-700">{t("learn.coming-soon")}</p>
+      </section>
+    )}
+
+    <section class="mb-10 rounded-lg border border-gray-200 bg-gray-50 p-5">
+      <h3 class="mb-2 text-sm font-bold text-gray-900">{t(`learn.${book.category}.disclaimer-heading`)}</h3>
+      <p class="text-xs leading-relaxed text-gray-600">{t(`learn.${book.category}.disclaimer-body`)}</p>
+    </section>
+
+    <BlogAppPromo locale={locale} />
+  </div>
+</BaseLayout>
+
+<style>
+  .book-cta-btn {
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700));
+    box-shadow: 0 2px 8px rgba(46, 108, 40, 0.3);
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .book-cta-btn:hover {
+    box-shadow: 0 4px 16px rgba(46, 108, 40, 0.4);
+    transform: translateY(-1px);
+  }
+</style>

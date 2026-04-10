@@ -253,6 +253,11 @@
             "disclaimer-heading": "ご注意",
             "disclaimer-body": "本書は一般的な知識をまとめたものであり、個別の医療判断・法律相談の代わりにはなりません。具体的な治療方針や債務整理は、専門家（精神科医、依存症専門医、弁護士、司法書士など）に相談してください。"
         },
+        "start-reading": "今すぐ読む",
+        "free": "無料",
+        "published-label": "公開",
+        "chapter-count-label": "章数",
+        "price-label": "価格",
         "chapter": {
             "required-label": "必読",
             "prev-chapter": "前の章",
