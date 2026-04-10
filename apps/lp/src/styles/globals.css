@@ -93,6 +93,19 @@ h3 {
   margin-top: 0;
 }
 
+/* ===== 注釈ブロック（教科書の用語説明等） ===== */
+
+.prose .note {
+  font-size: 0.85rem;
+  color: #6b7280;
+  background: #f9fafb;
+  border-left: 3px solid #d1d5db;
+  border-radius: 0 0.25rem 0.25rem 0;
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+  line-height: 1.7;
+}
+
 /* ===== 折りたたみ参考文献（教科書章末用） ===== */
 
 /* prose 内に出現するので、prose のデフォルトスタイルを上書きしつつ控えめに見せる */
