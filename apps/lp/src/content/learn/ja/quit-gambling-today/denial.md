@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "D"
-chapter: 17
+chapter: 16
 title: "否認: 「自分は大丈夫」の壁"
 required: false
 excerpt: "「自分は依存症ではない」 「やめようと思えばいつでもやめられる」 「ただ、いまはやめないだけ」 「他のやつとは違う」 「あいつは病院に行くレベルだったが、自分はまだそこまでじゃない」"

@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "D"
-chapter: 21
+chapter: 20
 title: "恥と罪悪感を区別する"
 required: false
 excerpt: "家族会議が終わった。 妻の両親が来ていた。 自分の父と母も呼ばれていた。 自分の借金、妻に対する隠し事、子供の進学費用がパチンコに消えたこと。 全部、皆の前で並べられた。"

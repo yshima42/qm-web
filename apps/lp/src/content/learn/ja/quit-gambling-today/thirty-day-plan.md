@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "E"
-chapter: 27
+chapter: 26
 title: "30日の回復プラン"
 required: false
 excerpt: "これが最初のパートの最後の章である。 ここまで読んできた人へ。読まなかった章があってもいい。 ここまでたどり着いたこと自体が、本書の中で大事なことのひとつである。"
@@ -62,9 +62,9 @@ updatedAt: "2026-04-07"
 2. **緊急連絡先を準備する**（[第8章](/ja/learn/quit-gambling-today/safety-plan/)）
    - 緊急連絡先をスマホに登録
    - 安全計画を1枚書く
-3. **個人地図を作る**（[第25章](/ja/learn/quit-gambling-today/personal-map/)）
+3. **個人地図を作る**（[第24章](/ja/learn/quit-gambling-today/personal-map/)）
    - 5つの要素を1枚の紙にまとめる
-4. **家族に「報告」する**（[第20章](/ja/learn/quit-gambling-today/family/)）
+4. **家族に「報告」する**（[第19章](/ja/learn/quit-gambling-today/family/)）
    - 短く、3行で
 5. **朝の儀式を1つ決める**（[第7章](/ja/learn/quit-gambling-today/payday-survival/)）
    - 5分以内のものを1つ
@@ -82,7 +82,7 @@ updatedAt: "2026-04-07"
 □ 7. 個人地図を1枚書く
 □ 8. 家族に「報告」する
 □ 9. 朝の儀式を1つ決める
-□ 10. 1日1回、自分の気持ちを言葉にする（第23章）
+□ 10. 1日1回、自分の気持ちを言葉にする（第22章）
 
 </div>
 
@@ -107,7 +107,7 @@ updatedAt: "2026-04-07"
    - 頭の中のセリフに「これはゆがみだ」と気づく練習
 4. **if-then プランを3つ作る**（[第14章](/ja/learn/quit-gambling-today/if-then-plan/)）
    - 「もし X が起きたら Y する」を3つ
-5. **退屈・孤独への対策リスト**（[第15章](/ja/learn/quit-gambling-today/empty-time/)）
+5. **退屈・孤独への対策リスト**
    - 代替活動を5つ書き出す
 
 ### 第2週のチェックリスト
@@ -135,15 +135,15 @@ updatedAt: "2026-04-07"
 
 ### やること
 
-1. **借金の総額を出す**（[第18章](/ja/learn/quit-gambling-today/debt-overview/)）
+1. **借金の総額を出す**（[第17章](/ja/learn/quit-gambling-today/debt-overview/)）
    - 全業者の残高を1つの表にまとめる
-2. **法的整理の選択肢を調べる**（[第19章](/ja/learn/quit-gambling-today/legal-options/)）
+2. **法的整理の選択肢を調べる**（[第18章](/ja/learn/quit-gambling-today/legal-options/)）
    - 法テラスに電話する
-3. **メンタルヘルスのセルフチェック**（[第16章](/ja/learn/quit-gambling-today/mental-health/)）
+3. **メンタルヘルスのセルフチェック**（[第15章](/ja/learn/quit-gambling-today/mental-health/)）
    - うつ・不安・ADHD のサインを確認
-4. **否認のセリフを書き出す**（[第17章](/ja/learn/quit-gambling-today/denial/)）
+4. **否認のセリフを書き出す**（[第16章](/ja/learn/quit-gambling-today/denial/)）
    - 自分の否認パターンを見つける
-5. **家族と1回、ちゃんと話す**（[第20章](/ja/learn/quit-gambling-today/family/)）
+5. **家族と1回、ちゃんと話す**（[第19章](/ja/learn/quit-gambling-today/family/)）
    - 「報告」の形で
 
 ### 第3週のチェックリスト
@@ -174,11 +174,11 @@ updatedAt: "2026-04-07"
 
 ### やること
 
-1. **回復資本の棚卸し**（[第24章](/ja/learn/quit-gambling-today/recovery-capital/)）
+1. **回復資本の棚卸し**（[第23章](/ja/learn/quit-gambling-today/recovery-capital/)）
    - 4つのカテゴリで自分が持っているものを書く
-2. **個人地図を見直す**（[第25章](/ja/learn/quit-gambling-today/personal-map/)）
+2. **個人地図を見直す**（[第24章](/ja/learn/quit-gambling-today/personal-map/)）
    - 第1週に作った地図に、新しいものを追加する
-3. **再発した場合の行動リスト**（[第26章](/ja/learn/quit-gambling-today/relapse-not-failure/)）
+3. **再発した場合の行動リスト**（[第25章](/ja/learn/quit-gambling-today/relapse-not-failure/)）
    - 再発の翌日にやる7つの行動を1枚に書く
 4. **朝の儀式を続ける**（[第7章](/ja/learn/quit-gambling-today/payday-survival/)）
 5. **30日後の自分に手紙を書く**（次のセクション）

@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "D"
-chapter: 20
+chapter: 19
 title: "家族との関係: 当事者の側から"
 required: false
 excerpt: "土曜の昼。 リビングのソファ。 妻は子供を連れて実家に行っている。"

@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "E"
-chapter: 24
+chapter: 23
 title: "回復資本: 自分の中にあるもの"
 required: false
 excerpt: "弁護士事務所の帰り道。 3つ目の任意整理の打ち合わせを終えた。 頭の中はぐるぐるしている。"
@@ -139,9 +139,9 @@ updatedAt: "2026-04-07"
 社会資本は、増やすのに時間がかかるが、増やすほど回復が安定する。
 増やし方は、本書のあちこちで触れてきた。
 
-- 家族との関係を行動で立て直す（[第20章](/ja/learn/quit-gambling-today/family/)）
+- 家族との関係を行動で立て直す（[第19章](/ja/learn/quit-gambling-today/family/)）
 - 助けを求める（[第10章](/ja/learn/quit-gambling-today/asking-for-help/)）
-- GA や自助グループに行く（[第22章](/ja/learn/quit-gambling-today/treatment-options/)）
+- GA や自助グループに行く（[第21章](/ja/learn/quit-gambling-today/treatment-options/)）
 - QuitMate などのコミュニティに参加する
 
 最初の一人ができれば、二人目、三人目は少し簡単になる。
@@ -184,7 +184,7 @@ updatedAt: "2026-04-07"
 これらは「使ってはいけないもの」ではない。
 「困っている人が使うために用意されているもの」である。
 
-詳細は[第22章](/ja/learn/quit-gambling-today/treatment-options/)で扱った相談窓口や、[第18](/ja/learn/quit-gambling-today/debt-overview/)-[19章](/ja/learn/quit-gambling-today/legal-options/)の借金・法的整理の章を参照する。
+詳細は[第21章](/ja/learn/quit-gambling-today/treatment-options/)で扱った相談窓口や、[第17](/ja/learn/quit-gambling-today/debt-overview/)-[18章](/ja/learn/quit-gambling-today/legal-options/)の借金・法的整理の章を参照する。
 
 ---
 

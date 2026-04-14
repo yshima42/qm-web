@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "D"
-chapter: 16
+chapter: 15
 title: "メンタルヘルスと依存: 共存症"
 required: false
 excerpt: "朝7時。 布団から出るのに、30分かかった。 出社の準備をしている間、ずっと体が重い。 電車の中で「今日もまた8時間か」と思った瞬間、涙が出た。"

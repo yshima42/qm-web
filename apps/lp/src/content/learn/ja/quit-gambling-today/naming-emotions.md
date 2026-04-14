@@ -1,7 +1,7 @@
 ---
 category: "gambling"
 part: "E"
-chapter: 23
+chapter: 22
 title: "感情の命名"
 required: false
 excerpt: "夜10時。 家でテレビを見ている。 特に何も起きていない。"
@@ -212,7 +212,7 @@ updatedAt: "2026-04-07"
 何か言葉が出てきたら、その感情に対して、ギャンブル以外の対処を考える。
 - 寂しい → 誰かに連絡する
 - 怒っている → 散歩する、書き出す
-- 退屈 → 別の活動を始める（[第15章](/ja/learn/quit-gambling-today/empty-time/)のリスト）
+- 退屈 → 別の活動を始める
 - 不安 → 不安の中身を紙に書く
 - 疲れている → 寝る
 
