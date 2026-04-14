@@ -128,6 +128,58 @@ h3 {
   -webkit-mask-repeat: no-repeat;
 }
 
+/* ===== ワークシートブロック（テンプレート・チェックリスト等） ===== */
+
+.prose .worksheet {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  padding: 0 0.75rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prose .worksheet p {
+  margin: 0;
+}
+
+.prose .worksheet p:first-child {
+  margin-top: 0;
+}
+
+.prose .worksheet p:last-child {
+  margin-bottom: 0;
+}
+
+.prose .worksheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.prose .worksheet-grid > div {
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  white-space: pre-wrap;
+}
+
+.prose .worksheet-grid p {
+  margin: 0;
+}
+
 /* ===== 折りたたみ参考文献（教科書章末用） ===== */
 
 /* prose 内に出現するので、prose のデフォルトスタイルを上書きしつつ控えめに見せる */
