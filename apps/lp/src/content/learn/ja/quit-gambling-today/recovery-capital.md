@@ -139,9 +139,9 @@ updatedAt: "2026-04-07"
 社会資本は、増やすのに時間がかかるが、増やすほど回復が安定する。
 増やし方は、本書のあちこちで触れてきた。
 
-- 家族との関係を行動で立て直す（第20章）
-- 助けを求める（第10章）
-- GA や自助グループに行く（第22章）
+- 家族との関係を行動で立て直す（[第20章](/ja/learn/quit-gambling-today/family/)）
+- 助けを求める（[第10章](/ja/learn/quit-gambling-today/asking-for-help/)）
+- GA や自助グループに行く（[第22章](/ja/learn/quit-gambling-today/treatment-options/)）
 - QuitMate などのコミュニティに参加する
 
 最初の一人ができれば、二人目、三人目は少し簡単になる。
@@ -184,7 +184,7 @@ updatedAt: "2026-04-07"
 これらは「使ってはいけないもの」ではない。
 「困っている人が使うために用意されているもの」である。
 
-詳細は第22章で扱った相談窓口や、第18-19章の借金・法的整理の章を参照する。
+詳細は[第22章](/ja/learn/quit-gambling-today/treatment-options/)で扱った相談窓口や、[第18](/ja/learn/quit-gambling-today/debt-overview/)-[19章](/ja/learn/quit-gambling-today/legal-options/)の借金・法的整理の章を参照する。
 
 ---
 
@@ -238,27 +238,40 @@ updatedAt: "2026-04-07"
 ここまでの4つを使って、自分の回復資本を棚卸しする。
 完璧に書く必要はない。書ける範囲でいい。
 
-```
+<div class="worksheet-grid">
+<div>
+
 【内的資本】
 ・
 ・
 ・
+
+</div>
+<div>
 
 【社会資本】
 ・
 ・
 ・
 
+</div>
+<div>
+
 【物理資本】
 ・
 ・
 ・
 
+</div>
+<div>
+
 【文化資本】
 ・
 ・
 ・
-```
+
+</div>
+</div>
 
 書き終わったら、全体を眺める。
 「ない」と思っていたが、実はあるものが見えてくる。
