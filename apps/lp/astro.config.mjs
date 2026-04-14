@@ -64,37 +64,10 @@ function getLearnDateMap() {
 const blogDateMap = getBlogDateMap();
 const learnDateMap = getLearnDateMap();
 
-// ロケールなしURLのリダイレクト先を構築
-function buildRedirects() {
-  const redirects = {};
-
-  // ルートレベルページ
-  for (const page of ["contact", "privacy", "terms", "apps"]) {
-    redirects[`/${page}`] = `/en/${page}/`;
-  }
-
-  // カテゴリページ（各サブページ含む）
-  for (const category of ["alcohol", "tobacco", "porn", "challenge"]) {
-    redirects[`/${category}`] = `/en/${category}/`;
-    for (const sub of ["contact", "privacy", "terms"]) {
-      redirects[`/${category}/${sub}`] = `/en/${category}/${sub}/`;
-    }
-  }
-
-  // 旧 /jp/ ロケール -> /ja/
-  redirects["/jp"] = "/ja/";
-  for (const page of ["contact", "privacy", "terms", "apps"]) {
-    redirects[`/jp/${page}`] = `/ja/${page}/`;
-  }
-
-  return redirects;
-}
-
 export default defineConfig({
   site: "https://about.quitmate.app",
   output: "static",
   trailingSlash: "always",
-  redirects: buildRedirects(),
   integrations: [
     sitemap({
       filter(page) {
