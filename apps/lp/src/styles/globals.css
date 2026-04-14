@@ -75,6 +75,11 @@ h3 {
   line-height: 1.35;
 }
 
+/* ブログ・教科書の本文は palt を解除して読みやすく */
+.blog-article .prose {
+  font-feature-settings: normal;
+}
+
 /* ブログ記事内はLP用のスタイルを無効化し、Noto Sans JPに統一 */
 .blog-article h1,
 .blog-article h2,
@@ -96,14 +101,31 @@ h3 {
 /* ===== 注釈ブロック（教科書の用語説明等） ===== */
 
 .prose .note {
+  position: relative;
   font-size: 0.85rem;
-  color: #6b7280;
-  background: #f9fafb;
-  border-left: 3px solid #d1d5db;
-  border-radius: 0 0.25rem 0.25rem 0;
-  padding: 0.75rem 1rem;
+  color: #78350f;
+  background: #fff7ed;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.85rem 0.25rem 2.25rem;
   margin: 1.5rem 0;
   line-height: 1.7;
+}
+
+.prose .note::before {
+  content: "";
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: #d97706;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
 }
 
 /* ===== 折りたたみ参考文献（教科書章末用） ===== */

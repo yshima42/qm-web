@@ -11,7 +11,7 @@ I run [QuitMate](/en/), an app for overcoming addiction. We have about 750 users
 
 I compared the research, the metabolic mechanisms, and what our users actually report.
 
-![Quitting alcohol and gray hair](/blog/images/quit-drinking-gray-hair.png)
+![Quitting alcohol and gray hair](/blog/images/quit-drinking-gray-hair.webp)
 
 ## How Gray Hair Actually Works
 
