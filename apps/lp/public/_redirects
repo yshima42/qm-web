@@ -18,6 +18,7 @@
 /jp/* /ja/:splat 301
 /jp /ja/ 301
 
-# ロケールなしブログ → /en/blog/
+# ロケールなしブログ → /en/blog/（画像パスは除外）
+/blog/images/* /blog/images/:splat 200
 /blog/* /en/blog/:splat 301
 /blog /en/blog/ 301
