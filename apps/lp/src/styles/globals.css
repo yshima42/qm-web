@@ -132,9 +132,7 @@ h3 {
 
 /* prose 内に出現するので、prose のデフォルトスタイルを上書きしつつ控えめに見せる */
 .prose .references-details {
-  margin-top: 2.5rem;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 1.25rem;
+  margin-top: 0.5rem;
 }
 
 .prose .references-summary {
