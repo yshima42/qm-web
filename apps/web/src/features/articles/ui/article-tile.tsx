@@ -1,20 +1,35 @@
 "use client";
 
-import { ArticleLikeIcon, CommentIcon, DefaultAvatar } from "@quitmate/ui";
+import { ArticleLikeIcon, CommentIcon } from "@quitmate/ui";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { toZonedTime } from "date-fns-tz";
-import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import { ArticleTileDto } from "@/lib/types";
 
 import { LoginPromptDialog } from "@/components/ui/login-prompt-dialog";
 import { CategoryTag } from "@/features/common/ui/category-tag";
+import { UserAvatar } from "@/features/profiles/ui/user-avatar";
 import { toggleArticleLike } from "@/features/articles/data/actions";
+
+/** Markdownの記法を除去してプレーンテキストを取得 */
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/#{1,6}\s+/g, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/`(.+?)`/g, "$1")
+    .replace(/\[(.+?)\]\(.+?\)/g, "$1")
+    .replace(/!\[.*?\]\(.+?\)/g, "")
+    .replace(/^[-*+]\s+/gm, "")
+    .replace(/^\d+\.\s+/gm, "")
+    .replace(/^>\s+/gm, "")
+    .replace(/---+/g, "")
+    .replace(/\n{2,}/g, " ")
+    .trim();
+}
 
 type Props = {
   article: ArticleTileDto;
@@ -22,137 +37,105 @@ type Props = {
 };
 
 export function ArticleTile({ article, isLoggedIn = false }: Props) {
-  // いいね状態の管理（楽観的更新）
+  const router = useRouter();
   const [isLiked, setIsLiked] = useState(article.isLikedByMe ?? false);
   const [likesCount, setLikesCount] = useState(article.article_likes[0]?.count ?? 0);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleLike = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
 
     const shouldLike = !isLiked;
-
-    // 楽観的更新（即座にUI更新）
     setIsLiked(shouldLike);
     setLikesCount((prev) => (shouldLike ? prev + 1 : prev - 1));
 
-    // バックグラウンドでDB保存
     startTransition(async () => {
       const result = await toggleArticleLike(article.id, shouldLike);
       if (!result.success) {
-        // 失敗時はロールバック
         setIsLiked(!shouldLike);
         setLikesCount((prev) => (shouldLike ? prev - 1 : prev + 1));
       }
     });
   };
-  // Convert article date to Tokyo time
+
   const articleDate = toZonedTime(new Date(article.created_at), "Asia/Tokyo");
   const currentYear = new Date().getFullYear();
   const articleYear = articleDate.getFullYear();
-
-  // If current year, don't display year; otherwise include year
   const dateFormat = articleYear === currentYear ? "M/d H:mm" : "yyyy/M/d H:mm";
-  const createdAt = format(articleDate, dateFormat, {
-    locale: enUS,
-  });
+  const createdAt = format(articleDate, dateFormat, { locale: enUS });
 
   const articleUrl = `/${article.profiles.user_name}/articles/${article.id}`;
+  const excerpt = stripMarkdown(article.content).slice(0, 160);
+
+  const handleClick = () => {
+    router.push(articleUrl);
+  };
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-all hover:shadow-md dark:border-gray-700">
-      <div className="p-3 md:p-4">
-        <Link href={articleUrl} className="block">
-          {/* Title */}
-          <h2 className="mb-1.5 line-clamp-2 text-lg font-bold text-gray-900 md:mb-1 md:text-xl dark:text-white">
-            {article.title}
-          </h2>
+    <div
+      className="border-border cursor-pointer overflow-hidden rounded-lg border shadow-sm transition-all hover:shadow-md"
+      onClick={handleClick}
+    >
+      <div className="p-4 md:p-5">
+        {/* タイトル */}
+        <h2 className="text-foreground mb-2 line-clamp-2 text-lg font-bold md:text-xl">
+          {article.title}
+        </h2>
 
-          {/* Category tag and date */}
-          <div className="mb-1.5 flex items-center justify-between md:mb-1">
-            <CategoryTag
-              category={article.habit_categories?.habit_category_name ?? "General"}
-              customHabitName={article.custom_habit_name}
-            />
-            <span className="text-xs text-gray-500 dark:text-gray-400">{createdAt}</span>
-          </div>
-        </Link>
-
-        {/* Article description (Markdown) */}
-        <div className="prose-sm dark:prose-invert prose-headings:my-0 prose-p:my-0 prose-li:my-0 mb-2.5 line-clamp-3 text-gray-700 md:mb-4 dark:text-gray-300">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              a: ({ href, children, ...props }) => (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-green-800 no-underline hover:underline dark:text-green-400"
-                  {...props}
-                >
-                  {children}
-                </a>
-              ),
-            }}
-          >
-            {article.content}
-          </ReactMarkdown>
+        {/* カテゴリバッジ + 日付 */}
+        <div className="mb-2 flex items-center justify-between">
+          <CategoryTag
+            category={article.habit_categories?.habit_category_name ?? "General"}
+            customHabitName={article.custom_habit_name}
+          />
+          <span className="text-muted-foreground text-xs">{createdAt}</span>
         </div>
 
-        {/* Actions and user info */}
+        {/* プレーンテキスト抜粋 */}
+        <p className="text-muted-foreground mb-3 line-clamp-3 text-sm leading-relaxed">{excerpt}</p>
+
+        {/* アクション + 著者情報 */}
         <div className="flex items-center justify-between">
-          {/* Comments and likes */}
-          <div className="flex gap-4 text-gray-500 md:gap-6 dark:text-gray-400">
+          <div className="text-muted-foreground flex gap-4">
             <div className="flex items-center gap-1">
-              <CommentIcon className="size-4 md:size-5" />
-              <span className="text-xs md:text-sm">{article.article_comments[0]?.count ?? 0}</span>
+              <CommentIcon className="size-4" />
+              <span className="text-xs">{article.article_comments[0]?.count ?? 0}</span>
             </div>
-            {isLoggedIn ? (
-              <button
-                onClick={handleLike}
-                disabled={isPending}
-                className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
-              >
-                <ArticleLikeIcon
-                  className={`size-4 transition-colors md:size-5 ${isLiked ? "fill-green-600 text-green-600" : ""}`}
-                />
-                <span className={`text-xs md:text-sm ${isLiked ? "text-green-600" : ""}`}>
-                  {likesCount}
-                </span>
-              </button>
-            ) : (
-              <LoginPromptDialog className="cursor-pointer" type="article">
-                <div className="flex items-center gap-1">
-                  <ArticleLikeIcon className="size-4 md:size-5" />
-                  <span className="text-xs md:text-sm">{likesCount}</span>
-                </div>
-              </LoginPromptDialog>
-            )}
+            <div onClick={(e) => e.stopPropagation()}>
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLike}
+                  className="flex cursor-pointer items-center gap-1 transition-colors"
+                >
+                  <ArticleLikeIcon
+                    className={`size-4 transition-colors ${isLiked ? "fill-red-500 text-red-500" : ""}`}
+                  />
+                  <span className={`text-xs ${isLiked ? "text-red-500" : ""}`}>{likesCount}</span>
+                </button>
+              ) : (
+                <LoginPromptDialog className="cursor-pointer" type="article">
+                  <div className="flex items-center gap-1">
+                    <ArticleLikeIcon className="size-4" />
+                    <span className="text-xs">{likesCount}</span>
+                  </div>
+                </LoginPromptDialog>
+              )}
+            </div>
           </div>
 
-          {/* User info */}
-          <Link href={articleUrl}>
-            <div className="flex items-center">
-              <div className="mr-2 size-6 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-                {article.profiles.avatar_url ? (
-                  <Image
-                    src={article.profiles.avatar_url}
-                    alt="Profile image"
-                    width={24}
-                    height={24}
-                    className="object-cover"
-                  />
-                ) : (
-                  <DefaultAvatar size="sm" className="size-full bg-gray-200 dark:bg-gray-700" />
-                )}
-              </div>
-              <span className="text-xs font-medium text-gray-900 md:text-sm dark:text-white">
-                {article.profiles.display_name}
-              </span>
-            </div>
-          </Link>
+          {/* 著者情報 */}
+          <div className="flex items-center gap-2">
+            <UserAvatar
+              username={article.profiles.user_name}
+              displayName={article.profiles.display_name}
+              avatarUrl={article.profiles.avatar_url}
+              size="sm"
+              linkable={false}
+            />
+            <span className="text-foreground text-xs font-medium">
+              {article.profiles.display_name}
+            </span>
+          </div>
         </div>
       </div>
     </div>

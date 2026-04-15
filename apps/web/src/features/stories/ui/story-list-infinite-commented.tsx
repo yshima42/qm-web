@@ -6,10 +6,9 @@ import { useTranslations } from "next-intl";
 
 import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
-
 import { useInfiniteCommentedStories } from "../hooks/use-infinite-commented-stories";
 import { StoryTile } from "./story-tile";
+import { StoryListSkeleton } from "./story-tile-skeleton";
 
 type Props = {
   userId: string;
@@ -44,7 +43,7 @@ export function StoryListInfiniteCommented({ userId, isLoggedIn, currentUserId }
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-[600px]">
       {stories.map((story) => (
         <StoryTile
           key={story.id}
@@ -55,11 +54,7 @@ export function StoryListInfiniteCommented({ userId, isLoggedIn, currentUserId }
       ))}
 
       <div ref={ref} className="py-4">
-        {(isLoading || isFetchingNextPage) && (
-          <div className="flex justify-center">
-            <LoadingSpinner />
-          </div>
-        )}
+        {isFetchingNextPage && <StoryListSkeleton count={2} />}
         {!hasNextPage && stories.length > 0 && (
           <p className="text-muted-foreground py-4 text-center text-sm">
             {t("noMoreStories", { defaultValue: "すべてのストーリーを読み込みました" })}

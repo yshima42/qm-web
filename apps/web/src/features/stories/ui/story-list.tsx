@@ -27,7 +27,7 @@ export async function StoryList({ fetchStoriesFunc, habits }: StoryListProps) {
   const storiesWithLikeStatus = isLoggedIn ? await enrichStoriesWithLikeStatus(stories) : stories;
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-[600px]">
       {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
 
       {storiesWithLikeStatus.map((story) => (

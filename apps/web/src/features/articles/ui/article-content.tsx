@@ -9,6 +9,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { MoreHorizontal, Trash2, Flag } from "lucide-react";
+import { toast } from "sonner";
 
 import { MarkdownRenderer } from "@/lib/markdown-render";
 import type { ArticleTileDto, ArticleCommentTileDto } from "@/lib/types";
@@ -57,7 +58,6 @@ export function ArticleContent({
   const [likesCount, setLikesCount] = useState(article.article_likes[0]?.count ?? 0);
   const [isPending, startTransition] = useTransition();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyArticle = currentUserId === article.user_id;
@@ -87,8 +87,7 @@ export function ArticleContent({
     startTransition(async () => {
       const result = await deleteArticle(article.id);
       if (result.success) {
-        setShowDeleteSuccess(true);
-        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        toast.success(tDelete("success"));
         router.push(`/${article.profiles.user_name}`);
       } else {
         // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
@@ -120,37 +119,32 @@ export function ArticleContent({
         refreshingLabel={tPull("refreshing")}
       />
       <main className="w-full p-3 sm:p-5">
-        <div className="mx-auto w-full max-w-2xl bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+        <div className="text-foreground mx-auto w-full max-w-[600px]">
           {/* Article header */}
           <div className="mb-8">
-            <h1 className="mb-6 text-2xl font-bold text-gray-900 sm:hidden dark:text-white">
-              {article.title}
-            </h1>
+            <h1 className="text-foreground mb-6 text-2xl font-bold sm:hidden">{article.title}</h1>
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <CategoryTag
                   category={article.habit_categories?.habit_category_name ?? "General"}
                   customHabitName={article.custom_habit_name}
                 />
-                <span className="text-sm text-gray-500 dark:text-gray-400">{createdAt}</span>
+                <span className="text-muted-foreground text-sm">{createdAt}</span>
               </div>
 
               <div className="flex items-center gap-4">
                 {isLoggedIn ? (
                   <button
                     onClick={handleLike}
-                    disabled={isPending}
-                    className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+                    className="flex cursor-pointer items-center gap-1 transition-colors"
                   >
                     <ArticleLikeIcon
                       className={`size-5 transition-colors ${
-                        isLiked
-                          ? "fill-green-600 text-green-600"
-                          : "text-gray-500 dark:text-gray-400"
+                        isLiked ? "fill-red-500 text-red-500" : "text-muted-foreground"
                       }`}
                     />
                     <span
-                      className={`text-sm ${isLiked ? "text-green-600" : "text-gray-500 dark:text-gray-400"}`}
+                      className={`text-sm ${isLiked ? "text-red-500" : "text-muted-foreground"}`}
                     >
                       {likesCount}
                     </span>
@@ -158,8 +152,8 @@ export function ArticleContent({
                 ) : (
                   <LoginPromptDialog className="cursor-pointer" type="article">
                     <div className="flex items-center gap-1">
-                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{likesCount}</span>
+                      <ArticleLikeIcon className="text-muted-foreground size-5" />
+                      <span className="text-muted-foreground text-sm">{likesCount}</span>
                     </div>
                   </LoginPromptDialog>
                 )}
@@ -216,13 +210,9 @@ export function ArticleContent({
               />
               <div>
                 <Link href={`/${article.profiles.user_name}`} className="hover:underline">
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {article.profiles.display_name}
-                  </p>
+                  <p className="text-foreground font-medium">{article.profiles.display_name}</p>
                 </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  @{article.profiles.user_name}
-                </p>
+                <p className="text-muted-foreground text-xs">@{article.profiles.user_name}</p>
               </div>
             </div>
           </div>
@@ -237,33 +227,28 @@ export function ArticleContent({
                 {isLoggedIn ? (
                   <button
                     onClick={handleLike}
-                    disabled={isPending}
-                    className="flex cursor-pointer items-center gap-2 transition-colors disabled:opacity-50"
+                    className="flex cursor-pointer items-center gap-2 transition-colors"
                   >
                     <ArticleLikeIcon
                       className={`size-5 transition-colors ${
-                        isLiked
-                          ? "fill-green-600 text-green-600"
-                          : "text-gray-500 dark:text-gray-400"
+                        isLiked ? "fill-red-500 text-red-500" : "text-muted-foreground"
                       }`}
                     />
-                    <span
-                      className={isLiked ? "text-green-600" : "text-gray-700 dark:text-gray-300"}
-                    >
+                    <span className={isLiked ? "text-red-500" : "text-muted-foreground"}>
                       {likesCount}
                     </span>
                   </button>
                 ) : (
                   <LoginPromptDialog className="cursor-pointer" type="article">
                     <div className="flex items-center gap-2">
-                      <ArticleLikeIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                      <span className="text-gray-700 dark:text-gray-300">{likesCount}</span>
+                      <ArticleLikeIcon className="text-muted-foreground size-5" />
+                      <span className="text-muted-foreground">{likesCount}</span>
                     </div>
                   </LoginPromptDialog>
                 )}
                 <div className="flex items-center gap-2">
-                  <CommentIcon className="size-5 text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <CommentIcon className="text-muted-foreground size-5" />
+                  <span className="text-muted-foreground">
                     {article.article_comments[0]?.count ?? 0}
                   </span>
                 </div>
@@ -279,14 +264,14 @@ export function ArticleContent({
           </div>
 
           <div className="mt-8">
-            <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+            <h2 className="text-foreground mb-4 text-lg font-bold">
               Comments ({article.article_comments[0]?.count ?? 0})
             </h2>
 
             {/* コメントフォーム（ログイン時のみ表示） */}
             {isLoggedIn && <ArticleCommentForm articleId={article.id} />}
 
-            <div className="space-y-2 border-t border-gray-200 dark:border-gray-800">
+            <div className="border-border space-y-2 border-t">
               {comments && comments.length > 0 ? (
                 comments.map((comment) => (
                   <ArticleCommentTile
@@ -297,7 +282,7 @@ export function ArticleContent({
                   />
                 ))
               ) : (
-                <p className="py-4 text-center text-gray-500 dark:text-gray-400">No comments yet</p>
+                <p className="text-muted-foreground py-4 text-center">No comments yet</p>
               )}
             </div>
           </div>
@@ -306,13 +291,6 @@ export function ArticleContent({
             customMessage={`${t("preFollowMessage")}${article.profiles.display_name}${t("postFollowMessage")}`}
           />
         </div>
-
-        {/* 削除成功スナックバー */}
-        {showDeleteSuccess && (
-          <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-            {tDelete("success")}
-          </div>
-        )}
 
         {/* 報告ダイアログ */}
         {!isMyArticle && (

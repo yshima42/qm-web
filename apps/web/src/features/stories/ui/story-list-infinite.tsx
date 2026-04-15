@@ -7,13 +7,13 @@ import { useTranslations } from "next-intl";
 import { TranslatedAppDownloadSection } from "@/components/ui/translated-app-download-section";
 
 import { HabitCategoryName, HabitTileDto } from "@/lib/types";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
-
 import { useInfiniteStories } from "../hooks/use-infinite-stories";
+import { StoryListSkeleton } from "./story-tile-skeleton";
 import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
 import { StoryTile } from "./story-tile";
 import { StoryInlineForm } from "./story-inline-form";
 import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
+import { FeedCtaCard } from "@/features/common/ui/feed-cta-card";
 
 type Props = {
   category: HabitCategoryName;
@@ -62,16 +62,20 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
     );
   }
 
+  if (isLoading) {
+    return <StoryListSkeleton />;
+  }
+
   return (
     <>
       <PullToRefreshIndicator
-        isRefreshing={isRefreshing || isLoading}
+        isRefreshing={isRefreshing}
         pullProgress={pullProgress}
         shouldShow={shouldShowIndicator}
         idleLabel={tPull("pullToRefresh")}
         refreshingLabel={tPull("refreshing")}
       />
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-[600px]">
         {habits && habits.length > 0 && (
           <StoryInlineForm
             habits={habits}
@@ -80,19 +84,18 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
           />
         )}
 
-        {stories.map((story) => (
-          <StoryTile
-            key={story.id}
-            story={story}
-            isLoggedIn={isLoggedIn}
-            currentUserId={currentUserId}
-          />
+        {stories.map((story, index) => (
+          <div key={story.id}>
+            <StoryTile story={story} isLoggedIn={isLoggedIn} currentUserId={currentUserId} />
+            {!isLoggedIn && index === 2 && <FeedCtaCard />}
+            {!isLoggedIn && index > 2 && index % 10 === 9 && <FeedCtaCard />}
+          </div>
         ))}
 
         <div ref={ref} className="py-4">
-          {(isLoading || isFetchingNextPage) && (
+          {isFetchingNextPage && (
             <div className="flex justify-center">
-              <LoadingSpinner />
+              <StoryListSkeleton count={2} />
             </div>
           )}
           {!hasNextPage && stories.length > 0 && (
@@ -100,7 +103,7 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
               {t("noMoreStories", { defaultValue: "すべてのストーリーを読み込みました" })}
             </p>
           )}
-          {stories.length === 0 && !isLoading && (
+          {stories.length === 0 && (
             <p className="text-muted-foreground py-8 text-center text-sm">
               {t("noStories", { defaultValue: "まだストーリーがありません" })}
             </p>

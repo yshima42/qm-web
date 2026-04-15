@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { StoryListSkeleton } from "@/features/stories/ui/story-tile-skeleton";
 
 /**
  * サイドバー付きページ用のローディング
@@ -6,9 +6,5 @@ import { LoadingSpinner } from "@/components/ui/loading-spinner";
  * このローディングはコンテンツ部分のみに適用される
  */
 export default function Loading() {
-  return (
-    <div className="flex flex-1 items-center justify-center py-20">
-      <LoadingSpinner />
-    </div>
-  );
+  return <StoryListSkeleton />;
 }

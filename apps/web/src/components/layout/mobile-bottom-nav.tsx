@@ -5,6 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
+import { useHabits } from "@/features/habits/providers/habits-provider";
+import { getFirstHabitCommunityUrl } from "./sidebar-utils";
+
 type MobileBottomNavProps = {
   currentUserUsername?: string | null;
 };
@@ -13,8 +16,8 @@ export function MobileBottomNav({ currentUserUsername }: MobileBottomNavProps) {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
 
-  // ホームのパス（ルートにリダイレクトするとサーバー側で適切なパスにリダイレクトされる）
-  const homePath = "/";
+  const habits = useHabits();
+  const homePath = getFirstHabitCommunityUrl(habits);
   const habitsPath = "/habits";
 
   // ホームはルートパスまたはコミュニティタイムラインページでアクティブ
@@ -32,7 +35,7 @@ export function MobileBottomNav({ currentUserUsername }: MobileBottomNavProps) {
           href={homePath}
           aria-current={isHomeActive ? "page" : undefined}
           className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 text-[10px] font-medium transition-colors ${
-            isHomeActive ? "text-primary-light dark:text-primary-dark" : "text-muted-foreground"
+            isHomeActive ? "text-primary" : "text-muted-foreground"
           }`}
         >
           <Home className={`size-5 ${isHomeActive ? "fill-current" : ""}`} />
@@ -45,7 +48,7 @@ export function MobileBottomNav({ currentUserUsername }: MobileBottomNavProps) {
             href={habitsPath}
             aria-current={isHabitsActive ? "page" : undefined}
             className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 text-[10px] font-medium transition-colors ${
-              isHabitsActive ? "text-primary-light dark:text-primary-dark" : "text-muted-foreground"
+              isHabitsActive ? "text-primary" : "text-muted-foreground"
             }`}
           >
             <ClipboardCheck className={`size-5 ${isHabitsActive ? "fill-current" : ""}`} />

@@ -4,6 +4,8 @@ import { Geist } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 
+import { Toaster } from "sonner";
+
 import { Footer } from "@/components/layout/footer";
 import { SmartBanner } from "@/components/ui/smart-banner";
 import { QueryProvider } from "@/app/providers";
@@ -116,6 +118,7 @@ export default async function RootLayout({
                 profile={currentUserProfile}
               >
                 <HabitsProvider habits={habits}>
+                  <Toaster position="bottom-center" richColors />
                   <main className="flex min-h-screen flex-col items-center">
                     <div className="flex w-full flex-1 flex-col items-center">
                       <div className="flex w-full max-w-5xl">
