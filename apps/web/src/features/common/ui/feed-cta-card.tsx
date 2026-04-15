@@ -4,37 +4,35 @@ import { AppDownloadDialogTrigger } from "@quitmate/ui";
 import { Download, LogIn, X } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-const CTA_TRIGGER_COUNT = 5;
-const STORAGE_KEY = "feed_cta_dismissed";
-
-function getIsDismissed() {
-  return !!sessionStorage.getItem(STORAGE_KEY);
-}
+/** 初回表示までの投稿数 */
+const FIRST_TRIGGER = 5;
+/** バツで閉じた後、再表示するまでの追加投稿数 */
+const REPEAT_INTERVAL = 10;
 
 /**
  * 未ログインユーザー向けのフィードゲートモーダル
  * 一定数の投稿を読んだらオーバーレイで表示し、ログインまたはアプリDLを促す
- * バツボタンで閉じると同セッション中は再表示しない
+ * バツボタンで閉じてもスクロールを続けると再表示される
  */
 export function FeedGate({ viewedCount }: { viewedCount: number }) {
   const t = useTranslations("feed-cta");
   const tAppDownload = useTranslations("app-download-dialog");
-  const wasDismissedOnMount = useSyncExternalStore(
-    () => () => {},
-    getIsDismissed,
-    () => true,
-  );
-  const [dismissed, setDismissed] = useState(wasDismissedOnMount);
+  const [dismissedAt, setDismissedAt] = useState<number | null>(null);
 
-  if (dismissed || viewedCount < CTA_TRIGGER_COUNT) return null;
+  // 表示条件: 初回は FIRST_TRIGGER件目、閉じた後は閉じた時点から REPEAT_INTERVAL件後
+  const shouldShow =
+    dismissedAt === null
+      ? viewedCount >= FIRST_TRIGGER
+      : viewedCount >= dismissedAt + REPEAT_INTERVAL;
+
+  if (!shouldShow) return null;
 
   const handleDismiss = () => {
-    setDismissed(true);
-    sessionStorage.setItem(STORAGE_KEY, "1");
+    setDismissedAt(viewedCount);
   };
 
   return (
