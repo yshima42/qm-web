@@ -101,7 +101,11 @@
     "title": "一緒に依存を克服しよう",
     "description": "アプリで投稿したり、仲間を応援したりできます",
     "downloadApp": "アプリをダウンロード",
-    "signUp": "アカウント作成"
+    "signUp": "アカウント作成",
+    "loginLink": {
+      "prefix": "すでにアカウントをお持ちの方は",
+      "action": "ログイン"
+    }
   },
   "habit-register": {
     "title": "やめる習慣を登録",

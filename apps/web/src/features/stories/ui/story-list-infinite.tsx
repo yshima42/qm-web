@@ -13,7 +13,7 @@ import { usePullToRefresh } from "@/features/common/hooks/use-pull-to-refresh";
 import { StoryTile } from "./story-tile";
 import { StoryInlineForm } from "./story-inline-form";
 import { PullToRefreshIndicator } from "@/features/common/ui/pull-to-refresh-indicator";
-import { FeedCtaPopup } from "@/features/common/ui/feed-cta-card";
+import { FeedGate } from "@/features/common/ui/feed-cta-card";
 
 type Props = {
   category: HabitCategoryName;
@@ -93,7 +93,7 @@ export function StoryListInfinite({ category, isLoggedIn, habits, currentUserId 
           />
         ))}
 
-        {!isLoggedIn && <FeedCtaPopup viewedCount={stories.length} />}
+        {!isLoggedIn && <FeedGate viewedCount={stories.length} />}
 
         <div ref={ref} className="py-4">
           {isFetchingNextPage && (

@@ -16,10 +16,11 @@ function getIsDismissed() {
 }
 
 /**
- * 未ログインユーザー向けのフィード内CTAポップアップ
- * 投稿を一定数スクロールすると画面下部に表示される
+ * 未ログインユーザー向けのフィードゲートモーダル
+ * 一定数の投稿を読んだらオーバーレイで表示し、ログインまたはアプリDLを促す
+ * バツボタンで閉じると同セッション中は再表示しない
  */
-export function FeedCtaPopup({ viewedCount }: { viewedCount: number }) {
+export function FeedGate({ viewedCount }: { viewedCount: number }) {
   const t = useTranslations("feed-cta");
   const tAppDownload = useTranslations("app-download-dialog");
   const wasDismissedOnMount = useSyncExternalStore(
@@ -37,22 +38,21 @@ export function FeedCtaPopup({ viewedCount }: { viewedCount: number }) {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-16 z-40 flex justify-center px-4 md:bottom-4">
-      <div className="bg-card border-border w-full max-w-sm rounded-2xl border p-4 shadow-lg">
-        <div className="mb-3 flex items-start justify-between">
-          <div>
-            <p className="text-foreground text-sm font-bold">{t("title")}</p>
-            <p className="text-muted-foreground text-xs">{t("description")}</p>
-          </div>
-          <button
-            onClick={handleDismiss}
-            className="text-muted-foreground hover:text-foreground -mt-1 -mr-1 p-1"
-          >
-            <X className="size-4" />
-          </button>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-card relative w-full max-w-lg rounded-t-2xl px-6 pt-6 pb-8 shadow-2xl md:mt-auto md:mb-auto md:rounded-2xl">
+        <button
+          onClick={handleDismiss}
+          className="text-muted-foreground hover:text-foreground absolute top-4 right-4 p-1"
+        >
+          <X className="size-5" />
+        </button>
+
+        <div className="mb-2 text-center">
+          <p className="text-foreground text-lg font-bold">{t("title")}</p>
+          <p className="text-muted-foreground mt-1 text-sm">{t("description")}</p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="mt-6 flex flex-col gap-3">
           <AppDownloadDialogTrigger
             title={tAppDownload("title")}
             description={tAppDownload("description")}
@@ -60,18 +60,25 @@ export function FeedCtaPopup({ viewedCount }: { viewedCount: number }) {
             qrCodeAlt={tAppDownload("qrCodeAlt")}
             storeLabel={tAppDownload("storeLabel")}
           >
-            <Button size="sm" className="flex-1 cursor-pointer rounded-full">
-              <Download className="mr-1 size-3" />
+            <Button size="lg" className="w-full cursor-pointer rounded-full text-base">
+              <Download className="mr-2 size-5" />
               {t("downloadApp")}
             </Button>
           </AppDownloadDialogTrigger>
 
-          <Button asChild variant="outline" size="sm" className="flex-1 rounded-full">
+          <Button asChild variant="outline" size="lg" className="w-full rounded-full text-base">
             <Link href="/auth/sign-up">
-              <LogIn className="mr-1 size-3" />
+              <LogIn className="mr-2 size-5" />
               {t("signUp")}
             </Link>
           </Button>
+
+          <p className="text-muted-foreground mt-2 text-center text-xs">
+            {t("loginLink.prefix")}
+            <Link href="/auth/login" className="text-primary hover:underline">
+              {t("loginLink.action")}
+            </Link>
+          </p>
         </div>
       </div>
     </div>
