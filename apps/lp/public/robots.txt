@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: */rss.xml
+
+Host: https://about.quitmate.app
+Sitemap: https://about.quitmate.app/sitemap-index.xml

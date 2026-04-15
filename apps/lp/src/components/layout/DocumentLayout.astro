@@ -1,0 +1,29 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Props = {
+  title: string;
+  namespace?: string;
+};
+
+const { title, namespace } = Astro.props;
+const theme = getTheme(namespace);
+const isPorn = namespace === "porn";
+const cardBg = isPorn ? "bg-[#2d1b4e]/90" : "bg-white";
+const proseClass = isPorn
+  ? "prose max-w-none prose-headings:text-white prose-p:text-purple-200 prose-li:text-purple-200 prose-strong:text-white prose-a:text-purple-300"
+  : "prose max-w-none";
+---
+
+<div class={`min-h-screen ${theme.documentBg}`}>
+  <main class="p-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <div class={`rounded-lg ${cardBg} p-6 shadow-md sm:p-8`}>
+        <h1 class={`mb-4 text-2xl font-bold ${theme.titleColor} sm:mb-6 sm:text-3xl`}>{title}</h1>
+        <div class={proseClass}>
+          <slot />
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

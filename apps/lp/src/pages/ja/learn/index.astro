@@ -1,0 +1,96 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LearnBookCover from "@/components/learn/LearnBookCover.astro";
+import { useTranslations } from "@/i18n/utils";
+import {
+  LEARN_BOOKS,
+  getAllLearnPosts,
+  getBookTitle,
+  getBookSubtitle,
+  getCategoryLabel,
+  entryBookSlug,
+  bookUrl,
+} from "@/utils/learn";
+
+const locale = "ja";
+const t = useTranslations(locale);
+
+const allPosts = await getAllLearnPosts(locale);
+
+const books = LEARN_BOOKS.map((book) => ({
+  ...book,
+  displayTitle: getBookTitle(book, locale),
+  displaySubtitle: getBookSubtitle(book, locale),
+  categoryLabel: getCategoryLabel(book.category, locale),
+  chapterCount: allPosts.filter((ch) => entryBookSlug(ch) === book.slug).length,
+  href: bookUrl(locale, book.slug),
+}));
+---
+
+<BaseLayout title={t("learn.title")} description={t("learn.description")} locale={locale}>
+  <div class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <header class="mb-10">
+      <h1 class="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+        {t("learn.hero-title")}
+      </h1>
+      <p class="text-sm text-gray-500">
+        {t("learn.hero-description")}
+      </p>
+    </header>
+
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      {books.map((book) => {
+        const isPublished = book.chapterCount > 0;
+        return isPublished ? (
+          <a
+            href={book.href}
+            class="book-card group flex flex-col overflow-hidden rounded-xl bg-white transition-all"
+          >
+            <div class="flex justify-center bg-gray-50/80 px-6 pt-6 pb-4 transition-colors group-hover:bg-gray-100/80">
+              <LearnBookCover title={book.displayTitle} subtitle={book.displaySubtitle} category={book.category} size="md" />
+            </div>
+            <div class="flex flex-1 flex-col px-4 py-3.5">
+              <span class="mb-1 text-[10px] font-medium text-gray-400">
+                {book.categoryLabel}
+              </span>
+              <h3 class="mb-1.5 text-sm font-bold leading-snug text-gray-900 group-hover:text-primary-600">
+                {book.displayTitle}
+              </h3>
+              <div class="mt-auto flex items-center gap-2 text-xs text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                <span>{book.chapterCount}章</span>
+              </div>
+            </div>
+          </a>
+        ) : (
+          <div class="flex flex-col overflow-hidden rounded-xl border border-dashed border-gray-200 opacity-40">
+            <div class="flex justify-center bg-gray-50/50 px-6 pt-6 pb-4">
+              <LearnBookCover title={book.displayTitle} subtitle={book.displaySubtitle} category={book.category} size="md" />
+            </div>
+            <div class="flex flex-1 flex-col px-4 py-3.5">
+              <span class="mb-1 text-[10px] font-medium text-gray-300">{book.categoryLabel}</span>
+              <h3 class="mb-1.5 text-sm font-bold leading-snug text-gray-400">{book.displayTitle}</h3>
+              <p class="mt-auto text-xs text-gray-400">{t("learn.coming-soon")}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .book-card {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+  }
+  .book-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  .book-card:hover :global(.book-cover) {
+    transform: scale(1.02);
+  }
+</style>

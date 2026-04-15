@@ -1,0 +1,107 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import SocialProof from "@/components/sections/SocialProof.astro";
+import Features from "@/components/sections/Features.astro";
+import HowItWorks from "@/components/sections/HowItWorks.astro";
+import Reviews from "@/components/sections/Reviews.astro";
+import FAQ from "@/components/sections/FAQ.astro";
+import FinalCTA from "@/components/sections/FinalCTA.astro";
+import { useTranslations } from "@/i18n/utils";
+import { OGP_IMAGES } from "@/config/themes";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  locale: Locale;
+  namespace: string;
+};
+
+const { locale, namespace } = Astro.props;
+const t = useTranslations(locale, namespace);
+const tRoot = useTranslations(locale);
+
+const isMateLp = namespace === "kinshu" || namespace === "porn" || namespace === "tobacco";
+const featureIcon1 = isMateLp ? ("shield" as const) : ("users" as const);
+const ogImage = OGP_IMAGES[namespace] ? `https://about.quitmate.app${OGP_IMAGES[namespace]}` : undefined;
+---
+
+<BaseLayout
+  title={t("common.title")}
+  description={t("common.description")}
+  locale={locale}
+  namespace={namespace}
+  ogImage={ogImage}
+>
+  <Hero
+    title={t("hero.title")}
+    description={t("hero.description")}
+    locale={locale}
+    namespace={namespace}
+  />
+  <SocialProof
+    namespace={namespace}
+    stats={[
+      { value: tRoot("social-proof.stats.users.value"), label: tRoot("social-proof.stats.users.label") },
+      { value: tRoot("social-proof.stats.stories.value"), label: tRoot("social-proof.stats.stories.label") },
+      { value: tRoot("social-proof.stats.likes.value"), label: tRoot("social-proof.stats.likes.label") },
+      { value: tRoot("social-proof.stats.rating.value"), label: tRoot("social-proof.stats.rating.label") },
+    ]}
+    activity={tRoot("social-proof.activity")}
+    highlights={[
+      {
+        quote: tRoot("social-proof.highlight1.quote"),
+        author: tRoot("social-proof.highlight1.author"),
+        category: tRoot("social-proof.highlight1.category"),
+      },
+      {
+        quote: tRoot("social-proof.highlight2.quote"),
+        author: tRoot("social-proof.highlight2.author"),
+        category: tRoot("social-proof.highlight2.category"),
+      },
+    ]}
+  />
+  <Features
+    title={t("features.title")}
+    namespace={namespace}
+    features={[
+      { title: t("features.feature1.title"), description: t("features.feature1.description"), icon: featureIcon1 },
+      { title: t("features.feature2.title"), description: t("features.feature2.description"), icon: "message" },
+      { title: t("features.feature3.title"), description: t("features.feature3.description"), icon: "timer" },
+    ]}
+  />
+  <HowItWorks
+    title={t("how-it-works.title")}
+    namespace={namespace}
+    steps={[
+      { title: t("how-it-works.step1.title"), description: t("how-it-works.step1.description") },
+      { title: t("how-it-works.step2.title"), description: t("how-it-works.step2.description") },
+      { title: t("how-it-works.step3.title"), description: t("how-it-works.step3.description") },
+    ]}
+  />
+  <Reviews
+    title={t("testimonials.title")}
+    locale={locale}
+    namespace={namespace}
+    reviews={[
+      { name: t("testimonials.testimonial1.name"), category: namespace, message: t("testimonials.testimonial1.message") },
+      { name: t("testimonials.testimonial2.name"), category: namespace, message: t("testimonials.testimonial2.message") },
+      { name: t("testimonials.testimonial3.name"), category: namespace, message: t("testimonials.testimonial3.message") },
+    ]}
+  />
+  <FAQ
+    title={t("faq.title")}
+    namespace={namespace}
+    items={[
+      { question: t("faq.items.0.question"), answer: t("faq.items.0.answer") },
+      { question: t("faq.items.1.question"), answer: t("faq.items.1.answer") },
+      { question: t("faq.items.2.question"), answer: t("faq.items.2.answer") },
+      { question: t("faq.items.3.question"), answer: t("faq.items.3.answer") },
+    ]}
+  />
+  <FinalCTA
+    title={t("final-cta.title")}
+    description={t("final-cta.description")}
+    locale={locale}
+    namespace={namespace}
+  />
+</BaseLayout>

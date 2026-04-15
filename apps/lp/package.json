@@ -2,40 +2,28 @@
   "name": "lp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next build",
-    "lint": "next lint",
-    "lint:verbose": "eslint --format stylish .",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier --write './**/*.{js,ts,tsx,scss}'",
-    "prepack": "pinst --disable",
-    "postpack": "pinst --enable"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint .",
+    "format": "prettier --write './**/*.{js,ts,tsx,astro,scss}'"
   },
   "dependencies": {
-    "framer-motion": "^12.6.2",
-    "gray-matter": "^4.0.3",
-    "next": "15.2.8",
-    "next-intl": "^4.0.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-markdown": "^10.1.0",
-    "rehype-raw": "^7.0.0",
-    "rehype-sanitize": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.0.0",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/noto-sans-jp": "^5.2.10",
+    "@resvg/resvg-js": "^2.6.2",
+    "astro": "^5.7.0",
+    "remark-cjk-friendly": "^2.0.1",
+    "satori": "^0.26.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.6",
-    "tailwindcss": "^4",
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5"
   }
 }

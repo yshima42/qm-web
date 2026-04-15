@@ -1,0 +1,253 @@
+---
+import "@fontsource-variable/noto-sans-jp";
+import "@fontsource-variable/inter";
+import "@/styles/globals.css";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import StoreBadges from "@/components/sections/StoreBadges.astro";
+import { type Locale } from "@/i18n/config";
+import { STORE_URLS, SITE_NAMES } from "@/config/themes";
+
+type Props = {
+  title: string;
+  description?: string;
+  locale: Locale;
+  namespace?: string;
+  ogImage?: string;
+  noHeaderFooter?: boolean;
+  article?: {
+    headline: string;
+    publishedDate: string;
+    modifiedDate?: string;
+    category?: string;
+  };
+};
+
+const {
+  title,
+  description = "",
+  locale,
+  namespace = "",
+  ogImage,
+  noHeaderFooter = false,
+  article,
+} = Astro.props;
+
+const alternateLocale = locale === "ja" ? "en" : "ja";
+const currentPath = Astro.url.pathname.replace(`/${locale}`, "");
+const siteUrl = "https://about.quitmate.app";
+
+// カテゴリ別 document ページ (e.g. /alcohol/contact/) は default 版を canonical にする
+const docTypes = ["terms", "privacy", "contact"];
+const categories = ["/alcohol/", "/tobacco/", "/porn/", "/challenge/"];
+const isNamespacedDoc = namespace && docTypes.some((d) => currentPath.endsWith(`${d}/`))
+  && categories.some((c) => currentPath.includes(c));
+const canonicalPath = isNamespacedDoc
+  ? currentPath.replace(/^\/[^/]+/, "")  // "/alcohol/contact/" → "/contact/"
+  : currentPath;
+const canonicalUrl = `${siteUrl}/${locale}${canonicalPath}`;
+const ogImageUrl = ogImage ?? `${siteUrl}/images/${locale}/ogp.png`;
+
+// Apple Smart Banner: extract app ID from store URL
+const storeKey = namespace || "default";
+const appleUrl = STORE_URLS[storeKey]?.apple ?? STORE_URLS.default.apple;
+const appleAppId = appleUrl.match(/id(\d+)/)?.[1] ?? "";
+
+// Structured Data (SoftwareApplication) — non-article pages only
+const appName = SITE_NAMES[namespace] || "QuitMate";
+const softwareAppData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: appName,
+  applicationCategory: "HealthApplication",
+  operatingSystem: "iOS, Android",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "JPY",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    ratingCount: "202",
+    bestRating: "5",
+    worstRating: "1",
+  },
+};
+
+// Structured Data (BlogPosting + BreadcrumbList) — article pages only
+const blogPostingData = article
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: article.headline,
+      datePublished: article.publishedDate,
+      ...(article.modifiedDate && { dateModified: article.modifiedDate }),
+      author: {
+        "@type": "Organization",
+        name: "QuitMate",
+        url: siteUrl,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "QuitMate",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/images/icon.png`,
+        },
+      },
+      description,
+      image: ogImageUrl,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+      },
+      inLanguage: locale,
+      ...(article.category && { articleSection: article.category }),
+    }
+  : null;
+
+const breadcrumbData = article
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: locale === "ja" ? "ホーム" : "Home",
+          item: `${siteUrl}/${locale}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: locale === "ja" ? "ブログ" : "Blog",
+          item: `${siteUrl}/${locale}/blog/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: article.headline,
+        },
+      ],
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={alternateLocale} href={`${siteUrl}/${alternateLocale}${canonicalPath}`} />
+    <link rel="alternate" hreflang={locale} href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en${canonicalPath}`} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/images/icon.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/images/icon.png" />
+
+    <!-- Apple Smart Banner -->
+    {appleAppId && <meta name="apple-itunes-app" content={`app-id=${appleAppId}`} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="QuitMate" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    {article && <meta property="article:published_time" content={article.publishedDate} />}
+    {article?.modifiedDate && <meta property="article:modified_time" content={article.modifiedDate} />}
+    {article?.category && <meta property="article:section" content={article.category} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:creator" content="@QuitMate_JP" />
+
+    <!-- Structured Data -->
+    {article ? (
+      <script type="application/ld+json" set:html={JSON.stringify(blogPostingData)} />
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+    ) : (
+      <script type="application/ld+json" set:html={JSON.stringify(softwareAppData)} />
+    )}
+
+    <!-- RSS Autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title={locale === "ja" ? "QuitMate Journal (日本語)" : "QuitMate Journal (English)"} href={`${siteUrl}/${locale}/blog/rss.xml`} />
+
+
+    <!-- Google Analytics (deferred to reduce main-thread work) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E9SDLCKM7G');
+      (function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=G-E9SDLCKM7G';s.async=true;
+      if('requestIdleCallback' in window){requestIdleCallback(function(){document.head.appendChild(s)})}
+      else{setTimeout(function(){document.head.appendChild(s)},2000)}})();
+    </script>
+  </head>
+  <body class="min-h-screen font-sans antialiased">
+    {!noHeaderFooter && <Header locale={locale} namespace={namespace} />}
+    <main class="flex-1">
+      <slot />
+    </main>
+    {!noHeaderFooter && <Footer locale={locale} namespace={namespace} />}
+
+    <!-- モバイルスティッキーCTA（Heroを過ぎたら表示） -->
+    {!noHeaderFooter && (
+      <div id="sticky-cta" class="fixed inset-x-0 bottom-0 z-50 translate-y-full transition-transform duration-300 md:hidden">
+        <div class="border-t border-gray-200/60 bg-white/90 px-4 pb-[env(safe-area-inset-bottom)] pt-3 backdrop-blur-lg" style="padding-bottom: max(env(safe-area-inset-bottom), 12px);">
+          <div class="flex items-center justify-center gap-3">
+            <StoreBadges locale={locale} namespace={namespace} size="small" />
+          </div>
+        </div>
+      </div>
+    )}
+
+    <script is:inline>
+      // Scroll animation fallback for browsers without scroll-timeline
+      if (!CSS.supports('animation-timeline', 'view()')) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-scale-in, .stagger-children').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // モバイルスティッキーCTA: Heroを過ぎたら表示
+      (function() {
+        const stickyCta = document.getElementById('sticky-cta');
+        const hero = document.querySelector('section');
+        if (!stickyCta || !hero) return;
+
+        const obs = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            stickyCta.classList.add('translate-y-full');
+            stickyCta.classList.remove('translate-y-0');
+          } else {
+            stickyCta.classList.remove('translate-y-full');
+            stickyCta.classList.add('translate-y-0');
+          }
+        }, { threshold: 0 });
+        obs.observe(hero);
+      })();
+    </script>
+  </body>
+</html>

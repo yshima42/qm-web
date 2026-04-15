@@ -1,0 +1,89 @@
+---
+import { type Locale } from "@/i18n/config";
+import { useTranslations } from "@/i18n/utils";
+import {
+  getBookBySlug,
+  getBookTitle,
+  getBookChapters,
+  chapterUrl,
+  entryChapterSlug,
+  bookUrl,
+  groupByPart,
+  getPartLabel,
+} from "@/utils/learn";
+import LearnBookCover from "./LearnBookCover.astro";
+
+type Props = {
+  bookSlug: string;
+  locale: Locale;
+  currentSlug?: string;
+};
+
+const { bookSlug, locale, currentSlug } = Astro.props;
+const t = useTranslations(locale);
+
+const book = getBookBySlug(bookSlug)!;
+const bookTitle = getBookTitle(book, locale);
+const chapters = await getBookChapters(locale, bookSlug);
+const grouped = groupByPart(chapters);
+---
+
+<nav class="learn-sidebar-nav" aria-label={t("learn.sidebar.title")}>
+  <a
+    href={bookUrl(locale, bookSlug)}
+    class="mb-5 flex items-center gap-3 border-b border-gray-200 pb-4 transition-opacity hover:opacity-80"
+  >
+    <LearnBookCover title={bookTitle} category={book.category} size="sm" />
+    <span class="text-sm font-bold leading-snug text-gray-900">{bookTitle}</span>
+  </a>
+
+  {chapters.length === 0 ? (
+    <p class="text-sm text-gray-500">{t("blog.content-preparing")}</p>
+  ) : (
+    <div class="space-y-4">
+      {grouped.map((part) => (
+        <div>
+          <h4 class="mb-1 px-2 text-[11px] font-semibold tracking-wide text-gray-400">
+            {getPartLabel(part.code, locale)}
+          </h4>
+          <ol class="space-y-0.5">
+            {part.chapters.map((chapter) => {
+              const slug = entryChapterSlug(chapter);
+              const isCurrent = slug === currentSlug;
+              const num = String(chapter.data.chapter).padStart(2, "0");
+              return (
+                <li>
+                  <a
+                    href={chapterUrl(locale, bookSlug, chapter)}
+                    class:list={[
+                      "flex items-start gap-2.5 rounded-md px-2 py-1.5 text-[13px] leading-snug transition-colors",
+                      isCurrent
+                        ? "bg-primary-50 font-bold text-gray-900"
+                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-800",
+                    ]}
+                    aria-current={isCurrent ? "page" : undefined}
+                  >
+                    <span
+                      class:list={[
+                        "mt-px inline-block w-6 flex-shrink-0 font-mono text-xs",
+                        isCurrent ? "font-bold text-primary-600" : "text-gray-400",
+                      ]}
+                    >{num}</span>
+                    <span class="line-clamp-2">
+                      {chapter.data.title}
+                      {chapter.data.required && (
+                        <span class="ml-1 inline-flex translate-y-[-1px] items-center rounded bg-amber-100 px-1 py-px text-[10px] font-bold leading-none text-amber-700">
+                          {t("learn.chapter.required-label")}
+                        </span>
+                      )}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      ))}
+    </div>
+  )}
+</nav>

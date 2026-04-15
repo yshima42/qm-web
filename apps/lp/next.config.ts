@@ -5,11 +5,6 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  eslint: {
-    // 警告とエラーをビルド時に表示するが、ビルドを失敗させない
-    ignoreDuringBuilds: false,
-    dirs: ["src"],
-  },
   images: {
     domains: [],
     // Vercel Image Optimization の無料枠超過対策（変換数を抑える）

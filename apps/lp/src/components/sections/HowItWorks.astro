@@ -1,0 +1,51 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Step = {
+  title: string;
+  description: string;
+};
+
+type Props = {
+  title: string;
+  steps: Step[];
+  namespace?: string;
+};
+
+const { title, steps, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+---
+
+<section class="section-base">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="animate-on-scroll mb-14 text-center md:mb-18">
+      {title}
+    </h2>
+
+    <div class="stagger-children relative grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
+      {/* 接続線（デスクトップのみ） */}
+      <div
+        class="pointer-events-none absolute left-[16%] right-[16%] top-[3.5rem] hidden h-0.5 md:block"
+        style={`background: linear-gradient(to right, transparent, ${theme.accentColor}60, ${theme.accentColor}60, transparent)`}
+        aria-hidden="true"
+      />
+
+      {steps.map((step, index) => (
+        <div class="card relative flex flex-col items-center p-8 text-center">
+          <div
+            class="mb-5 flex size-12 items-center justify-center rounded-xl text-lg font-bold text-white"
+            style={`background: ${theme.accentColor}`}
+          >
+            {String(index + 1).padStart(2, '0')}
+          </div>
+          <h3 class="mb-2 text-lg font-bold md:text-xl">
+            {step.title}
+          </h3>
+          <p class="text-sm leading-relaxed text-[var(--sub-foreground)] md:text-base">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

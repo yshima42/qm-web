@@ -1,0 +1,400 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary-light: #2E6C28;
+  --color-primary-dark: #78DC77;
+  --color-primary-50: #f0f7ef;
+  --color-primary-100: #d8ecd5;
+  --color-primary-200: #b0d8ac;
+  --color-primary-300: #89c283;
+  --color-primary-400: #5ca954;
+  --color-primary-500: #3E8E34;
+  --color-primary-600: #2E6C28;
+  --color-primary-700: #255520;
+  --color-primary-800: #1c4018;
+  --color-primary-900: #132c10;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: "Noto Sans JP Variable", sans-serif;
+  --font-display: "Inter Variable", "Noto Sans JP Variable", sans-serif;
+
+  --container-2xl: 1400px;
+}
+
+:root {
+  --background: #FAFAF8;
+  --foreground: #1A1A1A;
+  --sub-foreground: #6B6B6B;
+  --section-alt: #FFFFFF;
+  --radius: 1rem;
+}
+
+html {
+  /* スクロールバー有無で横位置がズレないように常に gutter を確保 */
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "palt";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Typography ===== */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  line-height: 1.35;
+}
+
+/* ブログ・教科書の本文は palt を解除して読みやすく */
+.blog-article .prose {
+  font-feature-settings: normal;
+}
+
+/* ブログ記事内はLP用のスタイルを無効化し、Noto Sans JPに統一 */
+.blog-article h1,
+.blog-article h2,
+.blog-article h3,
+.blog-article h4 {
+  font-family: 'Noto Sans JP Variable', sans-serif;
+  font-size: revert;
+  font-weight: 800;
+  line-height: revert;
+  letter-spacing: 0;
+}
+
+/* prose内の最初の要素の上マージンを除去 */
+.blog-article .prose > :first-child,
+.blog-article .prose > :first-child img {
+  margin-top: 0;
+}
+
+/* ===== 注釈ブロック（教科書の用語説明等） ===== */
+
+.prose .note {
+  position: relative;
+  font-size: 0.85rem;
+  color: #78350f;
+  background: #fff7ed;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.85rem 0.25rem 2.25rem;
+  margin: 1.5rem 0;
+  line-height: 1.7;
+}
+
+.prose .note::before {
+  content: "";
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: #d97706;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* ===== ワークシートブロック（テンプレート・チェックリスト等） ===== */
+
+.prose .worksheet {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  padding: 0 0.75rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prose .worksheet p {
+  margin: 0;
+}
+
+.prose .worksheet p:first-child {
+  margin-top: 0;
+}
+
+.prose .worksheet p:last-child {
+  margin-bottom: 0;
+}
+
+.prose .worksheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.prose .worksheet-grid > div {
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  white-space: pre-wrap;
+}
+
+.prose .worksheet-grid p {
+  margin: 0;
+}
+
+/* ===== 折りたたみ参考文献（教科書章末用） ===== */
+
+/* prose 内に出現するので、prose のデフォルトスタイルを上書きしつつ控えめに見せる */
+.prose .references-details {
+  margin-top: 0.5rem;
+}
+
+.prose .references-summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+  user-select: none;
+  transition: color 0.15s ease-out;
+}
+
+.prose .references-summary:hover {
+  color: #374151;
+}
+
+.prose .references-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 三角アイコン（疑似要素） */
+.prose .references-summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+  color: #9ca3af;
+}
+
+.prose .references-details[open] > .references-summary::before {
+  transform: rotate(90deg);
+}
+
+/* 開いたときの本文（参考文献リスト）は控えめに表示 */
+.prose .references-details[open] > *:not(.references-summary) {
+  font-size: 0.85em;
+  color: #6b7280;
+  margin-top: 0.75rem;
+}
+
+.prose .references-details ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.prose .references-details li {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.6;
+}
+
+/* ===== Section Layout ===== */
+
+.section-base {
+  padding: 5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-base {
+    padding: 6rem 2rem;
+  }
+}
+
+.section-alt {
+  background: var(--section-alt);
+}
+
+/* ===== Cards ===== */
+
+.card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.card:hover {
+  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Stat Number (Social Proof) ===== */
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* ===== Scroll-triggered Animations ===== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: fade-in-up 0.6s ease-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fade-in 0.6s ease-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+.animate-scale-in {
+  opacity: 0;
+  animation: scale-in 0.6s ease-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+/* Stagger children */
+.stagger-children > * {
+  opacity: 0;
+  animation: fade-in-up 0.5s ease-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 500ms; }
+
+/* ===== Page-load Animation (Hero等) ===== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.2s; }
+.reveal-delay-3 { animation-delay: 0.3s; }
+.reveal-delay-4 { animation-delay: 0.4s; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-fade-in,
+  .animate-scale-in,
+  .stagger-children > *,
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Fallback for browsers without scroll-timeline */
+@supports not (animation-timeline: view()) {
+  .animate-on-scroll,
+  .animate-fade-in,
+  .animate-scale-in,
+  .stagger-children > * {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .animate-on-scroll.is-visible,
+  .animate-fade-in.is-visible,
+  .animate-scale-in.is-visible,
+  .stagger-children.is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+}

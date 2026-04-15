@@ -26,6 +26,7 @@ export async function fetchArticlesXml({ limit }: FetchXmlParams = {}) {
     const result = await supabase
       .from("articles")
       .select(ARTICLE_XML_SELECT_QUERY)
+      .eq("is_published", true)
       .lte("created_at", now)
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order("created_at", { ascending: false });
@@ -92,6 +93,8 @@ export async function fetchProfilesXml({ limit }: FetchXmlParams = {}) {
     const result = await supabase
       .from("profiles")
       .select("user_name, created_at")
+      .not("bio", "is", null)
+      .neq("bio", "")
       .range(page * pageSize, (page + 1) * pageSize - 1)
       .order("created_at", { ascending: false });
 

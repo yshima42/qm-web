@@ -1,0 +1,86 @@
+---
+import { getTheme, STORE_URLS } from "@/config/themes";
+import StoreBadges from "./StoreBadges.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: Locale;
+  namespace?: string;
+};
+
+const { title, description, locale, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
+
+const storeKey = namespace || "default";
+const storeUrls = STORE_URLS[storeKey] ?? STORE_URLS.default;
+
+const closingRaw = t("final-cta.closing");
+const closingText = closingRaw !== "final-cta.closing" ? closingRaw : "";
+---
+
+<section
+  class="section-base relative overflow-hidden text-center"
+  style={`background: ${theme.lightText ? 'linear-gradient(135deg, #2a1035, #4a1a5f)' : `linear-gradient(160deg, ${theme.accentColor}14, ${theme.accentColor}22 50%, ${theme.accentColor}14)`}`}
+>
+  <!-- 装飾ブロブ -->
+  <div class="pointer-events-none absolute -left-20 -top-20 size-96 rounded-full blur-3xl" style={`background: radial-gradient(circle, ${theme.accentColor}18 0%, transparent 70%)`} aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -bottom-20 -right-20 size-80 rounded-full blur-3xl" style={`background: radial-gradient(circle, ${theme.accentColor}12 0%, transparent 70%)`} aria-hidden="true"></div>
+
+  <div class="animate-on-scroll relative z-10 mx-auto max-w-2xl">
+    <h2 class={`mb-5 md:mb-7 ${theme.lightText ? 'text-white' : ''}`}>
+      {title}
+    </h2>
+    <p class={`mx-auto mb-12 max-w-lg text-base leading-relaxed md:text-lg ${theme.lightText ? 'text-white/80' : 'text-[var(--sub-foreground)]'}`}>
+      {description}
+    </p>
+
+    <div class="mb-10 flex justify-center">
+      <div class="hidden md:block">
+        <StoreBadges locale={locale} namespace={namespace} size="xl" />
+      </div>
+      <div class="block md:hidden">
+        <StoreBadges locale={locale} namespace={namespace} size="large" />
+      </div>
+    </div>
+
+    <!-- QRコード（デスクトップのみ） -->
+    <div class="hidden items-center justify-center gap-10 md:flex">
+      <div class="flex flex-col items-center gap-3">
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(storeUrls.apple)}`}
+            alt="App Store QR Code"
+            width="120"
+            height="120"
+            class="rounded-lg"
+            loading="lazy"
+          />
+        </div>
+        <span class={`text-xs font-medium ${theme.lightText ? 'text-white/70' : 'text-[var(--sub-foreground)]'}`}>App Store</span>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(storeUrls.google)}`}
+            alt="Google Play QR Code"
+            width="120"
+            height="120"
+            class="rounded-lg"
+            loading="lazy"
+          />
+        </div>
+        <span class={`text-xs font-medium ${theme.lightText ? 'text-white/70' : 'text-[var(--sub-foreground)]'}`}>Google Play</span>
+      </div>
+    </div>
+
+    {closingText && (
+      <p class={`mt-8 text-sm ${theme.lightText ? 'text-white/70' : 'text-[var(--sub-foreground)]'}`}>
+        {closingText}
+      </p>
+    )}
+  </div>
+</section>

@@ -1,0 +1,66 @@
+---
+import { getTheme } from "@/config/themes";
+
+type Feature = {
+  title: string;
+  description: string;
+  icon: "users" | "message" | "timer" | "shield";
+};
+
+type Props = {
+  title: string;
+  features: Feature[];
+  namespace?: string;
+};
+
+const { title, features, namespace } = Astro.props;
+const theme = getTheme(namespace);
+
+const iconSvgs: Record<Feature["icon"], string> = {
+  users:
+    '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  timer: '<path d="M10 2h4"/><path d="M12 14l3-3"/><circle cx="12" cy="14" r="8"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+};
+---
+
+<section class="section-base">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="animate-on-scroll mb-14 text-center md:mb-20">
+      {title}
+    </h2>
+
+    <div class="stagger-children grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+      {features.map((feature) => (
+        <div class="card group p-8 text-center">
+          <div
+            class="mx-auto mb-5 flex size-14 items-center justify-center rounded-2xl transition-transform duration-200 group-hover:scale-110 md:size-16"
+            style={`background: linear-gradient(135deg, ${theme.accentColor}, ${theme.accentColor}CC)`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <Fragment set:html={iconSvgs[feature.icon]} />
+            </svg>
+          </div>
+
+          <h3 class="mb-3 text-lg font-bold md:text-xl">
+            {feature.title}
+          </h3>
+          <p class="text-sm leading-relaxed text-[var(--sub-foreground)] md:text-base">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

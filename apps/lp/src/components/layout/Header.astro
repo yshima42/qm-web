@@ -1,0 +1,142 @@
+---
+import { getTheme, NAMESPACE_TO_PATH } from "@/config/themes";
+import { type Locale } from "@/i18n/config";
+import { useTranslations, getAlternateLocaleUrl } from "@/i18n/utils";
+import Logo from "../sections/Logo.astro";
+
+type Props = {
+  locale: Locale;
+  namespace?: string;
+};
+
+const { locale, namespace = "" } = Astro.props;
+const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
+const basePath = NAMESPACE_TO_PATH[namespace] ?? "";
+const prefix = `/${locale}${basePath}`;
+const alternateLocale = locale === "ja" ? "en" : "ja";
+const alternateUrl = getAlternateLocaleUrl(Astro.url, alternateLocale);
+
+const linkClass = `${theme.navText} ${theme.navHover} transition-colors`;
+const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
+---
+
+<header class={`sticky top-0 z-50 w-full backdrop-blur-md ${theme.headerBg} transition-shadow duration-300 will-change-transform`} data-sticky-header>
+  <div class="mx-auto flex max-w-6xl items-center justify-between p-4">
+    <Logo locale={locale} namespace={namespace} lightText={theme.lightText} />
+
+    <!-- デスクトップ用ナビゲーション -->
+    <div class={`hidden items-center gap-4 text-base md:flex ${theme.navText}`}>
+      <nav class="flex gap-5 font-medium">
+        {!namespace && (
+          <a href={`/${locale}/learn/`} class={linkClass}>
+            {t("header.links.learn")}
+          </a>
+        )}
+        {!namespace && (
+          <a href={`/${locale}/blog/`} class={linkClass}>
+            {t("header.links.blog")}
+          </a>
+        )}
+        {namespace && (
+          <a href={`/${locale}/`} class={`font-bold ${linkClass}`}>
+            {t("header.links.otherDependencies")}
+          </a>
+        )}
+      </nav>
+      {!namespace && (
+        <a
+          href={alternateUrl}
+          class="flex w-[80px] items-center justify-center rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          aria-label={`${alternateLocale.toUpperCase()} に切り替え`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" />
+          </svg>
+          {alternateLocale.toUpperCase()}
+        </a>
+      )}
+    </div>
+
+    <!-- モバイル用 -->
+    <div class="flex items-center gap-4 md:hidden">
+      {!namespace && (
+        <a
+          href={alternateUrl}
+          class="flex w-[80px] items-center justify-center rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" />
+          </svg>
+          {alternateLocale.toUpperCase()}
+        </a>
+      )}
+      <button
+        class={`p-2 ${theme.navText}`}
+        aria-label={t("header.label.menu")}
+        data-mobile-menu-toggle
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-menu-icon>
+          <line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" data-close-icon>
+          <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- モバイルメニュー -->
+  <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.headerBg}`} data-mobile-menu>
+    <nav class="flex flex-col space-y-4">
+      {!namespace && (
+        <a href={`/${locale}/learn/`} class={mobileLinkClass}>{t("header.links.learn")}</a>
+      )}
+      {!namespace && (
+        <a href={`/${locale}/blog/`} class={mobileLinkClass}>{t("header.links.blog")}</a>
+      )}
+      {namespace && (
+        <a href={`/${locale}/`} class={`font-bold ${mobileLinkClass}`}>{t("header.links.otherDependencies")}</a>
+      )}
+      <a href={`${prefix}/terms/`} class={mobileLinkClass}>{t("header.links.terms")}</a>
+      <a href={`${prefix}/privacy/`} class={mobileLinkClass}>{t("header.links.privacy")}</a>
+      <a href={`${prefix}/contact/`} class={mobileLinkClass}>{t("header.links.contact")}</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-mobile-menu-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  const menuIcon = document.querySelector("[data-menu-icon]");
+  const closeIcon = document.querySelector("[data-close-icon]");
+  const header = document.querySelector("[data-sticky-header]");
+
+  // モバイルメニューの開閉
+  toggle?.addEventListener("click", () => {
+    const isOpen = !menu?.classList.contains("hidden");
+    menu?.classList.toggle("hidden");
+    menuIcon?.classList.toggle("hidden");
+    closeIcon?.classList.toggle("hidden");
+    if (!isOpen) {
+      menu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menu?.classList.add("hidden");
+          menuIcon?.classList.remove("hidden");
+          closeIcon?.classList.add("hidden");
+        }, { once: true });
+      });
+    }
+  });
+
+  // スクロール時にヘッダーにシャドウを付与
+  if (header) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        header.classList.add("shadow-md");
+      } else {
+        header.classList.remove("shadow-md");
+      }
+    }, { passive: true });
+  }
+</script>

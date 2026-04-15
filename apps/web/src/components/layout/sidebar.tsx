@@ -12,6 +12,7 @@ import {
   Settings,
   Smartphone,
   UserRound,
+  Newspaper,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { EXTERNAL_URLS } from "@/lib/urls";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
 import { HabitCategoryName } from "@/lib/types";
@@ -52,10 +54,9 @@ export function SidebarContent({
 }: SidebarContentProps) {
   const pathname = usePathname();
   const t = useTranslations("sidebar");
+  const tConfig = useTranslations("config");
   const tCategory = useTranslations("categories");
   const tAppDownload = useTranslations("app-download-dialog");
-  const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false); // デフォルトは閉じた状態
-
   // 習慣データを取得（Providerから、存在しない場合は空配列）
   // React Hooksのルールに従い、常に同じ順序で呼び出す
   const habits = useHabits();
@@ -73,7 +74,9 @@ export function SidebarContent({
     return { myCategories: categorized.myCategories, otherCategories: otherCats };
   }, [habits, habitCategories]);
 
-  // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ、デフォルトは閉じた状態）
+  const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false);
+
+  // 現在のパスが「その他コミュニティ」に含まれる場合は開く（初回のみ）
   useEffect(() => {
     const currentCategory = habitCategories.find((cat) => {
       const href = getCategoryUrl(cat);
@@ -83,7 +86,7 @@ export function SidebarContent({
       setIsOtherCommunityOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 初回のみ実行（現在のページがその他コミュニティの場合のみ開く）
+  }, []);
 
   return (
     <div className="flex h-full flex-col">
@@ -101,7 +104,7 @@ export function SidebarContent({
               height={24}
               className="h-8 w-auto"
             />
-            {!compact && <span className="text-2xl font-medium leading-tight">QuitMate</span>}
+            {!compact && <span className="text-2xl leading-tight font-medium">QuitMate</span>}
           </Link>
         </div>
       )}
@@ -324,6 +327,15 @@ export function SidebarContent({
           label={t("articles")}
           href="/articles"
           active={pathname === "/articles"}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
+        {/* ブログ（外部サイト） */}
+        <SidebarIcon
+          icon={Newspaper}
+          label={t("blog")}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/blog`}
+          active={false}
           showLabel={!compact}
           onClick={handleLinkClick}
         />

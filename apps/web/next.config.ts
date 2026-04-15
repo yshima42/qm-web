@@ -15,12 +15,12 @@ function getSupabaseDomain(): string {
 }
 
 const supabaseDomain = getSupabaseDomain();
-const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://www.google-analytics.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://www.google-analytics.com${supabaseDomain ? ` ${supabaseDomain}` : ""}; upgrade-insecure-requests;`;
+const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://www.google-analytics.com${supabaseDomain ? ` ${supabaseDomain}` : ""}; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://www.google-analytics.com${supabaseDomain ? ` ${supabaseDomain}` : ""}; upgrade-insecure-requests;`;
 
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    // Vercel Image Optimization の無料枠超過対策（変換数を抑える）
+    // Vercel Hobby プランの画像最適化上限(1000枚/月)超過防止
     unoptimized: true,
     remotePatterns: [
       {

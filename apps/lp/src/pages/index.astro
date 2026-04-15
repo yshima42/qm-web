@@ -1,0 +1,22 @@
+---
+// ルートのリダイレクトは Cloudflare Pages Function (functions/index.js) で処理
+// この HTML は Function が動作しなかった場合のフォールバック
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://about.quitmate.app/en/" />
+    <script is:inline>
+      var lang = (navigator.language || "").toLowerCase();
+      location.replace(lang.startsWith("ja") ? "/ja/" : "/en/");
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/" />
+  </head>
+  <body>
+    <a href="/en/">Redirecting...</a>
+  </body>
+</html>

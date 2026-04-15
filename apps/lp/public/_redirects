@@ -1,0 +1,24 @@
+# ロケールなしページ → /en/（デフォルトロケール）
+/contact /en/contact/ 301
+/privacy /en/privacy/ 301
+/terms /en/terms/ 301
+/apps /en/apps/ 301
+
+# カテゴリページ
+/alcohol/* /en/alcohol/:splat 301
+/alcohol /en/alcohol/ 301
+/tobacco/* /en/tobacco/:splat 301
+/tobacco /en/tobacco/ 301
+/porn/* /en/porn/:splat 301
+/porn /en/porn/ 301
+/challenge/* /en/challenge/:splat 301
+/challenge /en/challenge/ 301
+
+# 旧 /jp/ ロケール → /ja/
+/jp/* /ja/:splat 301
+/jp /ja/ 301
+
+# ロケールなしブログ → /en/blog/（画像パスは除外）
+/blog/images/* /blog/images/:splat 200
+/blog/* /en/blog/:splat 301
+/blog /en/blog/ 301

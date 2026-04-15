@@ -1,7 +1,8 @@
 {
   "tasks": {
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "dev:local": {
       "cache": false
@@ -20,6 +21,10 @@
       "cache": false,
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**", "out/**"]
+    },
+    "lp-astro#build": {
+      "cache": false,
+      "outputs": ["dist/**"]
     }
   }
 }

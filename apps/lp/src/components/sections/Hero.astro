@@ -1,0 +1,240 @@
+---
+import { getTheme, SCREENSHOT_CONFIG } from "@/config/themes";
+import StoreBadges from "./StoreBadges.astro";
+import NeuralNetworkBackground from "./NeuralNetworkBackground.astro";
+import GradientOrbsBackground from "./GradientOrbsBackground.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: Locale;
+  namespace?: string;
+  eyebrow?: string;
+  categoryBadges?: string[];
+};
+
+const { title, description, locale, namespace = "", eyebrow, categoryBadges } = Astro.props;
+const theme = getTheme(namespace);
+const t = useTranslations(locale, namespace || undefined);
+
+const config = SCREENSHOT_CONFIG[namespace] ?? SCREENSHOT_CONFIG.default;
+const screenshotLocale = namespace ? "ja" : locale;
+// 画像は public/images/ に 810px 幅で事前最適化済み
+const screenshots = config.map(({ image, altKey }) => ({
+  src: `/images/${screenshotLocale}/${image}`,
+  alt: altKey,
+}));
+
+const socialProofRaw = t("hero.social-proof");
+const socialProofText = socialProofRaw !== "hero.social-proof" ? socialProofRaw : "";
+---
+
+<section class="hero-section relative">
+  <NeuralNetworkBackground accentColor={theme.accentColor} />
+  <GradientOrbsBackground accentColor={theme.accentColor} />
+  <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-6 md:flex-row md:gap-12">
+    <!-- テキスト側 -->
+    <div class="flex max-w-xl flex-1 flex-col items-center text-center md:items-start md:text-left">
+      {socialProofText && (
+        <div class="reveal mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm md:mb-6">
+          <span class="flex gap-0.5" role="img" aria-label="4.8 out of 5 stars">
+            {[...Array(4)].map(() => (
+              <svg class="size-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+            <svg class="size-4" viewBox="0 0 20 20" aria-hidden="true">
+              <defs>
+                <linearGradient id="star-partial">
+                  <stop offset="70%" stop-color="#f59e0b" />
+                  <stop offset="70%" stop-color="#d1d5db" />
+                </linearGradient>
+              </defs>
+              <path fill="url(#star-partial)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </span>
+          <span class="text-[var(--sub-foreground)]">{socialProofText}</span>
+        </div>
+      )}
+
+      <h1 class="reveal reveal-delay-1 mb-3 md:mb-7">
+        {eyebrow && (
+          <span class="mb-2 block text-sm font-medium tracking-normal text-[var(--sub-foreground)]">
+            {eyebrow}
+          </span>
+        )}
+        {title}
+      </h1>
+
+      <p class="reveal reveal-delay-2 mb-3 text-lg leading-relaxed text-[var(--sub-foreground)] md:mb-4 md:text-xl">
+        {description}
+      </p>
+
+      {categoryBadges && categoryBadges.length > 0 && (
+        <div class="mb-6 hidden flex-wrap gap-2 md:mb-10 md:flex">
+          {categoryBadges.map((label) => (
+            <span class="rounded-full border border-gray-200 bg-white/80 px-3 py-1 text-sm text-[var(--sub-foreground)]">
+              {label}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div class="reveal reveal-delay-3 flex flex-col items-center gap-4 md:items-start">
+        <div class="hidden md:block">
+          <StoreBadges locale={locale} namespace={namespace} size="xl" eager />
+        </div>
+        <div class="block md:hidden">
+          <StoreBadges locale={locale} namespace={namespace} size="large" eager />
+        </div>
+      </div>
+    </div>
+
+    <!-- スクリーンショット -->
+    <div class="reveal reveal-delay-2 relative flex flex-1 items-center justify-center">
+      <div class="phone-area">
+        <div class="phone-frame">
+          <div class="screenshot-viewer" data-screenshots={JSON.stringify(screenshots)}>
+            <img
+              src={screenshots[0].src}
+              alt={screenshots[0].alt}
+              width="810"
+              height="1751"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+        <!-- インジケーター -->
+        <div class="mt-4 flex justify-center gap-2">
+          {screenshots.map((_, i) => (
+            <div
+              class="hero-dot size-2 cursor-pointer rounded-full transition-opacity duration-300"
+              style={`background: ${theme.accentColor}; opacity: ${i === 0 ? 1 : 0.3};`}
+              data-index={i}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LCP preload -->
+<link rel="preload" href={screenshots[0].src} as="image" slot="head" />
+
+<script is:inline>
+(function () {
+  const viewer = document.querySelector('.screenshot-viewer');
+  if (!viewer) return;
+  const screenshots = JSON.parse(viewer.dataset.screenshots);
+  if (screenshots.length <= 1) return;
+
+  const img = viewer.querySelector('img');
+  const dots = document.querySelectorAll('.hero-dot');
+  let current = 0;
+  let timer;
+
+  function show(index) {
+    current = index;
+    img.style.opacity = '0.8';
+    setTimeout(() => {
+      img.src = screenshots[current].src;
+      img.alt = screenshots[current].alt;
+      img.style.opacity = '1';
+    }, 150);
+    dots.forEach((dot, i) => {
+      dot.style.opacity = i === current ? '1' : '0.3';
+    });
+  }
+
+  function startAutoPlay() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      show((current + 1) % screenshots.length);
+    }, 4000);
+  }
+
+  // スワイプ
+  let touchStartX = 0;
+  viewer.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  viewer.addEventListener('touchend', (e) => {
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) {
+      const next = dx > 0
+        ? (current + 1) % screenshots.length
+        : (current - 1 + screenshots.length) % screenshots.length;
+      show(next);
+      startAutoPlay();
+    }
+  });
+
+  // インジケータークリック
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => { show(i); startAutoPlay(); });
+  });
+
+  startAutoPlay();
+})();
+</script>
+
+<style>
+  .hero-section {
+    padding: 4.5rem 1.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      padding: 4rem 2rem 1rem;
+    }
+  }
+
+  .phone-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phone-frame {
+    width: 250px;
+    padding: 10px;
+    background: #1a1a1a;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.12),
+      inset 0 0 1px 0.5px rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 8px 16px rgba(0, 0, 0, 0.08),
+      0 16px 32px rgba(0, 0, 0, 0.06),
+      0 32px 64px rgba(0, 0, 0, 0.04);
+  }
+
+  .screenshot-viewer {
+    position: relative;
+    aspect-ratio: 1170 / 2532;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .screenshot-viewer img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: opacity 300ms;
+  }
+
+  @media (min-width: 768px) {
+    .phone-frame {
+      width: 270px;
+    }
+  }
+</style>
