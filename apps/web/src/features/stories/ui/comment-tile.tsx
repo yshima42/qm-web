@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { CommentTileDto } from "@/lib/types";
 
@@ -52,10 +53,7 @@ export function CommentTile({
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [showMuteSuccess, setShowMuteSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(isMutedOwner);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyComment = currentUserId === comment.user_id;
@@ -70,9 +68,7 @@ export function CommentTile({
       const result = await muteUser(comment.user_id);
       if (result.success) {
         setIsMuted(true);
-        setSuccessMessage(t("success"));
-        setShowMuteSuccess(true);
-        setTimeout(() => setShowMuteSuccess(false), 3000);
+        toast.success(t("success"));
         router.refresh();
       }
       setMenuOpen(false);
@@ -84,9 +80,7 @@ export function CommentTile({
       const result = await unmuteUser(comment.user_id);
       if (result.success) {
         setIsMuted(false);
-        setSuccessMessage(t("unmuteSuccess"));
-        setShowMuteSuccess(true);
-        setTimeout(() => setShowMuteSuccess(false), 3000);
+        toast.success(t("unmuteSuccess"));
         router.refresh();
       }
       setMenuOpen(false);
@@ -100,8 +94,7 @@ export function CommentTile({
     startTransition(async () => {
       const result = await deleteComment(comment.id);
       if (result.success) {
-        setShowDeleteSuccess(true);
-        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        toast.success(tDelete("success"));
         router.refresh();
       } else {
         // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
@@ -137,8 +130,14 @@ export function CommentTile({
     locale: ja,
   });
 
+  const isReply = !!comment.parent_comment_id;
+
   return (
-    <div className="border-border flex border-b p-3 pl-12">
+    <div
+      className={`border-border flex border-b p-3 ${
+        isReply ? "border-primary/30 border-l-2 pl-14" : "pl-12"
+      }`}
+    >
       {/* アバター */}
       <div className="mr-2">
         <UserAvatar
@@ -151,8 +150,8 @@ export function CommentTile({
 
       {/* コメント本文 */}
       <div className="flex-1">
-        <div className="mb-0.5 flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
+        <div className="mb-1 flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <Link href={`/${comment.profiles.user_name}`} className="hover:underline">
               <span className="text-foreground text-sm font-bold">
                 {comment.profiles.display_name}
@@ -169,8 +168,8 @@ export function CommentTile({
           {isLoggedIn && (
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="size-6">
-                  <MoreHorizontal className="size-3" />
+                <Button variant="ghost" size="icon" className="size-8">
+                  <MoreHorizontal className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -221,7 +220,7 @@ export function CommentTile({
           )}
         </div>
 
-        <p className="text-foreground whitespace-pre-wrap text-sm">
+        <p className="text-foreground text-sm whitespace-pre-wrap">
           {/* 返信先表示（返信コメントの場合） */}
           {comment.parent_comment?.profiles?.display_name && (
             <span className="text-primary mr-1 font-medium">
@@ -267,20 +266,6 @@ export function CommentTile({
           </AppDownloadDialogTrigger>
         </div>
       </div>
-
-      {/* ミュート成功スナックバー */}
-      {showMuteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {successMessage}
-        </div>
-      )}
-
-      {/* 削除成功スナックバー */}
-      {showDeleteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {tDelete("success")}
-        </div>
-      )}
 
       {/* 報告ダイアログ */}
       {!isMyComment && (

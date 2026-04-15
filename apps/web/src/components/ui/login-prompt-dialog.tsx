@@ -1,6 +1,7 @@
 "use client";
 
-import { Heart } from "lucide-react";
+import { AppDownloadDialogTrigger } from "@quitmate/ui";
+import { Download, Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ReactNode, useState } from "react";
@@ -24,6 +25,7 @@ type LoginPromptDialogProps = {
 export function LoginPromptDialog({ children, className, type = "story" }: LoginPromptDialogProps) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("login-prompt");
+  const tAppDownload = useTranslations("app-download-dialog");
 
   const title = type === "article" ? t("article-title") : t("story-title");
   const description = type === "article" ? t("article-description") : t("story-description");
@@ -40,12 +42,27 @@ export function LoginPromptDialog({ children, className, type = "story" }: Login
           <DialogDescription className="text-center">{description}</DialogDescription>
         </DialogHeader>
         <div className="mt-4 flex flex-col gap-3">
+          <AppDownloadDialogTrigger
+            title={tAppDownload("title")}
+            description={tAppDownload("description")}
+            qrCodeLabel={tAppDownload("qrCodeLabel")}
+            qrCodeAlt={tAppDownload("qrCodeAlt")}
+            storeLabel={tAppDownload("storeLabel")}
+          >
+            <Button className="w-full cursor-pointer">
+              <Download className="mr-2 size-4" />
+              {t("download-app")}
+            </Button>
+          </AppDownloadDialogTrigger>
           <Button asChild className="w-full" variant="outline">
-            <Link href="/auth/login">{t("login")}</Link>
-          </Button>
-          <Button asChild className="w-full">
             <Link href="/auth/sign-up">{t("sign-up")}</Link>
           </Button>
+          <p className="text-muted-foreground text-center text-xs">
+            {t("login-prefix")}
+            <Link href="/auth/login" className="text-primary hover:underline">
+              {t("login")}
+            </Link>
+          </p>
         </div>
       </DialogContent>
     </Dialog>

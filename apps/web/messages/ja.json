@@ -97,6 +97,16 @@
     "title": "依存克服SNS QuitMate",
     "message": "もっと多くのストーリーを読むには\nアプリをダウンロードしよう"
   },
+  "feed-cta": {
+    "title": "一緒に依存を克服しよう",
+    "description": "アプリで投稿したり、仲間を応援したりできます",
+    "downloadApp": "アプリをダウンロード",
+    "signUp": "アカウント作成",
+    "loginLink": {
+      "prefix": "すでにアカウントをお持ちの方は",
+      "action": "ログイン"
+    }
+  },
   "habit-register": {
     "title": "やめる習慣を登録",
     "description": "新しい習慣を登録します",
@@ -168,6 +178,7 @@
     "habits": "習慣",
     "articles": "記事",
     "blog": "ブログ",
+    "learn": "教科書",
     "app": "アプリ",
     "habitCategories": "習慣カテゴリー",
     "myCommunity": "マイコミュニティ",
@@ -298,7 +309,9 @@
     "article-title": "共感した記事、応援したい記事に「応援」しましょう。",
     "article-description": "アカウントを作成すると、記事を「応援」できます。",
     "login": "ログイン",
-    "sign-up": "アカウント作成"
+    "login-prefix": "すでにアカウントをお持ちの方は",
+    "sign-up": "アカウント作成",
+    "download-app": "アプリをダウンロード"
   },
   "comment-form": {
     "placeholder": "コメントを追加...",

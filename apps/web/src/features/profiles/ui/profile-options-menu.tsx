@@ -4,6 +4,7 @@ import { useState, useTransition, useEffect } from "react";
 import { MoreHorizontal, VolumeX, Volume2, Flag } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import {
   DropdownMenu,
@@ -28,9 +29,7 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [showSuccess, setShowSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(initialIsMuted);
-  const [successMessage, setSuccessMessage] = useState("");
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   // propsが変わったらstateを同期
@@ -43,9 +42,7 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
       const result = await muteUser(targetUserId);
       if (result.success) {
         setIsMuted(true);
-        setSuccessMessage(t("success"));
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
+        toast.success(t("success"));
         onMuteSuccess?.();
         router.refresh();
       }
@@ -58,9 +55,7 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
       const result = await unmuteUser(targetUserId);
       if (result.success) {
         setIsMuted(false);
-        setSuccessMessage(t("unmuteSuccess"));
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
+        toast.success(t("unmuteSuccess"));
         router.refresh();
       }
       setOpen(false);
@@ -110,13 +105,6 @@ export function ProfileOptionsMenu({ targetUserId, initialIsMuted = false, onMut
         onOpenChange={setReportDialogOpen}
         reportDTO={{ type: ReportType.user, itemId: targetUserId }}
       />
-
-      {/* スナックバー表示 */}
-      {showSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {successMessage}
-        </div>
-      )}
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState, useTransition, useEffect, useRef } from "react";
+import { useState, useSyncExternalStore, useTransition, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,6 @@ export function StoryInlineForm({
   const [error, setError] = useState<string | null>(null);
   const [content, setContent] = useState("");
   const [commentSetting, setCommentSetting] = useState<CommentSetting>("enabled");
-  const [isMounted, setIsMounted] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const activeHabits = getActiveHabits(habits);
@@ -46,10 +45,12 @@ export function StoryInlineForm({
 
   const { remaining, isOverLimit, showCount, progress } = useCharacterCount(content);
 
-  // ハイドレーションミスマッチを防ぐため、マウント後にのみ表示
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // ハイドレーションミスマッチを防ぐため、サーバーではfalse、クライアントではtrue
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   // テキストエリアの高さを自動調整
   useEffect(() => {
@@ -102,7 +103,7 @@ export function StoryInlineForm({
     <div className="border-border bg-card border-b">
       <form onSubmit={handleSubmit} className="flex flex-col">
         {/* 習慣選択とコメント設定 */}
-        <div className="flex items-center gap-1.5 px-3 pb-1.5 pt-2 md:gap-2 md:px-4 md:pb-2 md:pt-3">
+        <div className="flex items-center gap-2 px-3 pt-3 pb-2 md:px-4">
           <HabitSelectDropdown
             habits={activeHabits}
             selectedHabitId={selectedHabitId}
@@ -113,7 +114,7 @@ export function StoryInlineForm({
         </div>
 
         {/* テキストエリア */}
-        <div className="px-3 py-1.5 md:px-4 md:py-2">
+        <div className="px-3 py-2 md:px-4">
           <textarea
             ref={textareaRef}
             name="content"
@@ -128,13 +129,13 @@ export function StoryInlineForm({
         </div>
 
         {error && (
-          <div className="px-3 pb-1.5 md:px-4 md:pb-2">
+          <div className="px-3 pb-2 md:px-4">
             <p className="text-xs text-red-500 md:text-sm">{error}</p>
           </div>
         )}
 
         {/* フッター（文字数カウント、投稿ボタン） */}
-        <div className="flex items-center justify-end gap-2 px-3 pb-2 pt-1.5 md:gap-3 md:px-4 md:pb-3 md:pt-2">
+        <div className="flex items-center justify-end gap-2 px-3 pt-2 pb-3 md:gap-3 md:px-4">
           <CharacterCountIndicator
             remaining={remaining}
             isOverLimit={isOverLimit}
@@ -145,7 +146,7 @@ export function StoryInlineForm({
           <Button
             type="submit"
             disabled={isPending || !content.trim() || isOverLimit}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-1.5 text-xs font-semibold disabled:opacity-50 md:px-6 md:py-2 md:text-sm"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-2 text-xs font-semibold disabled:opacity-50 md:px-6 md:text-sm"
           >
             {t("postButton")}
           </Button>

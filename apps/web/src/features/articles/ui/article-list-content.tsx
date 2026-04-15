@@ -39,7 +39,7 @@ export function ArticleListContent({ initialArticles, isLoggedIn }: ArticleListC
         idleLabel={tPull("pullToRefresh")}
         refreshingLabel={tPull("refreshing")}
       />
-      <div className="mx-auto max-w-2xl space-y-2">
+      <div className="mx-auto max-w-[600px] space-y-2">
         {articles.map((article) => (
           <ArticleTile key={article.id} article={article} isLoggedIn={isLoggedIn} />
         ))}

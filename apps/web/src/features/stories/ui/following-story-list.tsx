@@ -5,13 +5,12 @@ import { useInView } from "react-intersection-observer";
 import { useTranslations } from "next-intl";
 import { UserPlus } from "lucide-react";
 
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
-
 import { HabitTileDto } from "@/lib/types";
 
 import { useInfiniteFollowingStories } from "../hooks/use-infinite-following-stories";
 import { StoryTile } from "./story-tile";
 import { StoryInlineForm } from "./story-inline-form";
+import { StoryListSkeleton } from "./story-tile-skeleton";
 
 type Props = {
   habits?: HabitTileDto[];
@@ -46,10 +45,14 @@ export function FollowingStoryList({ habits, currentUserId }: Props) {
     );
   }
 
+  if (isLoading) {
+    return <StoryListSkeleton />;
+  }
+
   // 空状態
-  if (!isLoading && stories.length === 0) {
+  if (stories.length === 0) {
     return (
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-[600px]">
         {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="bg-muted mb-4 rounded-full p-4">
@@ -63,7 +66,7 @@ export function FollowingStoryList({ habits, currentUserId }: Props) {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-[600px]">
       {habits && habits.length > 0 && <StoryInlineForm habits={habits} />}
 
       {stories.map((story) => (
@@ -72,9 +75,9 @@ export function FollowingStoryList({ habits, currentUserId }: Props) {
 
       {/* ローディング & 読み込みトリガー */}
       <div ref={ref} className="py-4">
-        {(isLoading || isFetchingNextPage) && (
+        {isFetchingNextPage && (
           <div className="flex justify-center">
-            <LoadingSpinner />
+            <StoryListSkeleton count={2} />
           </div>
         )}
         {!hasNextPage && stories.length > 0 && (

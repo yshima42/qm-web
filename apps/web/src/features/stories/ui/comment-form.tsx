@@ -16,9 +16,10 @@ type Props = {
   storyId: string;
   replyTarget?: ParentCommentInfo | null;
   onCancelReply?: () => void;
+  onOptimisticAdd?: (content: string, parentComment?: ParentCommentInfo | null) => void;
 };
 
-export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
+export function CommentForm({ storyId, replyTarget, onCancelReply, onOptimisticAdd }: Props) {
   const t = useTranslations("comment-form");
   const [content, setContent] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -49,14 +50,15 @@ export function CommentForm({ storyId, replyTarget, onCancelReply }: Props) {
       return;
     }
 
+    // 楽観的更新
+    onOptimisticAdd?.(content, replyTarget);
+    setContent("");
+    onCancelReply?.();
+
     startTransition(async () => {
       const result = await createComment(storyId, content, replyTarget?.id);
 
-      if (result.success) {
-        setContent("");
-        setError(null);
-        onCancelReply?.(); // 返信モードをリセット
-      } else {
+      if (!result.success) {
         setError(t("postFailed"));
       }
     });

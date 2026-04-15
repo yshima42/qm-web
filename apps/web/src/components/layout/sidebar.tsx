@@ -13,6 +13,7 @@ import {
   Smartphone,
   UserRound,
   Newspaper,
+  GraduationCap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -88,12 +89,14 @@ export function SidebarContent({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const homeHref = getFirstHabitCommunityUrl(habits) || getCategoryUrl("All" as HabitCategoryName);
+
   return (
     <div className="flex h-full flex-col">
       {!skipLogo && (
         <div className={`mb-6 shrink-0 py-3 ${compact ? "flex justify-center" : "px-4"}`}>
           <Link
-            href="/"
+            href={homeHref}
             className={`flex items-end gap-1 ${compact ? "justify-center" : ""}`}
             onClick={handleLinkClick}
           >
@@ -276,7 +279,7 @@ export function SidebarContent({
               onClick={() => setIsOtherCommunityOpen(!isOtherCommunityOpen)}
               className={`flex items-center rounded-md py-2 transition-colors ${
                 !compact ? "w-full justify-between gap-4 px-4" : "w-full justify-center px-2"
-              } text-muted-foreground hover:bg-primary-light/10 hover:text-primary-light dark:hover:bg-primary-dark/10 dark:hover:text-primary-dark hover:font-medium`}
+              } text-muted-foreground hover:bg-primary/10 hover:text-primary hover:font-medium`}
               title={!compact ? t("otherCommunity") : undefined}
             >
               {compact ? (
@@ -335,6 +338,15 @@ export function SidebarContent({
           icon={Newspaper}
           label={t("blog")}
           href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/blog`}
+          active={false}
+          showLabel={!compact}
+          onClick={handleLinkClick}
+        />
+        {/* 教科書（外部サイト） */}
+        <SidebarIcon
+          icon={GraduationCap}
+          label={t("learn")}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/learn`}
           active={false}
           showLabel={!compact}
           onClick={handleLinkClick}
