@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 /** 初回表示までの投稿数 */
-const FIRST_TRIGGER = 5;
+const FIRST_TRIGGER = 15;
 /** バツで閉じた後、再表示するまでの追加投稿数 */
 const REPEAT_INTERVAL = 10;
 
