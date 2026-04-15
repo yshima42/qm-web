@@ -6,6 +6,8 @@ import {
   ChevronDown,
   ChevronRight,
   Compass,
+  GraduationCap,
+  Newspaper,
   Settings,
   Smartphone,
   Users,
@@ -16,6 +18,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
 import { CATEGORY_ICONS, HABIT_CATEGORIES, getCategoryUrl } from "@/lib/categories";
+import { EXTERNAL_URLS } from "@/lib/urls";
 import { cn } from "@/lib/utils";
 import { useHabits } from "@/features/habits/providers/habits-provider";
 import {
@@ -36,6 +39,7 @@ export function MobileSidebarContent({
   const pathname = usePathname();
   const t = useTranslations("sidebar");
   const tCategory = useTranslations("categories");
+  const tConfig = useTranslations("config");
   const tAppDownload = useTranslations("app-download-dialog");
   const [isOtherCommunityOpen, setIsOtherCommunityOpen] = useState(false);
 
@@ -205,6 +209,24 @@ export function MobileSidebarContent({
           label={t("articles")}
           href="/articles"
           active={pathname === "/articles"}
+          showLabel
+          onClick={handleLinkClick}
+        />
+        {/* ブログ（外部サイト） */}
+        <SidebarIcon
+          icon={Newspaper}
+          label={t("blog")}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/blog`}
+          active={false}
+          showLabel
+          onClick={handleLinkClick}
+        />
+        {/* 教科書（外部サイト） */}
+        <SidebarIcon
+          icon={GraduationCap}
+          label={t("learn")}
+          href={`${EXTERNAL_URLS.LP}/${tConfig("language-code")}/learn`}
+          active={false}
           showLabel
           onClick={handleLinkClick}
         />

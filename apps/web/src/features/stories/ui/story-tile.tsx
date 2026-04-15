@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition, useEffect } from "react";
 import { MoreHorizontal, VolumeX, Volume2, Trash2, Flag } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { StoryTileDto } from "@/lib/types";
 
@@ -56,11 +57,9 @@ export function StoryTile({
   const [likesCount, setLikesCount] = useState(story.likes[0]?.count ?? 0);
   const [isPending, startTransition] = useTransition();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showMuteSuccess, setShowMuteSuccess] = useState(false);
   const [isMuted, setIsMuted] = useState(isMutedOwner);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
+  const [likeAnimating, setLikeAnimating] = useState(false);
 
   // propsが変わったらstateを同期
   useEffect(() => {
@@ -74,9 +73,7 @@ export function StoryTile({
       const result = await muteUser(story.user_id);
       if (result.success) {
         setIsMuted(true);
-        setSuccessMessage(t("success"));
-        setShowMuteSuccess(true);
-        setTimeout(() => setShowMuteSuccess(false), 3000);
+        toast.success(t("success"));
         router.refresh();
       }
       setMenuOpen(false);
@@ -88,9 +85,7 @@ export function StoryTile({
       const result = await unmuteUser(story.user_id);
       if (result.success) {
         setIsMuted(false);
-        setSuccessMessage(t("unmuteSuccess"));
-        setShowMuteSuccess(true);
-        setTimeout(() => setShowMuteSuccess(false), 3000);
+        toast.success(t("unmuteSuccess"));
         router.refresh();
       }
       setMenuOpen(false);
@@ -104,8 +99,7 @@ export function StoryTile({
     startTransition(async () => {
       const result = await deleteStory(story.id);
       if (result.success) {
-        setShowDeleteSuccess(true);
-        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        toast.success(tDelete("success"));
         router.refresh();
       } else {
         // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
@@ -121,6 +115,10 @@ export function StoryTile({
     // 楽観的更新（即座にUI更新）
     setIsLiked(shouldLike);
     setLikesCount((prev) => (shouldLike ? prev + 1 : prev - 1));
+    if (shouldLike) {
+      setLikeAnimating(true);
+      setTimeout(() => setLikeAnimating(false), 350);
+    }
 
     // バックグラウンドでDB保存
     startTransition(async () => {
@@ -182,35 +180,24 @@ export function StoryTile({
 
   return (
     <div
-      className="hover:bg-accent/5 block cursor-pointer border-b border-gray-300 transition-colors dark:border-gray-700"
+      className="hover:bg-accent/5 border-border block cursor-pointer border-b transition-colors"
       onClick={handleClick}
     >
       <div className="flex px-0 py-4">
         {/* アバター部分 */}
         <div
-          className="mr-2 md:mr-3"
+          className="mr-3"
           onClick={(e) => {
             e.stopPropagation();
-            // ここでプロフィールページに遷移
             router.push(`/${story.profiles.user_name}`);
           }}
         >
-          <div className="md:hidden">
-            <UserAvatar
-              username={story.profiles.user_name}
-              displayName={story.profiles.display_name}
-              avatarUrl={story.profiles.avatar_url}
-              size="sm"
-            />
-          </div>
-          <div className="hidden md:block">
-            <UserAvatar
-              username={story.profiles.user_name}
-              displayName={story.profiles.display_name}
-              avatarUrl={story.profiles.avatar_url}
-              size="md"
-            />
-          </div>
+          <UserAvatar
+            username={story.profiles.user_name}
+            displayName={story.profiles.display_name}
+            avatarUrl={story.profiles.avatar_url}
+            size="md"
+          />
         </div>
 
         {/* メインコンテンツ */}
@@ -222,7 +209,7 @@ export function StoryTile({
               e.stopPropagation();
             }}
           >
-            <div className="flex items-center gap-1.5 md:gap-2">
+            <div className="flex items-center gap-2">
               <Link href={`/${story.profiles.user_name}`} className="hover:underline">
                 <span className="text-foreground text-sm font-bold md:text-base">
                   {story.profiles.display_name}
@@ -296,7 +283,7 @@ export function StoryTile({
           {/* クリック可能領域 - 全体がクリック可能になったので特別なクラスは不要 */}
           <div>
             {/* 習慣カテゴリーとカウント */}
-            <div className="mb-1.5 flex items-center gap-1.5 md:mb-2 md:gap-2">
+            <div className="mb-2 flex items-center gap-2">
               <CategoryTag
                 category={story.habit_categories.habit_category_name}
                 customHabitName={story.custom_habit_name}
@@ -308,12 +295,12 @@ export function StoryTile({
 
             {/* 本文 - AutoLinkTextを使用 */}
             <div
-              className="text-foreground mb-2.5 whitespace-pre-wrap text-sm md:mb-3 md:text-base"
+              className="text-foreground mb-3 text-sm whitespace-pre-wrap md:text-base"
               onClick={handleContentClick}
             >
               <AutoLinkText text={displayContent} />
               {isContentTruncated && (
-                <span className="ml-1 cursor-pointer text-xs font-medium text-green-800 md:text-sm dark:text-green-500">
+                <span className="text-primary ml-1 cursor-pointer text-xs font-medium md:text-sm">
                   {tStories("showMore")}
                 </span>
               )}
@@ -338,13 +325,12 @@ export function StoryTile({
               {isLoggedIn ? (
                 <button
                   onClick={handleLike}
-                  disabled={isPending}
-                  className="flex cursor-pointer items-center gap-1 transition-colors disabled:opacity-50"
+                  className="flex cursor-pointer items-center gap-1 transition-colors"
                 >
                   <StoryLikeIcon
                     className={`size-4 transition-colors md:size-5 ${
                       isLiked ? "fill-green-600 text-green-600" : ""
-                    }`}
+                    } ${likeAnimating ? "animate-like-bounce" : ""}`}
                   />
                   <span className={`text-xs md:text-sm ${isLiked ? "text-green-600" : ""}`}>
                     {likesCount}
@@ -362,20 +348,6 @@ export function StoryTile({
           </div>
         </div>
       </div>
-
-      {/* ミュート成功スナックバー */}
-      {showMuteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {successMessage}
-        </div>
-      )}
-
-      {/* 削除成功スナックバー */}
-      {showDeleteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {tDelete("success")}
-        </div>
-      )}
 
       {/* 報告ダイアログ */}
       {!isMyStory && (

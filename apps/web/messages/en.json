@@ -137,6 +137,16 @@
     "title": "Addiction Recovery SNS QuitMate",
     "message": "To read more stories, download the app"
   },
+  "feed-cta": {
+    "title": "Quit together with others",
+    "description": "Post your story and support others on the app",
+    "downloadApp": "Download the App",
+    "signUp": "Create Account",
+    "loginLink": {
+      "prefix": "Already have an account? ",
+      "action": "Log in"
+    }
+  },
   "habit-register": {
     "title": "Register Habit to Quit",
     "description": "Register a new habit",
@@ -190,6 +200,7 @@
     "habits": "Habits",
     "articles": "Articles",
     "blog": "Blog",
+    "learn": "Textbook",
     "app": "App",
     "habitCategories": "Habit Categories",
     "myCommunity": "My Community",
@@ -320,7 +331,9 @@
     "article-title": "Support articles you relate to or want to cheer on.",
     "article-description": "Create an account to support articles.",
     "login": "Log in",
-    "sign-up": "Create account"
+    "login-prefix": "Already have an account? ",
+    "sign-up": "Create account",
+    "download-app": "Download the App"
   },
   "comment-form": {
     "placeholder": "Add a comment...",

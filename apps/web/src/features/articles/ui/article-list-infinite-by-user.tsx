@@ -98,7 +98,7 @@ export function ArticleListInfiniteByUser({ userId, isLoggedIn }: Props) {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-[600px]">
       {articles.map((article) => (
         <ArticleTile key={article.id} article={article} isLoggedIn={isLoggedIn} />
       ))}

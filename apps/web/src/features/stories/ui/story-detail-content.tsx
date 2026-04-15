@@ -44,7 +44,7 @@ export function StoryDetailContent({
         idleLabel={tPull("pullToRefresh")}
         refreshingLabel={tPull("refreshing")}
       />
-      <div className="mx-auto max-w-2xl space-y-6">
+      <div className="mx-auto max-w-[600px] space-y-6">
         <StoryTile
           story={story}
           disableLink

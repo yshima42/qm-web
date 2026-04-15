@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { ArrowLeft, VolumeX } from "lucide-react";
 import Link from "next/link";
 
@@ -19,15 +20,13 @@ export function MutedAccountsContent({ initialMutedUsers }: Props) {
   const tMute = useTranslations("mute");
   const [mutedUsers, setMutedUsers] = useState(initialMutedUsers);
   const [isPending, startTransition] = useTransition();
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleUnmute = (userId: string) => {
     startTransition(async () => {
       const result = await unmuteUser(userId);
       if (result.success) {
         setMutedUsers((prev) => prev.filter((user) => user.id !== userId));
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
+        toast.success(tMute("unmuteSuccess"));
       }
     });
   };
@@ -76,13 +75,6 @@ export function MutedAccountsContent({ initialMutedUsers }: Props) {
               </Button>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* スナックバー表示 */}
-      {showSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {tMute("unmuteSuccess")}
         </div>
       )}
     </div>

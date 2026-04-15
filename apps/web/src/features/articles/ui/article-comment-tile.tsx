@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { MoreHorizontal, Trash2, Flag } from "lucide-react";
 
 import { ArticleCommentTileDto } from "@/lib/types";
@@ -36,7 +37,6 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
   const tReport = useTranslations("report");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const isMyComment = currentUserId === comment.user_id;
@@ -48,8 +48,7 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
     startTransition(async () => {
       const result = await deleteArticleComment(comment.id);
       if (result.success) {
-        setShowDeleteSuccess(true);
-        setTimeout(() => setShowDeleteSuccess(false), 3000);
+        toast.success(tDelete("success"));
         router.refresh();
       } else {
         // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
@@ -130,7 +129,7 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
             </DropdownMenu>
           )}
         </div>
-        <p className="text-foreground whitespace-pre-wrap text-sm">{comment.content}</p>
+        <p className="text-foreground text-sm whitespace-pre-wrap">{comment.content}</p>
 
         {/* Like button */}
         <div className="text-muted-foreground mt-1 flex items-center gap-1">
@@ -149,13 +148,6 @@ export function ArticleCommentTile({ comment, isLoggedIn = false, currentUserId 
           </AppDownloadDialogTrigger>
         </div>
       </div>
-
-      {/* 削除成功スナックバー */}
-      {showDeleteSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {tDelete("success")}
-        </div>
-      )}
 
       {/* 報告ダイアログ */}
       {!isMyComment && (

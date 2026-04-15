@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import {
   Dialog,
@@ -55,21 +56,16 @@ export function ReportDialog({ open, onOpenChange, reportDTO }: ReportDialogProp
   const t = useTranslations("reportDialog");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleReport = () => {
     startTransition(async () => {
       const result = await reportItem(reportDTO);
       if (result.success) {
-        setShowSuccess(true);
-        setTimeout(() => {
-          setShowSuccess(false);
-          onOpenChange(false);
-          router.refresh();
-        }, 2000);
+        toast.success(t("reportComplete"));
+        onOpenChange(false);
+        router.refresh();
       } else {
-        // エラー時はコンソールに出力（将来的にスナックバーで表示する場合は翻訳を使用）
-        console.error("[ReportDialog] Error:", result.error);
+        toast.error(result.error ?? "Report failed");
       }
     });
   };
@@ -94,13 +90,6 @@ export function ReportDialog({ open, onOpenChange, reportDTO }: ReportDialogProp
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* 成功メッセージ */}
-      {showSuccess && (
-        <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-green-600 px-4 py-2 text-white shadow-lg">
-          {t("reportComplete")}
-        </div>
-      )}
     </>
   );
 }
