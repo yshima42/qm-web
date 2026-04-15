@@ -309,7 +309,9 @@
     "article-title": "共感した記事、応援したい記事に「応援」しましょう。",
     "article-description": "アカウントを作成すると、記事を「応援」できます。",
     "login": "ログイン",
-    "sign-up": "アカウント作成"
+    "login-prefix": "すでにアカウントをお持ちの方は",
+    "sign-up": "アカウント作成",
+    "download-app": "アプリをダウンロード"
   },
   "comment-form": {
     "placeholder": "コメントを追加...",

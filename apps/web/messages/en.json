@@ -331,7 +331,9 @@
     "article-title": "Support articles you relate to or want to cheer on.",
     "article-description": "Create an account to support articles.",
     "login": "Log in",
-    "sign-up": "Create account"
+    "login-prefix": "Already have an account? ",
+    "sign-up": "Create account",
+    "download-app": "Download the App"
   },
   "comment-form": {
     "placeholder": "Add a comment...",
