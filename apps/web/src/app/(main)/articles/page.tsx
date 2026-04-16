@@ -2,13 +2,13 @@ import { Logo } from "@quitmate/ui";
 import { Suspense } from "react";
 
 import { Header } from "@/components/layout/header";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
 import { fetchProfileByUsername } from "@/features/profiles/data/data";
 
 import { fetchArticles } from "@/features/articles/data/data";
 
 import { ArticleList } from "@/features/articles/ui/article-list";
+import { ArticleListSkeleton } from "@/features/articles/ui/article-tile-skeleton";
 
 export default async function Page() {
   // ヘッダー用のプロフィール情報
@@ -28,11 +28,11 @@ export default async function Page() {
         }
         currentUserProfile={currentUserProfile}
       />
-      <Suspense fallback={<LoadingSpinner fullHeight />}>
-        <div className="p-3 sm:p-5">
+      <main className="p-3 sm:p-5">
+        <Suspense fallback={<ArticleListSkeleton />}>
           <ArticleList fetchArticlesFunc={fetchArticles} />
-        </div>
-      </Suspense>
+        </Suspense>
+      </main>
     </>
   );
 }
