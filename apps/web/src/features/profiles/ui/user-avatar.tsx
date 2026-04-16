@@ -62,8 +62,12 @@ export function UserAvatar({
 
   // リンク付きかどうかで要素を分ける
   if (linkable && username !== "unknown") {
+    // showUsername=true の時はリンク内に display_name / @user のテキストがあるので
+    // aria-label を付けるとスクリーンリーダがそちらを読まなくなる。
+    // accessible name が画像の alt しか無い showUsername=false のときだけ補う。
+    const ariaLabel = showUsername ? undefined : `${displayName ?? username}のプロフィール`;
     return (
-      <Link href={`/${username}`} className="flex items-center gap-2">
+      <Link href={`/${username}`} className="flex items-center gap-2" aria-label={ariaLabel}>
         {avatarElement}
         {userInfoElement}
       </Link>
