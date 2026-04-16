@@ -11,6 +11,20 @@ type UserAvatarProps = {
   linkable?: boolean;
 };
 
+// Tailwind v4 のスキャナは `size-${n}` の動的生成を拾えないため、
+// クラス名と実寸を静的にマッピングする
+const SIZE_CLASS_MAP = {
+  sm: "size-8",
+  md: "size-10",
+  lg: "size-[72px]",
+} as const;
+
+const SIZE_PX_MAP = {
+  sm: 32,
+  md: 40,
+  lg: 72,
+} as const;
+
 export function UserAvatar({
   username = "unknown",
   displayName,
@@ -19,15 +33,8 @@ export function UserAvatar({
   showUsername = false,
   linkable = true,
 }: UserAvatarProps) {
-  // サイズの値をピクセルに変換
-  const sizeMap = {
-    sm: 32,
-    md: 48,
-    lg: 72,
-  };
-  const pixelSize = sizeMap[size];
-
-  const containerClass = `size-${(pixelSize / 4).toString()} overflow-hidden rounded-full`;
+  const pixelSize = SIZE_PX_MAP[size];
+  const containerClass = `${SIZE_CLASS_MAP[size]} overflow-hidden rounded-full`;
 
   const avatarElement = (
     <div className={containerClass}>
