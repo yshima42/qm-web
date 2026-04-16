@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type LoginPromptDialogProps = {
   children: ReactNode;
@@ -32,8 +33,14 @@ export function LoginPromptDialog({ children, className, type = "story" }: Login
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className={className}>
-        {children}
+      {/*
+       * 呼び出し側から非ボタン要素 (div 等) を children で受け取っても
+       * aria 属性が role と整合するよう、trigger は必ず <button> にする。
+       */}
+      <DialogTrigger asChild>
+        <button type="button" className={cn("inline-flex", className)}>
+          {children}
+        </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="items-center">
