@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Header } from "@/components/layout/header";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
+import { getQueryClient } from "@/app/get-query-client";
 import { createClient } from "@/lib/supabase/server";
 import { HabitCategoryName } from "@/lib/types";
 import { CATEGORY_ICONS } from "@/lib/categories";
 import { getCurrentUserHabits } from "@/lib/utils/page-helpers";
 import { fetchProfileByUsername } from "@/features/profiles/data/data";
 import { getCurrentUserUsername } from "@/lib/utils/page-helpers";
+import { prefetchStoriesInfinite } from "@/features/stories/data/prefetch";
 
 import { StoryListInfinite } from "@/features/stories/ui/story-list-infinite";
 import { StoriesTabHeader } from "@/features/stories/ui/stories-tab-header";
@@ -80,6 +81,20 @@ export default async function Page(props: PageProps) {
     ? await fetchProfileByUsername(currentUserUsername)
     : null;
 
+  // 「カテゴリ」タブのみ、ストーリー1ページ目を SSR で prefetch して
+  // HydrationBoundary 経由で CSR に渡す（CLS/LCP 改善のため）
+  const currentTab = tab ?? "category";
+  const shouldPrefetchStories = !(currentTab === "following" && isLoggedIn);
+
+  const queryClient = getQueryClient();
+  if (shouldPrefetchStories) {
+    const locale = await getLocale();
+    await prefetchStoriesInfinite(queryClient, {
+      category: habitCategory,
+      locale,
+    });
+  }
+
   return (
     <>
       <Header
@@ -112,48 +127,19 @@ export default async function Page(props: PageProps) {
 
       {/* 投稿リスト */}
       <main className="p-3 sm:p-5">
-        <Suspense fallback={<LoadingSpinner />}>
-          <CategoryPageContent
-            category={category}
-            tab={tab}
-            isLoggedIn={isLoggedIn}
-            userId={user?.id}
-            habits={habits}
-          />
-        </Suspense>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          {currentTab === "following" && isLoggedIn ? (
+            <FollowingStoryList habits={habits} currentUserId={user?.id} />
+          ) : (
+            <StoryListInfinite
+              category={habitCategory}
+              isLoggedIn={isLoggedIn}
+              habits={habits}
+              currentUserId={user?.id}
+            />
+          )}
+        </HydrationBoundary>
       </main>
-    </>
-  );
-}
-
-async function CategoryPageContent({
-  category,
-  tab,
-  isLoggedIn,
-  userId,
-  habits,
-}: {
-  category: string;
-  tab?: string;
-  isLoggedIn: boolean;
-  userId?: string;
-  habits?: import("@/lib/types").HabitTileDto[];
-}) {
-  const habitCategory = capitalizeCategory(category);
-  const currentTab = tab ?? "category";
-
-  return (
-    <>
-      {currentTab === "following" && isLoggedIn ? (
-        <FollowingStoryList habits={habits} currentUserId={userId} />
-      ) : (
-        <StoryListInfinite
-          category={habitCategory}
-          isLoggedIn={isLoggedIn}
-          habits={habits}
-          currentUserId={userId}
-        />
-      )}
     </>
   );
 }
