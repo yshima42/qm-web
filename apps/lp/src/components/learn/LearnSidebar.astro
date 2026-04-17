@@ -87,3 +87,14 @@ const grouped = groupByPart(chapters);
     </div>
   )}
 </nav>
+
+<script is:inline>
+  {
+    const container = document.querySelector(".learn-sidebar-nav")?.closest(".overflow-y-auto");
+    const active = container?.querySelector('[aria-current="page"]');
+    if (container && active) {
+      const offset = active.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop;
+      container.scrollTop = offset - container.clientHeight / 3;
+    }
+  }
+</script>
