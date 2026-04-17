@@ -118,16 +118,28 @@ A4の紙1枚と、ペン1本。
 
 中央の周りに、5つの要素を等間隔で配置する。
 
-<div class="worksheet">
-
-        [医療]
-
-[個人の連絡先]    [相談窓口]
-
-        [自分]
-
-[法律・お金]      [自助グループ]
-
+<div class="personal-map">
+  <div class="personal-map-item" style="grid-area: top;">
+    <span class="personal-map-label">医療</span>
+    <ul><li>___クリニック</li><li>TEL ___</li></ul>
+  </div>
+  <div class="personal-map-item" style="grid-area: left;">
+    <span class="personal-map-label">個人の連絡先</span>
+    <ul><li>___さん</li><li>TEL ___</li></ul>
+  </div>
+  <span class="personal-map-center" style="grid-area: center;">自分</span>
+  <div class="personal-map-item" style="grid-area: right;">
+    <span class="personal-map-label">相談窓口</span>
+    <ul><li>精神保健福祉センター</li><li>TEL ___</li></ul>
+  </div>
+  <div class="personal-map-item" style="grid-area: bottom-left;">
+    <span class="personal-map-label">法律・お金</span>
+    <ul><li>法テラス</li><li>0570-078374</li></ul>
+  </div>
+  <div class="personal-map-item" style="grid-area: bottom-right;">
+    <span class="personal-map-label">自助グループ</span>
+    <ul><li>GA ___会場</li><li>毎週___曜</li></ul>
+  </div>
 </div>
 
 ### ステップ 4: それぞれの要素に詳細を書く
@@ -243,18 +255,18 @@ A4の紙1枚と、ペン1本。
 
 ## 地図に書けるものが少なくても
 
-正直に書くと、最初は地図がスカスカになる人もいる。
+最初は空欄が多くなる人もいる。
 連絡先が1つしかない、家族がいない、自助グループも知らない、医療機関にも行ったことがない。
 
 その場合でも、地図は作る価値がある。
 
-スカスカの地図でも、書いてみると、
+空欄が多くても、書いてみると、
 
 - 「これから増やせる」と分かる
 - どこから増やせばいいかが見える
 - 1つでも書ければ、それは「ある」ことの証拠
 
-スカスカの地図は、「埋めていく」目標になる。
+空欄の多い地図は、「埋めていく」目標になる。
 最初から完成させる必要はない。
 書きながら、月1回ずつ増やしていく。
 

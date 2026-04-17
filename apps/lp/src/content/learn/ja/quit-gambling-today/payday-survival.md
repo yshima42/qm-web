@@ -2,7 +2,7 @@
 category: "gambling"
 part: "B"
 chapter: 7
-title: "給料日サバイバル + 朝の儀式"
+title: "給料日の乗り越え方"
 required: false
 excerpt: "毎月25日。 朝9時。会社の昼休み前。 スマホのロック画面に通知が出る。 「給与振込のお知らせ」"
 updatedAt: "2026-04-07"
