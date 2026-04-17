@@ -69,7 +69,6 @@ export function StoryCreateForm({ habits, onSuccess }: StoryCreateFormProps) {
           sns: "SNS",
           gambling: "Gambling",
           caffeine: "Caffeine",
-          "cosmetic-surgery": "Cosmetic Surgery",
           custom: "Custom",
           alcohol: "Alcohol",
           codependency: "Codependency",

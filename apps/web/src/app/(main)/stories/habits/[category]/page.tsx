@@ -30,7 +30,6 @@ function capitalizeCategory(category: string): HabitCategoryName {
     sns: "SNS",
     gambling: "Gambling",
     caffeine: "Caffeine",
-    "cosmetic-surgery": "Cosmetic Surgery",
     custom: "Custom",
     alcohol: "Alcohol",
     codependency: "Codependency",
