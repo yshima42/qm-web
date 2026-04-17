@@ -5,13 +5,44 @@ import { Resvg } from "@resvg/resvg-js";
 import fs from "node:fs";
 import path from "node:path";
 
+import { LEARN_BOOKS, getBookChapters, getBookTitle, entryChapterSlug } from "@/utils/learn";
+
 const blogJa = await getCollection("blog-ja");
 const blogEn = await getCollection("blog-en");
 
-const pages = Object.fromEntries([
+type PageData = {
+  title: string;
+  excerpt: string;
+  category?: string;
+  // learn 用
+  chapterNum?: number;
+  bookTitle?: string;
+};
+
+const pages: Record<string, PageData> = Object.fromEntries([
   ...blogJa.map((post) => [`ja/blog/${post.id.replace(/\.md$/, "")}`, post.data]),
   ...blogEn.map((post) => [`en/blog/${post.id.replace(/\.md$/, "")}`, post.data]),
 ]);
+
+// learn ページを追加
+for (const book of LEARN_BOOKS) {
+  for (const locale of ["ja", "en"] as const) {
+    try {
+      const chapters = await getBookChapters(locale, book.slug);
+      for (const ch of chapters) {
+        const slug = entryChapterSlug(ch);
+        pages[`${locale}/learn/${book.slug}/${slug}`] = {
+          title: ch.data.title,
+          excerpt: ch.data.excerpt,
+          chapterNum: ch.data.chapter,
+          bookTitle: book.subtitle?.[locale] ?? getBookTitle(book, locale),
+        };
+      }
+    } catch {
+      // locale のディレクトリが存在しない場合はスキップ
+    }
+  }
+}
 
 // フォント読み込み
 const notoBlackPath = path.resolve("./src/assets/fonts/NotoSansJP-ExtraBold.ttf");
@@ -128,8 +159,17 @@ export const GET: APIRoute = async ({ params }) => {
   // 中央コンテンツ（カテゴリ + タイトル + サブタイトル）
   const centerChildren: Record<string, unknown>[] = [];
 
-  // カテゴリーバッジ
-  if (page.category) {
+  // バッジ（ブログ: カテゴリー / learn: Chapter + 本タイトル）
+  const badgeText =
+    page.chapterNum != null
+      ? `Chapter ${String(page.chapterNum).padStart(2, "0")}  |  ${page.bookTitle ?? ""}`
+      : page.category;
+  const badgeColor =
+    page.chapterNum != null
+      ? { bg: "#f0fdf4", text: "#166534" }
+      : (CATEGORY_COLORS[page.category ?? ""] ?? DEFAULT_CAT_COLOR);
+
+  if (badgeText) {
     centerChildren.push({
       type: "div",
       props: {
@@ -146,12 +186,12 @@ export const GET: APIRoute = async ({ params }) => {
                 display: "flex",
                 padding: "5px 20px",
                 borderRadius: "9999px",
-                background: catColor.bg,
+                background: badgeColor.bg,
                 fontSize: "18px",
-                color: catColor.text,
+                color: badgeColor.text,
                 fontWeight: 700,
               },
-              children: page.category,
+              children: badgeText,
             },
           },
         ],
