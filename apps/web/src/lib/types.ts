@@ -20,7 +20,6 @@ export type HabitCategoryName =
   | "SNS"
   | "Gambling"
   | "Caffeine"
-  | "Cosmetic Surgery"
   | "Custom"
   | "Alcohol"
   | "Codependency"
