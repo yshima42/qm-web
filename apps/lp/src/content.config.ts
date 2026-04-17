@@ -19,7 +19,7 @@ const docSchema = z.object({
 const learnSchema = z.object({
   category: z.string(),
   part: z.string(),
-  chapter: z.number().int().min(1),
+  chapter: z.number().int().min(0),
   title: z.string(),
   required: z.boolean().default(false),
   excerpt: z.string(),
