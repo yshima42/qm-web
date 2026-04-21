@@ -46,6 +46,7 @@ const shareUrl = `https://about.quitmate.app/${locale}/learn/${bookSlug}/${slug}
   title={`${t("learn.chapter.chapter-prefix")}${chapter.data.chapter}${t("learn.chapter.chapter-suffix")} ${chapter.data.title} | ${bookTitle}`}
   description={chapter.data.excerpt}
   locale={locale}
+  ogImage={`https://about.quitmate.app/og/${locale}/learn/${bookSlug}/${slug}.png`}
   article={{
     headline: chapter.data.title,
     publishedDate: chapter.data.updatedAt ?? new Date().toISOString().slice(0, 10),

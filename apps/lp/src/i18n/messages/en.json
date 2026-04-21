@@ -244,7 +244,7 @@
             "usage-guide-intro": "There is no single right way to read this book. Pick the pattern that fits your situation.",
             "usage-pattern-a-title": "Pattern A: Read in order (default)",
             "usage-pattern-a-body": "Start from Chapter 1 and read in order. The book is designed so that reading sequentially lets your understanding build up step by step. One chapter a day or one a week is fine — go at your own pace.",
-            "usage-pattern-b-title": "Pattern B: Read only the two essential chapters",
+            "usage-pattern-b-title": "Pattern B: Read only the two chapters marked Important",
             "usage-pattern-b-body": "If you have no time, or if you are in crisis, just these two chapters are enough to start: Chapter 7 (Cut off access to money) and Chapter 9 (When you want to die: a safety plan).",
             "usage-pattern-c-title": "Pattern C: Read by situation",
             "usage-pattern-c-body": "Pick chapters based on what you face right now: cravings, payday anxiety, suicidal thoughts, family conversations, debt fears.",
@@ -259,7 +259,7 @@
         "chapter-count-label": "Chapters",
         "price-label": "Price",
         "chapter": {
-            "required-label": "Essential",
+            "required-label": "Important",
             "prev-chapter": "Previous chapter",
             "next-chapter": "Next chapter",
             "back-to-toc": "Back to contents",

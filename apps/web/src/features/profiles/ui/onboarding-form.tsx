@@ -296,7 +296,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
       onSubmit={handleSubmit}
     >
       <div className="space-y-3">
-        <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.3em]">
+        <p className="text-muted-foreground text-xs font-semibold tracking-[0.3em] uppercase">
           {progressLabel}
         </p>
         <div className="bg-muted/60 h-1.5 rounded-full">
@@ -425,7 +425,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
                 </div>
               )}
               {previewUrl && (
-                <span className="bg-primary text-primary-foreground absolute -bottom-2 right-1 flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow">
+                <span className="bg-primary text-primary-foreground absolute right-1 -bottom-2 flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow">
                   <Check className="size-3" />
                   {t("steps.avatar.selectedBadge")}
                 </span>
@@ -488,9 +488,7 @@ export function ProfileOnboardingForm({ next, defaultUserName }: ProfileOnboardi
               {t("steps.habit.categoryLabel")}
             </Label>
             <div className="grid grid-cols-3 gap-2">
-              {HABIT_CATEGORIES.filter(
-                (cat) => cat !== "Official" && cat !== "Cosmetic Surgery",
-              ).map((cat) => {
+              {HABIT_CATEGORIES.filter((cat) => cat !== "Official").map((cat) => {
                 const Icon = CATEGORY_ICONS[cat];
                 const isSelected = habitCategory === cat;
                 return (
