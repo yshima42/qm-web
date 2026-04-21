@@ -259,7 +259,7 @@
         "chapter-count-label": "Chapters",
         "price-label": "Price",
         "chapter": {
-            "required-label": "Essential",
+            "required-label": "Important",
             "prev-chapter": "Previous chapter",
             "next-chapter": "Next chapter",
             "back-to-toc": "Back to contents",
