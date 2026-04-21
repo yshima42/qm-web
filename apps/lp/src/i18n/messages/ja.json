@@ -244,7 +244,7 @@
             "usage-guide-intro": "本書の読み方は1つではありません。状況に応じて選んでください。",
             "usage-pattern-a-title": "パターン A: 順番に読む（標準）",
             "usage-pattern-a-body": "第1章から順に読みます。本書は、順に読み進めることで理解が少しずつ積み上がるように設計しています。1日1章でも、週1章でも、自分のペースで構いません。",
-            "usage-pattern-b-title": "パターン B: 必読の2章だけ読む",
+            "usage-pattern-b-title": "パターン B: 重要マークの2章だけ読む",
             "usage-pattern-b-body": "時間がない場合や、危機的な状況にある場合は、まずこの2章だけで構いません。第7章（お金のアクセスを遮断する）と第9章（死にたいと思ったとき: 安全計画）。",
             "usage-pattern-c-title": "パターン C: 状況別に選んで読む",
             "usage-pattern-c-body": "「いま渇望に困っている」「給料日が怖い」「死にたい気持ちがある」など、いまの状況に合う章から読みます。",
@@ -259,7 +259,7 @@
         "chapter-count-label": "章数",
         "price-label": "価格",
         "chapter": {
-            "required-label": "必読",
+            "required-label": "重要",
             "prev-chapter": "前の章",
             "next-chapter": "次の章",
             "back-to-toc": "目次に戻る",

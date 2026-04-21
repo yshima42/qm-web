@@ -12,44 +12,30 @@ updatedAt: "2026-04-17"
 何度目かの「今度こそ」で読んでいる人。
 ギャンブルで困っているなら、少しだけ読んでみてほしい。
 
-本書は全26章。医学の知見とアプリの実データをもとに書いた。
+本書は全26章。医学の知見と、依存症回復コミュニティアプリ[QuitMate](https://www.quitmate.app/)の実際のデータをもとに書いた。
 ギャンブル依存症の脳の仕組みから、お金の管理、借金の整理、家族との関係、30日の回復プランまで扱っている。
 
 ---
 
-## 今いちばん困っていることから読む
+## 気になるところから読む
 
 全部を順番に読む必要はない。
-今いちばん困っていることに近いものから読んでいい。
+気になるところから読んでいい。
+
+**自分を責めてしまう**
+- [第1章 ギャンブル依存は意志の弱さではない](/ja/learn/quit-gambling-today/not-willpower/)
+- [第2章 ドーパミンの罠](/ja/learn/quit-gambling-today/dopamine-trap/)
 
 **やめたいのにやめられない**
-→ [第1章: ギャンブル依存は意志の弱さではない](/ja/learn/quit-gambling-today/not-willpower/)
-→ [第2章: ドーパミンの罠](/ja/learn/quit-gambling-today/dopamine-trap/)
+- [第9章 渇望の正体と乗り越え方](/ja/learn/quit-gambling-today/craving-basics/)
+- [第11章 HALT](/ja/learn/quit-gambling-today/halt/)
 
-**渇望が来たときどうすればいいかわからない**
-→ [第9章: 渇望の正体と乗り越え方](/ja/learn/quit-gambling-today/craving-basics/)
-→ [第11章: HALT](/ja/learn/quit-gambling-today/halt/)
-
-**お金の管理ができない、給料日が怖い**
-→ [第6章: お金のアクセスを遮断する](/ja/learn/quit-gambling-today/money-access/)
-→ [第7章: 給料日の乗り越え方](/ja/learn/quit-gambling-today/payday-survival/)
-
-**借金がある**
-→ [第17章: 借金の全体像](/ja/learn/quit-gambling-today/debt-overview/)
-→ [第18章: 法的整理への入口](/ja/learn/quit-gambling-today/legal-options/)
+**お金をすぐ使い切ってしまう**
+- [第6章 お金のアクセスを遮断する](/ja/learn/quit-gambling-today/money-access/)
+- [第7章 給料日の乗り越え方](/ja/learn/quit-gambling-today/payday-survival/)
 
 **家族にバレた、または話さないといけない**
-→ [第19章: 家族との関係](/ja/learn/quit-gambling-today/family/)
-
-**死にたいと思うことがある**
-→ [第8章: 死にたいと思ったとき](/ja/learn/quit-gambling-today/safety-plan/)
-今すぐ辛い場合は、よりそいホットライン（0120-279-338、24時間・無料）に電話してほしい。
-
-**再発してしまった**
-→ [第25章: 再発から立て直す](/ja/learn/quit-gambling-today/relapse-not-failure/)
-
-**病院やGAに行くべきか迷っている**
-→ [第21章: 治療の選択肢の入口](/ja/learn/quit-gambling-today/treatment-options/)
+- [第19章 家族との関係](/ja/learn/quit-gambling-today/family/)
 
 ---
 
@@ -78,8 +64,6 @@ updatedAt: "2026-04-17"
 - 家族側の支援（家族会、ギャマノン等）
 
 ---
-
-## 1つだけ先に伝えておきたいこと
 
 ギャンブル依存は、意志が弱いからなるものではない。
 脳の仕組みの問題であり、医学的に認められた病気である。
