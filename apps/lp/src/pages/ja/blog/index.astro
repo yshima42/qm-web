@@ -1,17 +1,29 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCategoryFilter from "@/components/pages/BlogCategoryFilter.astro";
 import { useTranslations } from "@/i18n/utils";
 import { getAllPosts, extractFirstImage } from "@/utils/blog";
-import { getCategoryColor } from "@/utils/category";
+import { getCategoryColor, sortCategoriesByDefinedOrder } from "@/utils/category";
 
 const locale = "ja";
 const t = useTranslations(locale);
 const posts = await getAllPosts(locale);
+
+// カテゴリごとの記事数を集計（降順）
+const categoryCountMap = new Map<string, number>();
+for (const post of posts) {
+  const cat = post.data.category;
+  if (!cat) continue;
+  categoryCountMap.set(cat, (categoryCountMap.get(cat) ?? 0) + 1);
+}
+const categories = sortCategoriesByDefinedOrder(
+  Array.from(categoryCountMap.entries()).map(([name, count]) => ({ name, count })),
+);
 ---
 
 <BaseLayout title={t("blog.title")} description={t("blog.description")} locale={locale}>
   <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-    <div class="mb-12 text-center">
+    <div class="mb-10 text-center">
       <h1 class="mb-2 text-4xl font-bold text-gray-900">{t("blog.journal-title")}</h1>
       <p class="text-lg text-gray-600">{t("blog.journal-description")}</p>
     </div>
@@ -22,44 +34,63 @@ const posts = await getAllPosts(locale);
         <p class="text-gray-500">{t("blog.content-preparing")}</p>
       </div>
     ) : (
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => {
-          const slug = post.id.replace(/\.md$/, "");
-          const coverImage = extractFirstImage(post.body ?? "");
-          return (
-            <a href={`/${locale}/blog/${slug}/`} class="group block">
-              <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
-                {coverImage && (
-                  <div class="aspect-video w-full overflow-hidden">
-                    <img
-                      src={coverImage}
-                      alt={post.data.title}
-                      class="size-full object-cover transition-transform group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <div class="px-3 py-2 sm:px-4 sm:py-3">
-                  <div class="flex items-center justify-between">
-                    {post.data.category && (
-                      <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getCategoryColor(post.data.category)}`}>
-                        {post.data.category}
-                      </span>
-                    )}
-                    <time class="text-xs text-gray-400" datetime={post.data.date}>{post.data.date}</time>
-                  </div>
-                  <h3 class="mt-1 text-base font-semibold text-gray-900 group-hover:text-primary-600 sm:text-lg">
-                    {post.data.title}
-                  </h3>
-                  {post.data.excerpt && (
-                    <p class="mt-1 line-clamp-2 text-sm text-gray-500">{post.data.excerpt}</p>
+      <>
+        {categories.length > 1 && (
+          <BlogCategoryFilter
+            categories={categories}
+            totalCount={posts.length}
+            allLabel={t("blog.filter-all")}
+          />
+        )}
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => {
+            const slug = post.id.replace(/\.md$/, "");
+            const coverImage = extractFirstImage(post.body ?? "");
+            return (
+              <a
+                href={`/${locale}/blog/${slug}/`}
+                class="group block"
+                data-blog-card
+                data-category={post.data.category ?? ""}
+              >
+                <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
+                  {coverImage && (
+                    <div class="aspect-video w-full overflow-hidden">
+                      <img
+                        src={coverImage}
+                        alt={post.data.title}
+                        class="size-full object-cover transition-transform group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
                   )}
-                </div>
-              </article>
-            </a>
-          );
-        })}
-      </div>
+                  <div class="px-3 py-2 sm:px-4 sm:py-3">
+                    <div class="flex items-center justify-between">
+                      {post.data.category && (
+                        <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getCategoryColor(post.data.category)}`}>
+                          {post.data.category}
+                        </span>
+                      )}
+                      <time class="text-xs text-gray-400" datetime={post.data.date}>{post.data.date}</time>
+                    </div>
+                    <h3 class="mt-1 text-base font-semibold text-gray-900 group-hover:text-primary-600 sm:text-lg">
+                      {post.data.title}
+                    </h3>
+                    {post.data.excerpt && (
+                      <p class="mt-1 line-clamp-2 text-sm text-gray-500">{post.data.excerpt}</p>
+                    )}
+                  </div>
+                </article>
+              </a>
+            );
+          })}
+        </div>
+
+        <div id="blog-filter-empty" class="hidden py-16 text-center">
+          <p class="text-gray-500">{t("blog.filter-no-results")}</p>
+        </div>
+      </>
     )}
   </div>
 </BaseLayout>
