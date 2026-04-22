@@ -69,7 +69,7 @@ If a slip happens despite all of this, the most productive response is not guilt
 
 ---
 
-### References
+## References
 
 1. Ministry of Health, Labour and Welfare, Japan (2017). "Epidemiological Survey on Gambling Disorders" (National Survey on Gambling-Related Problems).
 2. Eddie, D. et al. (2025). *Peer Recovery Support Services and Recovery Coaching for Substance Use Disorder: A Systematic Review*. Current Addiction Reports.

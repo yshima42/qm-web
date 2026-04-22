@@ -73,7 +73,7 @@ category: "回復のヒント"
 
 ---
 
-### 参考文献
+## 参考文献
 1. Crocker J, Wolfe CT. "Contingencies of Self-Worth." *Psychological Review.* 2001;108(3):593-623.
 2. Arnsten AFT. "Stress signalling pathways that impair prefrontal cortex structure and function." *Nature Reviews Neuroscience.* 2009;10(6):410-422.
 3. Bowlby J. *Attachment and Loss, Vol. 1: Attachment.* Basic Books, 1969.

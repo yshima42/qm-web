@@ -59,7 +59,7 @@ category: "回復のヒント"
 
 ---
 
-### 参考文献
+## 参考文献
 1. Eddie D. et al. "Peer Recovery Support Services and Recovery Coaching for Substance Use Disorder: A Systematic Review." *Curr Addiction Rep*, 2025.
 2. Bao Y. et al. "Medicaid-Covered Peer Support Services Used by Enrollees With Opioid Use Disorder." *JAMA Netw Open*, 2024.
 3. Peart A. et al. "Online Peer-Led Support Program for Affected Family Members of People Living with Addiction." *Int J Ment Health Addict*, 2023.

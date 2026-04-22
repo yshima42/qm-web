@@ -67,7 +67,7 @@ What distinguishes people who eventually recover is not the absence of setbacks.
 
 ---
 
-### References
+## References
 
 1. NIDA (National Institute on Drug Abuse). "[Drugs, Brains, and Behavior: The Science of Addiction](https://nida.nih.gov/publications/drugs-brains-behavior-science-addiction)." National Institutes of Health (2020).
 2. WHO. "[Lexicon of alcohol and drug terms](https://www.who.int/publications/i/item/9241544686)." World Health Organization.

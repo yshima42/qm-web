@@ -62,7 +62,7 @@ category: "ギャンブル"
 
 ---
 
-### 参考文献
+## 参考文献
 
 - Clark, L., et al. (2013). *Pathological choice: the neuroscience of gambling and gambling addiction*. The Journal of Neuroscience.
 - WHO (2019). *International Classification of Diseases 11th Revision (ICD-11)*.

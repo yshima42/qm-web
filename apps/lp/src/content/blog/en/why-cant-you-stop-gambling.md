@@ -63,7 +63,7 @@ Understanding the mechanism is the first step toward recovery. Just knowing "thi
 
 ---
 
-### References
+## References
 
 - Clark, L., et al. (2013). *Pathological choice: the neuroscience of gambling and gambling addiction*. The Journal of Neuroscience.
 - WHO (2019). *International Classification of Diseases 11th Revision (ICD-11)*.

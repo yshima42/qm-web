@@ -73,7 +73,7 @@ category: "ギャンブル"
 
 ---
 
-### 参考文献
+## 参考文献
 
 - Tversky, A., & Kahneman, D. (1971). *Belief in the law of small numbers*. Psychological Bulletin, 76(2), 105-110.
 - Nickerson, R. S. (1998). *Confirmation bias: A ubiquitous phenomenon in many guises*. Review of General Psychology, 2(2), 175-220.
