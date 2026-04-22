@@ -209,6 +209,8 @@
         "journal-description": "依存症回復に役立つ洞察、ストーリー、そして最新情報",
         "no-posts": "まだ記事がありません",
         "content-preparing": "コンテンツは準備中です。もうしばらくお待ちください。",
+        "filter-all": "すべて",
+        "filter-no-results": "このカテゴリの記事はまだありません",
         "read-more": "続きを読む",
         "latest-articles": "最新の記事",
         "read-article": "読む",
