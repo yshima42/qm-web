@@ -61,7 +61,7 @@ A few seconds, once a day, spent touching the thought "why did I want to quit?" 
 
 ---
 
-### References
+## References
 1. Ariely, D. *Predictably Irrational: The Hidden Forces That Shape Our Decisions.* HarperCollins, 2008.
 2. Mazar, N., Amir, O., & Ariely, D. "The Dishonesty of Honest People: A Theory of Self-Concept Maintenance." *Journal of Marketing Research,* 45(6), 633-644, 2008.
 3. Gollwitzer, P. M., & Sheeran, P. "Implementation Intentions and Goal Achievement: A Meta-Analysis of Effects and Processes." *Advances in Experimental Social Psychology,* 38, 69-119, 2006.
