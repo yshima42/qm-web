@@ -1,8 +1,13 @@
 # ロケールなしページ → /en/（デフォルトロケール）
+# 末尾スラッシュの有無どちらでも動くように両方列挙
 /contact /en/contact/ 301
+/contact/ /en/contact/ 301
 /privacy /en/privacy/ 301
+/privacy/ /en/privacy/ 301
 /terms /en/terms/ 301
+/terms/ /en/terms/ 301
 /apps /en/apps/ 301
+/apps/ /en/apps/ 301
 
 # カテゴリページ
 /alcohol/* /en/alcohol/:splat 301
