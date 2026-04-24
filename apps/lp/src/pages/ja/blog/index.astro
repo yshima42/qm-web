@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogCategoryFilter from "@/components/pages/BlogCategoryFilter.astro";
+import BlogPostCard from "@/components/sections/BlogPostCard.astro";
 import { useTranslations } from "@/i18n/utils";
-import { getAllPosts, extractFirstImage } from "@/utils/blog";
-import { getCategoryColor, sortCategoriesByDefinedOrder } from "@/utils/category";
+import { getAllPosts } from "@/utils/blog";
+import { sortCategoriesByDefinedOrder } from "@/utils/category";
 
 const locale = "ja";
 const t = useTranslations(locale);
@@ -44,47 +45,7 @@ const categories = sortCategoriesByDefinedOrder(
         )}
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => {
-            const slug = post.id.replace(/\.md$/, "");
-            const coverImage = extractFirstImage(post.body ?? "");
-            return (
-              <a
-                href={`/${locale}/blog/${slug}/`}
-                class="group block"
-                data-blog-card
-                data-category={post.data.category ?? ""}
-              >
-                <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
-                  {coverImage && (
-                    <div class="aspect-video w-full overflow-hidden">
-                      <img
-                        src={coverImage}
-                        alt={post.data.title}
-                        class="size-full object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <div class="px-3 py-2 sm:px-4 sm:py-3">
-                    <div class="flex items-center justify-between">
-                      {post.data.category && (
-                        <span class={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${getCategoryColor(post.data.category)}`}>
-                          {post.data.category}
-                        </span>
-                      )}
-                      <time class="text-xs text-gray-400" datetime={post.data.date}>{post.data.date}</time>
-                    </div>
-                    <h3 class="mt-1 text-base font-semibold text-gray-900 group-hover:text-primary-600 sm:text-lg">
-                      {post.data.title}
-                    </h3>
-                    {post.data.excerpt && (
-                      <p class="mt-1 line-clamp-2 text-sm text-gray-500">{post.data.excerpt}</p>
-                    )}
-                  </div>
-                </article>
-              </a>
-            );
-          })}
+          {posts.map((post) => <BlogPostCard post={post} locale={locale} filterable />)}
         </div>
 
         <div id="blog-filter-empty" class="hidden py-16 text-center">

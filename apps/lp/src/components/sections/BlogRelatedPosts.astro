@@ -1,8 +1,8 @@
 ---
 import { useTranslations } from "@/i18n/utils";
 import type { Locale } from "@/i18n/config";
-import { getRelatedPosts, extractFirstImage } from "@/utils/blog";
-import { getCategoryColor } from "@/utils/category";
+import { getRelatedPosts } from "@/utils/blog";
+import BlogPostCard from "./BlogPostCard.astro";
 
 type Props = {
   locale: Locale;
@@ -22,39 +22,7 @@ const posts = await getRelatedPosts(currentSlug, currentCategory, locale, limit)
       {t("blog.related-title")}
     </h2>
     <div class="grid grid-cols-2 gap-3 sm:gap-4">
-      {posts.map((post) => {
-        const slug = post.id.replace(/\.md$/, "");
-        const coverImage = extractFirstImage(post.body ?? "");
-        return (
-          <a
-            href={`/${locale}/blog/${slug}/`}
-            class="group block"
-          >
-            <article class="h-full overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg">
-              {coverImage && (
-                <div class="aspect-video w-full overflow-hidden">
-                  <img
-                    src={coverImage}
-                    alt={post.data.title}
-                    class="size-full object-cover transition-transform group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div class="px-3 py-2 sm:px-3 sm:py-2.5">
-                {post.data.category && (
-                  <span class={`inline-block rounded-full px-2 py-0.5 text-[10px] font-medium sm:text-xs ${getCategoryColor(post.data.category)}`}>
-                    {post.data.category}
-                  </span>
-                )}
-                <h3 class="mt-1 line-clamp-2 text-[13px] font-semibold leading-[1.4] text-gray-900 group-hover:text-primary-600 sm:text-sm">
-                  {post.data.title}
-                </h3>
-              </div>
-            </article>
-          </a>
-        );
-      })}
+      {posts.map((post) => <BlogPostCard post={post} locale={locale} />)}
     </div>
   </section>
 )}
