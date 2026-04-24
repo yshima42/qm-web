@@ -87,7 +87,7 @@ const mobileLinkClass = `${theme.mobileLinkColor} transition-colors`;
   </div>
 
   <!-- モバイルメニュー -->
-  <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.headerBg}`} data-mobile-menu>
+  <div class={`hidden absolute z-50 w-full px-6 py-4 shadow-lg md:hidden ${theme.mobileMenuBg}`} data-mobile-menu>
     <nav class="flex flex-col space-y-4">
       {!namespace && (
         <a href={`/${locale}/learn/`} class={mobileLinkClass}>{t("header.links.learn")}</a>

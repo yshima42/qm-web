@@ -218,7 +218,8 @@
         "share": "Share:",
         "share-native": "Share",
         "copy-link": "Copy link",
-        "copied": "Copied!"
+        "copied": "Copied!",
+        "related-title": "You may also like"
     },
     "learn": {
         "title": "Learn | QuitMate",

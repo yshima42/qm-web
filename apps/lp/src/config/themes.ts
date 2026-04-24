@@ -5,6 +5,7 @@
 
 export type ThemeConfig = {
   headerBg: string;
+  mobileMenuBg: string;
   footerBg: string;
   documentBg: string;
   titleColor: string;
@@ -23,6 +24,7 @@ export type ThemeConfig = {
 
 const defaultTheme: ThemeConfig = {
   headerBg: "bg-white/80 shadow-sm",
+  mobileMenuBg: "bg-white",
   footerBg: "bg-white",
   documentBg: "bg-[#f8fbf7]",
   titleColor: "text-gray-800",
@@ -41,6 +43,7 @@ const defaultTheme: ThemeConfig = {
 const themes: Record<string, Partial<ThemeConfig>> = {
   alcohol: {
     headerBg: "bg-[#d8e8d4]/80 shadow-sm",
+    mobileMenuBg: "bg-[#d8e8d4]",
     footerBg: "bg-[#d8e8d4]",
     documentBg: "bg-[#d8e8d4]",
     navText: "text-gray-700",
@@ -55,6 +58,7 @@ const themes: Record<string, Partial<ThemeConfig>> = {
   },
   kinshu: {
     headerBg: "bg-[#e8eaf6]/80 shadow-sm",
+    mobileMenuBg: "bg-[#e8eaf6]",
     footerBg: "bg-[#e8eaf6]",
     documentBg: "bg-[#e8eaf6]",
     titleColor: "text-gray-900",
@@ -70,6 +74,7 @@ const themes: Record<string, Partial<ThemeConfig>> = {
   },
   porn: {
     headerBg: "bg-[#1a0a1f]/80 shadow-none",
+    mobileMenuBg: "bg-[#1a0a1f]",
     footerBg: "bg-[#1a0a1f]",
     documentBg: "bg-[#1a0a1f]",
     titleColor: "text-white",
@@ -86,6 +91,7 @@ const themes: Record<string, Partial<ThemeConfig>> = {
   },
   tobacco: {
     headerBg: "bg-[#e8f5e9]/80 shadow-sm",
+    mobileMenuBg: "bg-[#e8f5e9]",
     footerBg: "bg-[#e8f5e9]",
     documentBg: "bg-[#e8f5e9]",
     titleColor: "text-gray-900",
