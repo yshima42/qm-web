@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogAppPromo from "@/components/sections/BlogAppPromo.astro";
+import BlogRelatedPosts from "@/components/sections/BlogRelatedPosts.astro";
 import { useTranslations } from "@/i18n/utils";
 import { getAllPosts } from "@/utils/blog";
 import { getCategoryColor } from "@/utils/category";
@@ -39,6 +40,7 @@ const formatDate = (dateStr: string) => {
   description={post.data.excerpt}
   locale={locale}
   ogImage={`https://about.quitmate.app/og/${locale}/blog/${slug}.png`}
+  noStickyCta
   article={{
     headline: post.data.title,
     publishedDate: post.data.date,
@@ -138,6 +140,9 @@ const formatDate = (dateStr: string) => {
         </button>
       </div>
     </div>
+
+    <!-- 関連記事 -->
+    <BlogRelatedPosts locale={locale} currentSlug={slug} currentCategory={post.data.category} />
 
     <!-- アプリ紹介セクション -->
     <BlogAppPromo locale={locale} />
