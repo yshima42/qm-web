@@ -78,7 +78,23 @@ We take reasonable administrative, technical, and physical measures to safeguard
 
 However, no method of transmission or storage is 100% secure. Use our services at your own risk.
 
-## 8. Children's Privacy and Safety Measures
+## 8. Data Retention
+
+We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required by law. Specific retention periods are as follows:
+
+- **Account Information** (email address, profile, habit logs, posted content, comments): Retained while your account is active. When you delete your account, we will erase your information within 30 days of receiving the deletion request. Backups may take an additional 30 days to be fully purged.
+- **Authentication Tokens and Session Data**: Deleted upon session expiration or termination.
+- **Server Access Logs and Operational Logs**: Retained for up to 90 days.
+- **Analytics and Usage Statistics** (including behavioral logs): Retained for up to 14 months, in anonymized or pseudonymized form.
+- **Crash Reports and Error Logs**: Retained for up to 90 days.
+- **Payment-Related Information**: Retained for up to 7 years in compliance with applicable tax and accounting regulations. Note that payment processing is handled by third-party providers (Apple App Store, Google Play, RevenueCat, etc.), and we do not directly hold credit card information.
+- **Records of Terms of Service Violations**: Retained for up to 12 months from the date of violation.
+
+You may request deletion of your account at any time through the in-app settings screen or by emailing us at [info@quitmate.app](mailto:info@quitmate.app).
+
+Information that we are legally required to retain will be kept until the applicable legal retention period expires.
+
+## 9. Children's Privacy and Safety Measures
 
 Tobacco-Free Mate is not intended for use by children under 13 years old. We do not knowingly collect or share personal data from children without parental consent.
 
@@ -88,7 +104,7 @@ To ensure user safety:
 - We provide in-app reporting tools for inappropriate content.
 - We will work with law enforcement and relevant authorities where necessary.
 
-## 9. Reporting Inappropriate Content
+## 10. Reporting Inappropriate Content
 
 If you encounter inappropriate behavior or content, you may report it by:
 
@@ -97,11 +113,11 @@ If you encounter inappropriate behavior or content, you may report it by:
 
 Confirmed violations may result in content removal, temporary suspension, permanent bans, or legal action.
 
-## 10. Changes to This Policy
+## 11. Changes to This Policy
 
 We may update this Privacy Policy from time to time. We will notify you of significant changes by posting an updated version on our website or within the app. Your continued use of the Service after such changes constitutes your acceptance of the revised policy.
 
-## 11. Contact Us
+## 12. Contact Us
 
 If you have questions about this Privacy Policy or how we handle your personal information, please contact:
 
