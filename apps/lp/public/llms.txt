@@ -26,37 +26,22 @@
 - [自然回復と治療ギャップ](https://about.quitmate.app/ja/blog/treatment-gap-natural-recovery/): 治療を受けない人の回復経路
 - [自分を責めない](https://about.quitmate.app/ja/blog/stop-blaming-yourself/): 自己批判が回復を妨げる仕組み
 
-## ギャンブル依存克服 27章（書籍級ガイド）
+## ギャンブル依存克服 27章（書籍級ガイド・主要章）
 
-書籍として通読できる構成。「ギャンブル依存は意志の弱さではない」を出発点に、脳科学・認知・行動・関係・実践を扱う。
+書籍として通読できる構成（全27章）。「ギャンブル依存は意志の弱さではない」を出発点に、脳科学・認知・行動・関係・実践を扱う。
+以下は読み進めの軸となる主要11章（章番号順）。全章リストは [sitemap](https://about.quitmate.app/sitemap-index.xml) を参照。
 
-- [本書について](https://about.quitmate.app/ja/learn/quit-gambling-today/about/)
-- [ギャンブル依存は意志の弱さではない](https://about.quitmate.app/ja/learn/quit-gambling-today/not-willpower/)
-- [回復した人がいる](https://about.quitmate.app/ja/learn/quit-gambling-today/recovery-exists/)
-- [ドーパミンの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/dopamine-trap/): 楽しくないのにやめられない理由
-- [ニアミスの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/near-miss/): 「あと少しで当たり」が脳をだます
-- [認知のゆがみ](https://about.quitmate.app/ja/learn/quit-gambling-today/cognitive-distortions/): ギャンブルの脳が作る3つの錯覚
-- [否認](https://about.quitmate.app/ja/learn/quit-gambling-today/denial/): 「自分は大丈夫」の壁
-- [渇望の正体と乗り越え方](https://about.quitmate.app/ja/learn/quit-gambling-today/craving-basics/)
-- [HALT](https://about.quitmate.app/ja/learn/quit-gambling-today/halt/): 空腹・怒り・孤独・疲労
-- [トリガーマップを描く](https://about.quitmate.app/ja/learn/quit-gambling-today/trigger-map/)
-- [個人地図を作る](https://about.quitmate.app/ja/learn/quit-gambling-today/personal-map/)
-- [感情の命名](https://about.quitmate.app/ja/learn/quit-gambling-today/naming-emotions/)
-- [恥と罪悪感を区別する](https://about.quitmate.app/ja/learn/quit-gambling-today/shame-vs-guilt/)
-- [逃げるプランを立てる](https://about.quitmate.app/ja/learn/quit-gambling-today/if-then-plan/): 危機の瞬間に勝手に動ける仕組み
-- [お金のアクセスを遮断する](https://about.quitmate.app/ja/learn/quit-gambling-today/money-access/)
-- [借金の全体像](https://about.quitmate.app/ja/learn/quit-gambling-today/debt-overview/)
-- [法的整理への入口](https://about.quitmate.app/ja/learn/quit-gambling-today/legal-options/)
-- [給料日の乗り越え方](https://about.quitmate.app/ja/learn/quit-gambling-today/payday-survival/)
-- [家族との関係](https://about.quitmate.app/ja/learn/quit-gambling-today/family/): 当事者の側から
-- [助けを求める方法](https://about.quitmate.app/ja/learn/quit-gambling-today/asking-for-help/)
-- [治療の選択肢の入口](https://about.quitmate.app/ja/learn/quit-gambling-today/treatment-options/)
-- [メンタルヘルスと依存](https://about.quitmate.app/ja/learn/quit-gambling-today/mental-health/): 重なる不調
-- [回復資本](https://about.quitmate.app/ja/learn/quit-gambling-today/recovery-capital/): 自分の中にあるもの
-- [脳は回復する](https://about.quitmate.app/ja/learn/quit-gambling-today/brain-recovers/)
-- [再発から立て直す](https://about.quitmate.app/ja/learn/quit-gambling-today/relapse-not-failure/)
-- [30日の回復プラン](https://about.quitmate.app/ja/learn/quit-gambling-today/thirty-day-plan/)
-- [安全計画](https://about.quitmate.app/ja/learn/quit-gambling-today/safety-plan/): 死にたいと思ったとき
+- [本書について](https://about.quitmate.app/ja/learn/quit-gambling-today/about/) — 序章
+- [ギャンブル依存は意志の弱さではない](https://about.quitmate.app/ja/learn/quit-gambling-today/not-willpower/) — 本書の前提
+- [ドーパミンの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/dopamine-trap/) — 脳科学: 楽しくないのにやめられない理由
+- [ニアミスの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/near-miss/) — 脳科学: 「あと少しで当たり」が脳をだます
+- [脳は回復する](https://about.quitmate.app/ja/learn/quit-gambling-today/brain-recovers/) — 神経可塑性に基づく希望
+- [お金のアクセスを遮断する](https://about.quitmate.app/ja/learn/quit-gambling-today/money-access/) — 実践: 物理的遮断
+- [安全計画](https://about.quitmate.app/ja/learn/quit-gambling-today/safety-plan/) — 危機介入: 死にたいと思ったとき
+- [認知のゆがみ](https://about.quitmate.app/ja/learn/quit-gambling-today/cognitive-distortions/) — 心理: ギャンブルの脳が作る3つの錯覚
+- [逃げるプランを立てる](https://about.quitmate.app/ja/learn/quit-gambling-today/if-then-plan/) — 実践: 危機の瞬間に勝手に動ける仕組み
+- [家族との関係](https://about.quitmate.app/ja/learn/quit-gambling-today/family/) — 関係: 当事者の側から
+- [30日の回復プラン](https://about.quitmate.app/ja/learn/quit-gambling-today/thirty-day-plan/) — 実践: 30日の行動計画
 
 ## 一次データ・運営
 
