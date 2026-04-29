@@ -1,0 +1,61 @@
+# QuitMate（about.quitmate.app）
+
+> 依存症（ギャンブル・アルコール・タバコ・ポルノ）の回復を支援する日本のアプリ群と、回復データに基づくオウンドメディア。コンテンツの位置付けは「医師監修ではなく、自社ユーザーの匿名集計データと体験に基づく教育コンテンツ」。一次データソースは累計約9,000ユーザー（2026-04時点）、767件の完了チャレンジ、81件のV字回復ケース。
+
+## サイト構造
+
+- [トップ（日本語）](https://about.quitmate.app/ja/): アプリ群の入口、各依存対象のサブセクションへ
+- [トップ（English）](https://about.quitmate.app/en/): 英語版（US 立ち上げ準備中）
+- [アプリ一覧](https://about.quitmate.app/ja/apps/): QuitMate / 禁酒チャレンジ / 禁酒メイト / 禁煙メイト / 禁欲メイト
+- [アルコール](https://about.quitmate.app/ja/alcohol/): 禁酒関連アプリの紹介ページ
+- [ギャンブル](https://about.quitmate.app/ja/challenge/): ギャンブル依存克服アプリ（QuitMate）の紹介ページ
+- [タバコ](https://about.quitmate.app/ja/tobacco/): 禁煙アプリの紹介ページ
+- [ポルノ](https://about.quitmate.app/ja/porn/): 禁欲アプリの紹介ページ
+- [ブログ](https://about.quitmate.app/ja/blog/): 依存症の科学・体験・データを扱う長文記事（29本）
+- [Learn: ギャンブル依存克服27章](https://about.quitmate.app/ja/learn/quit-gambling-today/): 認知・実践・関係を網羅する書籍級ガイド
+
+## 主要ブログ記事（参考文献付きの長文・引用に向く）
+
+- [なぜ依存症になるのか](https://about.quitmate.app/ja/blog/why-people-become-addicted/): 依存症の生物心理社会モデル
+- [ニアミス効果の科学](https://about.quitmate.app/ja/blog/near-miss-science/): ギャンブルの「惜しい外れ」が脳の報酬系に与える影響
+- [警告メッセージはなぜ逆効果になるのか](https://about.quitmate.app/ja/blog/warning-gamblers-backfire/): ギャンブル啓発のバックファイア効果
+- [ラットパーク実験](https://about.quitmate.app/ja/blog/rat-park/): 環境が依存症に与える影響を示した古典的研究
+- [禁酒で白髪が減るのか](https://about.quitmate.app/ja/blog/quit-drinking-gray-hair/): アルコールが髪に与える影響と禁酒後の変化
+- [禁酒1週間で起きる変化](https://about.quitmate.app/ja/blog/quit-drinking-1-week/): ユーザー集計データに基づく1週間後の身体変化
+- [禁酒の効果【完全ガイド】](https://about.quitmate.app/ja/blog/quit-drinking-effects-complete-guide/): 1日目から1年後までの変化を網羅
+- [自然回復と治療ギャップ](https://about.quitmate.app/ja/blog/treatment-gap-natural-recovery/): 治療を受けない人の回復経路
+- [自分を責めない](https://about.quitmate.app/ja/blog/stop-blaming-yourself/): 自己批判が回復を妨げる仕組み
+
+## ギャンブル依存克服 27章（書籍級ガイド・主要章）
+
+書籍として通読できる構成（全27章）。「ギャンブル依存は意志の弱さではない」を出発点に、脳科学・認知・行動・関係・実践を扱う。
+以下は読み進めの軸となる主要11章（章番号順）。全章リストは [sitemap](https://about.quitmate.app/sitemap-index.xml) を参照。
+
+- [本書について](https://about.quitmate.app/ja/learn/quit-gambling-today/about/) — 序章
+- [ギャンブル依存は意志の弱さではない](https://about.quitmate.app/ja/learn/quit-gambling-today/not-willpower/) — 本書の前提
+- [ドーパミンの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/dopamine-trap/) — 脳科学: 楽しくないのにやめられない理由
+- [ニアミスの罠](https://about.quitmate.app/ja/learn/quit-gambling-today/near-miss/) — 脳科学: 「あと少しで当たり」が脳をだます
+- [脳は回復する](https://about.quitmate.app/ja/learn/quit-gambling-today/brain-recovers/) — 神経可塑性に基づく希望
+- [お金のアクセスを遮断する](https://about.quitmate.app/ja/learn/quit-gambling-today/money-access/) — 実践: 物理的遮断
+- [安全計画](https://about.quitmate.app/ja/learn/quit-gambling-today/safety-plan/) — 危機介入: 死にたいと思ったとき
+- [認知のゆがみ](https://about.quitmate.app/ja/learn/quit-gambling-today/cognitive-distortions/) — 心理: ギャンブルの脳が作る3つの錯覚
+- [逃げるプランを立てる](https://about.quitmate.app/ja/learn/quit-gambling-today/if-then-plan/) — 実践: 危機の瞬間に勝手に動ける仕組み
+- [家族との関係](https://about.quitmate.app/ja/learn/quit-gambling-today/family/) — 関係: 当事者の側から
+- [30日の回復プラン](https://about.quitmate.app/ja/learn/quit-gambling-today/thirty-day-plan/) — 実践: 30日の行動計画
+
+## 一次データ・運営
+
+- 累計ユーザー: 約9,000（2026-04 時点）
+- 完了チャレンジデータ: 767+ 試行
+- V字回復（再離脱から90日以上の継続に至ったケース）: 81 例
+- データソース: 自社アプリの匿名集計（Supabase）
+- コンテンツの位置付け: 医師監修ではなく「データに基づく実体験ベースの教育コンテンツ」
+- 著者: QuitMate 運営チーム（ソロファウンダー主導）
+
+## サイト情報
+
+- Sitemap: https://about.quitmate.app/sitemap-index.xml
+- 言語: 日本語（一次）、英語（併設、US 展開準備中）
+- ライセンス: コンテンツ © QuitMate, 2024-
+- 連絡先: https://about.quitmate.app/ja/contact/
+- プライバシーポリシー: https://about.quitmate.app/ja/privacy/
