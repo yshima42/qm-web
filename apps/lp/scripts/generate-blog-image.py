@@ -52,7 +52,7 @@ def get_api_key() -> str:
     return key
 
 
-def generate_image(prompt: str, output_path: Path) -> bool:
+def generate_image(prompt: str, output_path: Path, aspect_ratio: str = "16:9") -> bool:
     import requests
 
     api_key = get_api_key()
@@ -65,6 +65,9 @@ def generate_image(prompt: str, output_path: Path) -> bool:
         "generationConfig": {
             "responseModalities": ["IMAGE", "TEXT"],
             "responseMimeType": "text/plain",
+            "imageConfig": {
+                "aspectRatio": aspect_ratio,
+            },
         },
     }
 
@@ -195,6 +198,11 @@ def main():
         action="store_true",
         help="全プリセットを一括生成",
     )
+    parser.add_argument(
+        "--aspect-ratio",
+        default="16:9",
+        help="画像のアスペクト比 (例: 16:9, 1:1, 4:3, 9:16)。デフォルト: 16:9",
+    )
     args = parser.parse_args()
 
     # カレントディレクトリを apps/lp に設定
@@ -204,7 +212,7 @@ def main():
         for name, preset in PRESETS.items():
             print(f"\n[{name}]", file=sys.stderr)
             out = lp_dir / preset["output"]
-            success = generate_image(preset["prompt"], out)
+            success = generate_image(preset["prompt"], out, args.aspect_ratio)
             if not success:
                 print(f"  {name}: 失敗", file=sys.stderr)
         return
@@ -224,7 +232,7 @@ def main():
         print('  python scripts/generate-blog-image.py --prompt "..." -o output.webp', file=sys.stderr)
         return
 
-    success = generate_image(prompt, out)
+    success = generate_image(prompt, out, args.aspect_ratio)
     sys.exit(0 if success else 1)
 
 

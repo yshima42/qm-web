@@ -77,7 +77,7 @@ category: "ギャンブル"
 
 ---
 
-### 参考文献
+## 参考文献
 
 1. 厚生労働省 (2017). 「ギャンブル障害の疫学調査」（国内のギャンブル等依存に関する実態調査）.
 2. Eddie, D. et al. (2025). *Peer Recovery Support Services and Recovery Coaching for Substance Use Disorder: A Systematic Review*. Current Addiction Reports.

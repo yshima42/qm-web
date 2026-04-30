@@ -209,6 +209,8 @@
         "journal-description": "Insights, stories, and updates to support your recovery journey",
         "no-posts": "No posts yet",
         "content-preparing": "Content is being prepared. Please check back soon.",
+        "filter-all": "All",
+        "filter-no-results": "No posts in this category yet",
         "read-more": "Read article",
         "latest-articles": "Latest Articles",
         "read-article": "Read article",
@@ -216,7 +218,8 @@
         "share": "Share:",
         "share-native": "Share",
         "copy-link": "Copy link",
-        "copied": "Copied!"
+        "copied": "Copied!",
+        "related-title": "You may also like"
     },
     "learn": {
         "title": "Learn | QuitMate",

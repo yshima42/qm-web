@@ -1,0 +1,28 @@
+---
+import { useTranslations } from "@/i18n/utils";
+import type { Locale } from "@/i18n/config";
+import { getRelatedPosts } from "@/utils/blog";
+import BlogPostCard from "./BlogPostCard.astro";
+
+type Props = {
+  locale: Locale;
+  currentSlug: string;
+  currentCategory?: string;
+  limit?: number;
+};
+
+const { locale, currentSlug, currentCategory, limit = 4 } = Astro.props;
+const t = useTranslations(locale);
+const posts = await getRelatedPosts(currentSlug, currentCategory, locale, limit);
+---
+
+{posts.length > 0 && (
+  <section class="mt-14 border-t border-gray-200 pt-10">
+    <h2 class="mb-5 text-[18px] font-bold text-[#111] sm:text-[20px]">
+      {t("blog.related-title")}
+    </h2>
+    <div class="grid grid-cols-2 gap-3 sm:gap-4">
+      {posts.map((post) => <BlogPostCard post={post} locale={locale} />)}
+    </div>
+  </section>
+)}

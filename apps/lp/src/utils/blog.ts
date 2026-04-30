@@ -11,6 +11,30 @@ export async function getAllPosts(locale: Locale) {
 }
 
 /**
+ * 関連記事を取得: 同カテゴリを優先し、不足分は最新記事で埋める
+ */
+export async function getRelatedPosts(
+  currentSlug: string,
+  currentCategory: string | undefined,
+  locale: Locale,
+  limit = 4,
+) {
+  const all = (await getAllPosts(locale)).filter((p) => p.id.replace(/\.md$/, "") !== currentSlug);
+  const sameCategory = currentCategory
+    ? all.filter((p) => p.data.category === currentCategory)
+    : [];
+  const picked = sameCategory.slice(0, limit);
+  if (picked.length < limit) {
+    const pickedIds = new Set(picked.map((p) => p.id));
+    for (const p of all) {
+      if (picked.length >= limit) break;
+      if (!pickedIds.has(p.id)) picked.push(p);
+    }
+  }
+  return picked;
+}
+
+/**
  * Markdown内の最初の画像を抽出（カバー画像用）
  */
 export function extractFirstImage(content: string): string | null {

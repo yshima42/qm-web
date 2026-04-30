@@ -15,6 +15,7 @@ type Props = {
   namespace?: string;
   ogImage?: string;
   noHeaderFooter?: boolean;
+  noStickyCta?: boolean;
   article?: {
     headline: string;
     publishedDate: string;
@@ -30,6 +31,7 @@ const {
   namespace = "",
   ogImage,
   noHeaderFooter = false,
+  noStickyCta = false,
   article,
 } = Astro.props;
 
@@ -205,7 +207,7 @@ const breadcrumbData = article
     {!noHeaderFooter && <Footer locale={locale} namespace={namespace} />}
 
     <!-- モバイルスティッキーCTA（Heroを過ぎたら表示） -->
-    {!noHeaderFooter && (
+    {!noHeaderFooter && !noStickyCta && (
       <div id="sticky-cta" class="fixed inset-x-0 bottom-0 z-50 translate-y-full transition-transform duration-300 md:hidden">
         <div class="border-t border-gray-200/60 bg-white/90 px-4 pb-[env(safe-area-inset-bottom)] pt-3 backdrop-blur-lg" style="padding-bottom: max(env(safe-area-inset-bottom), 12px);">
           <div class="flex items-center justify-center gap-3">
