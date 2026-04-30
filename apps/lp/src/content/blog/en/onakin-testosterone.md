@@ -1,5 +1,5 @@
 ---
-title: "NoFap Doesn't Boost Testosterone. The '145.7% Spike' Study Was Retracted in 2021"
+title: "The NoFap Testosterone Myth"
 date: "2026-04-30"
 excerpt: "The widely-cited 2003 Chinese study showing a 'day 7 testosterone spike' from abstinence was retracted in December 2021. Even before retraction, the figure was misread—'145.7% of baseline' means a 45.7% temporary spike that returned to baseline by day 8. Three studies, the retraction, and the misreading—a more honest picture of NoFap and testosterone."
 category: "Brain Science"
