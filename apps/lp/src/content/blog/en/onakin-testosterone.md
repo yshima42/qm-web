@@ -74,7 +74,7 @@ Porn has conditions favorable to compulsive use that few other things do.
 
 It's available anywhere, anytime, free, infinite. New stimuli never run out. From the reward system's perspective, this is a near-perfect environment for habit formation. Picture if alcohol came out of every household tap, 24/7, free. Addiction rates would be much higher than they are now. Porn approaches that situation.
 
-Recent neuroimaging research suggests excessive porn use can alter reward-system sensitivity. Not because specific genres or sites are uniquely harmful, but because intense stimulus over-exposure has a general effect on the brain—the same general principle that drives addiction across substances.
+Recent neuroimaging research suggests excessive porn use can alter reward-system sensitivity. Not because specific genres or sites are uniquely harmful, but because intense stimulus over-exposure has a general effect on the brain—the same general principle that drives addiction across substances. The broader question of how digital consumption interacts with recovery is covered in [The Technology and Recovery Paradox](/en/blog/tech-recovery-paradox/).
 
 For background on how addictive patterns form, see [Why People Become Addicted](/en/blog/why-people-become-addicted/).
 
