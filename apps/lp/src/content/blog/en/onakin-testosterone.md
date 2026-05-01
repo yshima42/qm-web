@@ -19,17 +19,7 @@ The paper was pulled. The Journal of Zhejiang University-Science retracted it in
 
 But most NoFap-adjacent content and downstream summary sites haven't updated. The cited evidence is still the same: "A 2003 Chinese study showed testosterone spikes on day 7 of abstinence."
 
-In a post-retraction world, using this as evidence isn't honest. There's barely any replication. The sample was 28 men. Measurement stopped on day 7. No one has measured day 8 onward. And from the start, the figure being quoted was misread.
-
-## "+145.7%" was a misreading from the beginning
-
-The paper's text reads "the testosterone levels reached **145.7% of the baseline**." That means "1.457 times baseline"—an increase of **45.7%**, not 145.7%.
-
-But across English and Japanese internet content, the figure routinely appears as "+145.7%." If baseline is 1, and you reach 1.457, the increase is 0.457 (45.7%). The popular framing inflates the effect by an order of magnitude.
-
-And that "+45.7%" was a transient spike measured only on day 7. By day 8, levels returned to baseline, as the paper itself noted. It does not support "the longer you abstain, the higher testosterone climbs."
-
-Strip away the inflation, and what's left is "a temporary 45.7% spike was observed in 28 men on day 7, with no replication." A lot more limited than the meme suggests.
+In a post-retraction world, using this as evidence isn't honest. There's barely any replication. The sample was 28 men. Measurement stopped on day 7. No one has measured day 8 onward.
 
 ## Quieter, more rigorous research points elsewhere
 
