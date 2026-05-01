@@ -19,9 +19,9 @@ The paper was pulled. The Journal of Zhejiang University-Science retracted it in
 
 But most NoFap-adjacent content and downstream summary sites haven't updated. The cited evidence is still the same: "A 2003 Chinese study showed testosterone spikes on day 7 of abstinence."
 
-In a post-retraction world, using this as evidence isn't honest. There's barely any replication. The sample was 28 men. Measurement stopped on day 7. No one has measured day 8 onward.
+A retracted paper isn't much of a foundation. There's barely any replication. The sample was 28 men. Testosterone peaked only on day 7 and returned to baseline by day 8. That's the entire finding.
 
-## Quieter, more rigorous research points elsewhere
+## The quieter, more rigorous research is elsewhere
 
 Behind the noise of the testosterone debate, there's quieter, better-replicated research that says something different.
 
