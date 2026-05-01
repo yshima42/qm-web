@@ -59,8 +59,8 @@ For background on how addictive patterns form, see [Why People Become Addicted](
 
 When NoFap gets debated, two arguments tend to get tangled together.
 
-- **Testosterone axis**: Goal grounded in a retracted paper and a misread number. When the motivation lapses, the practice ends.
-- **Compulsive pattern axis**: Self-assessment using the ICD-11 CSBD framework. Looking at whether life is being affected.
+- **Testosterone axis**: Aiming for "raise T" based on a retracted paper and a misread number. When the motivation lapses, the practice ends.
+- **Compulsive pattern axis**: Checking whether your relationship with porn has become compulsive and whether life is being affected. A well-established framework in addiction work.
 
 These are different conversations. The first rests on weak evidence. The second is well-grounded addiction science.
 
@@ -74,7 +74,7 @@ Track time. Write down triggers. Reduce the problematic pattern—that counts as
 
 When you slip, don't punish yourself. As covered in [Stop Blaming Yourself](/en/blog/stop-blaming-yourself/), harsh self-criticism makes the next slip more likely.
 
-The metric isn't "did testosterone rise" but "is my use this month more settled than last month." That metric has actual evidence behind it, and it's harder to abandon when motivation wavers.
+The metric isn't "did testosterone rise" but "is my relationship with porn this month more settled than last month." That metric has actual evidence behind it, and it's harder to abandon when motivation wavers.
 
 ## References
 
