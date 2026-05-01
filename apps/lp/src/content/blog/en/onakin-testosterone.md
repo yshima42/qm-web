@@ -1,111 +1,72 @@
 ---
 title: "The NoFap Testosterone Myth"
 date: "2026-04-30"
-excerpt: "The widely-cited 2003 Chinese study showing a 'day 7 testosterone spike' from abstinence was retracted in December 2021. Even before retraction, the figure was misread. The real question isn't whether testosterone goes up—it's whether porn consumption is becoming a compulsive pattern, the same kind of pattern seen in alcohol and gambling addiction."
+excerpt: "r/NoFap was founded in 2011 by an American web developer after he read a 2003 Chinese study on Reddit claiming a day-7 testosterone spike from abstinence. That paper was retracted in December 2021. But the phrase '+145.7% in 7 days' has lived on, detached from the paper. Meanwhile, more rigorous research—Park 2016 on porn-induced ED, Cambridge brain imaging, the WHO's 2018 classification of Compulsive Sexual Behaviour Disorder—offers a much more reliable foundation for the conversation."
 category: "Brain Science"
 ---
 
-I've seen a few people start NoFap because they wanted to boost testosterone.
+In 2011, an American web developer launched a subreddit called `r/NoFap` after reading a Chinese research paper on Reddit.
 
-For the first few weeks, they report better focus. Around the third week, they stop. "Not what I expected," they say, and go back.
+The paper's claim was simple: men who abstain from ejaculation for seven days experience a sharp testosterone spike on day seven. The developer himself had been struggling with porn dependency since his early teens. "If that's true, I'll try it," he posted, and started the community with a few followers. Within six months, it had ten thousand subscribers. Within a year, thirty thousand.
 
-What they believed—that NoFap dramatically raises testosterone on day 7—almost always traces back to one small study published in 2003 in China.
+A decade later, in December 2021, the paper that started it all was formally retracted by its publisher.
 
-That study was **retracted in December 2021**.
+The empirical foundation collapsed. But the community kept growing, and the phrase "+145.7% in 7 days" detached itself from the paper and continued circulating online as a standalone meme.
 
-But "testosterone doesn't rise" doesn't mean "distance from porn is meaningless." It just means the question is wrong.
+## After the retraction, the talking points kept moving
 
-## The original study was retracted in 2021
+The paper was pulled. The Journal of Zhejiang University-Science retracted it in December 2021 after being unable to locate two of the four authors and learning that the remaining two had also published the same data in a Chinese-language journal.
 
-The 2003 paper that became the foundation for the NoFap testosterone narrative was formally retracted by its publisher, Journal of Zhejiang University-Science, in December 2021. Two reasons:
+But most NoFap-adjacent content and downstream summary sites haven't updated. The cited evidence is still the same: "A 2003 Chinese study showed testosterone spikes on day 7 of abstinence."
 
-- Two of the four listed authors could not be located
-- The remaining two authors admitted they had also published the same data in a Chinese-language journal
+In a post-retraction world, using this as evidence isn't honest. There's barely any replication. The sample was 28 men. Measurement stopped on day 7. No one has measured day 8 onward. And from the start, the figure being quoted was misread.
 
-The data itself wasn't accused of fabrication. But the procedural integrity required for a published paper—co-author consent, no duplicate publication—wasn't there. So the journal pulled it.
-
-A retraction doesn't make the data worthless. It does mean "use this as the basis for any claim" should now come with caution. Ideally, the figure that spread across the internet would have been corrected by mainstream coverage at the same time. That hasn't really happened.
-
-## "+145.7%" is a misreading. The actual figure is "+45.7%"
-
-Even before the retraction, the number was being misquoted online.
+## "+145.7%" was a misreading from the beginning
 
 The paper's text reads "the testosterone levels reached **145.7% of the baseline**." That means "1.457 times baseline"—an increase of **45.7%**, not 145.7%.
 
 But across English and Japanese internet content, the figure routinely appears as "+145.7%." If baseline is 1, and you reach 1.457, the increase is 0.457 (45.7%). The popular framing inflates the effect by an order of magnitude.
 
-And that "+45.7%" was a transient spike measured only on day 7. By day 8, levels returned to baseline, as the original paper itself noted. It does not support "the longer you abstain, the higher testosterone climbs."
+And that "+45.7%" was a transient spike measured only on day 7. By day 8, levels returned to baseline, as the paper itself noted. It does not support "the longer you abstain, the higher testosterone climbs."
 
-Strip away the inflation, and what's left is: "a temporary 45.7% spike was observed in 28 men on day 7, with no replication." That's a lot more limited than the meme suggests.
+Strip away the inflation, and what's left is "a temporary 45.7% spike was observed in 28 men on day 7, with no replication." A lot more limited than the meme suggests.
 
-## Other studies point in different directions
+## Quieter, more rigorous research points elsewhere
 
-Research on abstinence and testosterone gives mixed results.
+Behind the noise of the testosterone debate, there's quieter, better-replicated research that says something different.
 
-A 2001 study looked at hormonal response during orgasm following a 3-week abstinence period. Its focus was the orgasm itself, so it isn't directly comparable. But if testosterone climbed steadily across 3 weeks of abstinence, the dataset would show that incidentally. It doesn't.
+A 2016 medical review noted that erectile dysfunction rates in young men have risen at a pace that traditional factors (age, vascular health, psychological stress) can't explain. The suspected driver is excessive internet pornography use. Multiple clinical case reports describe ED resolving after patients stop consuming porn. "Don't lose function" is a more concrete and immediate concern than "raise testosterone."
 
-A separate study of 34 men reported that **testosterone actually rose after masturbation**—the opposite direction of the NoFap claim.
+A 2014 brain-imaging study from the University of Cambridge compared brain activity during pornographic video viewing in men with compulsive sexual behaviour and healthy controls. The ventral striatum, dorsal anterior cingulate, and amygdala (regions that activate in drug addicts when they see drug cues) showed stronger responses in the compulsive group. At the neural level, compulsive responses to porn share structure with responses to cocaine and alcohol.
 
-A 2021 review by a biochemistry researcher at Sheffield Hallam University (writing in The Conversation) concludes that solid evidence for NoFap meaningfully raising testosterone does not exist. Targeting a short-term spike isn't supported by current research.
+In 2018, the World Health Organization added Compulsive Sexual Behaviour Disorder (CSBD) to ICD-11. The diagnostic criteria: failure to control intense sexual urges, life impairment, continued behaviour despite negative consequences. Logically parallel to the criteria for alcohol and drug dependence.
 
-## "Better focus" probably isn't about hormones
+These findings don't produce flashy numbers like "+145.7% in 7 days." They don't make the news. But for the question of whether porn consumption can become a serious problem for some people, they offer a far more reliable foundation.
 
-Many people still report better focus and more confidence after NoFap.
+## Porn fits the addiction profile too well
 
-The experience is real. Whether it's testosterone-driven is another question.
+Available anywhere, anytime, free, infinite. New stimuli never run out.
 
-Other explanations have more explanatory power.
+Pornhub launched in 2007. Before that, the supply chain ran through magazines, DVDs, and paid sites. After 2007, porn became "free, unlimited, with unlimited novelty"—a different category of product entirely.
 
-One: screen time simply drops. When you cut porn consumption, time previously spent on it flows elsewhere. Improved focus is better explained by reallocated time than by hormones.
+From an addiction-research perspective, this is a near-perfect environment for habit formation. If alcohol came out of every household tap, free, 24/7, addiction rates would be dramatically higher than they are now. Porn approaches that situation.
 
-Two: dopamine reward calibration. A brain repeatedly exposed to strong stimuli becomes numb to ordinary rewards. Cut the stimulus source, and over time, the brain regains responsiveness to normal rewards.
-
-Three: self-efficacy. The lived experience of "I committed to something and followed through" carries over to other behaviors.
-
-These are about behavior and brain plasticity, not hormone levels.
-
-## Porn consumption can become a compulsive pattern
-
-That handles the testosterone debate. It doesn't say anything about whether porn consumption is harmless.
-
-On a different axis from the hormone question, porn use can develop into a compulsive pattern. Not because porn itself is "bad"—but because **the addiction mechanism applies to some people**. Structurally, it's the same as alcohol, gambling, or drug addiction.
-
-Porn has conditions favorable to compulsive use that few other things do.
-
-It's available anywhere, anytime, free, infinite. New stimuli never run out. From the reward system's perspective, this is a near-perfect environment for habit formation. Picture if alcohol came out of every household tap, 24/7, free. Addiction rates would be much higher than they are now. Porn approaches that situation.
-
-Recent neuroimaging research suggests excessive porn use can alter reward-system sensitivity. Not because specific genres or sites are uniquely harmful, but because intense stimulus over-exposure has a general effect on the brain—the same general principle that drives addiction across substances. The broader question of how digital consumption interacts with recovery is covered in [The Technology and Recovery Paradox](/en/blog/tech-recovery-paradox/).
+It isn't that specific genres or specific sites are uniquely harmful. It's the general principle that intense stimulus over-exposure alters reward-system sensitivity—the same principle that drives addiction across substances. The broader question of how digital consumption interacts with recovery is covered in [The Technology and Recovery Paradox](/en/blog/tech-recovery-paradox/).
 
 For background on how addictive patterns form, see [Why People Become Addicted](/en/blog/why-people-become-addicted/).
 
-## Signs the pattern is becoming compulsive
+## "Will T rise" and "Is the pattern compulsive" are different questions
 
-Not all consumption becomes compulsive. But these signals suggest the pattern may be heading there:
+When NoFap gets debated, two arguments tend to get tangled together.
 
-- Using more frequently or longer than you intended
-- Trying to cut back and not being able to
-- Sleep, relationships, work, or hobbies are starting to suffer
-- The same stimulus stops being enough; you keep seeking newer or more intense
-- Guilt or discomfort follows use, but you do it again next time
-
-These match the diagnostic criteria for alcohol and drug dependence. There's no special reason sexual consumption alone would be exempt.
-
-Framing this as "porn is bad" turns it into a moral argument and misses the point. A subset of users develop compulsive patterns around porn. That's not weakness of will—it's the predictable result of stimulus intensity meeting environmental availability.
-
-## The real question: "Will T rise?" or "Is the pattern becoming compulsive?"
-
-The contrast becomes clear:
-
-- **NoFap-for-testosterone**: Goal grounded in a retracted paper and a misread number. When the motivation lapses, the practice ends.
-- **Distance from a compulsive pattern**: Looking at whether your use has gone compulsive, whether your life is being affected.
+- **Testosterone axis**: Goal grounded in a retracted paper and a misread number. When the motivation lapses, the practice ends.
+- **Compulsive pattern axis**: Self-assessment using the ICD-11 CSBD framework. Looking at whether life is being affected.
 
 These are different conversations. The first rests on weak evidence. The second is well-grounded addiction science.
 
-A motivation pegged to "testosterone went up" collapses when the effect doesn't show. A self-assessment pegged to "my use this month feels more settled than last month" is something only you can measure—but it's a real signal.
+So fighting over "does testosterone rise" misses the point. The motivation that actually drove the founder of NoFap to start the community (a teen-onset porn dependency) was always about the second axis, not the first. The retraction doesn't invalidate his practice. It just means the label that got stuck on it was wrong from the start.
 
-Reframing the question from "Will my T rise?" to "Is my use becoming compulsive?" changes the entire conversation.
-
-## Look at your own use
+## What to use as the metric
 
 Total abstinence doesn't have to be the goal. Breaking the compulsive pattern is.
 
@@ -118,6 +79,8 @@ The metric isn't "did testosterone rise" but "is my use this month more settled 
 ## References
 
 - Jiang, M., Xin, J., Zou, Q., & Shen, J. W. (2003). A research on the relationship between ejaculation and serum testosterone level in men. Journal of Zhejiang University-Science A, 4(2), 236-240. **(Retracted December 2021)**
-- Exton, M. S., Krüger, T. H., Bursch, N., Haake, P., Knapp, W., Schedlowski, M., & Hartmann, U. (2001). Endocrine response to masturbation-induced orgasm in healthy men following a 3-week sexual abstinence. World Journal of Urology, 19(5), 377-382.
+- Park, B. Y., Wilson, G., Berger, J., Christman, M., Reina, B., Bishop, F., Klam, W. P., & Doan, A. P. (2016). Is Internet Pornography Causing Sexual Dysfunctions? A Review with Clinical Reports. Behavioral Sciences, 6(3), 17.
+- Voon, V., Mole, T. B., Banca, P., Porter, L., Morris, L., Mitchell, S., Lapa, T. R., Karr, J., Harrison, N. A., Potenza, M. N., & Irvine, M. (2014). Neural correlates of sexual cue reactivity in individuals with and without compulsive sexual behaviours. PLOS ONE, 9(7), e102419.
+- World Health Organization. (2018). International Classification of Diseases, 11th Revision (ICD-11). 6C72 Compulsive sexual behaviour disorder.
 - Snopes (2021). Does Not Ejaculating for 7 Days Increase Testosterone by 45%? https://www.snopes.com/fact-check/increase-testosterone-45-percent/
 - Kelly, D. (2021). Nofap: can giving up masturbation really boost men's testosterone levels? An expert's view. The Conversation. https://theconversation.com/nofap-can-giving-up-masturbation-really-boost-mens-testosterone-levels-an-experts-view-157701
