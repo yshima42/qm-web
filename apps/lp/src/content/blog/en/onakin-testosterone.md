@@ -5,6 +5,8 @@ excerpt: "r/NoFap was founded in 2011 by an American web developer after he read
 category: "Brain Science"
 ---
 
+![An old research paper and a glowing smartphone on a desk at night](/blog/images/onakin-testosterone.webp)
+
 In 2011, an American web developer launched a subreddit called `r/NoFap` after reading a Chinese research paper on Reddit.
 
 The paper's claim was simple: men who abstain from ejaculation for seven days experience a sharp testosterone spike on day seven. The developer himself had been struggling with porn dependency since his early teens. "If that's true, I'll try it," he posted, and started the community with a few followers. Within six months, it had ten thousand subscribers. Within a year, thirty thousand.
@@ -23,13 +25,11 @@ A retracted paper isn't much of a foundation. There's barely any replication. Th
 
 ## The quieter, more rigorous research is elsewhere
 
-Behind the noise of the testosterone debate, there's quieter, better-replicated research that says something different.
-
 A 2016 medical review noted that erectile dysfunction rates in young men have risen at a pace that traditional factors (age, vascular health, psychological stress) can't explain. The suspected driver is excessive internet pornography use. Multiple clinical case reports describe ED resolving after patients stop consuming porn. "Don't lose function" is a more concrete and immediate concern than "raise testosterone."
 
-A 2014 brain-imaging study from the University of Cambridge compared brain activity during pornographic video viewing in men with compulsive sexual behaviour and healthy controls. The ventral striatum, dorsal anterior cingulate, and amygdala (regions that activate in drug addicts when they see drug cues) showed stronger responses in the compulsive group. At the neural level, compulsive responses to porn share structure with responses to cocaine and alcohol.
+A 2014 brain-imaging study from the University of Cambridge compared brain activity during pornographic video viewing in men with compulsive sexual behaviour and healthy controls. **The same brain regions that fire in drug addicts seeing drug cues fired more strongly in the compulsive group when they viewed porn.** At the neural level, compulsive responses to porn share structure with responses to cocaine and alcohol.
 
-In 2018, the World Health Organization added Compulsive Sexual Behaviour Disorder (CSBD) to ICD-11. The diagnostic criteria: failure to control intense sexual urges, life impairment, continued behaviour despite negative consequences. Logically parallel to the criteria for alcohol and drug dependence.
+In 2018, the World Health Organization added Compulsive Sexual Behaviour Disorder to ICD-11. The diagnostic criteria: failure to control intense sexual urges, life impairment, continued behaviour despite negative consequences. Logically parallel to the criteria for alcohol and drug dependence.
 
 These findings don't produce flashy numbers like "+145.7% in 7 days." They don't make the news. But for the question of whether porn consumption can become a serious problem for some people, they offer a far more reliable foundation.
 
