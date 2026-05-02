@@ -13,9 +13,9 @@ The paper's claim was simple: men who abstain from ejaculation for seven days ex
 
 A decade later, in December 2021, the paper that started it all was formally retracted by its publisher.
 
-The empirical foundation collapsed. But the community kept growing, and the phrase "+145.7% in 7 days" detached itself from the paper and continued circulating online as a standalone meme.
+But the community kept growing, and the phrase "+145.7% in 7 days" detached itself from the paper and continued circulating online as a standalone meme.
 
-## After the retraction, the talking points kept moving
+## Even after retraction, the citations don't stop
 
 The paper was pulled. The Journal of Zhejiang University-Science retracted it in December 2021 after being unable to locate two of the four authors and learning that the remaining two had also published the same data in a Chinese-language journal.
 
