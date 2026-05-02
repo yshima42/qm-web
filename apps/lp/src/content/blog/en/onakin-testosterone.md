@@ -9,7 +9,7 @@ category: "Brain Science"
 
 In 2011, an American web developer launched a subreddit called `r/NoFap` after reading a Chinese research paper on Reddit.
 
-The paper's claim was simple: men who abstain from ejaculation for seven days experience a sharp testosterone spike on day seven. The developer himself had been struggling with porn dependency since his early teens. "If that's true, I'll try it," he posted, and started the community with a few followers. Within six months, it had ten thousand subscribers. Within a year, thirty thousand.
+The paper reported that men who abstain from ejaculation for seven days experience a sharp testosterone spike on day seven. The developer himself had been struggling with porn dependency since his early teens. "If that's true, I'll try it," he posted, and started the community with a few followers. Within six months, it had ten thousand subscribers. Within a year, thirty thousand.
 
 A decade later, in December 2021, the paper that started it all was formally retracted by its publisher.
 
